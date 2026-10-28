@@ -120,11 +120,17 @@
           <button type="button" data-view="map" aria-pressed="false">▧ 지도</button>
         </div>
       </div>
-      <div class="radar-metrics" aria-label="탐색 현황">
-        <div><span>주변 매장</span><strong id="radar-total-stores">—</strong><small>곳</small></div>
-        <div><span>재고 확인</span><strong id="radar-stock-checked">—</strong><small>곳</small></div>
-        <div><span>검색 완료</span><strong id="radar-search-completed">0</strong><small>건</small></div>
-        <div><span>검색 실패</span><strong id="radar-search-failed">0</strong><small>건</small></div>
+      <div class="radar-metrics" aria-label="매장 및 카드 재고 현황">
+        <div class="radar-metric-nearby">
+          <span>주변 매장</span>
+          <strong id="radar-total-stores">—</strong><small>곳</small>
+          <p>검색 반경 내 편의점 · 마트</p>
+        </div>
+        <div class="radar-metric-in-stock">
+          <span>재고 있는 매장</span>
+          <strong id="radar-stock-checked">—</strong><small>곳</small>
+          <p>카드 재고 1개 이상 조회된 곳</p>
+        </div>
       </div>
       
       <details class="radar-coverage" id="radar-coverage">
@@ -133,6 +139,8 @@
           <p class="radar-db-status" id="radar-db-status" role="status" aria-live="polite">매장 정보를 아직 확인하지 않았습니다.</p>
           <p class="radar-db-status" id="radar-public-status" role="status" aria-live="polite">주변 매장 검색을 시작하면 확인합니다.</p>
           <p class="radar-db-status">판매처별 공개 재고 조회 응답</p>
+          <p class="radar-coverage-query-stats">상품 조회 성공 <strong id="radar-search-completed">0</strong>건 · 조회 실패 <strong id="radar-search-failed">0</strong>건</p>
+          <p class="radar-coverage-query-stats" id="radar-coverage-search-note"></p>
           <p class="radar-provider-diagnostics" id="radar-provider-diagnostics">검색 후 브랜드별 결과가 표시됩니다.</p>
           <p class="radar-coverage-caveat">수량 0 응답은 해당 상품을 조회한 응답이며, 그 매장에 모든 카드팩이 없다는 뜻이 아닙니다. 응답 수신 시각은 판매처 원본 갱신 시각이 아닙니다.</p>
           <p id="radar-coverage-intro" role="status" aria-live="polite">확인 중…</p>
@@ -142,7 +150,7 @@
           <button type="button" id="radar-coverage-refresh">현황 새로고침</button>
         </div>
       </details>
-      <p id="radar-status" class="radar-status" role="status" aria-live="polite">재고를 확인하지 못한 매장도 함께 표시됩니다.</p>
+      <p id="radar-status" class="radar-status" role="status" aria-live="polite"></p>
       <div class="radar-result-grid">
         <div class="radar-list-panel" id="radar-list-panel">
           <div id="radar-stores" class="radar-stores">
@@ -157,14 +165,13 @@
             </div>
             <span id="radar-map-mode-count" class="radar-map-mode-count" aria-live="polite">매장 탐색 전</span>
           </div>
-          <p class="radar-map-mode-note" id="radar-map-mode-note">재고가 확인된 매장은 별도로 표시됩니다.</p>
           <div id="radar-map" role="region" aria-label="지도와 검색 반경"></div>
           <button id="radar-search-map-area" class="radar-map-area-search" type="button" hidden>📍 이 지도에서 다시 검색</button>
           <div id="radar-map-fallback" class="radar-map-fallback" hidden>지도를 불러오지 못했습니다. 목록과 외부 지도 길찾기를 이용해 주세요.</div>
           <div class="radar-map-legend" aria-label="지도 마커 범례">
             <span><i class="radar-legend-dot is-convenience" aria-hidden="true"></i>편의점</span>
             <span><i class="radar-legend-dot is-mart" aria-hidden="true"></i>마트</span>
-            <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>카드 재고 확인</span>
+            <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>카드 재고 있음 (조회 기준)</span>
           </div>
           <div class="radar-map-caption"><strong id="radar-map-caption">반경 10km</strong><span>편의점 · 마트</span></div>
         </div>
