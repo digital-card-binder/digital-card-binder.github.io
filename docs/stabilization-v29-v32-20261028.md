@@ -37,3 +37,15 @@
 - 보호 대상: `data/`, `db/`, `firestore.rules`, `android-app/`, Android APK, 테마 감사/검수 기록, Card Radar 백엔드.
 - 변경은 웹 UI/CSS/JS 및 자동 검증/문서에 한정하고 회원 계정의 개인 도감 기록을 수동 초기화하거나 변환하지 않음.
 - CI는 **사용자 실제 Google 계정에 로그인해 저장하거나 모바일 갤럭시 WebView에서 촬영·동기화를 직접 증명하지 못함**. 사용자 실기기 확인은 최종 후속 점검으로 남음.
+
+## 최종 CI 증빙
+
+- 29차 전체 Verify: [성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40608755498).
+- 29차 실브라우저 시각 QA: [32개 화면 조합, 가로 넘침·HTTP 검사 실패 0건](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40608726191). 스크린샷 10개와 JSON 결과는 이 Action의 `visual-qa-v29-v32` 아티팩트에서 확인할 수 있음.
+- 30차 수정 후 실브라우저 재검증: [32개 조합, 실패 0건](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40609587209).
+- 31차 수정본 전체 Verify: [성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40609662227).
+- 32차 최종 QA 및 정적 파일 동기화: [성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40609825930).
+- 32차 전체 Verify: [성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40609830963).
+- 정상 테스트 후 생성된 정적 자산 해시 동기화 커밋: `0cd5e1b33eb799f6473b1fae2628151eab880030`.
+- 최종 비교에서 `data/`, `db/`, Firestore 권한 규칙, Android/카드레이더 코드 변경 **없음**.
+- 봇의 자산 해시 동기화 커밋은 트리거에 따라 `action_required` 상태가 될 수 있으므로, 최종 문서 커밋에서 전체 Verify를 재실행하여 결과를 확인한 뒤 PR을 병합.
