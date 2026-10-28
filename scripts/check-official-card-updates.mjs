@@ -57,6 +57,10 @@ function localNames(groups) {
       .filter(Boolean)
       .forEach((value) => {
         values.add(normalize(value));
+        // Canonical catalog names end in a card-range suffix, while the
+        // official product name omits it. Compare both forms safely.
+        const productName = value.replace(/\s*\(\s*\d+\s*\/\s*\d+\s*\)\s*$/, "");
+        values.add(normalize(productName));
         const quoted = value.match(/[「"]([^」"]+)[」"]/);
         if (quoted) values.add(normalize(quoted[1]));
       });
