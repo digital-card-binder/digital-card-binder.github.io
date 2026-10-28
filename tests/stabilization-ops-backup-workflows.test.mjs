@@ -46,7 +46,7 @@ test("backup includes server documents/shards and validates the complete payload
  const f=makeBackupFixture();
  await f.run();
  assert.equal(f.serverReads,4);
- assert.equal(f.validated,1);
+ assert.equal(f.validated,1,`backup status: ${f.status.textContent}`);
  assert.equal(f.downloads,1);
  assert.equal(f.blobs,1);
  assert.equal(f.button.disabled,false);
@@ -55,7 +55,7 @@ test("backup includes server documents/shards and validates the complete payload
 test("a backup which cannot pass restore validation never offers an unusable JSON file",async()=>{
  const f=makeBackupFixture(true);
  await f.run();
- assert.equal(f.validated,1);
+ assert.equal(f.validated,1,`backup status: ${f.status.textContent}`);
  assert.equal(f.downloads,0);
  assert.equal(f.blobs,0);
  assert.equal(f.button.disabled,false);
