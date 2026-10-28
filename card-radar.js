@@ -1251,12 +1251,18 @@
     render();
     const candidates = mergeInventory(state.shops).filter(selectedKind)
       .filter((store)=>store.distance <= state.radiusKm + .03);
-    const withNumbers = candidates.filter((store)=>inventoryLabel(store).checked).length;
     const positive = candidates.filter((store)=>inventoryLabel(store).known).length;
-    const partial = !mapOK || !dbOK || !govOK || state.progress.failures>0;
-    setStatus("재고 확인 "+positive+"곳 · 주변 매장 "+candidates.length+"곳. "+
-      (partial?"일부 매장은 조회하지 못했습니다. ":"")+
-      "재고 미확인 매장은 품절이 아닐 수 있습니다.",partial);
+    const stockRequested=jobs.length;
+    const stockAttempted=Object.values(state.providerOutcomes).reduce(
+      (total,counters)=>total+counters.attempts,0);
+    const stockSkipped=Object.values(state.providerOutcomes).reduce(
+      (total,counters)=>total+counters.skipped,0);
+    const partial = !mapOK || !dbOK || !govOK || state.progress.failures>0 ||
+      stockSkipped>0 || stockAttempted<stockRequested;
+    setStatus("공개 조회에서 수량이 확인된 매장 "+positive+"곳 · 주변 매장 "+
+      candidates.length+"곳 · 상품별 조회 "+stockAttempted+"/"+stockRequested+"건. "+
+      (partial?"일부 상품 또는 매장은 조회가 완료되지 않았습니다. ":"")+
+      "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다.",partial);
     button.disabled=false;
     state.searching=false;
     // A pack changed while this search was running. Never treat an old broad
@@ -1384,7 +1390,7 @@
       p.set("lng", state.center.lng.toFixed(5));
     }
     if(provider === "cu") {
-      p.set("size","10");p.set("storeLimit","55");
+      p.set("size","20");p.set("storeLimit","55");
     } else if(provider === "seveneleven") {
       if(storeArea) p.set("storeKeyword",storeArea);
       p.set("storeLimit","60");
@@ -1392,7 +1398,7 @@
       p.set("storeLimit","60");
     } else if(provider === "emart24") {
       if(storeArea) p.set("storeKeyword",storeArea);
-      p.set("pageSize","12");p.set("storeLimit","60");
+      p.set("pageSize","20");p.set("storeLimit","60");
     }
     return API_BASE+"/api/"+provider+"/inventory?"+p.toString();
   }
@@ -1538,12 +1544,20 @@
       .map(s=>({...s,items:(s.items||[]).map(i=>({...i}))}));
     const deadline=Date.now()+65000;
     const notes=[];
-    let index=0,emart24PreferDistrict=false;
+    // One queue per retailer. Keep calls sequential for that retailer to avoid
+    // competing same-chain lookups and make the circuit breaker deterministic.
+    // Independent retailers still load concurrently so a slow chain cannot
+    // consume the entire search window for others.
+    const providerQueues=new Map();
+    for(const task of jobs){
+      if(!providerQueues.has(task.provider))providerQueues.set(task.provider,[]);
+      providerQueues.get(task.provider).push(task);
+    }
+    let emart24PreferDistrict=false;
     const brokenProviders=new Set();
     const upstreamFailures=new Map();
-    async function worker() {
-      while(index<jobs.length) {
-        const task=jobs[index++];
+    async function worker(providerJobs) {
+      for(const task of providerJobs) {
         if(brokenProviders.has(task.provider) || Date.now()>=deadline){
           // Skipped work is not an actual failed HTTP request.
           notes.push(task.provider+":skipped");
@@ -1630,7 +1644,7 @@
         }
       }
     }
-    await Promise.all([worker(),worker()]);
+    await Promise.all([...providerQueues.values()].map(worker));
     return state.inventory;
   }
   // Only the first search is user-initiated. Changing the selected pack after

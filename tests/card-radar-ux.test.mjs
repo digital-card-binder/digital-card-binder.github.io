@@ -28,12 +28,13 @@ function harness(options = {}) {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
+    ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
-  const sandbox = { document, window: options.window || {}, navigator: options.navigator || {}, console, URL, URLSearchParams, Date, Math };
+  const sandbox = { document, window: options.window || {}, navigator: options.navigator || {}, console, URL, URLSearchParams, Date, Math, __mockRadarFetch: options.mockFetch };
   runInNewContext(body, sandbox, { filename: "card-radar.js" });
   return { ...sandbox.__radarTests, element };
 }
@@ -1013,4 +1014,47 @@ test("previous snapshot cannot count as current positive stock",()=>{
   state.inventory=[];assert.equal(restoreRadarSnapshot(key,now+1000),true);
   const summary=inventoryLabel({verifiedInventory:state.inventory[0].items});
   assert.equal(summary.known,false);assert.match(summary.detail,/이전 조회/);
+});
+
+
+test("multi-retailer scan never overlaps requests from the same retailer", async () => {
+  const active=new Map();
+  const counts=new Map();
+  let sameRetailerOverlap=false;
+  let peakProviders=0;
+  const fakeFetch=async (url)=>{
+    const provider=new URL(url).pathname.split("/")[2];
+    const current=(active.get(provider)||0)+1;
+    active.set(provider,current);
+    if(current>1)sameRetailerOverlap=true;
+    peakProviders=Math.max(peakProviders,[...active.values()].filter(Boolean).length);
+    await new Promise(resolve=>setImmediate(resolve));
+    active.set(provider,current-1);
+    counts.set(provider,(counts.get(provider)||0)+1);
+    return {success:true,data:{
+      inventory:{available:true,stores:[]},nearbyStores:{stores:[]},
+      itemCodeUsed:true,itemCode:"880001",product:{name:"포켓몬카드 인페르노X"}
+    }};
+  };
+  const {fetchLiveInventory,state}=harness({stubView:true,mockFetch:fakeFetch});
+  state.center={lat:37.5,lng:127.0};state.radiusKm=3;
+  state.progress={completed:0,total:4,successes:0,failures:0,active:true};
+  const jobs=[
+    {provider:"cu",keyword:"인페르노X"},
+    {provider:"gs25",keyword:"인페르노X"},
+    {provider:"cu",keyword:"닌자스피너"},
+    {provider:"gs25",keyword:"닌자스피너"}
+  ];
+  await fetchLiveInventory(jobs,Promise.resolve(""));
+  assert.equal(sameRetailerOverlap,false);
+  assert.ok(peakProviders>=2,"independent retailers can be queried concurrently");
+  assert.equal(counts.get("cu"),2);
+  assert.equal(counts.get("gs25"),2);
+  assert.equal(state.progress.completed,4);
+});
+
+test("scan completion clearly distinguishes partial coverage from zero stock",()=>{
+  assert.match(source,/stockAttempted<stockRequested/);
+  assert.match(source,/stockSkipped>0/);
+  assert.match(source,/외부 조회 수량은 공식 실재고를 보장하지 않으며/);
 });
