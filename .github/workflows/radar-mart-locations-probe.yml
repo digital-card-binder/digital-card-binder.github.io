@@ -1,0 +1,18 @@
+name: Mart location verification (one-time)
+on:
+  pull_request:
+    paths:
+      - 'scripts/radar-mart-locations-probe.mjs'
+      - '.github/workflows/radar-mart-locations-probe.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/radar-mart-locations-probe.mjs
