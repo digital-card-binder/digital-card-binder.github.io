@@ -102,7 +102,7 @@ test("retailer integration discards food even if API returns positive quantities
 
 test("progress tracks settled API attempts rather than pretending stores were checked", () => {
   const { state, element, completeProgressStep, updateProgress, inventoryJobs } = harness();
-  assert.equal(inventoryJobs().length,36);
+  assert.equal(inventoryJobs().length,48);
   state.progress={total:5,completed:0,successes:0,failures:0,active:true};
   updateProgress("검색 중");
   completeProgressStep(true,"재고 조회 중");
@@ -391,15 +391,15 @@ test("selected convenience brand only queries its retailer, avoiding wasted thir
   const {state,inventoryJobs}=harness();
   state.kind="convenience";
   state.convenienceBrand="gs25";
-  assert.equal(inventoryJobs().length,9);
+  assert.equal(inventoryJobs().length,12);
   assert.ok(inventoryJobs().every(x=>x.provider==="gs25"));
   state.convenienceBrand="emart24";
-  assert.equal(inventoryJobs().length,9);
+  assert.equal(inventoryJobs().length,12);
   assert.ok(inventoryJobs().every(x=>x.provider==="emart24"));
   state.convenienceBrand="other";
   assert.equal(inventoryJobs().length,0);
   state.convenienceBrand="all";
-  assert.equal(inventoryJobs().length,36);
+  assert.equal(inventoryJobs().length,48);
 });
 
 test("changing a pack after a search schedules pack-specific refresh, never only filters old stock",()=>{
@@ -827,19 +827,19 @@ test("inventory merging uses retailer product code for same-SKU aliases",()=>{
   assert.equal(result[0].verifiedInventory.length,1,"one retailer SKU cannot count twice");
 });
 
-test("all nine supported products are searched without generic guessing",()=>{
+test("all 12 supported products are searched without generic guessing",()=>{
   const {liveQueries,inventoryJobs,state}=harness();
   state.pack="";state.kind="all";
   const queries=[...liveQueries()];
-  assert.equal(queries.length,9);
-  assert.equal(new Set(queries).size,9);
+  assert.equal(queries.length,12);
+  assert.equal(new Set(queries).size,12);
   assert.ok(!queries.includes("포켓몬카드 부스터팩"));
   const jobs=[...inventoryJobs()];
-  assert.equal(jobs.length,36);
+  assert.equal(jobs.length,48);
   assert.equal(new Set(jobs.slice(0,4).map(x=>x.provider)).size,4,
     "distribute requests among providers instead of bursts");
   state.kind="convenience";state.convenienceBrand="cu";
-  assert.equal(inventoryJobs().length,9);
+  assert.equal(inventoryJobs().length,12);
   state.pack="m6a";
   assert.equal(inventoryJobs().length,1);
   state.kind="mart";
@@ -983,11 +983,11 @@ test("the mobile coverage panel explains retailer source status and stock age ho
   assert.doesNotMatch(label.detail,/공식 판매처 실시간 갱신/);
 });
 
-test("default 10km and bounded nine-product full scan",()=>{
+test("default 10km and bounded 12-product full scan",()=>{
   const {state,inventoryJobs,liveQueries,stockProductUnit}=harness();
   assert.equal(state.radiusKm,10);
-  assert.equal(liveQueries().length,9);
-  assert.equal(inventoryJobs().length,36);
+  assert.equal(liveQueries().length,12);
+  assert.equal(inventoryJobs().length,48);
   assert.equal(stockProductUnit("확장팩"),"팩");
   assert.equal(stockProductUnit("부스터 박스"),"박스");
   state.pack="sv10";assert.equal(inventoryJobs().length,4);
@@ -1084,4 +1084,48 @@ test("radar hides redundant result-banner and map advisory without losing detail
   assert.match(css,/[.]radar-status:empty\{display:none\}/);
   assert.match(source,/byId\("radar-coverage-search-note"\)[.]textContent/);
   assert.match(source,/setStatus\("",false\)/);
+});
+
+test("Yangyang public Emart24 starter-set SKU is included in full search and can render",()=>{
+  const {state,liveQueries,parseRetail,inventoryLabel,mergeInventory,stockProductUnit}=harness();
+  state.center={lat:38.15,lng:128.60};
+  state.radiusKm=10;
+  state.kind="all";
+  state.pack="";
+  state.masterShops=[];state.retailerShops=[];state.publicShops=[];
+  state.shops=[];state.curatedShops=[];state.martInventory=[];
+  assert.ok(liveQueries().includes("조로아&조로아크"));
+  const sample={success:true,data:{
+    pluCd:"8800286279914",
+    goodsInfo:{pluCd:"8800286279914",
+      goodsName:"포켓몬)포켓몬카드(메가스타터세트 조로아&조로아크ex)"},
+    productCandidates:[{pluCd:"8800286279914",
+      goodsName:"포켓몬)포켓몬카드(메가스타터세트 조로아&조로아크ex)"}],
+    stores:[{bizNo:"27927",storeName:"양양물치항점",
+      latitude:38.1501,longitude:128.6001,bizQty:1}],
+    nearbyStores:[{storeCode:"27927",storeName:"양양물치항점",
+      latitude:38.1501,longitude:128.6001}]
+  }};
+  const results=parseRetail("emart24",sample,new Date().toISOString(),"조로아&조로아크");
+  assert.equal(results.length,1);
+  assert.equal(results[0].items[0].code,"starter-zoroark");
+  assert.equal(stockProductUnit(results[0].items[0].name),"덱");
+  state.inventory=results;
+  const merged=mergeInventory([]);
+  assert.equal(merged.length,1);
+  assert.equal(inventoryLabel(merged[0]).known,true);
+  state.pack="starter-zoroark";
+  assert.deepEqual([...liveQueries()],["조로아&조로아크"]);
+  assert.equal(inventoryLabel(merged[0]).known,true);
+  state.pack="m6";
+  assert.equal(inventoryLabel(merged[0]).known,false);
+});
+
+test("older packs visible on public store screens join default named-product search",()=>{
+  const {liveQueries,state}=harness();
+  state.pack="";
+  assert.ok(liveQueries().includes("사이버저지"));
+  assert.ok(liveQueries().includes("와일드포스"));
+  assert.ok(liveQueries().includes("메가심포니아"));
+  assert.equal(new Set([...liveQueries()]).size,12);
 });
