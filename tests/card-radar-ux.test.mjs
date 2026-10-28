@@ -1083,7 +1083,8 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
   const render=source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
-  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = state[.]kind==="vending" \|\| unresolvedMartMap\?"—":\s*hasResults \? String\(inStockStores[.]length\)/);
+  assert.match(render,/state[.]kind==="vending"\|\|unresolvedMartMap\|\|martStockUnlinked\?"—":/);
+  assert.match(render,/hasResults \? String\(inStockStores[.]length\)/);
   assert.doesNotMatch(render,/filter\(\(store\) => inventoryLabel\(store\)[.]checked\)[.]length/);
 });
 
@@ -1583,4 +1584,16 @@ test("mart dropdown removes non-core chains and stock remains unknown",()=>{
   assert.ok(mart.every(x=>x.inventoryStatus==="not_connected"));
   const providers=JSON.parse(read("data/card-radar-mart-providers.json")).providers;
   assert.deepEqual(providers.map(x=>x.id).sort(),["emart","lottemart","toysrus","traders"]);
+});
+
+
+test("unlinked mart searches never display a false zero-stock claim",()=>{
+  const {state}=harness();
+  state.kind="mart";state.martInventory=[];
+  assert.match(source,/martStockUnlinked=state[.]kind==="mart"&&!state[.]martInventory[.]length/);
+  assert.match(source,/martStockUnlinked \? "매장 "\+nearbyStores[.]length\+"곳 · 재고 수량 미확인"/);
+  assert.match(source,/martStockUnlinked\?"—":/);
+  assert.match(source,/if\(state[.]kind==="vending"\|\|martUnlinked\)setStockOnly\(false\)/);
+  const css=read("card-radar.css");
+  assert.match(css,/body[.]radar-mart-unlinked-mode [.]radar-stock-filter/);
 });
