@@ -35,3 +35,23 @@ for(const endpoint of endpoints){
   }catch(e){result.errorType=e.name;result.status=e.name==="AbortError"?"timeout":"network_error"}
   finally{clearTimeout(timer);result.ms=Date.now()-start;console.log("MART_VENDING_PUBLIC_CHECK",JSON.stringify(result))}
 }
+
+const jsonUrl="https://calendar-1ut.pages.dev/scripts/venderlist.json";
+const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),11000);
+try{
+ const response=await fetch(jsonUrl,{signal:abort.signal});
+ const text=await response.text();
+ const data=JSON.parse(text);
+ const arr=Array.isArray(data)?data:Array.isArray(data.stores)?data.stores:
+   Array.isArray(data.locations)?data.locations:Array.isArray(data.data)?data.data:[];
+ console.log("OFFICIAL_VENDING_JSON",JSON.stringify({
+  status:response.status,contentType:response.headers.get("content-type"),
+  cors:response.headers.get("access-control-allow-origin"),
+  bytes:text.length,topKeys:Object.keys(data).slice(0,15),count:arr.length,
+  example:arr.slice(0,2),
+  latitudeCount:arr.filter(x=>
+    Number.isFinite(Number(x.latitude??x.lat??x.y??x.coordinate?.lat))).length
+ }));
+}catch(e){console.log("OFFICIAL_VENDING_JSON",JSON.stringify({
+ status:"error",errorType:e.name,message:String(e.message||"").slice(0,90)
+}))}finally{clearTimeout(timer)}
