@@ -979,7 +979,7 @@
     const source=data && data.source;
     if(!data || data.schemaVersion!==1 || !source ||
       source.status!=="connected" || source.authorized!==true ||
-      !["emart","traders","lottemart","homeplus","costco","hanaro"].includes(source.providerId) ||
+      !["emart","traders","lottemart","toysrus"].includes(source.providerId) ||
       typeof source.licenseRef!=="string" || source.licenseRef.trim().length<8 ||
       !Number.isFinite(Date.parse(source.generatedAt)) ||
       !Number.isFinite(Date.parse(source.expiresAt)) ||
@@ -1247,6 +1247,27 @@
     }else{
       if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
       card.append(make("p","radar-stock-note",summary.detail));
+      if(store.kind==="mart" && summary.known && !state.pack){
+        // Show per-product counts so a sum of packs, boxes and decks is never
+        // mistaken for the stock of a single pack. Missing/stale data is omitted.
+        const seen=new Map();
+        for(const item of store.verifiedInventory||[]){
+          const age=Date.now()-Date.parse(item.checkedAt);
+          if(!isCardProduct(item.name)||item.previousLookup===true||
+            !Number.isSafeInteger(item.quantity)||item.quantity<=0||
+            !Number.isFinite(age)||age< -60000||age>=15*60000)continue;
+          const key=stockProductIdentity(item),previous=seen.get(key);
+          if(!previous||Date.parse(previous.checkedAt)<Date.parse(item.checkedAt))
+            seen.set(key,item);
+        }
+        if(seen.size>1){
+          const examples=[...seen.values()].sort((a,b)=>b.quantity-a.quantity)
+            .slice(0,4).map(item=>item.name+" "+item.quantity+"개 ("+
+              stockProductUnit(item.name)+")");
+          card.append(make("p","radar-stock-note","상품별: "+examples.join(" · ")+
+            (seen.size>4?" · 외 "+(seen.size-4)+"종":"")));
+        }
+      }
     }
     const mart=martLookup(store);
     if(store.kind!=="vending" && mart && !summary.checked){
@@ -1356,6 +1377,15 @@
       const quantity=[...unique.values()].reduce((n,item)=>n+item.quantity,0);
       return {label:String(quantity),unit:"개",description:"선택 상품 조회 수량 "+quantity+"개"};
     }
+    if(store.kind==="mart"){
+      // On mart pins show the actual combined count of uniquely verified
+      // retail packages, not only the number of different pack products.
+      // A pack, box or deck is counted as one retail unit each; no conversion.
+      const quantity=[...unique.values()].reduce((n,item)=>n+item.quantity,0);
+      return {label:quantity>999?"999+":String(quantity),unit:"개",
+        description:"조회 확인된 카드 상품 "+unique.size+"종 · 각 판매 단위 합계 "+
+          quantity+"개 (상품별 상세 참조)"};
+    }
     return {label:String(unique.size),unit:"종",
       description:"카드 재고 확인 상품 "+unique.size+"종 (수량은 매장 상세에서 확인)"};
   }
@@ -1401,9 +1431,12 @@
       : mergeInventory(state.shops)).filter(selectedKind)
       .filter((store) => store.distance <= state.radiusKm + .03)
       .sort((a,b)=>a.distance-b.distance);
-    const martStockUnlinked=state.kind==="mart"&&!state.martInventory.length;
     const inStockStores = state.kind==="vending"?[]:
       nearbyStores.filter((store) => inventoryLabel(store).known);
+    // A live, verified own-DB observation also counts as connected. Static
+    // provider metadata is never evidence that any stock was checked.
+    const martStockUnlinked=state.kind==="mart" &&
+      !nearbyStores.some(store=>inventoryLabel(store).checked);
     const displayedStores = state.kind==="vending"?nearbyStores:
       filterStoresForDisplay(nearbyStores);
     const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0 || state.vendingShops.length>0;
@@ -2144,7 +2177,9 @@
       state.kind=type.value;
       document.body.classList.toggle("radar-vending-mode",state.kind==="vending");
       byId("radar-vending-source-note").hidden=state.kind!=="vending";
-      const martUnlinked=state.kind==="mart"&&!state.martInventory.length;
+      const martUnlinked=state.kind==="mart"&&!state.martInventory.length &&
+        ![...state.masterShops,...state.shops,...state.inventory].some(store=>
+          store.kind==="mart" && inventoryLabel(store).checked);
       document.body.classList.toggle("radar-mart-unlinked-mode",martUnlinked);
       if(state.kind==="vending"||martUnlinked)setStockOnly(false);
       martField.hidden=type.value!=="mart";
