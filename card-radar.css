@@ -300,3 +300,10 @@ body.radar-vending-mode .radar-metrics{grid-template-columns:1fr}
 /* Fresh, verified stock appears on the normal map as well as stock-only. */
 .radar-stock-marker-bubble{min-width:48px;box-sizing:border-box;padding:4px 7px;white-space:nowrap;box-shadow:0 2px 7px rgba(20,40,70,.22)}
 .radar-stock-marker-bubble small{font-size:10px;font-weight:700}
+
+/* Without an approved live mart feed, do not suggest "zero stock" or
+   offer an always-empty stock-only view to customers. */
+body.radar-mart-unlinked-mode .radar-stock-filter,
+body.radar-mart-unlinked-mode .radar-map-mode button[data-map-mode="stock"],
+body.radar-mart-unlinked-mode .radar-metric-in-stock{display:none!important}
+body.radar-mart-unlinked-mode .radar-metrics{grid-template-columns:1fr}
