@@ -76,3 +76,33 @@ for(const p of probes){
  }finally{clearTimeout(timeout);report.elapsedMs=Date.now()-begin;
    console.log("YANGYANG_RADAR_CHECK",JSON.stringify(report));}
 }
+
+const sevenProducts=["메가심포니아","사이버저지","와일드포스"];
+state.center={lat:37.5633,lng:126.9837};state.radiusKm=3;
+for(const keyword of sevenProducts){
+  const url=endpoint("seveneleven",keyword,"명동");
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  const row={keyword,area:"명동",status:null,stockAvailable:null,matchedStores:[],positive:0,
+    parsedNearby:0};
+  try{
+    const res=await fetch(url,{headers:{Accept:"application/json",
+       Origin:"https://digital-card-binder.github.io"},signal:controller.signal});
+    row.http=res.status;
+    if(!res.ok)row.status="http_error";
+    else{
+      const p=await res.json(),d=p?.data||{};
+      row.stockAvailable=d.stockAvailable;
+      row.productName=String(d.product?.itemName||"").slice(0,75);
+      const stores=Array.isArray(d.inventory?.stores)?d.inventory.stores:[];
+      row.returnedStores=stores.length;
+      row.matchedStores=stores.filter(x=>/명동스카이호텔|스카이호텔/.test(String(x.storeName||"")))
+        .map(x=>({name:x.storeName,stock:x.stockQuantity})).slice(0,4);
+      row.positive=stores.filter(x=>Number.isSafeInteger(x.stockQuantity)&&x.stockQuantity>0).length;
+      const parsed=parseRetail("seveneleven",p,new Date().toISOString(),keyword);
+      row.parsedNearby=parsed.length;
+      row.status=p.success===true?"json_ok":"api_error";
+    }
+  }catch(e){row.status=e.name==="AbortError"?"timeout":"error";
+    row.error=String(e.message||"").slice(0,80);
+  }finally{clearTimeout(timer);console.log("MYEONGDONG_SEVEN_CHECK",JSON.stringify(row));}
+}
