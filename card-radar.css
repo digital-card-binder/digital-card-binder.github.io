@@ -274,3 +274,13 @@
 /* Results stay calm after scanning; warnings remain accessible while needed. */
 .radar-status:empty{display:none}
 .radar-coverage-query-stats strong{font-variant-numeric:tabular-nums;color:#344d72}
+
+/* Official vending machines have installation coordinates, never stock quantities. */
+.radar-vending-source-note{padding:11px 14px;border-radius:11px;background:#f0f8f6;border:1px solid #cfe9e2;color:#246b5c;font-size:12px;line-height:1.5;margin:0 0 12px}
+.radar-vending-source-note[hidden]{display:none!important}
+.radar-vending-source-note a{text-decoration:underline;font-weight:750}
+.radar-store-kind--vending{color:#156d58;background:#e9f7f1;border-color:#b9e4d0}
+body.radar-vending-mode .radar-stock-filter,
+body.radar-vending-mode .radar-map-mode button[data-map-mode="stock"],
+body.radar-vending-mode .radar-metric-in-stock{display:none!important}
+body.radar-vending-mode .radar-metrics{grid-template-columns:1fr}
