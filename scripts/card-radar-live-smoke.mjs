@@ -165,6 +165,3 @@ const outcomes=report.checks.reduce((x,cur)=>{
 },{});
 process.stdout.write("RADAR_LIVE_SUMMARY "+JSON.stringify(outcomes)+"\n");
 process.stdout.write("Note: public API stock rows are unverified against official retailer apps.\n");
-
-// Additional read-only first-party Emart24 stock contract check for this POC.
-await import("./radar-emart24-direct-probe.mjs");
