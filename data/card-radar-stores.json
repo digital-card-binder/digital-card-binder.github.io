@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "description": "First-party directory of independently verified store locations; no retailer inventory is inferred from these entries.",
-  "updatedAt": "2026-10-19",
+  "description": "Independently geocoded major retail location fallback. Some pins are street-address or shopping complex coordinates, not verified storefront entrances. Location is not evidence of Pokemon card stock.",
+  "updatedAt": "2026-10-28",
   "stores": [
     {
       "id": "emart-sokcho-1049",
@@ -14,6 +14,123 @@
       "phone": "033-630-1234",
       "sourceUrl": "https://eapp.emart.com/branch/view.do?id=1049",
       "coordinateSource": "https://findby.co.kr/details/24885-512103223027-st-652b35338c641f9e389aa240",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "lottemart-seoul-station",
+      "name": "롯데마트 제타플렉스 서울역점",
+      "kind": "mart",
+      "chain": "롯데마트",
+      "lat": 37.5555215,
+      "lng": 126.9738608,
+      "address": "서울특별시 중구 한강대로 405",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "주소지 건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-wangsimni",
+      "name": "이마트 왕십리점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.5618981,
+      "lng": 127.0382167,
+      "address": "서울특별시 성동구 왕십리광장로 17",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "주소지 건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "lottemart-cheongnyangni",
+      "name": "롯데마트 청량리점",
+      "kind": "mart",
+      "chain": "롯데마트",
+      "lat": 37.5806693,
+      "lng": 127.0482075,
+      "address": "서울특별시 동대문구 왕산로 214",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "청량리역 복합건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "toysrus-cheongnyangni",
+      "name": "토이저러스 청량리점",
+      "kind": "mart",
+      "chain": "토이저러스",
+      "lat": 37.5806693,
+      "lng": 127.0482075,
+      "address": "서울특별시 동대문구 왕산로 214",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "청량리역 복합건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-eunpyeong",
+      "name": "이마트 은평점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.6003292,
+      "lng": 126.9202175,
+      "address": "서울특별시 은평구 은평로 111",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "공개 지도 매장 위치 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-jayang",
+      "name": "이마트 자양점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.5384078,
+      "lng": 127.0731703,
+      "address": "서울특별시 광진구 아차산로 272",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "스타시티몰 건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-hawolgok",
+      "name": "이마트 하월곡점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.6050584,
+      "lng": 127.0309893,
+      "address": "서울특별시 성북구 종암로 167",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "주소지 건물 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-guro",
+      "name": "이마트 구로점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.4844191,
+      "lng": 126.8979157,
+      "address": "서울특별시 구로구 디지털로32길 43",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "공개 지도 매장 위치 기준",
+      "sourceUrl": "",
+      "inventoryStatus": "not_connected"
+    },
+    {
+      "id": "emart-sindorim",
+      "name": "이마트 신도림점",
+      "kind": "mart",
+      "chain": "이마트",
+      "lat": 37.5071154,
+      "lng": 126.8902727,
+      "address": "서울특별시 구로구 새말로 97",
+      "coordinateSource": "https://www.openstreetmap.org/copyright",
+      "coordinateNote": "주소지 건물 기준",
+      "sourceUrl": "",
       "inventoryStatus": "not_connected"
     }
   ]

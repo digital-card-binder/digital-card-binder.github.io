@@ -256,7 +256,6 @@ test("multiple mart chains receive distinct labels and precise subfilters", () =
     ["이마트 속초점","emart","이마트"],
     ["트레이더스 홀세일 클럽 안성점","traders","트레이더스"],
     ["롯데마트 송도점","lottemart","롯데마트"],
-    ["홈플러스 평택점","homeplus","홈플러스"],
     ["토이저러스 구로점","toysrus","토이저러스"],
   ];
   for(const [name,id,label] of cases) {
@@ -266,6 +265,7 @@ test("multiple mart chains receive distinct labels and precise subfilters", () =
   assert.equal(category({shop:"wholesale",name:"트레이더스"}),"mart");
   assert.equal(category({shop:"supermarket",name:"롯데마트"}),"mart");
   assert.equal(category({shop:"supermarket",name:"농협 하나로마트"}),null);
+  assert.equal(category({shop:"supermarket",name:"홈플러스"}),null);
   assert.equal(category({shop:"supermarket",name:"코스트코"}),null);
   assert.equal(category({shop:"supermarket",name:"동네 슈퍼"}),null);
   assert.equal(category({shop:"convenience",name:"이마트24"}),"convenience");
@@ -309,11 +309,11 @@ test("inventory map controls reuse the same stock filter, without fabricated nat
   assert.match(html,/data-map-mode="stock"/);
   assert.match(html,/id="radar-map-mode-count"/);
   assert.match(html,/id="radar-mart-brand"/);
-  for(const id of ["emart","traders","lottemart","toysrus","homeplus"]) {
+  for(const id of ["emart","traders","lottemart","toysrus"]) {
     assert.match(html,new RegExp('value="'+id+'"'));
   }
   const martOptions=html.split('id="radar-mart-brand"')[1].split("</select>")[0];
-  assert.doesNotMatch(martOptions,/value="hanaro"|value="costco"|value="other"/);
+  assert.doesNotMatch(martOptions,/value="hanaro"|value="costco"|value="other"|value="homeplus"/);
   const css=read("card-radar.css");
   assert.match(css,/[.]radar-stock-marker-bubble/);
   assert.match(css,/[.]radar-map-mode button\[data-map-mode="stock"\][.]selected/);
@@ -338,7 +338,7 @@ test("official retailer links are restricted to known HTTPS hosts", () => {
   }
   const source=JSON.parse(read("data/card-radar-mart-providers.json"));
   assert.equal(source.schemaVersion,1);
-  assert.equal(source.providers.length,5);
+  assert.equal(source.providers.length,4);
   for(const row of source.providers) {
     assert.equal(row.inventoryApiConnected,false,row.id);
     if(row.lookupUrl)assert.ok(trustedMartLink(row.lookupUrl));
@@ -1083,7 +1083,8 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
   const render=source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
-  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = state[.]kind==="vending" \|\| unresolvedMartMap\?"—":\s*hasResults \? String\(inStockStores[.]length\)/);
+  assert.match(render,/state[.]kind==="vending"\|\|unresolvedMartMap\|\|martStockUnlinked\?"—":/);
+  assert.match(render,/hasResults \? String\(inStockStores[.]length\)/);
   assert.doesNotMatch(render,/filter\(\(store\) => inventoryLabel\(store\)[.]checked\)[.]length/);
 });
 
@@ -1535,13 +1536,64 @@ test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit
 test("mart filters hide irrelevant sellers and rendering defines map-failure state before use",()=>{
   const html=read("card-radar.html");
   const source=read("card-radar.js");
-  for(const name of ["이마트","롯데마트","토이저러스","트레이더스","홈플러스"])
+  for(const name of ["이마트","롯데마트","토이저러스","트레이더스"])
     assert.ok(html.includes(">"+name+"</option>"),name);
   const martHtml=html.slice(html.indexOf('id="radar-mart-brand"'),html.indexOf('</select>',html.indexOf('id="radar-mart-brand"')));
-  assert.doesNotMatch(martHtml,/<option value="(?:hanaro|costco|other)">/);
+  assert.doesNotMatch(martHtml,/<option value="(?:hanaro|costco|other|homeplus)">/);
   const render=source.slice(source.indexOf("  function render() {"),
     source.indexOf("  // An in-tab snapshot"));
   assert.ok(render.indexOf("const unresolvedMartMap=")>0);
   assert.ok(render.indexOf("const unresolvedMartMap=")<render.indexOf("!hasResults || unresolvedMartMap"));
   assert.match(source,/nwr\["operator"~/);
+});
+
+
+test("Seoul City Hall mart search survives complete public map API failure",()=>{
+  const {state,storeCandidates,selectedKind,category}=harness();
+  const dir=JSON.parse(read("data/card-radar-stores.json")).stores;
+  const mart=dir.filter(x=>x.kind==="mart");
+  assert.ok(mart.length>=9);
+  assert.equal(new Set(mart.map(x=>x.id)).size,mart.length);
+  state.center={lat:37.5665,lng:126.978};state.radiusKm=10;
+  state.kind="mart";state.martBrand="all";state.searching=false;state.mapChecked=true;
+  state.curatedShops=mart.map(x=>({
+    id:"directory:"+x.id,name:x.name,kind:x.kind,chain:x.chain,
+    lat:x.lat,lng:x.lng,addr:x.address,origin:"official-directory",verifiedInventory:[]
+  }));
+  state.masterShops=[];state.publicShops=[];state.retailerShops=[];
+  state.shops=[];state.inventory=[];state.martInventory=[];
+  const got=storeCandidates([]).filter(selectedKind);
+  assert.ok(got.length>=6,"empty Overpass and Photon must not mean no nearby marts");
+  assert.ok(got.some(x=>/롯데마트 제타플렉스 서울역점/.test(x.name)));
+  assert.ok(got.some(x=>/이마트 왕십리점/.test(x.name)));
+  assert.ok(got.some(x=>/토이저러스 청량리점/.test(x.name)));
+  assert.ok(got.every(x=>x.kind==="mart"&&x.verifiedInventory.length===0&&x.distance<=10.03));
+  state.martBrand="toysrus";
+  assert.equal(storeCandidates([]).filter(selectedKind).length,1);
+  state.martBrand="emart";
+  assert.ok(storeCandidates([]).filter(selectedKind).length>=3);
+  assert.equal(category({shop:"supermarket",name:"홈플러스"}),null);
+});
+
+test("mart dropdown removes non-core chains and stock remains unknown",()=>{
+  const html=read("card-radar.html");
+  const options=html.split('id="radar-mart-brand"')[1].split("</select>")[0];
+  const vals=[...options.matchAll(/<option value="([^"]+)"/g)].map(x=>x[1]);
+  assert.deepEqual(vals,["all","emart","lottemart","toysrus","traders"]);
+  const mart=JSON.parse(read("data/card-radar-stores.json")).stores.filter(x=>x.kind==="mart");
+  assert.ok(mart.every(x=>x.inventoryStatus==="not_connected"));
+  const providers=JSON.parse(read("data/card-radar-mart-providers.json")).providers;
+  assert.deepEqual(providers.map(x=>x.id).sort(),["emart","lottemart","toysrus","traders"]);
+});
+
+
+test("unlinked mart searches never display a false zero-stock claim",()=>{
+  const {state}=harness();
+  state.kind="mart";state.martInventory=[];
+  assert.match(source,/martStockUnlinked=state[.]kind==="mart"&&!state[.]martInventory[.]length/);
+  assert.match(source,/martStockUnlinked \? "매장 "\+nearbyStores[.]length\+"곳 · 재고 수량 미확인"/);
+  assert.match(source,/martStockUnlinked\?"—":/);
+  assert.match(source,/if\(state[.]kind==="vending"\|\|martUnlinked\)setStockOnly\(false\)/);
+  const css=read("card-radar.css");
+  assert.match(css,/body[.]radar-mart-unlinked-mode [.]radar-stock-filter/);
 });
