@@ -284,3 +284,15 @@ body.radar-vending-mode .radar-stock-filter,
 body.radar-vending-mode .radar-map-mode button[data-map-mode="stock"],
 body.radar-vending-mode .radar-metric-in-stock{display:none!important}
 body.radar-vending-mode .radar-metrics{grid-template-columns:1fr}
+
+/* Quick self-service official stock check for mart stores.
+   These links open official customer screens and never indicate in-stock. */
+.radar-store-actions .radar-mart-copy-term{
+  background:#f0f5ff;border-color:#ccd9ee;color:#325d98;
+}
+.radar-store-actions .radar-mart-app-link{
+  background:#fff;border-color:#d8e3f2;color:#415d86;
+}
+.radar-mart-copy-term:focus-visible,.radar-mart-app-link:focus-visible{
+  outline:2px solid #3564cf;outline-offset:3px;
+}
