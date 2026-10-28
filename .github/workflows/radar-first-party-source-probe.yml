@@ -1,0 +1,19 @@
+name: Radar first-party source research (read-only)
+on:
+  pull_request:
+    paths:
+      - 'scripts/radar-first-party-source-probe.mjs'
+      - '.github/workflows/radar-first-party-source-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/radar-first-party-source-probe.mjs
