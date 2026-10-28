@@ -944,7 +944,7 @@
       const key=id+"|"+lat.toFixed(5)+"|"+lng.toFixed(5);
       if(seen.has(key))return [];
       seen.add(key);
-      return [{id:"vending:"+id,name:name+" 자판기",lat,lng,addr:address,
+      return [{id:"vending:"+id,name:/자판기/.test(name)?name:name+" 자판기",lat,lng,addr:address,
         chain:String(raw.brand||"").slice(0,35),kind:"vending",
         origin:"official-vending-directory",sourceUrl:OFFICIAL_VENDING_URL,
         verifiedInventory:[]}];
@@ -1095,7 +1095,8 @@
         store.origin==="self-db"?"등록 매장 · 재고 별도 확인":
         store.origin==="government-business-registry"?"매장 위치 후보 · 재고 미확인":
         store.origin==="official-directory"?"매장 위치 확인 · 재고 별도 확인":
-        store.origin==="authorized-feed"?"재고 데이터 제공 매장":"지도에 등록된 매장 후보")));
+        store.origin==="authorized-feed"?"재고 데이터 제공 매장":
+        store.origin==="official-vending-directory"?"포켓몬코리아 공식 자판기 설치 목록":"지도에 등록된 매장 후보")));
     const summary=inventoryLabel(store);
     if(store.kind==="vending"){
       card.append(make("p","radar-stock-note","포켓몬코리아 공식 설치 위치 · 실시간 재고 미제공"));
@@ -1216,6 +1217,7 @@
     byId("radar-stock-filter-count").textContent = hasResults
       ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
     byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
+      state.kind==="vending" ? "공식 자판기 "+nearbyStores.length+"곳" :
       state.onlyInStock ? "재고 있음 "+inStockStores.length+"곳" :
         "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
     // Only fresh positive Pokémon-card stock may contribute to this counter.
@@ -1225,10 +1227,13 @@
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
       const box = make("div","radar-empty");
-      const heading = state.onlyInStock
+      const heading = state.kind==="vending" ? "이 반경에 표시할 공식 자판기가 없습니다" :
+        state.onlyInStock
         ? (state.searching ? "재고 있는 매장을 찾는 중입니다" : "현재 재고 있는 매장이 확인되지 않았습니다")
         : "표시할 매장 정보가 없습니다";
-      const description = state.onlyInStock
+      const description = state.kind==="vending"
+        ? "검색 반경을 넓히거나 다른 지역을 설정해 주세요. 공식 목록에 좌표가 없는 장소는 지도에 표시할 수 없습니다."
+        : state.onlyInStock
         ? (state.searching
           ? "판매처 조회가 진행 중입니다. 카드 재고 1개 이상이 확인되면 목록과 지도에 표시됩니다."
           : "조회할 수 없었던 매장은 품절로 확정된 것이 아닙니다. ‘재고 있는 매장만 보기’를 해제하면 전체 매장을 볼 수 있습니다.")
