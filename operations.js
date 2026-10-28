@@ -365,6 +365,10 @@
         local,
         customBinders,
       };
+      // Do not download a success-looking backup that the same version of
+      // the Operations Center would reject at restore time.
+      // Validation here is read-only; no Firestore writes or restore calls.
+      validateBackup(payload);
       const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {
         type: "application/json",
       });
