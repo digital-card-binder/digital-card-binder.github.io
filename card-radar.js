@@ -508,7 +508,9 @@
       const url = "https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=kr&q=" + encodeURIComponent(query);
       const places = await fetchJson(url, {headers:{"Accept":"application/json"}}, 12000);
       if (!Array.isArray(places) || !places.length) throw new Error("NOT_FOUND");
-      const place=places.find(p=>parseAdministrativeRegion(p,query))||places[0];
+      // Respect the top geocode match for specific places such as '부산 서면'.
+      // Do not silently jump to a broader administrative boundary.
+      const place=places[0];
       const lat = Number(place.lat), lng = Number(place.lon);
       if (!validCoord(lat,lng)) throw new Error("INVALID");
       state.region=parseAdministrativeRegion(place,query);
