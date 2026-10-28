@@ -112,8 +112,8 @@
   function safeStoreName(tags) {
     return String(tags.name || tags["name:ko"] || tags.brand || tags.operator || "").trim().slice(0,90);
   }
-  const SUPPORTED_MART_BRANDS=new Set(["emart","lottemart","toysrus","traders","homeplus"]);
-  const MART_NAME_PATTERN="이마트|E[ -]?Mart|롯데마트|Lotte ?Mart|토이저러스|Toys ?[Rr] ?[Uu]s|트레이더스|Traders|홈플러스|Homeplus";
+  const SUPPORTED_MART_BRANDS=new Set(["emart","lottemart","toysrus","traders"]);
+  const MART_NAME_PATTERN="이마트|E[ -]?Mart|롯데마트|Lotte ?Mart|토이저러스|Toys ?[Rr] ?[Uu]s|트레이더스|Traders";
   function category(tags) {
     const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
     const shop = String(tags.shop || "");
@@ -504,7 +504,7 @@
   // not a full retail directory. Short-lived results are location evidence only.
   const MART_PHOTON_TERMS=[
     ["lottemart","롯데마트"],["emart","이마트"],["toysrus","토이저러스"],
-    ["traders","트레이더스"],["homeplus","홈플러스"]
+    ["traders","트레이더스"]
   ];
   const photonMartCache=new Map();
   function parsePhotonMartShops(payload){
@@ -918,7 +918,7 @@
       const data=await fetchJson("./data/card-radar-mart-providers.json",{cache:"no-store"},8000);
       if(!data || data.schemaVersion!==1 || !Array.isArray(data.providers))return;
       state.martProviders=Object.fromEntries(data.providers
-        .filter((p)=>["emart","traders","lottemart","toysrus","homeplus"].includes(p.id))
+        .filter((p)=>["emart","traders","lottemart","toysrus"].includes(p.id))
         .map((p)=>[p.id,{
           label:String(p.label||"").slice(0,50),
           lookupLabel:String(p.lookupLabel||"공식 상품 확인").slice(0,65),
