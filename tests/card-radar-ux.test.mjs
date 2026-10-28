@@ -1480,8 +1480,13 @@ test("stock map shows verified numeric quantity for selected pack and never inve
   assert.equal(selected.unit,"개");
   state.pack="";
   const all=stockMarkerSummary(store);
-  assert.equal(all.label,"2");
-  assert.equal(all.unit,"종");
+  assert.equal(all.label,"38");
+  assert.equal(all.unit,"개");
+  assert.match(all.description,/2종/);
+  state.pack="";
+  const convenience=stockMarkerSummary({...store,kind:"convenience"});
+  assert.equal(convenience.label,"2");
+  assert.equal(convenience.unit,"종");
   assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[]}),null);
   state.pack="m1S";
   assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[
@@ -1590,10 +1595,65 @@ test("mart dropdown removes non-core chains and stock remains unknown",()=>{
 test("unlinked mart searches never display a false zero-stock claim",()=>{
   const {state}=harness();
   state.kind="mart";state.martInventory=[];
-  assert.match(source,/martStockUnlinked=state[.]kind==="mart"&&!state[.]martInventory[.]length/);
+  assert.match(source,/martStockUnlinked=state[.]kind==="mart"\s*&&\s*!nearbyStores[.]some/);
   assert.match(source,/martStockUnlinked \? "매장 "\+nearbyStores[.]length\+"곳 · 재고 수량 미확인"/);
   assert.match(source,/martStockUnlinked\?"—":/);
   assert.match(source,/if\(state[.]kind==="vending"\|\|martUnlinked\)setStockOnly\(false\)/);
   const css=read("card-radar.css");
   assert.match(css,/body[.]radar-mart-unlinked-mode [.]radar-stock-filter/);
+});
+
+test("licensed Toys R Us quantities stay on their own chain and expire safely",()=>{
+  const {parseApprovedMartFeed,stockMarkerSummary,state}=harness();
+  const now=Date.now(),iso=t=>new Date(t).toISOString();
+  const feed={schemaVersion:1,
+    source:{status:"connected",authorized:true,
+      licenseRef:"TEST-APPROVAL-NOT-A-REAL-LICENSE",providerId:"toysrus",
+      generatedAt:iso(now-5000),expiresAt:iso(now+120000)},
+    stores:[{id:"toys-1",name:"토이저러스 청량리점",chain:"토이저러스",
+      lat:37.58,lng:127.04,items:[
+        {code:"m1S",name:"포켓몬카드 메가심포니아 확장팩",
+          quantity:4,checkedAt:iso(now-5000)},
+        {code:"m1S",name:"포켓몬빵",
+          quantity:92,checkedAt:iso(now-5000)}
+      ]}]};
+  const stores=parseApprovedMartFeed(feed,now);
+  assert.equal(stores.length,1);
+  assert.equal(stores[0].items.length,1);
+  assert.equal(stores[0].items[0].quantity,4);
+  state.pack="m1S";
+  const marker=stockMarkerSummary({kind:"mart",verifiedInventory:stores[0].items});
+  assert.equal(marker.label,"4");
+  feed.stores[0].chain="롯데마트";
+  assert.equal(parseApprovedMartFeed(feed,now).length,0,
+    "Toys R Us quantity must not be transferred to Lotte Mart");
+  feed.stores[0].chain="토이저러스";
+  feed.source.expiresAt=iso(now-1);
+  assert.equal(parseApprovedMartFeed(feed,now).length,0,
+    "expired inventory must never be shown as fresh");
+});
+
+test("mart total pin sums only verified positive retail units, no duplicates",()=>{
+  const {state,stockMarkerSummary}=harness();
+  state.pack="";
+  const at=new Date().toISOString(),stale=new Date(Date.now()-3600000).toISOString();
+  const store={kind:"mart",verifiedInventory:[
+    {name:"포켓몬카드 메가심포니아 확장팩",code:"m1S",
+      provider:"approved",quantity:10,checkedAt:at},
+    {name:"포켓몬카드 메가심포니아 확장팩",code:"m1S",
+      provider:"approved",quantity:10,checkedAt:at},
+    {name:"포켓몬카드 닌자스피너 박스",code:"m4-box",
+      provider:"approved",quantity:2,checkedAt:at},
+    {name:"포켓몬빵",code:"bakery",quantity:99,checkedAt:at},
+    {name:"포켓몬카드 어비스아이 확장팩",code:"m5",
+      quantity:4,checkedAt:stale}
+  ]};
+  const all=stockMarkerSummary(store);
+  assert.equal(all.label,"12");
+  assert.equal(all.unit,"개");
+  assert.match(all.description,/2종/);
+  state.pack="m4-box";
+  assert.equal(stockMarkerSummary(store).label,"2");
+  state.pack="";
+  assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[]}),null);
 });
