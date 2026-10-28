@@ -16,7 +16,7 @@ test("29차: collection dialogs and personal import layout fit small screens",()
 });
 test("29차: browser QA loads real pages, checks overflow, captures evidence",()=>{
  const script=read("scripts/qa-v29-v32-visual.mjs");
- const wf=read(".github/workflows/v29-v32-visual-qa.yml");
+ const wf=read("docs/workflow-archive/20261028/v29-v32-visual-qa.yml");
  for(const p of ["/index.html","/pokemon-search.html","/custom.html","/series.html","/packs.html","/theme.html"])assert.ok(script.includes(p),p);
  assert.match(script,/horizontalOverflow>12/);
  assert.match(wf,/playwright install --with-deps chromium/);
