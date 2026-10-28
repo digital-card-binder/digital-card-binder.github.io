@@ -10,6 +10,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ops-backup-v32-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   inventory:
     name: Inspect all workflows without disabling anything
