@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "description": "Verified official customer-facing product/stock lookup destinations. These URLs are NOT external stock APIs and must not be treated as live stock feeds.",
-  "updatedAt": "2026-10-19",
+  "updatedAt": "2026-10-28",
   "providers": [
     {
       "id": "emart",
@@ -40,22 +40,13 @@
       "note": "온라인 판매 상태와 오프라인 매장 수량은 다를 수 있습니다."
     },
     {
-      "id": "costco",
-      "label": "코스트코",
-      "lookupUrl": "https://www.costco.co.kr/",
-      "lookupLabel": "코스트코 공식몰",
-      "availability": "official_information_only",
+      "id": "toysrus",
+      "label": "토이저러스",
+      "lookupUrl": "https://company.lottemart.com/mobiledowa/",
+      "lookupLabel": "롯데마트 공식 도와센터",
+      "availability": "store_and_product_selection",
       "inventoryApiConnected": false,
-      "note": "매장별 카드팩 재고 자동조회는 지원되지 않습니다."
-    },
-    {
-      "id": "hanaro",
-      "label": "하나로마트",
-      "lookupUrl": "",
-      "lookupLabel": "매장 문의로 재고 확인",
-      "availability": "no_verified_online_url",
-      "inventoryApiConnected": false,
-      "note": "점포별 재고 자동조회가 연결되지 않았습니다."
+      "note": "롯데마트 공식 조회 화면에서 토이저러스 점포 및 상품을 확인하세요."
     }
   ]
 }

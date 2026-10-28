@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, parsePhotonMartShops, loadPhotonMartShops, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -257,9 +257,7 @@ test("multiple mart chains receive distinct labels and precise subfilters", () =
     ["트레이더스 홀세일 클럽 안성점","traders","트레이더스"],
     ["롯데마트 송도점","lottemart","롯데마트"],
     ["홈플러스 평택점","homeplus","홈플러스"],
-    ["코스트코 하남점","costco","코스트코"],
-    ["농협 하나로마트 고양점","hanaro","하나로마트"],
-    ["동네마트","other","기타 마트"],
+    ["토이저러스 구로점","toysrus","토이저러스"],
   ];
   for(const [name,id,label] of cases) {
     assert.equal(martBrand(name),id,name);
@@ -267,6 +265,9 @@ test("multiple mart chains receive distinct labels and precise subfilters", () =
   }
   assert.equal(category({shop:"wholesale",name:"트레이더스"}),"mart");
   assert.equal(category({shop:"supermarket",name:"롯데마트"}),"mart");
+  assert.equal(category({shop:"supermarket",name:"농협 하나로마트"}),null);
+  assert.equal(category({shop:"supermarket",name:"코스트코"}),null);
+  assert.equal(category({shop:"supermarket",name:"동네 슈퍼"}),null);
   assert.equal(category({shop:"convenience",name:"이마트24"}),"convenience");
   state.kind="mart";
   state.martBrand="traders";
@@ -275,6 +276,8 @@ test("multiple mart chains receive distinct labels and precise subfilters", () =
   assert.equal(selectedKind({kind:"convenience",name:"GS25"}),false);
   state.martBrand="all";
   assert.equal(selectedKind({kind:"mart",name:"이마트 속초점"}),true);
+  assert.equal(selectedKind({kind:"mart",name:"하나로마트 송파점"}),false);
+  assert.equal(selectedKind({kind:"mart",name:"토이저러스 구로점"}),true);
   state.kind="all";
   assert.equal(selectedKind({kind:"convenience",name:"GS25"}),true);
 });
@@ -306,16 +309,18 @@ test("inventory map controls reuse the same stock filter, without fabricated nat
   assert.match(html,/data-map-mode="stock"/);
   assert.match(html,/id="radar-map-mode-count"/);
   assert.match(html,/id="radar-mart-brand"/);
-  for(const id of ["emart","traders","lottemart","homeplus","costco","hanaro"]) {
+  for(const id of ["emart","traders","lottemart","toysrus","homeplus"]) {
     assert.match(html,new RegExp('value="'+id+'"'));
   }
+  const martOptions=html.split('id="radar-mart-brand"')[1].split("</select>")[0];
+  assert.doesNotMatch(martOptions,/value="hanaro"|value="costco"|value="other"/);
   const css=read("card-radar.css");
   assert.match(css,/[.]radar-stock-marker-bubble/);
   assert.match(css,/[.]radar-map-mode button\[data-map-mode="stock"\][.]selected/);
   assert.match(source,/document[.]querySelectorAll\("\[data-map-mode\]"\)[.]forEach/);
   assert.match(source,/renderMapMarkers\(displayedStores\)/);
-  assert.match(source,/if\(state[.]onlyInStock && hasStock\)/);
-  assert.match(source,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+  assert.match(source,/stockBadge && window[.]L[.]divIcon/);
+  assert.match(source,/stockMarkerSummary\(store\)/);
   assert.match(source,/stockProductCount\(store\)/);
   assert.match(source,/state[.]onlyInStock\?"stock":"all"/);
   assert.match(source,/byId\("radar-map-mode-count"\)[.]textContent/);
@@ -333,7 +338,7 @@ test("official retailer links are restricted to known HTTPS hosts", () => {
   }
   const source=JSON.parse(read("data/card-radar-mart-providers.json"));
   assert.equal(source.schemaVersion,1);
-  assert.ok(source.providers.length>=6);
+  assert.equal(source.providers.length,5);
   for(const row of source.providers) {
     assert.equal(row.inventoryApiConnected,false,row.id);
     if(row.lookupUrl)assert.ok(trustedMartLink(row.lookupUrl));
@@ -467,7 +472,8 @@ test("store query never requests game/card shops and compact UI has just one vis
   const query=categoryQuery(3000,37.42,127.1);
   assert.ok(!query.includes('shop"="games"'),"no unnecessary card shop query");
   assert.match(query,/convenience/);
-  assert.match(query,/supermarket/);
+  assert.match(query,/롯데마트/);
+  assert.doesNotMatch(query,/\["shop"="supermarket"\]/);
   const html=read("card-radar.html");
   const css=read("card-radar.css");
   assert.doesNotMatch(html,/value="cardshop"|is-cardshop|radar-explain|카드샵/);
@@ -1077,7 +1083,7 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
   const render=source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
-  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = state[.]kind==="vending"\?"—":\s*hasResults \? String\(inStockStores[.]length\)/);
+  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = state[.]kind==="vending" \|\| unresolvedMartMap\?"—":\s*hasResults \? String\(inStockStores[.]length\)/);
   assert.doesNotMatch(render,/filter\(\(store\) => inventoryLabel\(store\)[.]checked\)[.]length/);
 });
 
@@ -1089,7 +1095,7 @@ test("radar hides redundant result-banner and map advisory without losing detail
   assert.match(html,/<p id="radar-status" class="radar-status" role="status" aria-live="polite"><\/p>/);
   assert.match(css,/[.]radar-status:empty\{display:none\}/);
   assert.match(source,/byId\("radar-coverage-search-note"\)[.]textContent/);
-  assert.match(source,/setStatus\("",false\)/);
+  assert.match(source,/setStatus\(state[.]kind==="mart" && state[.]mapLocationError/);
 });
 
 test("Yangyang public Emart24 starter-set SKU is included in full search and can render",()=>{
@@ -1414,4 +1420,113 @@ test("mart product copy uses user clipboard without external inventory or networ
   assert.deepEqual(copied,["메가심포니아"]);
   const unavailable=harness({navigator:{}}).copyMartOfficialTerm;
   assert.equal(await unavailable("포켓몬카드"),false);
+});
+
+
+test("mart query searches only relevant chains and uses geographic fallback",async()=>{
+  const {state,categoryQuery,loadNearbyMapStores}=harness();
+  state.kind="mart";state.radiusKm=10;
+  state.center={lat:37.5665,lng:126.978};
+  const q=categoryQuery(10000,37.5665,126.978);
+  assert.match(q,/롯데마트/);
+  assert.match(q,/토이저러스/);
+  assert.match(q,/이마트/);
+  assert.doesNotMatch(q,/하나로마트|코스트코/);
+  assert.doesNotMatch(q,/shop"="supermarket"/);
+  assert.doesNotMatch(q,/shop"="convenience"/);
+  assert.match(q,/out center 500/);
+  let calls=0;
+  const reader=async (url)=>{
+    calls++;
+    if(calls===1)throw Error("OPENSTREETMAP_PRIMARY_TIMEOUT");
+    assert.match(url,/overpass-api[.]de/);
+    return {elements:[{type:"node",id:42,lat:37.5669,lon:126.9791,
+      tags:{name:"롯데마트 서울점",shop:"supermarket"}}]};
+  };
+  const data=await loadNearbyMapStores(q,reader);
+  assert.equal(calls,2);
+  assert.equal(data.stores.length,1);
+  assert.equal(data.stores[0].name,"롯데마트 서울점");
+  assert.equal(data.stores[0].kind,"mart");
+  assert.equal(data.stores[0].distance<1,true);
+});
+
+test("valid empty map response retries another public OSM endpoint",async()=>{
+  const {state,categoryQuery,loadNearbyMapStores}=harness();
+  state.kind="mart";state.radiusKm=10;
+  state.center={lat:37.5665,lng:126.978};
+  let calls=0;
+  const result=await loadNearbyMapStores(categoryQuery(10000,37.5665,126.978),
+    async()=>{calls++;return {elements:calls===1?[]:[
+      {type:"node",id:83,lat:37.5667,lon:126.9787,
+        tags:{name:"이마트 서울점",brand:"이마트",shop:"supermarket"}}]};});
+  assert.equal(calls,2);
+  assert.equal(result.stores.length,1);
+});
+
+test("stock map shows verified numeric quantity for selected pack and never invents mart stock",()=>{
+  const {state,stockMarkerSummary}=harness();
+  state.pack="m1S";
+  const at=new Date().toISOString();
+  const old=new Date(Date.now()-40*60000).toISOString();
+  const store={kind:"mart",name:"롯데마트 테스트",verifiedInventory:[
+    {name:"포켓몬카드 메가심포니아 확장팩",quantity:30,checkedAt:at,code:"m1S",provider:"approved"},
+    {name:"포켓몬카드 닌자스피너 확장팩",quantity:8,checkedAt:at,code:"m4",provider:"approved"},
+    {name:"포켓몬카드 메가심포니아 확장팩",quantity:99,checkedAt:old,code:"m1S",provider:"approved"}
+  ]};
+  const selected=stockMarkerSummary(store);
+  assert.equal(selected.label,"30");
+  assert.equal(selected.unit,"개");
+  state.pack="";
+  const all=stockMarkerSummary(store);
+  assert.equal(all.label,"2");
+  assert.equal(all.unit,"종");
+  assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[]}),null);
+  state.pack="m1S";
+  assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[
+    {name:"포켓몬카드 메가심포니아",quantity:0,checkedAt:at,code:"m1S"}]}),null);
+  const js=read("card-radar.js");
+  assert.match(js,/stockBadge && window[.]L[.]divIcon/);
+  assert.doesNotMatch(js,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+});
+
+
+test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit",async()=>{
+  const {state,parsePhotonMartShops,loadNearbyMapStores,categoryQuery}=harness();
+  state.kind="mart";state.martBrand="lottemart";
+  state.radiusKm=10;state.center={lat:37.5665,lng:126.978};
+  const features=[
+    {properties:{osm_key:"highway",osm_id:1,osm_type:"N",name:"롯데마트 버스정류장"},
+      geometry:{coordinates:[126.976,37.566]}},
+    {properties:{osm_key:"landuse",osm_id:2,osm_type:"W",name:"롯데마트 주차장"},
+      geometry:{coordinates:[126.97,37.556]}},
+    {properties:{osm_key:"shop",osm_id:3,osm_type:"N",name:"롯데마트 서울역점",city:"서울특별시"},
+      geometry:{coordinates:[126.97057,37.55563]}},
+    {properties:{osm_key:"shop",osm_id:4,osm_type:"N",name:"동네마트"},
+      geometry:{coordinates:[126.97,37.558]}},
+    {properties:{osm_key:"shop",osm_id:5,osm_type:"N",name:"롯데마트 대구점"},
+      geometry:{coordinates:[128.6,35.87]}}
+  ];
+  const valid=parsePhotonMartShops({features});
+  assert.equal(valid.length,1);
+  assert.equal(valid[0].name,"롯데마트 서울역점");
+  assert.equal(valid[0].origin,"osm-photon");
+  assert.ok(valid[0].distance<2);
+  let overpassRequests=0,photonRequests=0;
+  const result=await loadNearbyMapStores(categoryQuery(10000,37.5665,126.978),
+    async url=>{
+      if(url.includes("overpass")){overpassRequests++;throw Error("HTTP 429")}
+      photonRequests++;
+      assert.match(url,/photon[.]komoot[.]io\/api/);
+      const u=new URL(url);
+      assert.equal(u.searchParams.get("countrycode"),"KR");
+      assert.ok(u.searchParams.get("bbox"));
+      assert.equal(u.searchParams.get("q"),"롯데마트");
+      return {features};
+    });
+  assert.equal(overpassRequests,2);
+  assert.equal(photonRequests,1);
+  assert.equal(result.stores.length,1);
+  assert.equal(result.source,"osm-photon");
+  assert.equal(result.stores[0].name,"롯데마트 서울역점");
 });

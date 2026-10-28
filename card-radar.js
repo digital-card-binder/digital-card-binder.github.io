@@ -78,7 +78,7 @@
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 10, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], vendingShops: [], vendingLoadedAt:0, inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
-    searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
+    mapLocationError:false, searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
   const byId = (id) => document.getElementById(id);
@@ -112,16 +112,15 @@
   function safeStoreName(tags) {
     return String(tags.name || tags["name:ko"] || tags.brand || tags.operator || "").trim().slice(0,90);
   }
+  const SUPPORTED_MART_BRANDS=new Set(["emart","lottemart","toysrus","traders","homeplus"]);
+  const MART_NAME_PATTERN="이마트|E[ -]?Mart|롯데마트|Lotte ?Mart|토이저러스|Toys ?[Rr] ?[Uu]s|트레이더스|Traders|홈플러스|Homeplus";
   function category(tags) {
     const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
     const shop = String(tags.shop || "");
-    // E-Mart24 is a convenience store, including spaced/hyphenated map labels.
-    // Check the store brand first: OSM entries sometimes incorrectly use supermarket.
     if (/이마트\s*24|e[\s._-]*mart\s*24/i.test(name)) return "convenience";
     if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven)/i.test(name) &&
       !/이마트(?!24)|E-?Mart(?!24)/i.test(name)) return "convenience";
-    if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
-    return null;
+    return SUPPORTED_MART_BRANDS.has(martBrand(name)) ? "mart" : null;
   }
   function martBrand(name) {
     const nameKey=String(name||"").toLowerCase().replace(/[\s._-]+/g,"");
@@ -130,6 +129,7 @@
     if(/이마트24|emart24/.test(nameKey))return "other";
     if(/코스트코|costco/.test(nameKey))return "costco";
     if(/하나로마트|하나로|hanaromart|nhmart/.test(nameKey))return "hanaro";
+    if(/토이저러스|toysrus|토이스러스/.test(nameKey))return "toysrus";
     if(/롯데마트|lottemart/.test(nameKey))return "lottemart";
     if(/홈플러스|homeplus/.test(nameKey))return "homeplus";
     if(/이마트|emart/.test(nameKey))return "emart";
@@ -137,8 +137,7 @@
   }
   function martBrandLabel(brand) {
     return {emart:"이마트",traders:"트레이더스",lottemart:"롯데마트",
-      homeplus:"홈플러스",costco:"코스트코",hanaro:"하나로마트",
-      other:"기타 마트"}[brand] || "기타 마트";
+      toysrus:"토이저러스",homeplus:"홈플러스"}[brand] || "마트";
   }
   const CONVENIENCE_CHAIN_LABELS={cu:"CU",gs25:"GS25",seveneleven:"세븐일레븐",
     emart24:"이마트24",other:"기타 편의점"};
@@ -156,9 +155,11 @@
     // Vending locations are sourced separately from the official Pokémon Korea list.
     if(store.kind==="vending")return state.kind==="vending";
     if(!["convenience","mart"].includes(store.kind))return false;
+    if(store.kind==="mart" && !SUPPORTED_MART_BRANDS.has(
+      martBrand((store.name||'')+' '+(store.chain||''))))return false;
     if(state.kind!=="all" && store.kind!==state.kind)return false;
     if(state.kind==="mart" && state.martBrand!=="all")
-      return martBrand(store.chain||store.name)===state.martBrand;
+      return martBrand((store.name||'')+' '+(store.chain||''))===state.martBrand;
     if(state.kind==="convenience" && state.convenienceBrand!=="all")
       return convenienceChain(store)===state.convenienceBrand;
     return true;
@@ -171,7 +172,11 @@
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
-    const visible = hasResults;
+    // All map sources can fail at once. In that situation "0 stores" is not
+    // supported evidence, and must not be displayed as an absence claim.
+    const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
+      !count && !state.masterShops.length && !state.publicShops.length;
+    const visible=hasResults && !unresolvedMartMap;
     byId("radar-total-stores").textContent = visible ? String(count) : "—";
     byId("radar-search-completed").textContent = String(state.progress.successes);
     byId("radar-search-failed").textContent = String(state.progress.failures);
@@ -478,14 +483,110 @@
   }
   function categoryQuery(radius, lat, lng) {
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
-    return "[out:json][timeout:22];(" +
+    const retail =
+      'nwr["name"~"'+MART_NAME_PATTERN+'",i]' + around + ";" +
+      'nwr["brand"~"'+MART_NAME_PATTERN+'",i]' + around + ";";
+    // Avoid unscoped supermarket results which displaced all large marts.
+    if(state.kind==="mart")
+      return "[out:json][timeout:20];("+retail+");out center 500;";
+    return "[out:json][timeout:20];(" +
       'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
       'nwr["shop"="convenience"]["brand"~"이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
-      'nwr["shop"="supermarket"]' + around + ";" +
-      'nwr["shop"="wholesale"]' + around + ";" +
-      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
-      'nwr["name"~"트레이더스|Traders|코스트코|Costco|하나로마트|롯데마트|홈플러스|이마트",i]' + around + ";" +
-       ");out center " + MAX_SHOPS + ";";
+      retail + ");out center 700;";
+  }
+  const OVERPASS_ENDPOINTS=[
+    "https://overpass.private.coffee/api/interpreter",
+    "https://overpass-api.de/api/interpreter"
+  ];
+  // Public OSM Photon is a supplementary, user-triggered place-name search,
+  // not a full retail directory. Short-lived results are location evidence only.
+  const MART_PHOTON_TERMS=[
+    ["lottemart","롯데마트"],["emart","이마트"],["toysrus","토이저러스"],
+    ["traders","트레이더스"],["homeplus","홈플러스"]
+  ];
+  const photonMartCache=new Map();
+  function parsePhotonMartShops(payload){
+    if(!payload || !Array.isArray(payload.features))throw Error("PHOTON_RESPONSE_INVALID");
+    const seen=new Set();
+    return payload.features.slice(0,50).flatMap(f=>{
+      const p=f?.properties||{};
+      // Exclude landuse, bus stops, parking, roads and other search hits.
+      if(p.osm_key!=="shop")return [];
+      const coords=f?.geometry?.coordinates;
+      if(!Array.isArray(coords)||coords.length<2)return [];
+      const lng=Number(coords[0]),lat=Number(coords[1]);
+      const name=String(p.name||"").trim().slice(0,90);
+      if(!validCoord(lat,lng)||!name||!SUPPORTED_MART_BRANDS.has(martBrand(name)))return [];
+      const distance=distanceKm(state.center,{lat,lng});
+      if(distance>state.radiusKm+.03)return [];
+      const osmId=String(p.osm_id||"").slice(0,32);
+      const key=String(p.osm_type||"")+":"+osmId;
+      if(!osmId||seen.has(key))return [];
+      seen.add(key);
+      const address=[p.street,p.housenumber,p.district,p.city].filter(Boolean)
+        .map(x=>String(x).slice(0,55)).join(" ").slice(0,130);
+      return [{id:"photon:"+key,name,lat,lng,distance,
+        kind:"mart",chain:martBrand(name),origin:"osm-photon",
+        addr:address,verifiedInventory:[]}];
+    });
+  }
+  async function loadPhotonMartShops(reader=fetchJson){
+    const center=state.center,km=state.radiusKm;
+    const key=[center.lat.toFixed(3),center.lng.toFixed(3),km,state.martBrand].join("|");
+    const cached=photonMartCache.get(key);
+    if(cached && cached.expiresAt>Date.now())return cached.stores.map(x=>({...x}));
+    const dy=(km+.4)/111.2,dx=dy/Math.max(.2,Math.cos(rad(center.lat)));
+    const bbox=[center.lng-dx,center.lat-dy,center.lng+dx,center.lat+dy]
+      .map(x=>x.toFixed(5)).join(",");
+    const terms=state.kind==="mart"&&state.martBrand!=="all"?
+      MART_PHOTON_TERMS.filter(([id])=>id===state.martBrand):MART_PHOTON_TERMS;
+    const stores=[];
+    for(const [,term] of terms){
+      const q=new URLSearchParams({q:term,bbox,countrycode:"KR",limit:"40"});
+      try{
+        const payload=await reader("https://photon.komoot.io/api/?"+q,
+          {headers:{Accept:"application/json"}},8000);
+        stores.push(...parsePhotonMartShops(payload));
+      }catch(error){
+        // Respect public-service rate limits; one failed request may mean
+        // temporary throttling, not zero stores.
+        if(/HTTP 429|HTTP 403/.test(String(error?.message||"")))break;
+      }
+    }
+    const unique=new Map();
+    for(const store of stores){
+      const near=[...unique.values()].some(p=>martBrand(p.name)===martBrand(store.name)&&
+        distanceKm(p,store)<.10);
+      if(!near)unique.set(store.id,store);
+    }
+    const results=[...unique.values()].sort((a,b)=>a.distance-b.distance);
+    if(results.length){
+      if(photonMartCache.size>16)photonMartCache.clear();
+      photonMartCache.set(key,{stores:results,expiresAt:Date.now()+10*60*1000});
+    }
+    return results;
+  }
+  async function loadNearbyMapStores(query,reader=fetchJson){
+    let lastError=null;
+    for(const server of OVERPASS_ENDPOINTS){
+      try{
+        const response=await reader(server,{method:"POST",
+          headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+          body:"data="+encodeURIComponent(query)},14000);
+        if(!response||!Array.isArray(response.elements))
+          throw Error("INVALID_MAP_RESPONSE");
+        const parsed=parseShops(response.elements);
+        if(parsed.length)return {stores:parsed,source:server};
+        // Even a valid empty source may have incomplete POI coverage.
+        // Retry the remaining provider and eventually use bounded Photon.
+      }catch(error){lastError=error;}
+    }
+    if(state.kind==="mart" || state.kind==="all"){
+      const fallback=await loadPhotonMartShops(reader);
+      if(fallback.length)return {stores:fallback,source:"osm-photon"};
+    }
+    if(lastError)throw lastError;
+    return {stores:[],source:""};
   }
   function parseShops(elements) {
     const seen = new Set(), shops = [];
@@ -815,7 +916,7 @@
       const data=await fetchJson("./data/card-radar-mart-providers.json",{cache:"no-store"},8000);
       if(!data || data.schemaVersion!==1 || !Array.isArray(data.providers))return;
       state.martProviders=Object.fromEntries(data.providers
-        .filter((p)=>["emart","traders","lottemart","homeplus","costco","hanaro"].includes(p.id))
+        .filter((p)=>["emart","traders","lottemart","toysrus","homeplus"].includes(p.id))
         .map((p)=>[p.id,{
           label:String(p.label||"").slice(0,50),
           lookupLabel:String(p.lookupLabel||"공식 상품 확인").slice(0,65),
@@ -829,19 +930,20 @@
   }
   function martLookup(store) {
     if(store.kind!=="mart")return null;
-    const id=martBrand(store.chain||store.name);
+    const id=martBrand((store.name||'')+' '+(store.chain||''));
     return state.martProviders[id] || null;
   }
   // Manual customer self-check: product and store are copied/opened by the user.
   // No inventory is scraped, recorded or inferred from an official link.
   const MART_OFFICIAL_APP_URLS=Object.freeze({
     lottemart:"https://play.google.com/store/apps/details?id=com.lottemart.lmscp",
+    toysrus:"https://play.google.com/store/apps/details?id=com.lottemart.lmscp",
     emart:"https://play.google.com/store/apps/details?id=com.emart.today",
     traders:"https://play.google.com/store/apps/details?id=com.emart.today"
   });
   function martOfficialApp(store){
     return store?.kind==="mart" ?
-      MART_OFFICIAL_APP_URLS[martBrand(store.chain||store.name)]||"" : "";
+      MART_OFFICIAL_APP_URLS[martBrand((store.name||'')+' '+(store.chain||''))]||"" : "";
   }
   function martOfficialSearchTerm(){
     if(!state.pack)return "포켓몬카드";
@@ -1124,7 +1226,7 @@
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
     const typeName=store.kind==="vending"?"공식 자판기":
       store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
-      martBrandLabel(martBrand(store.chain||store.name));
+      martBrandLabel(martBrand((store.name||'')+' '+(store.chain||'')));
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
     header.append(title,badge);
@@ -1133,6 +1235,7 @@
       (store.origin==="public-aggregator"?"외부 재고 조회 응답 · 방문 전 확인":
         store.origin==="self-db"?"등록 매장 · 재고 별도 확인":
         store.origin==="government-business-registry"?"매장 위치 후보 · 재고 미확인":
+        store.origin==="osm-photon"?"공개 지도 매장 위치 · 재고 미확인":
         store.origin==="official-directory"?"매장 위치 확인 · 재고 별도 확인":
         store.origin==="authorized-feed"?"재고 데이터 제공 매장":
         store.origin==="official-vending-directory"?"포켓몬코리아 공식 자판기 설치 목록":"지도에 등록된 매장 후보")));
@@ -1146,7 +1249,7 @@
     const mart=martLookup(store);
     if(store.kind!=="vending" && mart && !summary.checked){
       const info=make("p","radar-mart-lookup-note",
-        ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))
+        ["lottemart","toysrus","emart","traders"].includes(martBrand((store.name||'')+' '+(store.chain||'')))
           ? "공식 재고에서 '"+store.name+"' 매장과 상품을 선택해 확인하세요. 자동 수량은 미연동입니다."
           : "대형마트 자동 재고 연동 미지원 · "+mart.note);
       card.append(info);
@@ -1166,14 +1269,14 @@
     }
     if(mart && mart.lookupUrl) {
       const lookup=make("a","radar-mart-lookup-link",
-        ["lottemart","emart"].includes(martBrand(store.chain||store.name))
+        ["lottemart","toysrus","emart"].includes(martBrand((store.name||'')+' '+(store.chain||'')))
           ? "공식 재고 확인" : mart.lookupLabel+" ↗");
       lookup.href=mart.lookupUrl;
       lookup.target="_blank";lookup.rel="noopener noreferrer";
       lookup.title="공식 웹사이트로 이동합니다. 점포 및 상품을 직접 선택해야 하며, 카드 재고가 있다는 뜻은 아닙니다.";
       buttons.append(lookup);
     }
-    if(mart && ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))){
+    if(mart && ["lottemart","toysrus","emart","traders"].includes(martBrand((store.name||'')+' '+(store.chain||'')))){
       const term=martOfficialSearchTerm();
       const copy=make("button","radar-mart-copy-term","상품명 복사");
       copy.type="button";
@@ -1230,6 +1333,30 @@
     }
     return seen.size;
   }
+  // Exact product quantities require a recent verified source response.
+  function stockMarkerSummary(store) {
+    const items=(store.verifiedInventory||[]).filter(item=>{
+      const age=Date.now()-Date.parse(item.checkedAt);
+      return isCardProduct(item.name)&&item.previousLookup!==true&&
+        (!state.pack||String(item.code||"").toLowerCase()===state.pack.toLowerCase())&&
+        Number.isSafeInteger(item.quantity)&&item.quantity>0&&
+        Number.isFinite(age)&&age>=-60000&&age<15*60000;
+    });
+    const unique=new Map();
+    for(const item of items){
+      const key=stockProductIdentity(item);
+      const previous=unique.get(key);
+      if(!previous||Date.parse(previous.checkedAt)<Date.parse(item.checkedAt))
+        unique.set(key,item);
+    }
+    if(!unique.size)return null;
+    if(state.pack){
+      const quantity=[...unique.values()].reduce((n,item)=>n+item.quantity,0);
+      return {label:String(quantity),unit:"개",description:"선택 상품 조회 수량 "+quantity+"개"};
+    }
+    return {label:String(unique.size),unit:"종",
+      description:"카드 재고 확인 상품 "+unique.size+"종 (수량은 매장 상세에서 확인)"};
+  }
   function renderMapMarkers(shops) {
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
@@ -1238,11 +1365,13 @@
       const hasStock=store.kind!=="vending" && inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.mart;
       const count=stockProductCount(store);
-      const marker=(state.onlyInStock && hasStock && window.L.divIcon
+      const stockBadge=hasStock?stockMarkerSummary(store):null;
+      const marker=(stockBadge && window.L.divIcon
         ? window.L.marker([store.lat,store.lng],{
           icon:window.L.divIcon({className:"radar-stock-marker",html:
-            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+count+
-            '<small>종</small></span>',iconSize:[48,38],iconAnchor:[24,36]})
+            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+
+            stockBadge.label+'<small>'+stockBadge.unit+
+            '</small></span>',iconSize:[56,40],iconAnchor:[28,38]})
         })
         : window.L.circleMarker([store.lat,store.lng],{
           color:hasStock?"#bd263f":color,
@@ -1253,11 +1382,11 @@
       popup.append(make("strong","",store.name),
         make("p","",store.kind==="vending"
           ? "포켓몬코리아 공식 자판기 설치 위치 · 재고 미제공"
-          : (store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
+          : (store.kind==="mart"?martBrandLabel(martBrand((store.name||'')+' '+(store.chain||''))):
             CONVENIENCE_CHAIN_LABELS[convenienceChain(store)])+
             " · "+(stock.known?stock.message:stock.detail)));
-      if(state.onlyInStock && hasStock)popup.append(make("small","",
-        "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
+      if(stockBadge)popup.append(make("small","",
+        stockBadge.description+" · 마지막 재고 응답 기준"));
       marker.bindPopup(popup);
       store.marker=marker;
     }
@@ -1278,25 +1407,31 @@
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
-    byId("radar-stock-filter-count").textContent = hasResults
-      ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
-    byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
+    byId("radar-stock-filter-count").textContent = !hasResults || unresolvedMartMap
+      ? "재고 있음 —곳" : "재고 있음 " + inStockStores.length + "곳";
+    const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
+      !nearbyStores.length && !state.masterShops.length && !state.publicShops.length;
+    byId("radar-map-mode-count").textContent = unresolvedMartMap ? "마트 위치 조회 실패" :
+      !hasResults ? "매장 탐색 전" :
       state.kind==="vending" ? "공식 자판기 "+nearbyStores.length+"곳" :
       state.onlyInStock ? "재고 있음 "+inStockStores.length+"곳" :
         "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
     // Only fresh positive Pokémon-card stock may contribute to this counter.
     // A checked-but-zero or unchecked location is never counted as in stock.
-    byId("radar-stock-checked").textContent = state.kind==="vending"?"—":
+    byId("radar-stock-checked").textContent = state.kind==="vending" || unresolvedMartMap?"—":
       hasResults ? String(inStockStores.length) : "—";
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
       const box = make("div","radar-empty");
       const heading = state.kind==="vending" ? "이 반경에 표시할 공식 자판기가 없습니다" :
+        state.kind==="mart" && state.mapLocationError ? "마트 매장 위치를 확인하지 못했습니다" :
         state.onlyInStock
         ? (state.searching ? "재고 있는 매장을 찾는 중입니다" : "현재 재고 있는 매장이 확인되지 않았습니다")
         : "표시할 매장 정보가 없습니다";
       const description = state.kind==="vending"
         ? "검색 반경을 넓히거나 다른 지역을 설정해 주세요. 공식 목록에 좌표가 없는 장소는 지도에 표시할 수 없습니다."
+        : state.kind==="mart" && state.mapLocationError
+        ? "공개 지도에서 매장 위치를 가져오지 못했습니다. 다시 검색하거나 공식 매장 조회를 이용해 주세요. 매장이 실제로 0곳이라는 뜻은 아닙니다."
         : state.onlyInStock
         ? (state.searching
           ? "판매처 조회가 진행 중입니다. 카드 재고 1개 이상이 확인되면 목록과 지도에 표시됩니다."
@@ -1384,16 +1519,16 @@
     setStatus(hadPrevious ? "이전 조회 결과를 먼저 표시합니다. 현재 재고는 새로 확인 중입니다." :
       "카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
     const query = categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
-    const mapTask = fetchJson("https://overpass.kumi.systems/api/interpreter", {
-      method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-      body:"data="+encodeURIComponent(query)
-    },30000).then((result)=>{
-      if(!result || !Array.isArray(result.elements))throw new Error("INVALID_RESPONSE");
-      state.shops = parseShops(result.elements);
+    state.mapLocationError=false;
+    const mapTask=loadNearbyMapStores(query).then(result=>{
+      state.shops=result.stores;
       return true;
-    }).catch(()=>false).then((ok)=>{
-      state.mapChecked = true;
-      completeProgressStep(ok, "재고 조회 중", false);
+    }).catch(()=>{
+      state.mapLocationError=true;
+      return false;
+    }).then(ok=>{
+      state.mapChecked=true;
+      completeProgressStep(ok,"매장 위치 조회 중",false);
       render();
       return ok;
     });
@@ -1465,7 +1600,9 @@
       "/"+stockRequested+"건. "+
       (partial?"일부 상품 또는 매장은 조회가 완료되지 않았습니다. ":"")+
       "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다.";
-    setStatus("",false);
+    setStatus(state.kind==="mart" && state.mapLocationError && !candidates.length
+      ? "주변 마트 지도 조회가 실패했습니다. 매장이 없다는 뜻이 아닙니다. 다시 검색해 주세요." : "",
+      state.kind==="mart"&&state.mapLocationError&&!candidates.length);
     button.disabled=false;
     state.searching=false;
     // A pack changed while this search was running. Never treat an old broad
