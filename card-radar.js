@@ -1101,15 +1101,12 @@
     byId("radar-stock-filter-count").textContent = hasResults
       ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
     byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
-      state.onlyInStock ? "재고 확인 "+inStockStores.length+"곳" :
-        "매장 "+nearbyStores.length+"곳 · 재고 확인 "+inStockStores.length+"곳";
-    byId("radar-map-mode-note").textContent = state.onlyInStock
-      ? (inStockStores.length===0
-          ? "현재 검색 반경에서 연결된 재고 API가 확인한 카드 보유 매장이 없습니다. 조회 불가 매장은 품절로 간주하지 않습니다."
-          : "재고가 확인된 매장만 지도에 표시합니다. 지도 이동 후 다시 검색하면 새 지역으로 갱신됩니다.")
-      : "전체 매장 위치를 표시합니다. 재고 보기에서는 확인된 포켓몬 카드 재고 보유 매장만 강조합니다.";
+      state.onlyInStock ? "재고 있음 "+inStockStores.length+"곳" :
+        "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
+    // Only fresh positive Pokémon-card stock may contribute to this counter.
+    // A checked-but-zero or unchecked location is never counted as in stock.
     byId("radar-stock-checked").textContent = hasResults
-      ? String(nearbyStores.filter((store) => inventoryLabel(store).checked).length) : "—";
+      ? String(inStockStores.length) : "—";
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
       const box = make("div","radar-empty");
@@ -1259,10 +1256,14 @@
       (total,counters)=>total+counters.skipped,0);
     const partial = !mapOK || !dbOK || !govOK || state.progress.failures>0 ||
       stockSkipped>0 || stockAttempted<stockRequested;
-    setStatus("공개 조회에서 수량이 확인된 매장 "+positive+"곳 · 주변 매장 "+
-      candidates.length+"곳 · 상품별 조회 "+stockAttempted+"/"+stockRequested+"건. "+
+    // Keep technical coverage in the optional detail panel, not in a prominent
+    // red warning beneath the two plain-language result counters.
+    byId("radar-coverage-search-note").textContent =
+      "재고 1개 이상 조회 "+positive+"곳 · 상품별 조회 "+stockAttempted+
+      "/"+stockRequested+"건. "+
       (partial?"일부 상품 또는 매장은 조회가 완료되지 않았습니다. ":"")+
-      "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다.",partial);
+      "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다.";
+    setStatus("",false);
     button.disabled=false;
     state.searching=false;
     // A pack changed while this search was running. Never treat an old broad
