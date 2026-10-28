@@ -1,17 +1,28 @@
 "use strict";
 (function () {
-  // Default full search stays bounded; older Korean sets are opt-in.
+  // Bounded default scan covers current MEGA packs and additionally older
+  // products with stock observed on public retailer screens. Product keywords
+  // are distinct from collection labels and may use retailer catalog spelling.
   const DEFAULT_PRODUCTS = [
     ["m6a", "30th CELEBRATION"], ["m6", "스톰에메랄다"],
     ["m5", "어비스아이"], ["m4", "닌자스피너"],
     ["m3", "니힐제로"], ["m2a", "MEGA드림ex"],
-    ["m2", "인페르노X"], ["m1S", "메가심포니아"], ["m1L", "메가브레이브"]
+    ["m2", "인페르노X"], ["m1S", "메가심포니아"], ["m1L", "메가브레이브"],
+    ["starter-zoroark", "MEGA 스타터 세트 ex 조로아&조로아크 ex"],
+    ["sv5m", "사이버저지"], ["sv5k", "와일드포스"]
   ];
   const SELECTABLE_EXTRA_PRODUCTS = [
     ["sv10", "로켓단의 영광"], ["sv11b", "블랙볼트"],
     ["sv11w", "화이트플레어"], ["sv6a", "나이트원더러"]
   ];
   const PRODUCTS = [...DEFAULT_PRODUCTS, ...SELECTABLE_EXTRA_PRODUCTS];
+  // Confirmed by an actual Emart24 public response at 양양물치항점:
+  // full starter-set title gave a server error, while the distinct
+  // "조로아&조로아크" keyword selected SKU 8800286279914 / quantity 1.
+  // This evidence is not permission to republish official POS data.
+  const RETAILER_SEARCH_KEYWORDS = new Map([
+    ["starter-zoroark","조로아&조로아크"]
+  ]);
   const DEFAULT_CENTER = { lat: 37.5665, lng: 126.9780 };
   const MAX_SHOPS = 250;
   const state = {
@@ -908,7 +919,7 @@
   function stockProductUnit(name) {
     const value=String(name||"").normalize("NFKC");
     if(/(?:박스|\bbox\b|\d+팩\s*입)/i.test(value))return "박스";
-    if(/(?:구축덱|스타터덱|스타터세트|\bdeck\b)/i.test(value))return "덱";
+    if(/(?:구축덱|스타터\s*(?:덱|세트)|\bdeck\b)/i.test(value))return "덱";
     if(/(?:확장팩|강화팩|하이클래스팩|부스터팩|카드팩|\bpack\b|(?:^|\s)팩(?:$|\s))/i.test(value))return "팩";
     return "단위 미확인";
   }
@@ -1283,6 +1294,8 @@
       .replace(/[^a-z0-9가-힣]+/g,"");
     const actual=compact(name);
     if(!actual)return "";
+    if(/조로아.*조로아크/.test(actual) && /스타터|덱/.test(actual))
+      return "starter-zoroark";
     const found=PRODUCTS.find(([code,title])=>actual.includes(compact(title)) ||
       (code==="m6a" && /30주년/.test(actual)));
     return found ? found[0] : "";
@@ -1476,11 +1489,17 @@
       distanceKm(state.center,row) <= state.radiusKm+.03);
   }
   function liveQueries() {
-    if(state.pack) return [PACK_TITLES.get(state.pack)].filter(Boolean);
-    // Cover all nine *named* packs in the site's supported selection list.
-    // Do not rely on a generic search that can return an unrelated product.
-    // This still cannot enumerate every product sold by each retailer.
-    return DEFAULT_PRODUCTS.map(([,title])=>title);
+    const keywordFor=(code,title)=>RETAILER_SEARCH_KEYWORDS.get(code)||title;
+    if(state.pack) return [keywordFor(state.pack,PACK_TITLES.get(state.pack))]
+      .filter(Boolean);
+    // Observe positive-stock lookups early. CU, Seven-Eleven and Emart24 have
+    // returned measured positive quantities for these named products in public
+    // API diagnostics. This scan still cannot confirm all products in a shop.
+    const testedPriority=["m1S","sv5m","sv5k","starter-zoroark"];
+    return [...DEFAULT_PRODUCTS].sort((a,b)=>{
+      const ai=testedPriority.indexOf(a[0]),bi=testedPriority.indexOf(b[0]);
+      return (ai<0?testedPriority.length:ai)-(bi<0?testedPriority.length:bi);
+    }).map(([code,title])=>keywordFor(code,title));
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" ? [] :
@@ -1608,6 +1627,40 @@
             }
           }
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
+          // Store names used by the upstream search are not necessarily the
+          // user's reverse-geocoded neighbourhood (e.g. 물치리 vs 양양물치항점).
+          // Retry at most once with the enclosing district when the narrow
+          // reply contains no matching local stock rows. A wider reply must
+          // still pass the same product, coordinates and distance validation.
+          let preParsed=null;
+          if((task.provider==="seveneleven"||task.provider==="emart24") &&
+             retailerDistrictFallback && retailerDistrictFallback!==selectedArea){
+            const narrow=parseRetail(task.provider,payload,checkedAt,task.keyword);
+            if(narrow.length===0 && deadline-Date.now()>1800){
+              const widerUrl=endpoint(task.provider,task.keyword,retailerDistrictFallback);
+              const widerKey=state.radiusKm+"|"+widerUrl;
+              try{
+                const hit=readCachedRetailer(widerKey);
+                const widerPayload=hit?hit.payload:await fetchJson(widerUrl,
+                  {cache:"no-store"},Math.min(9000,deadline-Date.now()));
+                const widerAt=hit?hit.checkedAt:new Date().toISOString();
+                if(widerPayload?.success===true && widerPayload.data){
+                  const widerRows=parseRetail(task.provider,widerPayload,widerAt,task.keyword);
+                  if(widerRows.length>0){
+                    payload=widerPayload;
+                    checkedAt=widerAt;
+                    cacheKey=widerKey;
+                    usedCache=Boolean(hit);
+                    preParsed=widerRows;
+                    if(task.provider==="emart24")emart24PreferDistrict=true;
+                  }
+                }
+              }catch(_){
+                // A failed optional region retry must never overwrite a valid
+                // narrow reply or generate an invented zero-stock result.
+              }
+            }else preParsed=narrow;
+          }
           if(task.provider==="cu" && payload.data.inventory?.available===false)
             throw new Error("STOCK_UNAVAILABLE");
           if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
@@ -1625,7 +1678,7 @@
             if(candidateSet && goodsSet && candidateSet!==goodsSet)
               throw new Error("PRODUCT_SKU_CONFLICT");
           }
-          const rows=parseRetail(task.provider,payload,checkedAt,task.keyword);
+          const rows=preParsed||parseRetail(task.provider,payload,checkedAt,task.keyword);
           if(!usedCache)saveCachedRetailer(cacheKey,payload,checkedAt);
           all.push(...rows);
           recordProviderOutcome(task.provider,usedCache?"cached":"success",rows);
