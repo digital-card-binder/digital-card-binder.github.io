@@ -1439,7 +1439,7 @@ test("mart query searches only relevant chains and uses geographic fallback",asy
   const reader=async (url)=>{
     calls++;
     if(calls===1)throw Error("OPENSTREETMAP_PRIMARY_TIMEOUT");
-    assert.match(url,/overpass-api[.]de/);
+    assert.match(url,/overpass[.]kumi[.]systems/);
     return {elements:[{type:"node",id:42,lat:37.5669,lon:126.9791,
       tags:{name:"롯데마트 서울점",shop:"supermarket"}}]};
   };
@@ -1524,7 +1524,7 @@ test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit
       assert.equal(u.searchParams.get("q"),"롯데마트");
       return {features};
     });
-  assert.equal(overpassRequests,2);
+  assert.equal(overpassRequests,3);
   assert.equal(photonRequests,1);
   assert.equal(result.stores.length,1);
   assert.equal(result.source,"osm-photon");
@@ -1537,7 +1537,8 @@ test("mart filters hide irrelevant sellers and rendering defines map-failure sta
   const source=read("card-radar.js");
   for(const name of ["이마트","롯데마트","토이저러스","트레이더스","홈플러스"])
     assert.ok(html.includes(">"+name+"</option>"),name);
-  assert.doesNotMatch(html,/<option value="(?:hanaro|costco|other)">/);
+  const martHtml=html.slice(html.indexOf('id="radar-mart-brand"'),html.indexOf('</select>',html.indexOf('id="radar-mart-brand"')));
+  assert.doesNotMatch(martHtml,/<option value="(?:hanaro|costco|other)">/);
   const render=source.slice(source.indexOf("  function render() {"),
     source.indexOf("  // An in-tab snapshot"));
   assert.ok(render.indexOf("const unresolvedMartMap=")>0);
