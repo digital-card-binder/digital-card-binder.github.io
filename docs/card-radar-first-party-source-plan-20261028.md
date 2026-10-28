@@ -89,3 +89,13 @@
 - 이마트 공식: `https://eapp.emart.com/webapp/product/search`
 - 포켓몬코리아: `https://pokemonkorea.co.kr/`
 - 공개 기술 참고: `https://github.com/hmmhmmhm/daiso-mcp` (코드나 데이터의 재사용권은 별개 확인)
+
+## 2026-10-28 이마트24 원본 v3 조회 POC 검증 (추가)
+
+- **중요 수정:** 앞선 연구의 `/api/stock/v2/stock-search/store`는 HTTP 200이면서 재고가 문자열/숫자 형태로 직렬화되어 유효한 수량 응답이 아니었다. 공식 웹 페이지에서 현재 사용하는 **`/api/stock/v3/stock-search/store`**를 직접 조회한 결과 정상적인 재고 수량 배열을 확인했다.
+- 공식 상품 검색 `POST https://everse.emart24.co.kr/stock/stock/search`: 키워드 `조로아&조로아크`에 상품코드 `8800286279914`, 상품명 `포켓몬)포켓몬카드(메가스타터세트 조로아&조로아크ex)` 한 건 반환.
+- 공식 점포 목록 `GET https://emart24.co.kr/api1/store?page=1&search=양양물치항`: 점포코드 `27927`, 점포명 `양양물치항점`, 위도/경도 확인.
+- 공식 v3 재고 `GET https://everse.emart24.co.kr/api/stock/v3/stock-search/store?searchPluCode=8800286279914&bizNoArr=27927`: `storeGoodsInfo.pluCd` 일치, `storeGoodsQty[]`에 해당 `BIZNO=27927`의 `BIZQTY=1` 반환.
+- 실측 기록: [GitHub Actions 40639632654](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40639632654), [GitHub Actions 40639724370](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40639724370).
+- 별도 모듈 `radar-service/lib/emart24-original.mjs`에 정확한 PLU/점포코드/패키지/수량 검증, 짧은 캐시와 제한된 매장 조회 구현. `radar-service/api/v1/emart24-original.js`는 사용 조건 및 운영 승인 전 **기본 503 비활성화**. 
+- 관측된 1개는 특정 시각 단일 점포의 응답이며 공식 POS 실물 재고와 구매 가능성까지 보장하지 않는다. 독립 코드 구현이 제3자 재게시 허가를 대체하지 않으며, 운영 라우트 활성화는 명시적인 데이터 이용 승인과 비교 검증 이후에만 허용한다.
