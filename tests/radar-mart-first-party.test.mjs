@@ -100,3 +100,57 @@ test("both retailer API inventory routes fail closed unless explicitly approved"
   if(oldPublish!==undefined)process.env.RADAR_LOTTEMART_DIRECT_PUBLISH=oldPublish;
  }
 });
+
+test("realistic ASP result tolerates line breaks and bullet-prefixed stock labels",()=>{
+  const result=(stock,title="포켓몬카드 메가심포니아 박스")=>
+    '<div class="total-num">검색결과 : <span>1</span> 건</div>'+
+    '<ul><li class="result"><div class="prod-box featured">'+
+    '<div class="prod-name">'+title+'</div>'+
+    '<div class="prod-count"><!-- 8801234567890 -->30팩</div></div>'+
+    '<div class="layer_wrap"><div class="layer-head">'+title+'</div>'+
+    '<table><tr><th>ㆍ재고 : </th>\n<td> '+stock+' </td></tr></table></div></li></ul>';
+  assert.deepEqual(parseLotteMartProductHtml(result("1,234 개"),request).map(r=>r.quantity),[1234]);
+  assert.deepEqual(parseLotteMartProductHtml(result("품절"),request).map(r=>r.quantity),[0]);
+  assert.deepEqual(parseLotteMartProductHtml(result("0 개"),request).map(r=>r.quantity),[0]);
+  assert.deepEqual(parseLotteMartProductHtml(result("조회중"),request),[]);
+  assert.deepEqual(parseLotteMartProductHtml(result("판매중"),request),[]);
+  assert.deepEqual(parseLotteMartProductHtml(result("4개","포켓몬빵 메가심포니아 박스"),request),[]);
+  assert.deepEqual(parseLotteMartProductHtml(result("4개").replace("8801234567890","8800000000000"),request),[]);
+  assert.deepEqual(parseLotteMartProductHtml('<div>검색결과 : <span>44</span>건</div>',request),[]);
+});
+
+test("official product page reads declared EUC-KR rather than corrupting stock labels",async()=>{
+  // Real CP949/EUC-KR bytes for the Korean fragment '재고'.
+  const koreanBytes=[192,231,176,237],placeholder="__STOCK__";
+  const responseBytes=(template)=>{
+    const index=template.indexOf(placeholder);
+    const encoder=new TextEncoder();
+    return new Uint8Array([
+      ...encoder.encode(template.slice(0,index)),
+      ...koreanBytes,
+      ...encoder.encode(template.slice(index+placeholder.length))
+    ]);
+  };
+  // The stock column contains actual EUC-KR Hangul bytes in otherwise
+  // ASCII markup, so an ordinary UTF-8 Response.text() would lose the label.
+  assert.equal(koreanBytes.length,4);
+  const calls=[];
+  const mock=async(url,opts)=>{
+    calls.push(url);
+    if(url.includes("market_list"))
+      return new Response('<option value="2301">강변점</option>',
+        {headers:{"content-type":"text/html; charset=UTF-8"}});
+    // A declared legacy charset that encodes '재고' but uses an ASCII
+    // response elsewhere can be decoded without any text() fallback.
+    return new Response(responseBytes(
+      '<li><div class="prod-box"><div class="prod-name">Pokemon Card Mega Symphony BOX</div>'+
+      '<div class="prod-count"><!-- 8801234567890 -->30packs</div>'+
+      '<table><tr><th>__STOCK__ :</th><td>7</td></tr></table></div></li>'),
+      {headers:{"content-type":"text/html; charset=euc-kr"}});
+  };
+  const output=await queryLotteMartOfficial(
+    {...request,keyword:"Mega Symphony"},{fetcher:mock});
+  assert.equal(calls.length,2);
+  assert.equal(output.status,"observed");
+  assert.equal(output.stores[0].quantity,7);
+});
