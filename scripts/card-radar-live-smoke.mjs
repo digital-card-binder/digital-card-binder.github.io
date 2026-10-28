@@ -102,6 +102,54 @@ for(const {provider,storeArea,scenario} of probes){
     process.stdout.write("RADAR_LIVE_CHECK "+JSON.stringify(result)+"\n");
   }
 }
+// Representative read-only cross-checks for stock-positive retail examples.
+// Never fail the build when stock legitimately sells out or retailer access
+// changes; report checked products and parser output transparently.
+for(const check of [
+  {provider:"emart24",keyword:"조로아&조로아크",area:"양양",
+    center:{lat:38.15,lng:128.60},store:"양양물치항점",code:"starter-zoroark"},
+  {provider:"seveneleven",keyword:"메가심포니아",area:"명동",
+    center:{lat:37.5633,lng:126.9837},store:"명동스카이호텔점",code:"m1S"}
+]){
+  state.center=check.center;
+  state.radiusKm=10;
+  const started=Date.now();
+  const abort=new AbortController();
+  const timer=setTimeout(()=>abort.abort(),12000);
+  const status={provider:check.provider,scenario:"named_card_product",
+    keyword:check.keyword,area:check.area,status:"unchecked",
+    matches:0,positiveQuantityRows:0,expectedStoreMatched:false};
+  try{
+    const res=await fetch(endpoint(check.provider,check.keyword,check.area),
+      {signal:abort.signal,headers:{Accept:"application/json",
+        Origin:"https://digital-card-binder.github.io"}});
+    status.httpStatus=res.status;
+    if(!res.ok)status.status="http_error";
+    else{
+      const payload=await res.json();
+      if(payload?.success!==true||!payload?.data)status.status="api_error";
+      else{
+        const parsed=parseRetail(check.provider,payload,new Date().toISOString(),
+          check.keyword);
+        const exact=parsed.filter(row=>row.items.some(item=>
+          item.code===check.code));
+        const atStore=exact.filter(row=>row.name.includes(check.store));
+        status.matches=exact.length;
+        status.expectedStoreMatched=atStore.length>0;
+        status.positiveQuantityRows=exact.filter(row=>
+          row.items.some(item=>Number.isSafeInteger(item.quantity)&&item.quantity>0)).length;
+        status.status="parsed";
+      }
+    }
+  }catch(error){
+    status.status=error?.name==="AbortError"?"timeout":"transport_error";
+  }finally{
+    clearTimeout(timer);
+    status.responseMs=Date.now()-started;
+    report.checks.push(status);
+    process.stdout.write("RADAR_RETAIL_CATALOG_PROBE "+JSON.stringify(status)+"\n");
+  }
+}
 mkdirSync("reports",{recursive:true});
 writeFileSync("reports/card-radar-live-smoke.json",JSON.stringify(report,null,2)+"\n");
 const uniqueBy=(records,key)=>[...new Map(records.map(r=>[key(r),r])).values()];
