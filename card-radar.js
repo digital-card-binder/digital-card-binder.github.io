@@ -498,6 +498,74 @@
     "https://overpass.private.coffee/api/interpreter",
     "https://overpass-api.de/api/interpreter"
   ];
+  // Public OSM Photon is a supplementary, user-triggered place-name search,
+  // not a full retail directory. Short-lived results are location evidence only.
+  const MART_PHOTON_TERMS=[
+    ["lottemart","롯데마트"],["emart","이마트"],["toysrus","토이저러스"],
+    ["traders","트레이더스"],["homeplus","홈플러스"]
+  ];
+  const photonMartCache=new Map();
+  function parsePhotonMartShops(payload){
+    if(!payload || !Array.isArray(payload.features))throw Error("PHOTON_RESPONSE_INVALID");
+    const seen=new Set();
+    return payload.features.slice(0,50).flatMap(f=>{
+      const p=f?.properties||{};
+      // Exclude landuse, bus stops, parking, roads and other search hits.
+      if(p.osm_key!=="shop")return [];
+      const coords=f?.geometry?.coordinates;
+      if(!Array.isArray(coords)||coords.length<2)return [];
+      const lng=Number(coords[0]),lat=Number(coords[1]);
+      const name=String(p.name||"").trim().slice(0,90);
+      if(!validCoord(lat,lng)||!name||!SUPPORTED_MART_BRANDS.has(martBrand(name)))return [];
+      const distance=distanceKm(state.center,{lat,lng});
+      if(distance>state.radiusKm+.03)return [];
+      const osmId=String(p.osm_id||"").slice(0,32);
+      const key=String(p.osm_type||"")+":"+osmId;
+      if(!osmId||seen.has(key))return [];
+      seen.add(key);
+      const address=[p.street,p.housenumber,p.district,p.city].filter(Boolean)
+        .map(x=>String(x).slice(0,55)).join(" ").slice(0,130);
+      return [{id:"photon:"+key,name,lat,lng,distance,
+        kind:"mart",chain:martBrand(name),origin:"osm-photon",
+        addr:address,verifiedInventory:[]}];
+    });
+  }
+  async function loadPhotonMartShops(reader=fetchJson){
+    const center=state.center,km=state.radiusKm;
+    const key=[center.lat.toFixed(3),center.lng.toFixed(3),km,state.martBrand].join("|");
+    const cached=photonMartCache.get(key);
+    if(cached && cached.expiresAt>Date.now())return cached.stores.map(x=>({...x}));
+    const dy=(km+.4)/111.2,dx=dy/Math.max(.2,Math.cos(rad(center.lat)));
+    const bbox=[center.lng-dx,center.lat-dy,center.lng+dx,center.lat+dy]
+      .map(x=>x.toFixed(5)).join(",");
+    const terms=state.kind==="mart"&&state.martBrand!=="all"?
+      MART_PHOTON_TERMS.filter(([id])=>id===state.martBrand):MART_PHOTON_TERMS;
+    const stores=[];
+    for(const [,term] of terms){
+      const q=new URLSearchParams({q:term,bbox,countrycode:"KR",limit:"40"});
+      try{
+        const payload=await reader("https://photon.komoot.io/api/?"+q,
+          {headers:{Accept:"application/json"}},8000);
+        stores.push(...parsePhotonMartShops(payload));
+      }catch(error){
+        // Respect public-service rate limits; one failed request may mean
+        // temporary throttling, not zero stores.
+        if(/HTTP 429|HTTP 403/.test(String(error?.message||"")))break;
+      }
+    }
+    const unique=new Map();
+    for(const store of stores){
+      const near=[...unique.values()].some(p=>martBrand(p.name)===martBrand(store.name)&&
+        distanceKm(p,store)<.10);
+      if(!near)unique.set(store.id,store);
+    }
+    const results=[...unique.values()].sort((a,b)=>a.distance-b.distance);
+    if(results.length){
+      if(photonMartCache.size>16)photonMartCache.clear();
+      photonMartCache.set(key,{stores:results,expiresAt:Date.now()+10*60*1000});
+    }
+    return results;
+  }
   async function loadNearbyMapStores(query,reader=fetchJson){
     let lastError=null;
     for(const server of OVERPASS_ENDPOINTS){
@@ -511,6 +579,10 @@
         if(!parsed.length && server!==OVERPASS_ENDPOINTS[OVERPASS_ENDPOINTS.length-1])continue;
         return {stores:parsed,source:server};
       }catch(error){lastError=error;}
+    }
+    if(state.kind==="mart" || state.kind==="all"){
+      const fallback=await loadPhotonMartShops(reader);
+      if(fallback.length)return {stores:fallback,source:"osm-photon"};
     }
     if(lastError)throw lastError;
     return {stores:[],source:""};
@@ -1162,6 +1234,7 @@
       (store.origin==="public-aggregator"?"외부 재고 조회 응답 · 방문 전 확인":
         store.origin==="self-db"?"등록 매장 · 재고 별도 확인":
         store.origin==="government-business-registry"?"매장 위치 후보 · 재고 미확인":
+        store.origin==="osm-photon"?"공개 지도 매장 위치 · 재고 미확인":
         store.origin==="official-directory"?"매장 위치 확인 · 재고 별도 확인":
         store.origin==="authorized-feed"?"재고 데이터 제공 매장":
         store.origin==="official-vending-directory"?"포켓몬코리아 공식 자판기 설치 목록":"지도에 등록된 매장 후보")));
