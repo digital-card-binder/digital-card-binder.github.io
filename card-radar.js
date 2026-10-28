@@ -832,6 +832,45 @@
     const id=martBrand(store.chain||store.name);
     return state.martProviders[id] || null;
   }
+  // Manual customer self-check: product and store are copied/opened by the user.
+  // No inventory is scraped, recorded or inferred from an official link.
+  const MART_OFFICIAL_APP_URLS=Object.freeze({
+    lottemart:"https://play.google.com/store/apps/details?id=com.lottemart.lmscp",
+    emart:"https://play.google.com/store/apps/details?id=com.emart.today",
+    traders:"https://play.google.com/store/apps/details?id=com.emart.today"
+  });
+  function martOfficialApp(store){
+    return store?.kind==="mart" ?
+      MART_OFFICIAL_APP_URLS[martBrand(store.chain||store.name)]||"" : "";
+  }
+  function martOfficialSearchTerm(){
+    if(!state.pack)return "포켓몬카드";
+    const code=state.pack;
+    const title=PACK_TITLES.get(code)||"포켓몬카드";
+    // Search a distinct set name, then verify retail packaging on the
+    // merchant result screen; official catalog titles vary by retailer.
+    return (RETAILER_SEARCH_KEYWORDS.get(code)||title)
+      .replace(/\s*박스$/,"").trim()||"포켓몬카드";
+  }
+  async function copyMartOfficialTerm(term){
+    try {
+      if(navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(term);
+        return true;
+      }
+      // Support browsers where the modern Clipboard API is unavailable.
+      const field=document.createElement("textarea");
+      field.value=term;
+      field.setAttribute("readonly","");
+      field.style.position="fixed";
+      field.style.left="-10000px";
+      document.body.append(field);
+      field.select();
+      const copied=typeof document.execCommand==="function" && document.execCommand("copy");
+      field.remove();
+      return Boolean(copied);
+    }catch(_){return false;}
+  }
   function parseApprovedMartFeed(data,now=Date.now()) {
     const source=data && data.source;
     if(!data || data.schemaVersion!==1 || !source ||
@@ -1107,7 +1146,9 @@
     const mart=martLookup(store);
     if(store.kind!=="vending" && mart && !summary.checked){
       const info=make("p","radar-mart-lookup-note",
-        "대형마트 자동 재고 연동 미지원 · "+mart.note);
+        ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))
+          ? "공식 재고에서 '"+store.name+"' 매장과 상품을 선택해 확인하세요. 자동 수량은 미연동입니다."
+          : "대형마트 자동 재고 연동 미지원 · "+mart.note);
       card.append(info);
     }
     const buttons=make("div","radar-store-actions");
@@ -1124,11 +1165,34 @@
       buttons.append(verify);
     }
     if(mart && mart.lookupUrl) {
-      const lookup=make("a","radar-mart-lookup-link",mart.lookupLabel+" ↗");
+      const lookup=make("a","radar-mart-lookup-link",
+        ["lottemart","emart"].includes(martBrand(store.chain||store.name))
+          ? "공식 재고 확인" : mart.lookupLabel+" ↗");
       lookup.href=mart.lookupUrl;
       lookup.target="_blank";lookup.rel="noopener noreferrer";
       lookup.title="공식 웹사이트로 이동합니다. 점포 및 상품을 직접 선택해야 하며, 카드 재고가 있다는 뜻은 아닙니다.";
       buttons.append(lookup);
+    }
+    if(mart && ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))){
+      const term=martOfficialSearchTerm();
+      const copy=make("button","radar-mart-copy-term","상품명 복사");
+      copy.type="button";
+      copy.title="공식 조회 화면에서 검색할 상품명: "+term;
+      copy.setAttribute("aria-label","상품 검색어 "+term+" 복사");
+      copy.addEventListener("click",async()=>{
+        const copied=await copyMartOfficialTerm(term);
+        copy.textContent=copied?"복사 완료":"검색어: "+term;
+        copy.setAttribute("aria-live","polite");
+      });
+      buttons.append(copy);
+      const officialMartApp=martOfficialApp(store);
+      if(officialMartApp){
+        const app=make("a","radar-mart-app-link","공식 앱");
+        app.href=officialMartApp;
+        app.target="_blank";app.rel="noopener noreferrer";
+        app.title="공식 앱에서 매장과 상품을 직접 선택하세요.";
+        buttons.append(app);
+      }
     }
     if (store.origin==="official-vending-directory" && store.sourceUrl) {
       const official=make("a","","공식 자판기 목록");
