@@ -5,6 +5,12 @@ on:
     branches:
       - main
     paths:
+      - 'card-radar.js'
+      - 'scripts/card-radar-live-smoke.mjs'
+      - '.github/workflows/radar-live-smoke.yml'
+  pull_request:
+    paths:
+      - 'card-radar.js'
       - 'scripts/card-radar-live-smoke.mjs'
       - '.github/workflows/radar-live-smoke.yml'
   workflow_dispatch:
