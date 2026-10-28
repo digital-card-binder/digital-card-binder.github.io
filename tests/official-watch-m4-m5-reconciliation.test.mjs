@@ -36,7 +36,7 @@ test("the change does not equate product registration with complete Korean card-
  assert.equal(m4.lastCardCode,"m4_120/083");
  assert.equal(m5.firstCardCode,"m5_001/081");
  assert.equal(m5.lastCardCode,"m5_118/081");
- assert.equal(m4.missing.name,96);
+ assert.ok(m4.missing.name >= 0 && m4.missing.name <= 96, "M4 naming audit must not regress after official verification");
  for(const set of [m4,m5]){assert.equal(set.missing.code,0);assert.equal(set.missing.image,0);}
  assert.equal(audit.summary.duplicateSetCodeCount,0);
  assert.equal(audit.summary.duplicateCardIdentityCount,0);
