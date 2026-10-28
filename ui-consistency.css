@@ -1,8 +1,9 @@
 /* Shared interaction standards for catalog, search, pack and studio pages.
    Presentation-only: preserves every page's layout, ownership and data logic. */
 :root{
-  --dcb-control-touch:44px;
-  --dcb-control-focus:#168895;
+  /* Single source of truth: the shared v20 touch and focus tokens. */
+  --dcb-control-touch:var(--dcb-ux-touch,44px);
+  --dcb-control-focus:var(--dcb-ux-accent,#176783);
 }
 :where(
   .catalog-toolbar,
