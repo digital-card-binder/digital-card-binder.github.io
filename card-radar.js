@@ -172,7 +172,11 @@
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
-    const visible = hasResults;
+    // All map sources can fail at once. In that situation "0 stores" is not
+    // supported evidence, and must not be displayed as an absence claim.
+    const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
+      !count && !state.masterShops.length && !state.publicShops.length;
+    const visible=hasResults && !unresolvedMartMap;
     byId("radar-total-stores").textContent = visible ? String(count) : "—";
     byId("radar-search-completed").textContent = String(state.progress.successes);
     byId("radar-search-failed").textContent = String(state.progress.failures);
@@ -1329,15 +1333,18 @@
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
-    byId("radar-stock-filter-count").textContent = hasResults
-      ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
-    byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
+    byId("radar-stock-filter-count").textContent = !hasResults || unresolvedMartMap
+      ? "재고 있음 —곳" : "재고 있음 " + inStockStores.length + "곳";
+    const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
+      !nearbyStores.length && !state.masterShops.length && !state.publicShops.length;
+    byId("radar-map-mode-count").textContent = unresolvedMartMap ? "마트 위치 조회 실패" :
+      !hasResults ? "매장 탐색 전" :
       state.kind==="vending" ? "공식 자판기 "+nearbyStores.length+"곳" :
       state.onlyInStock ? "재고 있음 "+inStockStores.length+"곳" :
         "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
     // Only fresh positive Pokémon-card stock may contribute to this counter.
     // A checked-but-zero or unchecked location is never counted as in stock.
-    byId("radar-stock-checked").textContent = state.kind==="vending"?"—":
+    byId("radar-stock-checked").textContent = state.kind==="vending" || unresolvedMartMap?"—":
       hasResults ? String(inStockStores.length) : "—";
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
