@@ -2,6 +2,7 @@
 
 (function () {
   const ERA_ORDER = Object.freeze(["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"]);
+  const ERA_RANK = Object.freeze(Object.fromEntries(ERA_ORDER.map((era, index) => [era, index])));
   const ERA_LABELS = Object.freeze({
     ORIGIN: "오리지널",
     ADV: "ADV",
@@ -616,20 +617,22 @@
   }
 
   function filteredCards() {
-    return targetCards()
-      .filter((item) => state.era === "ALL" || item.era === state.era)
-      .filter((item) => state.setCode === "ALL" || item.setCode === state.setCode)
-      .filter((item) => {
-        if (state.status === "owned") return Boolean(item.card.owned);
-        if (state.status === "missing") return !item.card.owned;
-        return true;
-      })
-      .sort((left, right) => {
-        const eraDiff = ERA_ORDER.indexOf(left.era) - ERA_ORDER.indexOf(right.era);
-        if (eraDiff) return eraDiff;
-        if (left.groupIndex !== right.groupIndex) return left.groupIndex - right.groupIndex;
-        return cardNumber(left.card) - cardNumber(right.card);
-      });
+    // 31차: one pass and a precomputed era lookup avoid repeated arrays
+    // and ERA_ORDER.indexOf calls while filtering 20k+ cards.
+    const filtered = [];
+    for (const item of targetCards()) {
+      if (state.era !== "ALL" && item.era !== state.era) continue;
+      if (state.setCode !== "ALL" && item.setCode !== state.setCode) continue;
+      if (state.status === "owned" && !item.card.owned) continue;
+      if (state.status === "missing" && item.card.owned) continue;
+      filtered.push(item);
+    }
+    return filtered.sort((left, right) => {
+      const eraDiff = (ERA_RANK[left.era] ?? -1) - (ERA_RANK[right.era] ?? -1);
+      if (eraDiff) return eraDiff;
+      if (left.groupIndex !== right.groupIndex) return left.groupIndex - right.groupIndex;
+      return cardNumber(left.card) - cardNumber(right.card);
+    });
   }
 
   function updateSummary() {
@@ -766,6 +769,7 @@
     const image = document.createElement("img");
     image.className = "card-image";
     image.loading = "lazy";
+    image.decoding = "async";
     image.src = clean(card.image || card.originalImage);
     image.alt = `${clean(card.name || card.pokemonName || "포켓몬")} 카드`;
     image.addEventListener("error", () => article.classList.add("has-image-error"), { once: true });
