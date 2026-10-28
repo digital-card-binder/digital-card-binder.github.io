@@ -50,7 +50,9 @@ export function parseLotteMartProductHtml(html,{barcode,keyword,unit,storeCode}=
     const title=safe(block.match(/<div\s+class=["']prod-name["'][^>]*>([\s\S]*?)<\/div>/i)?.[1]||
       block.match(/<div\s+class=["']layer-head["'][^>]*>([\s\S]*?)<\/div>/i)?.[1]||"");
     if(!title||!compact(title).includes(compact(keyword))||
-      !/포켓몬|pokemon/i.test(title)||retailUnit(title)!==unit)continue;
+      !/포켓몬|pokemon/i.test(title)||
+      /빵|띠부씰|스티커|키링|슬리브|문구|교통카드|피규어|금액권|인형|스낵|젤리/.test(title)||
+      retailUnit(title)!==unit)continue;
     const countHtml=block.match(/<div\s+class=["']prod-count["'][^>]*>([\s\S]*?)<\/div>/i)?.[1]||"";
     const foundCode=countHtml.match(/<!--\s*(\d{8,14})\s*-->/)?.[1]||"";
     if(!foundCode||foundCode!==barcode)continue;
