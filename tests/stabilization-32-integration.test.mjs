@@ -91,7 +91,7 @@ test("32차: ownership save only commits local state after remote success, scann
  assert.match(custom,/customDexes: state\.dexes/);
 });
 test("32차: persisted user collections and card/audit sources are not modified by test-only workflow",()=>{
- const wf=read(".github/workflows/v29-v32-final-qa.yml");
+ const wf=read("docs/workflow-archive/20261028/v29-v32-final-qa.yml");
  assert.match(wf,/npm run site:prepare/);
  assert.match(wf,/npm test/);
  for(const prefix of ["data/","db/","firestore","android-app/","radar-service/"]){
