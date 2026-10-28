@@ -36,9 +36,9 @@ export async function readMartConnectivity({fetcher=fetch,now=()=>Date.now(),
       const label=/(euc-kr|cp949|ks_c_5601-1987)/i.test(type)?"euc-kr":"utf-8";
       const body=new TextDecoder(label).decode(raw);
       entry.status="reached";
-      entry.storeOptions=(body.match(/<option\\b[^>]*value=["']\\d{3,8}["']/gi)||[]).length;
-      entry.productRows=(body.match(/<div\\b[^>]*class=["'][^"']*\\bprod-box\\b/gi)||[]).length;
-      entry.stockLabels=(body.match(/<th\\b[^>]*>\\s*(?:[ㆍ·•]\\s*)?재고\\s*:/gi)||[]).length;
+      entry.storeOptions=(body.match(/<option\b[^>]*value=["']\d{3,8}["']/gi)||[]).length;
+      entry.productRows=(body.match(/<div\b[^>]*class=["'][^"']*\bprod-box\b/gi)||[]).length;
+      entry.stockLabels=(body.match(/<th\b[^>]*>\s*(?:[ㆍ·•]\s*)?재고\s*:/gi)||[]).length;
       // Counts describe the response markup, not actual stock or a card SKU match.
       return entry;
     }catch(error){
