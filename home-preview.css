@@ -3814,3 +3814,34 @@ body[data-page="dashboard"] :is(.home-feature-card,.home-community-banner,.home-
     transition:none!important;
   }
 }
+
+/* 29차: mobile layout QA fixes — no 130px phantom search overhang. */
+@media(max-width:690px){
+  body[data-page="dashboard"] .home-hero-copy,
+  body[data-page="dashboard"] .home-hero-panels,
+  body[data-page="dashboard"] .home-primary-actions{
+    min-width:0;
+    max-width:100%;
+  }
+  body[data-page="dashboard"] .home-search{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  body[data-page="dashboard"] .home-feature-content,
+  body[data-page="dashboard"] .home-feature-meta{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+  body[data-page="dashboard"] .home-feature-content > strong{
+    white-space:normal;
+    overflow-wrap:anywhere;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+  }
+  body[data-page="dashboard"] .home-mobile-tabbar{
+    max-width:100vw;
+  }
+}

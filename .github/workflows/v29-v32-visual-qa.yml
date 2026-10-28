@@ -1,0 +1,41 @@
+name: v29-v32 browser visual QA
+on:
+  push:
+    branches: [stabilization/v29-v32-final-quality-20261028]
+    paths:
+      - 'styles.css'
+      - 'home-preview.css'
+      - 'custom.css'
+      - 'ui-consistency.css'
+      - 'pokemon-search.css'
+      - 'scripts/qa-v29-v32-visual.mjs'
+      - '.github/workflows/v29-v32-visual-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install headless Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Serve checked-out files and audit actual desktop/mobile layout
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/dcb-qa-server.log 2>&1 &
+          sleep 2
+          node scripts/qa-v29-v32-visual.mjs
+      - name: Keep screenshots and report even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa-v29-v32
+          path: .artifacts/ui-v29-32/
+          if-no-files-found: warn
+          retention-days: 7
