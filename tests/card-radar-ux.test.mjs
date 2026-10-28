@@ -29,6 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
+    ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
     "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, state};",
     "})();",
@@ -1162,4 +1163,35 @@ test("Myeongdong Seven-Eleven publicly returned 30, 240, 30; parser and stock co
   state.pack="";
   const lookups=liveQueries();
   assert.deepEqual([...lookups].slice(0,4),["메가심포니아","사이버저지","와일드포스","조로아&조로아크"]);
+});
+
+test("Emart24 retries district when neighborhood search misses a stock-positive store",async()=>{
+  const urls=[];
+  const product="포켓몬)포켓몬카드(메가스타터세트 조로아&조로아크ex)";
+  const fakeFetch=async url=>{
+    urls.push(url);
+    const area=new URL(url).searchParams.get("storeKeyword");
+    const data={pluCd:"8800286279914",
+      productCandidates:[{pluCd:"8800286279914",goodsName:product}],
+      goodsInfo:{pluCd:"8800286279914",goodsName:product},
+      stores:area==="양양"?[{
+        bizNo:"27927",storeName:"양양물치항점",
+        latitude:38.1501,longitude:128.6001,bizQty:1}]:[],
+      nearbyStores:[]};
+    return {success:true,data};
+  };
+  const {state,fetchLiveInventory,mergeInventory,inventoryLabel}=harness({
+    mockFetch:fakeFetch,stubView:true,district:"양양"
+  });
+  state.center={lat:38.15,lng:128.60};state.radiusKm=10;
+  state.progress={completed:0,total:1,successes:0,failures:0,active:true};
+  await fetchLiveInventory([{provider:"emart24",keyword:"조로아&조로아크"}],
+    Promise.resolve("물치리"));
+  assert.deepEqual(urls.map(url=>new URL(url).searchParams.get("storeKeyword")),
+    ["물치리","양양"]);
+  assert.equal(state.inventory.length,1);
+  const joined=mergeInventory([]);
+  assert.equal(joined.length,1);
+  assert.equal(inventoryLabel(joined[0]).known,true);
+  assert.match(inventoryLabel(joined[0]).message,/1개/);
 });
