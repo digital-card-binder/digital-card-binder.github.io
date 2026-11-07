@@ -4,6 +4,7 @@
   const EEVEE_MODE = new URL(window.location.href).searchParams.get("eevee") === "1";
   const DATA_URL = EEVEE_MODE ? "./data/eevee-dex.json?v=20261014" : "./data/art-themes.json?v=20261005-regular-rarity";
   const THEME_DESCRIPTIONS = Object.freeze({
+    crying: "울거나 슬프고, 속상하거나 외로워 보이는 한국판 포켓몬 카드의 일러스트를 모았습니다.",
     sleeping: "잠들거나 느긋하게 쉬는 포켓몬이 등장하는 카드를 모은 테마 도감입니다.",
     connected: "여러 장을 나란히 놓았을 때 하나의 풍경이나 이야기가 이어지는 카드를 모았습니다.",
     evolution: "진화 전후의 모습이 성장과 시간의 흐름으로 이어지는 카드를 모았습니다.",
@@ -357,6 +358,30 @@
       if (!response.ok) throw new Error(`${DATA_URL} ${response.status}`);
       dataset = await response.json();
       if (!EEVEE_MODE) {
+        // Load supplemental Korean-verified themes without rewriting the 16MB
+        // legacy catalog or changing any existing ownership identity.
+        try {
+          const extraResponse = await fetch("./data/art-themes-crying.json?v=20261108", { cache: "no-store" });
+          if (extraResponse.ok) {
+            const extra = await extraResponse.json();
+            if (extra?.group?.code === "crying" && Array.isArray(extra.group.cards)
+                && extra.group.cards.length && !dataset.groups.some((group) => group.code === "crying")) {
+              const unique = new Set();
+              const valid = extra.group.cards.every((card) => {
+                const key = String(card.code || "").toLowerCase();
+                if (!key || unique.has(key) || !card.name || !card.image) return false;
+                unique.add(key);
+                return true;
+              });
+              if (valid) {
+                dataset.groups.push(extra.group);
+                dataset.sources = [...(dataset.sources || []), ...(extra.sources || [])];
+              }
+            }
+          }
+        } catch (extraError) {
+          console.warn("우는 포켓몬 테마 추가 데이터 확인 불가", extraError);
+        }
         const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017d", { cache: "no-store" });
         if (auditResponse.ok) storyReview = await auditResponse.json();
       }
