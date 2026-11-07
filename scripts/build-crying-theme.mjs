@@ -20,7 +20,7 @@ const seeds = [
 ];
 function getPrintedNo(card) {
   const str = String(card.code || "").split("_").slice(1).join("_");
-  return (str.match(/^(\\d{1,3})(?:\\/(\\d+))?/) || []).slice(1);
+  return (str.match(/^([0-9]{1,3})(?:[/]([0-9]+))?/) || []).slice(1);
 }
 const cards = [], used = new Set();
 for (const seed of seeds) {
