@@ -118,6 +118,7 @@
     { title: "도시 · 스트리트", href: "./art-themes.html?theme=street", kind: "art", theme: "street" },
     { title: "일하는 포켓몬", href: "./art-themes.html?theme=work", kind: "art", theme: "work" },
     { title: "카메오 · 숨은 포켓몬", href: "./art-themes.html?theme=cameo", kind: "art", theme: "cameo" },
+    { title: "우는 포켓몬 도감", href: "./art-themes.html?theme=crying", kind: "supplement" },
   ]);
   const elements = {
     headerChip: document.querySelector(".header-chip"),
