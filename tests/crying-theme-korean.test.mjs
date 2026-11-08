@@ -15,7 +15,7 @@ test("source counts are grounded and do not imply all 94 Illudex entries were ex
 test("crying theme only includes unique identified Korean master prints", () => {
   assert.equal(data.group.code, "crying");
   assert.equal(data.group.name, "우는 포켓몬 도감");
-  assert.equal(data.group.cards.length, 29);
+  assert.equal(data.group.cards.length, 33);
   const ids = new Set();
   for (const card of data.group.cards) {
     assert.ok(card.code && !ids.has(card.code));
@@ -42,7 +42,7 @@ test("site adds supplemental theme before applying existing account ownership", 
 
 
 test("new matches retain first nine ownership positions and trace exact image or original print", () => {
-  const originalKeys = ["SV1V_086","SV1V_088","SV2D_075","S12A_196","S10A_055","S10A_056","S10A_057","SV6_104","M6A_028"];
+  const originalKeys = ["SV1V_086","SV1V_088","SV2D_075","S12A_196","S10A_055","S10A_056","S10A_057","SV6_104","M6A_022"];
   assert.deepEqual(data.group.cards.slice(0,9).map(c=>c.code), originalKeys);
   const visual = read("data/audits/crying-theme-image-similarity-20261108.json");
   const visualIds = new Set(visual.items.flatMap(i=>(i.top||[]).filter(c=>i.englishImageDownloaded
@@ -50,14 +50,20 @@ test("new matches retain first nine ownership positions and trace exact image or
     && Math.max(c.scoreArtCorrelation,c.scoreFullCorrelation)>=0.60).map(c=>c.key)));
   const printMap = read("data/audits/crying-theme-korean-original-print-mappings-20261108.json");
   const printIds = new Set(printMap.mappings.map(m=>m.set.toUpperCase()+"_"+m.no));
+  const illudexMap = read("data/audits/crying-theme-illudex-original-print-mappings-20261108.json");
+  const illudexIds = new Set(illudexMap.mappings.map(m=>m.set.toUpperCase()+"_"+m.no));
+  const oldPikachu = data.group.cards[8];
+  assert.equal(oldPikachu.code,"M6A_022");
+  assert.equal(oldPikachu.meta,"M6A_028", "historical ownership key must survive artwork correction");
+  assert.equal(oldPikachu.legacyIdentityCode,"M6A_028");
   const seen=new Set(originalKeys);
   for (const c of data.group.cards.slice(9)) {
     assert.ok(!seen.has(c.code),"duplicate "+c.code);
     seen.add(c.code);
-    assert.ok(visualIds.has(c.code)||printIds.has(c.code),c.code+" has no artwork or original-print evidence");
-    assert.match(c.evidence,/화상 특징점 대조|동일 일본판 원본 인쇄/,c.code);
+    assert.ok(visualIds.has(c.code)||printIds.has(c.code)||illudexIds.has(c.code),c.code+" has no artwork or original-print evidence");
+    assert.match(c.evidence,/화상 특징점 대조|동일 일본판 원본 인쇄|Illudex의 감정 분류/,c.code);
   }
   assert.equal(audit.priorVerifiedCards,9);
-  assert.equal(audit.newlyVerifiedCardPrints,20);
+  assert.equal(audit.newlyVerifiedCardPrints,24);
   assert.equal(visual.network.downloadedKorean,236);
 });
