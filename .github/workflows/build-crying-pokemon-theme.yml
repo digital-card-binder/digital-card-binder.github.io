@@ -1,10 +1,12 @@
 name: Build Korean crying Pokémon theme
 on:
   push:
-    branches: ['feature/crying-pokemon-theme-20261108']
+    branches: ['feature/crying-pokemon-pass2-20261108']
     paths:
       - '.github/workflows/build-crying-pokemon-theme.yml'
       - 'scripts/build-crying-theme.mjs'
+      - 'scripts/audit-crying-theme-candidates-20261108.mjs'
+      - 'scripts/compare-crying-reference-art.py'
       - 'data/audits/crying-theme-reference-pool-20261108.json'
       - 'art-themes.js'
       - 'dashboard.js'
@@ -22,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: feature/crying-pokemon-theme-20261108
+          ref: feature/crying-pokemon-pass2-20261108
           persist-credentials: true
       - uses: actions/setup-node@v4
         with:
@@ -35,6 +37,12 @@ jobs:
       - run: npm ci
       - name: Select only verified Korean cards from existing master database
         run: node scripts/build-crying-theme.mjs
+      - name: Enumerate all overseas references against Korean master without automatic acceptance
+        run: node scripts/audit-crying-theme-candidates-20261108.mjs
+      - name: Install image comparison dependencies
+        run: python3 -m pip install --quiet --disable-pip-version-check numpy pillow requests opencv-python-headless
+      - name: Score Korean card artwork against English originals
+        run: python3 scripts/compare-crying-reference-art.py
       - name: Refresh catalog and asset cache versions
         run: npm run site:prepare
       - run: node --test tests/crying-theme-korean.test.mjs
@@ -44,8 +52,8 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/art-themes-crying.json data/audits/crying-theme-korean-matches-20261108.json
+          git add data/art-themes-crying.json data/audits/crying-theme-korean-matches-20261108.json data/audits/crying-theme-all-candidate-index-20261108.json data/audits/crying-theme-image-similarity-20261108.json
           git add -u
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Build verified Korean crying Pokémon theme and sync site versions"
-          git push origin HEAD:feature/crying-pokemon-theme-20261108
+          git push origin HEAD:feature/crying-pokemon-pass2-20261108

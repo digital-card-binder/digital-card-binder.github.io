@@ -1,0 +1,728 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-08",
+  "purpose": "Exhaustively disposition each of 35 primary sad Pokémon foreign references, document overlapping secondary and remaining Illudex uncertainty",
+  "counts": {
+    "primary": 35,
+    "primaryDisposition": {
+      "verified_same_art_in_korean_master": 15,
+      "legacy_registration_pending_identical_art_proof": 1,
+      "none_of_current_master_images_matched": 13,
+      "verified_japanese_original_and_korean_print": 5,
+      "foreign_image_unavailable": 1
+    },
+    "secondary": 31,
+    "secondaryMatchedBySpeciesAndPrintedNumber": 30,
+    "secondaryOnly": 1,
+    "illudexClaimed": 94,
+    "illudexWithNamedEntries": 42,
+    "illudexStillNotEnumerated": 52
+  },
+  "secondaryOnly": [
+    {
+      "nameEn": "Psyduck",
+      "setEn": "Japanese PokeKyun Promo",
+      "numberEn": "XY-P"
+    }
+  ],
+  "policy": {
+    "neverClaimNoKoreanReleaseFromMissingMasterArt": true,
+    "doNotIncludeTrainerCardsMerelyBecauseTheyAppearOnOverseasList": true,
+    "doNotAutoAcceptSamePokemonWithoutIdenticalArt": true
+  },
+  "primary": [
+    {
+      "refIndex": 1,
+      "nameEn": "Sandygast",
+      "foreignSet": "Paldea Evolved",
+      "foreignNumber": "214/193",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV2D_075"
+      ],
+      "koreanNameCandidateCount": 14,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 2,
+      "nameEn": "Drowzee",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "210/198",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV1V_086"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 3,
+      "nameEn": "Mabosstiff",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "218/198",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV1V_088"
+      ],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 4,
+      "nameEn": "Hisuian Goodra",
+      "foreignSet": "Crown Zenith",
+      "foreignNumber": "GG21",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S12A_196"
+      ],
+      "koreanNameCandidateCount": 3,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 5,
+      "nameEn": "Hisuian Goodra VSTAR",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "136/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S10A_057"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 6,
+      "nameEn": "Hisuian Goodra V",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "135/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S10A_056"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 7,
+      "nameEn": "Pikachu",
+      "foreignSet": "30th Celebration",
+      "foreignNumber": "028/128",
+      "status": "legacy_registration_pending_identical_art_proof",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 104,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 8,
+      "nameEn": "Hisuian Goodra",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "134/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S12A_114",
+        "S10A_055"
+      ],
+      "koreanNameCandidateCount": 3,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 9,
+      "nameEn": "Sobble",
+      "foreignSet": "SWSH Black Star Promos",
+      "foreignNumber": "SWSH073",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 10,
+      "nameEn": "Mimikyu",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "080/196",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S11_050"
+      ],
+      "koreanNameCandidateCount": 15,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 11,
+      "nameEn": "Mimikyu",
+      "foreignSet": "Cosmic Eclipse",
+      "foreignNumber": "96/236",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SM11B_028"
+      ],
+      "koreanNameCandidateCount": 15,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 12,
+      "nameEn": "Lombre",
+      "foreignSet": "Sandstorm",
+      "foreignNumber": "45/100",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 8,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 13,
+      "nameEn": "Wooper",
+      "foreignSet": "Aquapolis",
+      "foreignNumber": "66/147",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 10,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 14,
+      "nameEn": "Misty's Tears",
+      "foreignSet": "Gym Challenge",
+      "foreignNumber": "118/132",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 0,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 15,
+      "nameEn": "Psyduck",
+      "foreignSet": "Ascended Heroes",
+      "foreignNumber": "39/217",
+      "status": "foreign_image_unavailable",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 19,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 16,
+      "nameEn": "Smoliv",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "021/198",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "SV1S_006"
+      ],
+      "koreanNameCandidateCount": 8,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 17,
+      "nameEn": "Litten",
+      "foreignSet": "Silver Tempest",
+      "foreignNumber": "030/195",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S12_015"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 18,
+      "nameEn": "Wishiwashi",
+      "foreignSet": "Darkness Ablaze",
+      "foreignNumber": "050/189",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S2A_024"
+      ],
+      "koreanNameCandidateCount": 11,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 19,
+      "nameEn": "Sobble",
+      "foreignSet": "Sword & Shield Base",
+      "foreignNumber": "054/202",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S1W_017"
+      ],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 20,
+      "nameEn": "Cubone",
+      "foreignSet": "Forbidden Light",
+      "foreignNumber": "57/131",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SMK_012",
+        "SM6_041",
+        "SM8B_053"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 21,
+      "nameEn": "Rockruff",
+      "foreignSet": "Forbidden Light",
+      "foreignNumber": "75/131",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SM8B_059",
+        "SM6_052"
+      ],
+      "koreanNameCandidateCount": 22,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 22,
+      "nameEn": "Trubbish",
+      "foreignSet": "BREAKpoint",
+      "foreignNumber": "56/122",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY_049",
+        "XY9_039"
+      ],
+      "koreanNameCandidateCount": 22,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 23,
+      "nameEn": "Elgyem",
+      "foreignSet": "BREAKthrough",
+      "foreignNumber": "73/162",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY8-BB_029"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 24,
+      "nameEn": "Cubone",
+      "foreignSet": "BREAKthrough",
+      "foreignNumber": "77/162",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY8-BR_034",
+        "RBD_005",
+        "CP4_068"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 25,
+      "nameEn": "Natu",
+      "foreignSet": "Legendary Treasures",
+      "foreignNumber": "55/113",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "EBB_046"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 26,
+      "nameEn": "Bonsly",
+      "foreignSet": "Diamond & Pearl Base",
+      "foreignNumber": "71/130",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "BS6_042"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 27,
+      "nameEn": "Electabuzz",
+      "foreignSet": "Diamond & Pearl Base",
+      "foreignNumber": "81/130",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 21,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 28,
+      "nameEn": "Smoochum δ",
+      "foreignSet": "Dragon Frontiers",
+      "foreignNumber": "64/101",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 29,
+      "nameEn": "Omanyte",
+      "foreignSet": "Legend Maker",
+      "foreignNumber": "60/92",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 4,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 30,
+      "nameEn": "Drowzee",
+      "foreignSet": "Delta Species",
+      "foreignNumber": "67/113",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 31,
+      "nameEn": "Cubone",
+      "foreignSet": "FireRed & LeafGreen",
+      "foreignNumber": "60/112",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 32,
+      "nameEn": "Cubone",
+      "foreignSet": "Expedition Base Set",
+      "foreignNumber": "103/165",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 33,
+      "nameEn": "Ledyba",
+      "foreignSet": "Neo Destiny",
+      "foreignNumber": "71/105",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 5,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 34,
+      "nameEn": "Cubone",
+      "foreignSet": "Jungle",
+      "foreignNumber": "50/64",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 35,
+      "nameEn": "Recycle",
+      "foreignSet": "Fossil",
+      "foreignNumber": "61/62",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 1,
+      "foreignImageFetched": true
+    }
+  ],
+  "illudexNamedSources": [
+    {
+      "english": "Froslass",
+      "artist": "matazo",
+      "koreanName": "눈여아",
+      "koreanNameCandidates": 11,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Castaway",
+      "artist": "Kouki Saitou",
+      "koreanName": "표류자",
+      "koreanNameCandidates": 0,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Feebas",
+      "artist": "Tomokazu Komiya",
+      "koreanName": "빈티나",
+      "koreanNameCandidates": 16,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Drowzee",
+      "artist": "Tomokazu Komiya",
+      "koreanName": "슬리프",
+      "koreanNameCandidates": 17,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Misty's Tears",
+      "artist": "Ken Sugimori",
+      "koreanName": "이슬의 눈물",
+      "koreanNameCandidates": 0,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Persian",
+      "artist": "Whisker",
+      "koreanName": "페르시온",
+      "koreanNameCandidates": 15,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Zoroark",
+      "artist": "Iwamoto05",
+      "koreanName": "조로아크",
+      "koreanNameCandidates": 19,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Team Rocket's Weezing",
+      "artist": "Yukihiro Tada",
+      "koreanName": "로켓단의 또도가스",
+      "koreanNameCandidates": 2,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Cynthia's Roserade",
+      "artist": "rika",
+      "koreanName": "난천의 로즈레이드",
+      "koreanNameCandidates": 3,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Cubone",
+      "artist": "sowsow",
+      "koreanName": "탕구리",
+      "koreanNameCandidates": 17,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Trubbish",
+      "artist": "OOYAMA",
+      "koreanName": "깨봉이",
+      "koreanNameCandidates": 22,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Flabébé",
+      "artist": "tetsuya koizumi",
+      "koreanName": "플라베베",
+      "koreanNameCandidates": 12,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Chatot",
+      "artist": "sui",
+      "koreanName": "페라페",
+      "koreanNameCandidates": 13,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Piloswine",
+      "artist": "Shinya Komatsu",
+      "koreanName": "메꾸리",
+      "koreanNameCandidates": 8,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Spikemuth",
+      "artist": "5ban Graphics",
+      "koreanName": "스파이크마을",
+      "koreanNameCandidates": 1,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Ralts",
+      "artist": "Aya Kusube",
+      "koreanName": "랄토스",
+      "koreanNameCandidates": 28,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Litwick",
+      "artist": "Mitsuhiro Arita",
+      "koreanName": "불켜미",
+      "koreanNameCandidates": 21,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Houndstone",
+      "artist": "matazo",
+      "koreanName": "묘두기",
+      "koreanNameCandidates": 6,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Beldum",
+      "artist": "toi8",
+      "koreanName": "메탕",
+      "koreanNameCandidates": 15,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Gloom",
+      "artist": "Ken Sugimori",
+      "koreanName": "냄새꼬",
+      "koreanNameCandidates": 14,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Cottonee",
+      "artist": "Megumi Mizutani",
+      "koreanName": "소미안",
+      "koreanNameCandidates": 18,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Drifblim",
+      "artist": "Kanako Eo",
+      "koreanName": "둥실라이드",
+      "koreanNameCandidates": 13,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Shuppet",
+      "artist": "Miki Tanaka",
+      "koreanName": "어둠대신",
+      "koreanNameCandidates": 12,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Duskull",
+      "artist": "Ken Sugimori",
+      "koreanName": "해골몽",
+      "koreanNameCandidates": 14,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Aron",
+      "artist": "Tomokazu Komiya",
+      "koreanName": "가보리",
+      "koreanNameCandidates": 13,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Dusclops",
+      "artist": "miki kudo",
+      "koreanName": "미라몽",
+      "koreanNameCandidates": 14,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Elgyem",
+      "artist": "Aya Kusube",
+      "koreanName": "리그레",
+      "koreanNameCandidates": 12,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Froslass",
+      "artist": "TOKIYA",
+      "koreanName": "눈여아",
+      "koreanNameCandidates": 11,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Duskull",
+      "artist": "match",
+      "koreanName": "해골몽",
+      "koreanNameCandidates": 14,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Shuppet",
+      "artist": "OKACHEKE",
+      "koreanName": "어둠대신",
+      "koreanNameCandidates": 12,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Grusha",
+      "artist": "DOM",
+      "koreanName": "그루샤",
+      "koreanNameCandidates": 3,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Galarian Articuno V",
+      "artist": "Uta",
+      "koreanName": "가라르 프리져 V",
+      "koreanNameCandidates": 7,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Glaceon V",
+      "artist": "Narumi Sato",
+      "koreanName": "글레이시아 V",
+      "koreanNameCandidates": 5,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Gothita",
+      "artist": "Kanami Ogata",
+      "koreanName": "고디탱",
+      "koreanNameCandidates": 13,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Morty's Conviction",
+      "artist": "Megumi Mizutani",
+      "koreanName": "유빈의 집념",
+      "koreanNameCandidates": 0,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Spewpa",
+      "artist": "kamonabe",
+      "koreanName": "분떠도리",
+      "koreanNameCandidates": 6,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Mandibuzz",
+      "artist": "Bun Toujo",
+      "koreanName": "버랜지나",
+      "koreanNameCandidates": 11,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Feebas",
+      "artist": "Kuroimori",
+      "koreanName": "빈티나",
+      "koreanNameCandidates": 16,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Ting-Lu ex",
+      "artist": "KEIICHIRO ITO",
+      "koreanName": "딩루 ex",
+      "koreanNameCandidates": 6,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Shadow Rider Calyrex V",
+      "artist": "kodama",
+      "koreanName": "흑마 버드렉스 V",
+      "koreanNameCandidates": 7,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Accelgor",
+      "artist": "Taiga Kasai",
+      "koreanName": "어지리더",
+      "koreanNameCandidates": 10,
+      "exactArtMatch": "not_yet_individually_verified"
+    },
+    {
+      "english": "Mienshao",
+      "artist": "Atsuya Uki",
+      "koreanName": "비조도",
+      "koreanNameCandidates": 12,
+      "exactArtMatch": "not_yet_individually_verified"
+    }
+  ]
+}

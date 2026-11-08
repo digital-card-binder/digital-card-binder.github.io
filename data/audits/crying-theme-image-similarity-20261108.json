@@ -1,0 +1,3389 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-08",
+  "method": "SIFT keypoint geometric inliers + normalized image/art correlations; all output is tentative and requires identity review",
+  "network": {
+    "requestedForeign": 33,
+    "downloadedForeign": 28,
+    "requestedKorean": 236,
+    "downloadedKorean": 236
+  },
+  "referenceCount": 36,
+  "knownControlKeys": {
+    "Sandygast|Paldea Evolved": "SV2D_075",
+    "Drowzee|Scarlet & Violet Base": "SV1V_086",
+    "Mabosstiff|Scarlet & Violet Base": "SV1V_088",
+    "Hisuian Goodra|Crown Zenith": "S12A_196",
+    "Hisuian Goodra|Lost Origin": "S10A_055",
+    "Hisuian Goodra V|Lost Origin": "S10A_056",
+    "Hisuian Goodra VSTAR|Lost Origin": "S10A_057"
+  },
+  "items": [
+    {
+      "index": 1,
+      "english": "Sandygast",
+      "englishSet": "Paldea Evolved",
+      "englishNumber": "214/193",
+      "koreanName": "모래꿍",
+      "numberOfKoreanNameCandidates": 14,
+      "englishImageUrl": "https://images.pokemontcg.io/sv2/214.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 14,
+      "top": [
+        {
+          "key": "SV2D_075",
+          "name": "모래꿍",
+          "set": "sv2D",
+          "setName": "클레이버스트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_075.png",
+          "score": 123.29,
+          "best": {
+            "mode": "art",
+            "correlation": 0.8945,
+            "edge": 0.1732,
+            "keypointInliers": 236,
+            "keypointInlierFraction": 0.992,
+            "keypointGoodMatches": 238
+          },
+          "scoreArtCorrelation": 0.8945,
+          "scoreFullCorrelation": 0.88,
+          "maxInliers": 236
+        },
+        {
+          "key": "S11_063",
+          "name": "모래꿍",
+          "set": "s11",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S11/S11_063.webp",
+          "score": 9.09,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2991,
+            "edge": 0.0546,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.0228,
+          "scoreFullCorrelation": 0.2991,
+          "maxInliers": 4
+        },
+        {
+          "key": "SV8_056",
+          "name": "모래꿍",
+          "set": "sv8",
+          "setName": "초전브레이커",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV8/SV8_056.png",
+          "score": 7.93,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0521,
+            "edge": 0.0351,
+            "keypointInliers": 12,
+            "keypointInlierFraction": 0.632,
+            "keypointGoodMatches": 19
+          },
+          "scoreArtCorrelation": -0.0843,
+          "scoreFullCorrelation": -0.0521,
+          "maxInliers": 12
+        },
+        {
+          "key": "SV2D_029",
+          "name": "모래꿍",
+          "set": "sv2D",
+          "setName": "클레이버스트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_029.png",
+          "score": 6.05,
+          "best": {
+            "mode": "full",
+            "correlation": -0.2822,
+            "edge": 0.0713,
+            "keypointInliers": 8,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 12
+          },
+          "scoreArtCorrelation": -0.2445,
+          "scoreFullCorrelation": -0.2822,
+          "maxInliers": 8
+        },
+        {
+          "key": "SM1M_033",
+          "name": "모래꿍",
+          "set": "sm1M",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1M/SM1M_033.png",
+          "score": 5.31,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0864,
+            "edge": 0.0479,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": -0.0214,
+          "scoreFullCorrelation": 0.0864,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM4+_059",
+          "name": "모래꿍",
+          "set": "sm4+",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_059.png",
+          "score": 4.67,
+          "best": {
+            "mode": "full",
+            "correlation": 0.06,
+            "edge": 0.0504,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": -0.0403,
+          "scoreFullCorrelation": 0.06,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM1+_034",
+          "name": "모래꿍",
+          "set": "sm1+",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1+/SM1plus_034.png",
+          "score": 4.2,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0892,
+            "edge": 0.0467,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": -0.0208,
+          "scoreFullCorrelation": 0.0892,
+          "maxInliers": 3
+        }
+      ],
+      "controlKnownKoreanKey": "SV2D_075",
+      "controlKnownRank": 1,
+      "controlKnownScore": 123.29
+    },
+    {
+      "index": 2,
+      "english": "Drowzee",
+      "englishSet": "Scarlet & Violet Base",
+      "englishNumber": "210/198",
+      "koreanName": "슬리프",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/sv1/210.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "SV1V_086",
+          "name": "슬리프",
+          "set": "sv1V",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_086.png",
+          "score": 126.22,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9345,
+            "edge": 0.4755,
+            "keypointInliers": 209,
+            "keypointInlierFraction": 0.981,
+            "keypointGoodMatches": 213
+          },
+          "scoreArtCorrelation": 0.9345,
+          "scoreFullCorrelation": 0.8634,
+          "maxInliers": 209
+        },
+        {
+          "key": "CLK_011",
+          "name": "슬리프",
+          "set": "CLK",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/3456ff0012b8706ddf4c247d45d0fd20.png",
+          "score": 5.19,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0941,
+            "edge": 0.0165,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.0576,
+          "scoreFullCorrelation": 0.0941,
+          "maxInliers": 4
+        },
+        {
+          "key": "CP6_049",
+          "name": "슬리프",
+          "set": "CP6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP6/CP6_049.jpg",
+          "score": 4.8,
+          "best": {
+            "mode": "art",
+            "correlation": 0.1879,
+            "edge": 0.0101,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 1
+          },
+          "scoreArtCorrelation": 0.1879,
+          "scoreFullCorrelation": 0.0095,
+          "maxInliers": 0
+        },
+        {
+          "key": "XY3_033",
+          "name": "슬리프",
+          "set": "XY3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY3/XY3_033.jpg",
+          "score": 3.98,
+          "best": {
+            "mode": "art",
+            "correlation": 0.1561,
+            "edge": 0.0078,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 1
+          },
+          "scoreArtCorrelation": 0.1561,
+          "scoreFullCorrelation": 0.0417,
+          "maxInliers": 0
+        },
+        {
+          "key": "SM9B_019",
+          "name": "슬리프",
+          "set": "sm9b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_019.png",
+          "score": 3.6,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0619,
+            "edge": 0.0053,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.0884,
+          "scoreFullCorrelation": 0.0619,
+          "maxInliers": 4
+        },
+        {
+          "key": "BASE_049",
+          "name": "슬리프",
+          "set": "BASE",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/cb83338399661cc7fffb884194123d77.png",
+          "score": 3.43,
+          "best": {
+            "mode": "art",
+            "correlation": 0.1354,
+            "edge": 0.0045,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 2
+          },
+          "scoreArtCorrelation": 0.1354,
+          "scoreFullCorrelation": -0.0524,
+          "maxInliers": 0
+        },
+        {
+          "key": "SMA_019",
+          "name": "슬리프",
+          "set": "SMA",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/a4674fcf8fcd06bf14b2ecb38ab34f17.png",
+          "score": 2.74,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1057,
+            "edge": 0.0094,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 4
+          },
+          "scoreArtCorrelation": 0.0662,
+          "scoreFullCorrelation": 0.1057,
+          "maxInliers": 0
+        }
+      ],
+      "controlKnownKoreanKey": "SV1V_086",
+      "controlKnownRank": 1,
+      "controlKnownScore": 126.22
+    },
+    {
+      "index": 3,
+      "english": "Mabosstiff",
+      "englishSet": "Scarlet & Violet Base",
+      "englishNumber": "218/198",
+      "koreanName": "마피티프",
+      "numberOfKoreanNameCandidates": 7,
+      "englishImageUrl": "https://images.pokemontcg.io/sv1/218.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 7,
+      "top": [
+        {
+          "key": "SV1V_088",
+          "name": "마피티프",
+          "set": "sv1V",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_088.png",
+          "score": 129.02,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9534,
+            "edge": 0.5984,
+            "keypointInliers": 256,
+            "keypointInlierFraction": 0.992,
+            "keypointGoodMatches": 258
+          },
+          "scoreArtCorrelation": 0.9534,
+          "scoreFullCorrelation": 0.8468,
+          "maxInliers": 256
+        },
+        {
+          "key": "SV2P_049",
+          "name": "마피티프",
+          "set": "sv2P",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2P/SV2P_049.png",
+          "score": 10.66,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1226,
+            "edge": 0.0596,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 1.0,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.0967,
+          "scoreFullCorrelation": 0.1226,
+          "maxInliers": 7
+        },
+        {
+          "key": "M5_056",
+          "name": "마피티프",
+          "set": "m5",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M5/M5_056.png",
+          "score": 8.03,
+          "best": {
+            "mode": "full",
+            "correlation": 0.089,
+            "edge": 0.0659,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.857,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.0919,
+          "scoreFullCorrelation": 0.089,
+          "maxInliers": 6
+        },
+        {
+          "key": "SV4A_296",
+          "name": "마피티프",
+          "set": "sv4a",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/4e5938236557b231c2a858ebc423deaf.png",
+          "score": 6.13,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1302,
+            "edge": 0.0623,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.375,
+            "keypointGoodMatches": 16
+          },
+          "scoreArtCorrelation": 0.1653,
+          "scoreFullCorrelation": 0.1302,
+          "maxInliers": 6
+        },
+        {
+          "key": "SV4A_126",
+          "name": "마피티프",
+          "set": "sv4a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_126.png",
+          "score": 5.32,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0447,
+            "edge": 0.0602,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.6,
+            "keypointGoodMatches": 10
+          },
+          "scoreArtCorrelation": -0.0119,
+          "scoreFullCorrelation": 0.0447,
+          "maxInliers": 6
+        },
+        {
+          "key": "SV1V_055",
+          "name": "마피티프",
+          "set": "sv1V",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_055.png",
+          "score": 4.75,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0458,
+            "edge": 0.0606,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 12
+          },
+          "scoreArtCorrelation": -0.0123,
+          "scoreFullCorrelation": 0.0458,
+          "maxInliers": 6
+        },
+        {
+          "key": "SVD_077",
+          "name": "마피티프",
+          "set": "SVD",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/ef21d11a1f8de1967db2196ae8722fbc.png",
+          "score": 3.91,
+          "best": {
+            "mode": "full",
+            "correlation": 0.049,
+            "edge": 0.0562,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.353,
+            "keypointGoodMatches": 17
+          },
+          "scoreArtCorrelation": -0.0099,
+          "scoreFullCorrelation": 0.049,
+          "maxInliers": 6
+        }
+      ],
+      "controlKnownKoreanKey": "SV1V_088",
+      "controlKnownRank": 1,
+      "controlKnownScore": 129.02
+    },
+    {
+      "index": 4,
+      "english": "Hisuian Goodra",
+      "englishSet": "Crown Zenith",
+      "englishNumber": "GG21",
+      "koreanName": "히스이 미끄래곤",
+      "numberOfKoreanNameCandidates": 3,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh12pt5gg/GG21.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 3,
+      "top": [
+        {
+          "key": "S12A_196",
+          "name": "히스이 미끄래곤",
+          "set": "s12a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_196.webp",
+          "score": 125.33,
+          "best": {
+            "mode": "art",
+            "correlation": 0.8725,
+            "edge": 0.5513,
+            "keypointInliers": 144,
+            "keypointInlierFraction": 0.98,
+            "keypointGoodMatches": 147
+          },
+          "scoreArtCorrelation": 0.8725,
+          "scoreFullCorrelation": 0.8225,
+          "maxInliers": 144
+        },
+        {
+          "key": "S10A_055",
+          "name": "히스이 미끄래곤",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_055.webp",
+          "score": 6.84,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1374,
+            "edge": 0.0684,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.389,
+            "keypointGoodMatches": 18
+          },
+          "scoreArtCorrelation": 0.1926,
+          "scoreFullCorrelation": 0.1374,
+          "maxInliers": 7
+        },
+        {
+          "key": "S12A_114",
+          "name": "히스이 미끄래곤",
+          "set": "s12a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_114.webp",
+          "score": 6.37,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1375,
+            "edge": 0.0686,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.375,
+            "keypointGoodMatches": 16
+          },
+          "scoreArtCorrelation": 0.1921,
+          "scoreFullCorrelation": 0.1375,
+          "maxInliers": 6
+        }
+      ],
+      "controlKnownKoreanKey": "S12A_196",
+      "controlKnownRank": 1,
+      "controlKnownScore": 125.33
+    },
+    {
+      "index": 5,
+      "english": "Hisuian Goodra VSTAR",
+      "englishSet": "Lost Origin",
+      "englishNumber": "136/196",
+      "koreanName": "히스이 미끄래곤 VSTAR",
+      "numberOfKoreanNameCandidates": 2,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh11/136.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 2,
+      "top": [
+        {
+          "key": "S10A_057",
+          "name": "히스이 미끄래곤 VSTAR",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_057.webp",
+          "score": 122.99,
+          "best": {
+            "mode": "art",
+            "correlation": 0.854,
+            "edge": 0.4442,
+            "keypointInliers": 138,
+            "keypointInlierFraction": 0.972,
+            "keypointGoodMatches": 142
+          },
+          "scoreArtCorrelation": 0.854,
+          "scoreFullCorrelation": 0.8341,
+          "maxInliers": 138
+        },
+        {
+          "key": "S10A_091",
+          "name": "히스이 미끄래곤 VSTAR",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_091.webp",
+          "score": 8.88,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1031,
+            "edge": 0.0731,
+            "keypointInliers": 16,
+            "keypointInlierFraction": 0.348,
+            "keypointGoodMatches": 46
+          },
+          "scoreArtCorrelation": -0.0996,
+          "scoreFullCorrelation": 0.1031,
+          "maxInliers": 16
+        }
+      ],
+      "controlKnownKoreanKey": "S10A_057",
+      "controlKnownRank": 1,
+      "controlKnownScore": 122.99
+    },
+    {
+      "index": 6,
+      "english": "Hisuian Goodra V",
+      "englishSet": "Lost Origin",
+      "englishNumber": "135/196",
+      "koreanName": "히스이 미끄래곤 V",
+      "numberOfKoreanNameCandidates": 2,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh11/135.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 2,
+      "top": [
+        {
+          "key": "S10A_056",
+          "name": "히스이 미끄래곤 V",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_056.webp",
+          "score": 124.62,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9391,
+            "edge": 0.464,
+            "keypointInliers": 165,
+            "keypointInlierFraction": 0.965,
+            "keypointGoodMatches": 171
+          },
+          "scoreArtCorrelation": 0.9391,
+          "scoreFullCorrelation": 0.8192,
+          "maxInliers": 165
+        },
+        {
+          "key": "S10A_082",
+          "name": "히스이 미끄래곤 V",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_082.webp",
+          "score": 22.39,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2913,
+            "edge": 0.1012,
+            "keypointInliers": 26,
+            "keypointInlierFraction": 0.542,
+            "keypointGoodMatches": 48
+          },
+          "scoreArtCorrelation": 0.0607,
+          "scoreFullCorrelation": 0.2913,
+          "maxInliers": 26
+        }
+      ],
+      "controlKnownKoreanKey": "S10A_056",
+      "controlKnownRank": 1,
+      "controlKnownScore": 124.62
+    },
+    {
+      "index": 7,
+      "english": "Pikachu",
+      "englishSet": "30th Celebration",
+      "englishNumber": "028/128",
+      "koreanName": "피카츄",
+      "numberOfKoreanNameCandidates": 104,
+      "englishImageUrl": null,
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 8,
+      "english": "Hisuian Goodra",
+      "englishSet": "Lost Origin",
+      "englishNumber": "134/196",
+      "koreanName": "히스이 미끄래곤",
+      "numberOfKoreanNameCandidates": 3,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh11/134.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 3,
+      "top": [
+        {
+          "key": "S12A_114",
+          "name": "히스이 미끄래곤",
+          "set": "s12a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_114.webp",
+          "score": 118.74,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9247,
+            "edge": 0.4723,
+            "keypointInliers": 149,
+            "keypointInlierFraction": 0.909,
+            "keypointGoodMatches": 164
+          },
+          "scoreArtCorrelation": 0.9247,
+          "scoreFullCorrelation": 0.8494,
+          "maxInliers": 149
+        },
+        {
+          "key": "S10A_055",
+          "name": "히스이 미끄래곤",
+          "set": "s10a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10a/S10a_055.webp",
+          "score": 118.34,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9248,
+            "edge": 0.472,
+            "keypointInliers": 143,
+            "keypointInlierFraction": 0.905,
+            "keypointGoodMatches": 158
+          },
+          "scoreArtCorrelation": 0.9248,
+          "scoreFullCorrelation": 0.8494,
+          "maxInliers": 143
+        },
+        {
+          "key": "S12A_196",
+          "name": "히스이 미끄래곤",
+          "set": "s12a",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_196.webp",
+          "score": 8.75,
+          "best": {
+            "mode": "full",
+            "correlation": 0.144,
+            "edge": 0.0602,
+            "keypointInliers": 10,
+            "keypointInlierFraction": 0.455,
+            "keypointGoodMatches": 22
+          },
+          "scoreArtCorrelation": 0.1813,
+          "scoreFullCorrelation": 0.144,
+          "maxInliers": 10
+        }
+      ],
+      "controlKnownKoreanKey": "S10A_055",
+      "controlKnownRank": 2,
+      "controlKnownScore": 118.34
+    },
+    {
+      "index": 9,
+      "english": "Sobble",
+      "englishSet": "SWSH Black Star Promos",
+      "englishNumber": "SWSH073",
+      "koreanName": "울머기",
+      "numberOfKoreanNameCandidates": 7,
+      "englishImageUrl": "https://images.pokemontcg.io/swshp/SWSH073.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 7,
+      "top": [
+        {
+          "key": "S4A_039",
+          "name": "울머기",
+          "set": "s4a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_039.png",
+          "score": 28.95,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2161,
+            "edge": 0.1223,
+            "keypointInliers": 25,
+            "keypointInlierFraction": 0.893,
+            "keypointGoodMatches": 28
+          },
+          "scoreArtCorrelation": 0.0906,
+          "scoreFullCorrelation": 0.2161,
+          "maxInliers": 25
+        },
+        {
+          "key": "SI_116",
+          "name": "울머기",
+          "set": "SI",
+          "setName": "",
+          "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/638b92eb1edab36b.webp",
+          "score": 27.4,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2503,
+            "edge": 0.0973,
+            "keypointInliers": 22,
+            "keypointInlierFraction": 0.917,
+            "keypointGoodMatches": 24
+          },
+          "scoreArtCorrelation": 0.1032,
+          "scoreFullCorrelation": 0.2503,
+          "maxInliers": 22
+        },
+        {
+          "key": "S4A_224",
+          "name": "울머기",
+          "set": "s4a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_224.png",
+          "score": 27.32,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1867,
+            "edge": 0.1106,
+            "keypointInliers": 25,
+            "keypointInlierFraction": 0.862,
+            "keypointGoodMatches": 29
+          },
+          "scoreArtCorrelation": 0.0307,
+          "scoreFullCorrelation": 0.1867,
+          "maxInliers": 25
+        },
+        {
+          "key": "S5A_016",
+          "name": "울머기",
+          "set": "s5a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5a/S5a_016.png",
+          "score": 27.1,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2489,
+            "edge": 0.1002,
+            "keypointInliers": 24,
+            "keypointInlierFraction": 0.828,
+            "keypointGoodMatches": 29
+          },
+          "scoreArtCorrelation": 0.1024,
+          "scoreFullCorrelation": 0.2489,
+          "maxInliers": 24
+        },
+        {
+          "key": "S8B_036",
+          "name": "울머기",
+          "set": "s8b",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S8b/S8b_036.webp",
+          "score": 24.89,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2499,
+            "edge": 0.0998,
+            "keypointInliers": 21,
+            "keypointInlierFraction": 0.84,
+            "keypointGoodMatches": 25
+          },
+          "scoreArtCorrelation": 0.1026,
+          "scoreFullCorrelation": 0.2499,
+          "maxInliers": 21
+        },
+        {
+          "key": "S1W_017",
+          "name": "울머기",
+          "set": "s1W",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S1W/S1W_017.png",
+          "score": 21.91,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2161,
+            "edge": 0.1126,
+            "keypointInliers": 20,
+            "keypointInlierFraction": 0.769,
+            "keypointGoodMatches": 26
+          },
+          "scoreArtCorrelation": 0.0905,
+          "scoreFullCorrelation": 0.2161,
+          "maxInliers": 20
+        },
+        {
+          "key": "SA-W_007",
+          "name": "울머기",
+          "set": "SA-W",
+          "setName": "",
+          "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/eb3ee09eafd93b50.webp",
+          "score": 16.7,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1955,
+            "edge": 0.1105,
+            "keypointInliers": 17,
+            "keypointInlierFraction": 0.63,
+            "keypointGoodMatches": 27
+          },
+          "scoreArtCorrelation": 0.0577,
+          "scoreFullCorrelation": 0.1955,
+          "maxInliers": 17
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "english": "Mimikyu",
+      "englishSet": "Lost Origin",
+      "englishNumber": "080/196",
+      "koreanName": "따라큐",
+      "numberOfKoreanNameCandidates": 15,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh11/080.png",
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 11,
+      "english": "Mimikyu",
+      "englishSet": "Cosmic Eclipse",
+      "englishNumber": "96/236",
+      "koreanName": "따라큐",
+      "numberOfKoreanNameCandidates": 15,
+      "englishImageUrl": "https://images.pokemontcg.io/sm12/96.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 15,
+      "top": [
+        {
+          "key": "SM11B_028",
+          "name": "따라큐",
+          "set": "sm11b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_028.png",
+          "score": 121.21,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9185,
+            "edge": 0.6243,
+            "keypointInliers": 161,
+            "keypointInlierFraction": 0.92,
+            "keypointGoodMatches": 175
+          },
+          "scoreArtCorrelation": 0.9185,
+          "scoreFullCorrelation": 0.8926,
+          "maxInliers": 161
+        },
+        {
+          "key": "SM4+_043",
+          "name": "따라큐",
+          "set": "sm4+",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_043.png",
+          "score": 21.8,
+          "best": {
+            "mode": "full",
+            "correlation": 0.721,
+            "edge": 0.1217,
+            "keypointInliers": 8,
+            "keypointInlierFraction": 0.32,
+            "keypointGoodMatches": 25
+          },
+          "scoreArtCorrelation": 0.651,
+          "scoreFullCorrelation": 0.721,
+          "maxInliers": 8
+        },
+        {
+          "key": "SM2L_020",
+          "name": "따라큐",
+          "set": "sm2L",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_020.png",
+          "score": 18.78,
+          "best": {
+            "mode": "full",
+            "correlation": 0.5727,
+            "edge": 0.1234,
+            "keypointInliers": 10,
+            "keypointInlierFraction": 0.323,
+            "keypointGoodMatches": 31
+          },
+          "scoreArtCorrelation": 0.4772,
+          "scoreFullCorrelation": 0.5727,
+          "maxInliers": 10
+        },
+        {
+          "key": "SM8B_095",
+          "name": "따라큐",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_095.png",
+          "score": 15.21,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4457,
+            "edge": 0.1159,
+            "keypointInliers": 8,
+            "keypointInlierFraction": 0.364,
+            "keypointGoodMatches": 22
+          },
+          "scoreArtCorrelation": 0.3715,
+          "scoreFullCorrelation": 0.4457,
+          "maxInliers": 8
+        },
+        {
+          "key": "SM12A_063",
+          "name": "따라큐",
+          "set": "sm12a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_063.png",
+          "score": 15.06,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4471,
+            "edge": 0.0966,
+            "keypointInliers": 8,
+            "keypointInlierFraction": 0.364,
+            "keypointGoodMatches": 22
+          },
+          "scoreArtCorrelation": 0.4294,
+          "scoreFullCorrelation": 0.4471,
+          "maxInliers": 8
+        },
+        {
+          "key": "S3_042",
+          "name": "따라큐",
+          "set": "s3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3/S3_042.png",
+          "score": 14.6,
+          "best": {
+            "mode": "full",
+            "correlation": 0.5047,
+            "edge": 0.042,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.261,
+            "keypointGoodMatches": 23
+          },
+          "scoreArtCorrelation": 0.4685,
+          "scoreFullCorrelation": 0.5047,
+          "maxInliers": 6
+        },
+        {
+          "key": "S11_050",
+          "name": "따라큐",
+          "set": "s11",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S11/S11_050.webp",
+          "score": 12.29,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4156,
+            "edge": 0.0564,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.222,
+            "keypointGoodMatches": 27
+          },
+          "scoreArtCorrelation": 0.4016,
+          "scoreFullCorrelation": 0.4156,
+          "maxInliers": 6
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "english": "Lombre",
+      "englishSet": "Sandstorm",
+      "englishNumber": "45/100",
+      "koreanName": "로토스",
+      "numberOfKoreanNameCandidates": 8,
+      "englishImageUrl": "https://images.pokemontcg.io/ex2/45.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 8,
+      "top": [
+        {
+          "key": "XY5-BT_005",
+          "name": "로토스",
+          "set": "XY5-Bt",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_TS_005.jpg",
+          "score": 13.22,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4559,
+            "edge": 0.0111,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.286,
+            "keypointGoodMatches": 21
+          },
+          "scoreArtCorrelation": 0.127,
+          "scoreFullCorrelation": 0.4559,
+          "maxInliers": 6
+        },
+        {
+          "key": "BW7_018",
+          "name": "로토스",
+          "set": "BW7",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW7/bw7_018.jpg",
+          "score": 13.04,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4637,
+            "edge": 0.006,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.278,
+            "keypointGoodMatches": 18
+          },
+          "scoreArtCorrelation": 0.1817,
+          "scoreFullCorrelation": 0.4637,
+          "maxInliers": 5
+        },
+        {
+          "key": "BS4_009",
+          "name": "로토스",
+          "set": "BS4",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS4/bs4_ko_9.jpg",
+          "score": 11.23,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3924,
+            "edge": 0.035,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.1625,
+          "scoreFullCorrelation": 0.3924,
+          "maxInliers": 4
+        },
+        {
+          "key": "S7D_003",
+          "name": "로토스",
+          "set": "s7D",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S7/S7D_003.webp",
+          "score": 11.14,
+          "best": {
+            "mode": "art",
+            "correlation": 0.3731,
+            "edge": 0.0217,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.4,
+            "keypointGoodMatches": 10
+          },
+          "scoreArtCorrelation": 0.3731,
+          "scoreFullCorrelation": 0.2832,
+          "maxInliers": 4
+        },
+        {
+          "key": "SV9_022",
+          "name": "로토스",
+          "set": "sv9",
+          "setName": "배틀파트너즈",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_022.png",
+          "score": 10.77,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3858,
+            "edge": -0.0019,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.375,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.2867,
+          "scoreFullCorrelation": 0.3858,
+          "maxInliers": 3
+        },
+        {
+          "key": "MC_176",
+          "name": "로토스",
+          "set": "MC",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/4cd099ac68805a3b99e57f5b107e14c3.png",
+          "score": 10.34,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3846,
+            "edge": 0.0054,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.2784,
+          "scoreFullCorrelation": 0.3846,
+          "maxInliers": 2
+        },
+        {
+          "key": "S2_004",
+          "name": "로토스",
+          "set": "s2",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S2/S2_004.png",
+          "score": 7.98,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2774,
+            "edge": 0.0224,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.273,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.1684,
+          "scoreFullCorrelation": 0.2774,
+          "maxInliers": 3
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "english": "Wooper",
+      "englishSet": "Aquapolis",
+      "englishNumber": "66/147",
+      "koreanName": "우파",
+      "numberOfKoreanNameCandidates": 10,
+      "englishImageUrl": "https://images.pokemontcg.io/ecard2/66.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 10,
+      "top": [
+        {
+          "key": "BW8-BRN_010",
+          "name": "우파",
+          "set": "BW8-Brn",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW8/bw8_vn_010.jpg",
+          "score": 5.97,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2028,
+            "edge": -0.0014,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.3,
+            "keypointGoodMatches": 10
+          },
+          "scoreArtCorrelation": 0.167,
+          "scoreFullCorrelation": 0.2028,
+          "maxInliers": 3
+        },
+        {
+          "key": "SM8B_169",
+          "name": "우파",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_169.png",
+          "score": 5.96,
+          "best": {
+            "mode": "art",
+            "correlation": 0.2084,
+            "edge": 0.0178,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.286,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.2084,
+          "scoreFullCorrelation": 0.1789,
+          "maxInliers": 3
+        },
+        {
+          "key": "BS5_012",
+          "name": "우파",
+          "set": "BS5",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS5/bs5_ko_12.jpg",
+          "score": 5.47,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1657,
+            "edge": 0.0044,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.429,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": -0.0291,
+          "scoreFullCorrelation": 0.1657,
+          "maxInliers": 3
+        },
+        {
+          "key": "SM9A_021",
+          "name": "우파",
+          "set": "sm9a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9A/SM9a_021.png",
+          "score": 5.42,
+          "best": {
+            "mode": "art",
+            "correlation": 0.0723,
+            "edge": 0.0039,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.714,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.0723,
+          "scoreFullCorrelation": -0.0559,
+          "maxInliers": 5
+        },
+        {
+          "key": "SM6A_018",
+          "name": "우파",
+          "set": "sm6a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6A/SM6A_018.png",
+          "score": 4.03,
+          "best": {
+            "mode": "art",
+            "correlation": 0.0796,
+            "edge": 0.0036,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.0796,
+          "scoreFullCorrelation": -0.0081,
+          "maxInliers": 4
+        },
+        {
+          "key": "S3A_034",
+          "name": "우파",
+          "set": "s3a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_034.png",
+          "score": 3.86,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1115,
+            "edge": 0.0004,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.0505,
+          "scoreFullCorrelation": 0.1115,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM8B_023",
+          "name": "우파",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_023.png",
+          "score": 2.45,
+          "best": {
+            "mode": "art",
+            "correlation": 0.0961,
+            "edge": 0.0045,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 3
+          },
+          "scoreArtCorrelation": 0.0961,
+          "scoreFullCorrelation": 0.0506,
+          "maxInliers": 3
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "english": "Misty's Tears",
+      "englishSet": "Gym Challenge",
+      "englishNumber": "118/132",
+      "koreanName": "이슬의 눈물",
+      "numberOfKoreanNameCandidates": 0,
+      "englishImageUrl": "https://images.pokemontcg.io/gym2/118.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 15,
+      "english": "Psyduck",
+      "englishSet": "Ascended Heroes",
+      "englishNumber": "39/217",
+      "koreanName": "고라파덕",
+      "numberOfKoreanNameCandidates": 19,
+      "englishImageUrl": null,
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 16,
+      "english": "Smoliv",
+      "englishSet": "Scarlet & Violet Base",
+      "englishNumber": "021/198",
+      "koreanName": "미니브",
+      "numberOfKoreanNameCandidates": 8,
+      "englishImageUrl": "https://images.pokemontcg.io/sv1/021.png",
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 17,
+      "english": "Litten",
+      "englishSet": "Silver Tempest",
+      "englishNumber": "030/195",
+      "koreanName": "냐오불",
+      "numberOfKoreanNameCandidates": 12,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh12/030.png",
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 18,
+      "english": "Wishiwashi",
+      "englishSet": "Darkness Ablaze",
+      "englishNumber": "050/189",
+      "koreanName": "약어리",
+      "numberOfKoreanNameCandidates": 11,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh3/050.png",
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 19,
+      "english": "Sobble",
+      "englishSet": "Sword & Shield Base",
+      "englishNumber": "054/202",
+      "koreanName": "울머기",
+      "numberOfKoreanNameCandidates": 7,
+      "englishImageUrl": "https://images.pokemontcg.io/swsh1/054.png",
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    },
+    {
+      "index": 20,
+      "english": "Cubone",
+      "englishSet": "Forbidden Light",
+      "englishNumber": "57/131",
+      "koreanName": "탕구리",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/sm6/57.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "SMK_012",
+          "name": "탕구리",
+          "set": "SMK",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/3a5ffb5e6829f975aae9611602f36a13.png",
+          "score": 124.81,
+          "best": {
+            "mode": "art",
+            "correlation": 0.94,
+            "edge": 0.5709,
+            "keypointInliers": 194,
+            "keypointInlierFraction": 0.956,
+            "keypointGoodMatches": 203
+          },
+          "scoreArtCorrelation": 0.94,
+          "scoreFullCorrelation": 0.8715,
+          "maxInliers": 194
+        },
+        {
+          "key": "SM6_041",
+          "name": "탕구리",
+          "set": "sm6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_041.png",
+          "score": 124.71,
+          "best": {
+            "mode": "art",
+            "correlation": 0.94,
+            "edge": 0.5706,
+            "keypointInliers": 193,
+            "keypointInlierFraction": 0.955,
+            "keypointGoodMatches": 202
+          },
+          "scoreArtCorrelation": 0.94,
+          "scoreFullCorrelation": 0.8701,
+          "maxInliers": 193
+        },
+        {
+          "key": "SM8B_053",
+          "name": "탕구리",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_053.png",
+          "score": 123.31,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9371,
+            "edge": 0.5485,
+            "keypointInliers": 184,
+            "keypointInlierFraction": 0.944,
+            "keypointGoodMatches": 195
+          },
+          "scoreArtCorrelation": 0.9371,
+          "scoreFullCorrelation": 0.8405,
+          "maxInliers": 184
+        },
+        {
+          "key": "SM10_045",
+          "name": "탕구리",
+          "set": "sm10",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_045.png",
+          "score": 39.86,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4047,
+            "edge": 0.2194,
+            "keypointInliers": 41,
+            "keypointInlierFraction": 0.672,
+            "keypointGoodMatches": 61
+          },
+          "scoreArtCorrelation": 0.3926,
+          "scoreFullCorrelation": 0.4047,
+          "maxInliers": 41
+        },
+        {
+          "key": "SMP_129",
+          "name": "탕구리",
+          "set": "SMP",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/924984862d84d742964c5c646330f5bf.png",
+          "score": 32.92,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3786,
+            "edge": 0.2111,
+            "keypointInliers": 32,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 48
+          },
+          "scoreArtCorrelation": 0.263,
+          "scoreFullCorrelation": 0.3786,
+          "maxInliers": 32
+        },
+        {
+          "key": "SM10A_019",
+          "name": "탕구리",
+          "set": "sm10a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_019.png",
+          "score": 29.17,
+          "best": {
+            "mode": "full",
+            "correlation": 0.272,
+            "edge": 0.191,
+            "keypointInliers": 30,
+            "keypointInlierFraction": 0.682,
+            "keypointGoodMatches": 44
+          },
+          "scoreArtCorrelation": 0.1927,
+          "scoreFullCorrelation": 0.272,
+          "maxInliers": 30
+        },
+        {
+          "key": "SM4S_028",
+          "name": "탕구리",
+          "set": "sm4S",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4S/SM4S_028.png",
+          "score": 22.45,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3857,
+            "edge": 0.2284,
+            "keypointInliers": 20,
+            "keypointInlierFraction": 0.526,
+            "keypointGoodMatches": 38
+          },
+          "scoreArtCorrelation": 0.3267,
+          "scoreFullCorrelation": 0.3857,
+          "maxInliers": 20
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "english": "Rockruff",
+      "englishSet": "Forbidden Light",
+      "englishNumber": "75/131",
+      "koreanName": "암멍이",
+      "numberOfKoreanNameCandidates": 22,
+      "englishImageUrl": "https://images.pokemontcg.io/sm6/75.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 22,
+      "top": [
+        {
+          "key": "SM8B_059",
+          "name": "암멍이",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_059.png",
+          "score": 122.6,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9596,
+            "edge": 0.5113,
+            "keypointInliers": 232,
+            "keypointInlierFraction": 0.935,
+            "keypointGoodMatches": 248
+          },
+          "scoreArtCorrelation": 0.9596,
+          "scoreFullCorrelation": 0.9025,
+          "maxInliers": 232
+        },
+        {
+          "key": "SM6_052",
+          "name": "암멍이",
+          "set": "sm6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_052.png",
+          "score": 122.32,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9608,
+            "edge": 0.5404,
+            "keypointInliers": 210,
+            "keypointInlierFraction": 0.929,
+            "keypointGoodMatches": 226
+          },
+          "scoreArtCorrelation": 0.9608,
+          "scoreFullCorrelation": 0.9208,
+          "maxInliers": 210
+        },
+        {
+          "key": "SM8B_183",
+          "name": "암멍이",
+          "set": "sm8b",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_183.png",
+          "score": 28.81,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0322,
+            "edge": 0.1428,
+            "keypointInliers": 37,
+            "keypointInlierFraction": 0.74,
+            "keypointGoodMatches": 50
+          },
+          "scoreArtCorrelation": -0.075,
+          "scoreFullCorrelation": -0.0322,
+          "maxInliers": 37
+        },
+        {
+          "key": "SM12_047",
+          "name": "암멍이",
+          "set": "sm12",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12/SM12_047.png",
+          "score": 21.64,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2305,
+            "edge": 0.1599,
+            "keypointInliers": 20,
+            "keypointInlierFraction": 0.714,
+            "keypointGoodMatches": 28
+          },
+          "scoreArtCorrelation": 0.3333,
+          "scoreFullCorrelation": 0.2305,
+          "maxInliers": 20
+        },
+        {
+          "key": "SM30A_040",
+          "name": "암멍이",
+          "set": "sm30A",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/cf05c782cff3c3f422517a2bce04b65a.png",
+          "score": 20.79,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3721,
+            "edge": 0.1719,
+            "keypointInliers": 19,
+            "keypointInlierFraction": 0.514,
+            "keypointGoodMatches": 37
+          },
+          "scoreArtCorrelation": 0.2081,
+          "scoreFullCorrelation": 0.3721,
+          "maxInliers": 19
+        },
+        {
+          "key": "SM2L_026",
+          "name": "암멍이",
+          "set": "sm2L",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_026.png",
+          "score": 20.09,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3853,
+            "edge": 0.1554,
+            "keypointInliers": 14,
+            "keypointInlierFraction": 0.636,
+            "keypointGoodMatches": 22
+          },
+          "scoreArtCorrelation": 0.3465,
+          "scoreFullCorrelation": 0.3853,
+          "maxInliers": 14
+        },
+        {
+          "key": "SM4+_055",
+          "name": "암멍이",
+          "set": "sm4+",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_055.png",
+          "score": 19.68,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3885,
+            "edge": 0.1139,
+            "keypointInliers": 16,
+            "keypointInlierFraction": 0.552,
+            "keypointGoodMatches": 29
+          },
+          "scoreArtCorrelation": 0.349,
+          "scoreFullCorrelation": 0.3885,
+          "maxInliers": 16
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "english": "Trubbish",
+      "englishSet": "BREAKpoint",
+      "englishNumber": "56/122",
+      "koreanName": "깨봉이",
+      "numberOfKoreanNameCandidates": 22,
+      "englishImageUrl": "https://images.pokemontcg.io/xy9/56.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 22,
+      "top": [
+        {
+          "key": "XY_049",
+          "name": "깨봉이",
+          "set": "XY",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMXY/SMXY_049.png",
+          "score": 114.58,
+          "best": {
+            "mode": "full",
+            "correlation": 0.6619,
+            "edge": 0.2129,
+            "keypointInliers": 282,
+            "keypointInlierFraction": 0.959,
+            "keypointGoodMatches": 294
+          },
+          "scoreArtCorrelation": 0.6601,
+          "scoreFullCorrelation": 0.6619,
+          "maxInliers": 294
+        },
+        {
+          "key": "XY9_039",
+          "name": "깨봉이",
+          "set": "XY9",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY9/XY9_039.jpg",
+          "score": 112.26,
+          "best": {
+            "mode": "full",
+            "correlation": 0.7088,
+            "edge": 0.1841,
+            "keypointInliers": 267,
+            "keypointInlierFraction": 0.927,
+            "keypointGoodMatches": 288
+          },
+          "scoreArtCorrelation": 0.6471,
+          "scoreFullCorrelation": 0.7088,
+          "maxInliers": 277
+        },
+        {
+          "key": "BW7_036",
+          "name": "깨봉이",
+          "set": "BW7",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW7/bw7_036.jpg",
+          "score": 11.4,
+          "best": {
+            "mode": "full",
+            "correlation": 0.367,
+            "edge": 0.1156,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.1196,
+          "scoreFullCorrelation": 0.367,
+          "maxInliers": 4
+        },
+        {
+          "key": "BW2_030",
+          "name": "깨봉이",
+          "set": "BW2",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW2/bw2_red_030.jpg",
+          "score": 10.08,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3011,
+            "edge": 0.1049,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.0629,
+          "scoreFullCorrelation": 0.3011,
+          "maxInliers": 3
+        },
+        {
+          "key": "EBB_053",
+          "name": "깨봉이",
+          "set": "EBB",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_053.jpg",
+          "score": 9.36,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3375,
+            "edge": 0.0919,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 5
+          },
+          "scoreArtCorrelation": 0.1025,
+          "scoreFullCorrelation": 0.3375,
+          "maxInliers": 0
+        },
+        {
+          "key": "BW5-BRZ_027",
+          "name": "깨봉이",
+          "set": "BW5-Brz",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW5/bw5_blast_027.jpg",
+          "score": 7.6,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1738,
+            "edge": 0.0977,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.455,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.027,
+          "scoreFullCorrelation": 0.1738,
+          "maxInliers": 5
+        },
+        {
+          "key": "PPD_003",
+          "name": "깨봉이",
+          "set": "PPD",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/PD/PD_003.jpg",
+          "score": 5.14,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1604,
+            "edge": 0.1135,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 4
+          },
+          "scoreArtCorrelation": 0.0339,
+          "scoreFullCorrelation": 0.1604,
+          "maxInliers": 0
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "english": "Elgyem",
+      "englishSet": "BREAKthrough",
+      "englishNumber": "73/162",
+      "koreanName": "리그레",
+      "numberOfKoreanNameCandidates": 12,
+      "englishImageUrl": "https://images.pokemontcg.io/xy8/73.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 12,
+      "top": [
+        {
+          "key": "XY8-BB_029",
+          "name": "리그레",
+          "set": "XY8-Bb",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY8/XY8_BLUE_029.jpg",
+          "score": 121.29,
+          "best": {
+            "mode": "art",
+            "correlation": 0.8649,
+            "edge": 0.3365,
+            "keypointInliers": 184,
+            "keypointInlierFraction": 0.963,
+            "keypointGoodMatches": 191
+          },
+          "scoreArtCorrelation": 0.8649,
+          "scoreFullCorrelation": 0.9169,
+          "maxInliers": 184
+        },
+        {
+          "key": "BW7_038",
+          "name": "리그레",
+          "set": "BW7",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW7/bw7_038.jpg",
+          "score": 24.5,
+          "best": {
+            "mode": "full",
+            "correlation": 0.6387,
+            "edge": 0.15,
+            "keypointInliers": 15,
+            "keypointInlierFraction": 0.469,
+            "keypointGoodMatches": 32
+          },
+          "scoreArtCorrelation": 0.3394,
+          "scoreFullCorrelation": 0.6387,
+          "maxInliers": 15
+        },
+        {
+          "key": "BW3-BH_030",
+          "name": "리그레",
+          "set": "BW3-Bh",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BGR/bw3_hb_030.jpg",
+          "score": 24.03,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4395,
+            "edge": 0.1278,
+            "keypointInliers": 20,
+            "keypointInlierFraction": 0.588,
+            "keypointGoodMatches": 34
+          },
+          "scoreArtCorrelation": 0.1892,
+          "scoreFullCorrelation": 0.4395,
+          "maxInliers": 20
+        },
+        {
+          "key": "SV11B_043",
+          "name": "리그레",
+          "set": "sv11B",
+          "setName": "블랙볼트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV11B/SV11B_043.png",
+          "score": 13.04,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3484,
+            "edge": 0.0329,
+            "keypointInliers": 10,
+            "keypointInlierFraction": 0.4,
+            "keypointGoodMatches": 25
+          },
+          "scoreArtCorrelation": 0.176,
+          "scoreFullCorrelation": 0.3484,
+          "maxInliers": 10
+        },
+        {
+          "key": "BW2_032",
+          "name": "리그레",
+          "set": "BW2",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW2/bw2_red_032.jpg",
+          "score": 12.05,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1672,
+            "edge": 0.1371,
+            "keypointInliers": 13,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 26
+          },
+          "scoreArtCorrelation": 0.1008,
+          "scoreFullCorrelation": 0.1672,
+          "maxInliers": 13
+        },
+        {
+          "key": "MC_326",
+          "name": "리그레",
+          "set": "MC",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/c995cb68b63caf3123c122cd2b696f50.png",
+          "score": 11.24,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3041,
+            "edge": 0.0363,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.545,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.0055,
+          "scoreFullCorrelation": 0.3041,
+          "maxInliers": 6
+        },
+        {
+          "key": "S12_043",
+          "name": "리그레",
+          "set": "s12",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12/S12_043.webp",
+          "score": 10.5,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3301,
+            "edge": 0.0247,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 18
+          },
+          "scoreArtCorrelation": 0.0992,
+          "scoreFullCorrelation": 0.3301,
+          "maxInliers": 6
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "english": "Cubone",
+      "englishSet": "BREAKthrough",
+      "englishNumber": "77/162",
+      "koreanName": "탕구리",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/xy8/77.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "XY8-BR_034",
+          "name": "탕구리",
+          "set": "XY8-Br",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY8/XY8_RED_034.jpg",
+          "score": 125.63,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9129,
+            "edge": 0.5005,
+            "keypointInliers": 266,
+            "keypointInlierFraction": 0.978,
+            "keypointGoodMatches": 272
+          },
+          "scoreArtCorrelation": 0.9129,
+          "scoreFullCorrelation": 0.8627,
+          "maxInliers": 266
+        },
+        {
+          "key": "RBD_005",
+          "name": "탕구리",
+          "set": "RBD",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/RBD/RBD_005.jpg",
+          "score": 125.19,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9134,
+            "edge": 0.496,
+            "keypointInliers": 262,
+            "keypointInlierFraction": 0.974,
+            "keypointGoodMatches": 269
+          },
+          "scoreArtCorrelation": 0.9134,
+          "scoreFullCorrelation": 0.8633,
+          "maxInliers": 262
+        },
+        {
+          "key": "CP4_068",
+          "name": "탕구리",
+          "set": "CP4",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP4/CP4_068.jpg",
+          "score": 122.4,
+          "best": {
+            "mode": "art",
+            "correlation": 0.8956,
+            "edge": 0.3914,
+            "keypointInliers": 244,
+            "keypointInlierFraction": 0.961,
+            "keypointGoodMatches": 254
+          },
+          "scoreArtCorrelation": 0.8956,
+          "scoreFullCorrelation": 0.8439,
+          "maxInliers": 244
+        },
+        {
+          "key": "BW5-BRN_024",
+          "name": "탕구리",
+          "set": "BW5-Brn",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW5/bw5_blade_024.jpg",
+          "score": 8.43,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1577,
+            "edge": 0.1223,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.467,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.0242,
+          "scoreFullCorrelation": 0.1577,
+          "maxInliers": 7
+        },
+        {
+          "key": "SM4S_028",
+          "name": "탕구리",
+          "set": "sm4S",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4S/SM4S_028.png",
+          "score": 5.95,
+          "best": {
+            "mode": "art",
+            "correlation": 0.2152,
+            "edge": -0.0103,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.286,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.2152,
+          "scoreFullCorrelation": 0.1203,
+          "maxInliers": 5
+        },
+        {
+          "key": "BS3_022",
+          "name": "탕구리",
+          "set": "BS3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS3/bs3_ko_22.jpg",
+          "score": 5.3,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1367,
+            "edge": 0.0278,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.4,
+            "keypointGoodMatches": 10
+          },
+          "scoreArtCorrelation": 0.0635,
+          "scoreFullCorrelation": 0.1367,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM10_045",
+          "name": "탕구리",
+          "set": "sm10",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_045.png",
+          "score": 4.78,
+          "best": {
+            "mode": "art",
+            "correlation": 0.1912,
+            "edge": -0.0078,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 1
+          },
+          "scoreArtCorrelation": 0.1912,
+          "scoreFullCorrelation": 0.0527,
+          "maxInliers": 0
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "english": "Natu",
+      "englishSet": "Legendary Treasures",
+      "englishNumber": "55/113",
+      "koreanName": "네이티",
+      "numberOfKoreanNameCandidates": 12,
+      "englishImageUrl": "https://images.pokemontcg.io/bw11/55.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 12,
+      "top": [
+        {
+          "key": "EBB_046",
+          "name": "네이티",
+          "set": "EBB",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_046.jpg",
+          "score": 122.01,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9349,
+            "edge": 0.4436,
+            "keypointInliers": 259,
+            "keypointInlierFraction": 0.942,
+            "keypointGoodMatches": 275
+          },
+          "scoreArtCorrelation": 0.9349,
+          "scoreFullCorrelation": 0.9081,
+          "maxInliers": 259
+        },
+        {
+          "key": "XY6_023",
+          "name": "네이티",
+          "set": "XY6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY6/XY6_023.jpg",
+          "score": 24.74,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3779,
+            "edge": 0.1519,
+            "keypointInliers": 21,
+            "keypointInlierFraction": 0.656,
+            "keypointGoodMatches": 32
+          },
+          "scoreArtCorrelation": 0.1689,
+          "scoreFullCorrelation": 0.3779,
+          "maxInliers": 21
+        },
+        {
+          "key": "S10B_032",
+          "name": "네이티",
+          "set": "s10b",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10b/S10b_032.webp",
+          "score": 11.84,
+          "best": {
+            "mode": "art",
+            "correlation": -0.0055,
+            "edge": -0.004,
+            "keypointInliers": 15,
+            "keypointInlierFraction": 0.789,
+            "keypointGoodMatches": 19
+          },
+          "scoreArtCorrelation": -0.0055,
+          "scoreFullCorrelation": -0.0524,
+          "maxInliers": 15
+        },
+        {
+          "key": "SV4A_078",
+          "name": "네이티",
+          "set": "sv4a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_078.png",
+          "score": 9.6,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0157,
+            "edge": 0.0577,
+            "keypointInliers": 17,
+            "keypointInlierFraction": 0.531,
+            "keypointGoodMatches": 32
+          },
+          "scoreArtCorrelation": -0.0042,
+          "scoreFullCorrelation": -0.0157,
+          "maxInliers": 17
+        },
+        {
+          "key": "SM8_038",
+          "name": "네이티",
+          "set": "sm8",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0038.png",
+          "score": 4.84,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0882,
+            "edge": 0.0343,
+            "keypointInliers": 9,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 18
+          },
+          "scoreArtCorrelation": -0.111,
+          "scoreFullCorrelation": -0.0882,
+          "maxInliers": 9
+        },
+        {
+          "key": "S1A_034",
+          "name": "네이티",
+          "set": "s1a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S1a/S1a_034.png",
+          "score": 2.83,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0669,
+            "edge": 0.043,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.4,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": -0.04,
+          "scoreFullCorrelation": -0.0669,
+          "maxInliers": 6
+        },
+        {
+          "key": "SM12A_056",
+          "name": "네이티",
+          "set": "sm12a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_056.png",
+          "score": 1.96,
+          "best": {
+            "mode": "full",
+            "correlation": -0.0893,
+            "edge": 0.029,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": -0.1088,
+          "scoreFullCorrelation": -0.0893,
+          "maxInliers": 5
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "english": "Bonsly",
+      "englishSet": "Diamond & Pearl Base",
+      "englishNumber": "71/130",
+      "koreanName": "꼬지지",
+      "numberOfKoreanNameCandidates": 2,
+      "englishImageUrl": "https://images.pokemontcg.io/dp1/71.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 2,
+      "top": [
+        {
+          "key": "BS6_042",
+          "name": "꼬지지",
+          "set": "BS6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS6/bs6_ko_42.jpg",
+          "score": 120.17,
+          "best": {
+            "mode": "art",
+            "correlation": 0.9181,
+            "edge": 0.3816,
+            "keypointInliers": 183,
+            "keypointInlierFraction": 0.934,
+            "keypointGoodMatches": 196
+          },
+          "scoreArtCorrelation": 0.9181,
+          "scoreFullCorrelation": 0.8228,
+          "maxInliers": 183
+        },
+        {
+          "key": "SV3_058",
+          "name": "꼬지지",
+          "set": "sv3",
+          "setName": "흑염의 지배자",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3/SV3_058.png",
+          "score": 9.71,
+          "best": {
+            "mode": "art",
+            "correlation": 0.087,
+            "edge": -0.0002,
+            "keypointInliers": 14,
+            "keypointInlierFraction": 0.538,
+            "keypointGoodMatches": 26
+          },
+          "scoreArtCorrelation": 0.087,
+          "scoreFullCorrelation": 0.169,
+          "maxInliers": 14
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "english": "Electabuzz",
+      "englishSet": "Diamond & Pearl Base",
+      "englishNumber": "81/130",
+      "koreanName": "에레브",
+      "numberOfKoreanNameCandidates": 21,
+      "englishImageUrl": "https://images.pokemontcg.io/dp1/81.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 21,
+      "top": [
+        {
+          "key": "XYE_005",
+          "name": "에레브",
+          "set": "XYE",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYE/XYE_005.jpg",
+          "score": 18.26,
+          "best": {
+            "mode": "full",
+            "correlation": 0.5773,
+            "edge": 0.0057,
+            "keypointInliers": 8,
+            "keypointInlierFraction": 0.471,
+            "keypointGoodMatches": 17
+          },
+          "scoreArtCorrelation": 0.365,
+          "scoreFullCorrelation": 0.5773,
+          "maxInliers": 8
+        },
+        {
+          "key": "SM5M_015",
+          "name": "에레브",
+          "set": "sm5M",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_015.png",
+          "score": 17.5,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4602,
+            "edge": 0.0225,
+            "keypointInliers": 14,
+            "keypointInlierFraction": 0.412,
+            "keypointGoodMatches": 34
+          },
+          "scoreArtCorrelation": 0.1952,
+          "scoreFullCorrelation": 0.4602,
+          "maxInliers": 14
+        },
+        {
+          "key": "SM60B_005",
+          "name": "에레브",
+          "set": "sm60B",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/fb27389927d3a57898ba11aa3bee353a.png",
+          "score": 17.36,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4575,
+            "edge": 0.0095,
+            "keypointInliers": 13,
+            "keypointInlierFraction": 0.448,
+            "keypointGoodMatches": 29
+          },
+          "scoreArtCorrelation": 0.1915,
+          "scoreFullCorrelation": 0.4575,
+          "maxInliers": 13
+        },
+        {
+          "key": "S5I_015",
+          "name": "에레브",
+          "set": "s5I",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_015.png",
+          "score": 16.6,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3504,
+            "edge": -0.012,
+            "keypointInliers": 14,
+            "keypointInlierFraction": 0.56,
+            "keypointGoodMatches": 25
+          },
+          "scoreArtCorrelation": 0.0273,
+          "scoreFullCorrelation": 0.3504,
+          "maxInliers": 14
+        },
+        {
+          "key": "SM7A_026",
+          "name": "에레브",
+          "set": "sm7a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7A/SM7A_026.png",
+          "score": 15.85,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3523,
+            "edge": 0.0044,
+            "keypointInliers": 14,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 28
+          },
+          "scoreArtCorrelation": 0.1538,
+          "scoreFullCorrelation": 0.3523,
+          "maxInliers": 14
+        },
+        {
+          "key": "SV2A_125",
+          "name": "에레브",
+          "set": "sv2a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_125.png",
+          "score": 15.83,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4029,
+            "edge": -0.0137,
+            "keypointInliers": 12,
+            "keypointInlierFraction": 0.48,
+            "keypointGoodMatches": 25
+          },
+          "scoreArtCorrelation": 0.0284,
+          "scoreFullCorrelation": 0.4029,
+          "maxInliers": 12
+        },
+        {
+          "key": "XY3_027",
+          "name": "에레브",
+          "set": "XY3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY3/XY3_027.jpg",
+          "score": 14.36,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4208,
+            "edge": 0.0244,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.6,
+            "keypointGoodMatches": 10
+          },
+          "scoreArtCorrelation": 0.1467,
+          "scoreFullCorrelation": 0.4208,
+          "maxInliers": 6
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "english": "Smoochum δ",
+      "englishSet": "Dragon Frontiers",
+      "englishNumber": "64/101",
+      "koreanName": "뽀뽀라",
+      "numberOfKoreanNameCandidates": 2,
+      "englishImageUrl": "https://images.pokemontcg.io/ex15/64.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 2,
+      "top": [
+        {
+          "key": "SV7A_018",
+          "name": "뽀뽀라",
+          "set": "sv7a",
+          "setName": "낙원드래고나",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_018.png",
+          "score": 6.41,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2563,
+            "edge": -0.0168,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 5
+          },
+          "scoreArtCorrelation": 0.0845,
+          "scoreFullCorrelation": 0.2563,
+          "maxInliers": 0
+        },
+        {
+          "key": "BS3_006",
+          "name": "뽀뽀라",
+          "set": "BS3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS3/bs3_ko_6.jpg",
+          "score": 4.62,
+          "best": {
+            "mode": "art",
+            "correlation": 0.1392,
+            "edge": 0.007,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.1392,
+          "scoreFullCorrelation": 0.0232,
+          "maxInliers": 4
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "english": "Omanyte",
+      "englishSet": "Legend Maker",
+      "englishNumber": "60/92",
+      "koreanName": "암나이트",
+      "numberOfKoreanNameCandidates": 4,
+      "englishImageUrl": "https://images.pokemontcg.io/ex12/60.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 4,
+      "top": [
+        {
+          "key": "SV2A_138",
+          "name": "암나이트",
+          "set": "sv2a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_138.png",
+          "score": 8.05,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3188,
+            "edge": 0.0084,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 5
+          },
+          "scoreArtCorrelation": 0.2258,
+          "scoreFullCorrelation": 0.3188,
+          "maxInliers": 0
+        },
+        {
+          "key": "XY10_015",
+          "name": "암나이트",
+          "set": "XY10",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY10/XY10_015.png",
+          "score": 6.56,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2026,
+            "edge": 0.0038,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.364,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.0511,
+          "scoreFullCorrelation": 0.2026,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM9_056",
+          "name": "암나이트",
+          "set": "sm9",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_056.png",
+          "score": 2.2,
+          "best": {
+            "mode": "art",
+            "correlation": 0.0793,
+            "edge": 0.022,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 4
+          },
+          "scoreArtCorrelation": 0.0793,
+          "scoreFullCorrelation": 0.0386,
+          "maxInliers": 0
+        },
+        {
+          "key": "SV2A_180",
+          "name": "암나이트",
+          "set": "sv2a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_180.png",
+          "score": 0.31,
+          "best": {
+            "mode": "art",
+            "correlation": -0.1295,
+            "edge": 0.0314,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 2
+          },
+          "scoreArtCorrelation": -0.1295,
+          "scoreFullCorrelation": -0.2861,
+          "maxInliers": 0
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "english": "Drowzee",
+      "englishSet": "Delta Species",
+      "englishNumber": "67/113",
+      "koreanName": "슬리프",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/ex11/67.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "BS7_017",
+          "name": "슬리프",
+          "set": "BS7",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS7/bs7_ko_17.jpg",
+          "score": 16.45,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4798,
+            "edge": -0.0007,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.636,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.1069,
+          "scoreFullCorrelation": 0.4798,
+          "maxInliers": 7
+        },
+        {
+          "key": "M6_029",
+          "name": "슬리프",
+          "set": "m6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_029.png",
+          "score": 16.23,
+          "best": {
+            "mode": "full",
+            "correlation": 0.502,
+            "edge": 0.0182,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 14
+          },
+          "scoreArtCorrelation": 0.3409,
+          "scoreFullCorrelation": 0.502,
+          "maxInliers": 7
+        },
+        {
+          "key": "SV2A_096",
+          "name": "슬리프",
+          "set": "sv2a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_096.png",
+          "score": 14.03,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4935,
+            "edge": 0.024,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.364,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.2966,
+          "scoreFullCorrelation": 0.4935,
+          "maxInliers": 4
+        },
+        {
+          "key": "SV6A_016",
+          "name": "슬리프",
+          "set": "sv6a",
+          "setName": "나이트 원더러",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6a/SV6a_016.png",
+          "score": 13.81,
+          "best": {
+            "mode": "full",
+            "correlation": 0.5211,
+            "edge": 0.0118,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.3253,
+          "scoreFullCorrelation": 0.5211,
+          "maxInliers": 3
+        },
+        {
+          "key": "SI_165",
+          "name": "슬리프",
+          "set": "SI",
+          "setName": "",
+          "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/4b4c0a6455779b33.webp",
+          "score": 12.18,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3877,
+            "edge": 0.0238,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.375,
+            "keypointGoodMatches": 16
+          },
+          "scoreArtCorrelation": 0.344,
+          "scoreFullCorrelation": 0.3877,
+          "maxInliers": 6
+        },
+        {
+          "key": "S6H_031",
+          "name": "슬리프",
+          "set": "s6H",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_031.png",
+          "score": 10.38,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3867,
+            "edge": 0.0265,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.222,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": 0.3434,
+          "scoreFullCorrelation": 0.3867,
+          "maxInliers": 3
+        },
+        {
+          "key": "BASE_049",
+          "name": "슬리프",
+          "set": "BASE",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/cb83338399661cc7fffb884194123d77.png",
+          "score": 10.29,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3152,
+            "edge": 0.0135,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.455,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": -0.0089,
+          "scoreFullCorrelation": 0.3152,
+          "maxInliers": 5
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "english": "Cubone",
+      "englishSet": "FireRed & LeafGreen",
+      "englishNumber": "60/112",
+      "koreanName": "탕구리",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/ex6/60.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "BS3_022",
+          "name": "탕구리",
+          "set": "BS3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS3/bs3_ko_22.jpg",
+          "score": 12.02,
+          "best": {
+            "mode": "full",
+            "correlation": 0.4302,
+            "edge": 0.0201,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.267,
+            "keypointGoodMatches": 15
+          },
+          "scoreArtCorrelation": 0.2011,
+          "scoreFullCorrelation": 0.4302,
+          "maxInliers": 4
+        },
+        {
+          "key": "CP4_068",
+          "name": "탕구리",
+          "set": "CP4",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP4/CP4_068.jpg",
+          "score": 12.01,
+          "best": {
+            "mode": "art",
+            "correlation": 0.2626,
+            "edge": -0.0152,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.778,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": 0.2626,
+          "scoreFullCorrelation": 0.2561,
+          "maxInliers": 7
+        },
+        {
+          "key": "SM10A_019",
+          "name": "탕구리",
+          "set": "sm10a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_019.png",
+          "score": 11.45,
+          "best": {
+            "mode": "art",
+            "correlation": 0.3514,
+            "edge": -0.0005,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.667,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.3514,
+          "scoreFullCorrelation": 0.27,
+          "maxInliers": 4
+        },
+        {
+          "key": "SVM_061",
+          "name": "탕구리",
+          "set": "SVM",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/f13fc7302f8d73bc454bb5859b85dc9f.png",
+          "score": 9.54,
+          "best": {
+            "mode": "full",
+            "correlation": 0.3341,
+            "edge": 0.0364,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.273,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.2499,
+          "scoreFullCorrelation": 0.3341,
+          "maxInliers": 3
+        },
+        {
+          "key": "RBD_005",
+          "name": "탕구리",
+          "set": "RBD",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/RBD/RBD_005.jpg",
+          "score": 9.15,
+          "best": {
+            "mode": "full",
+            "correlation": 0.272,
+            "edge": 0.0221,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.304,
+            "keypointGoodMatches": 23
+          },
+          "scoreArtCorrelation": 0.2472,
+          "scoreFullCorrelation": 0.272,
+          "maxInliers": 7
+        },
+        {
+          "key": "SM4S_028",
+          "name": "탕구리",
+          "set": "sm4S",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4S/SM4S_028.png",
+          "score": 9.09,
+          "best": {
+            "mode": "art",
+            "correlation": 0.3122,
+            "edge": -0.0021,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.429,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": 0.3122,
+          "scoreFullCorrelation": 0.2726,
+          "maxInliers": 4
+        },
+        {
+          "key": "XY8-BR_034",
+          "name": "탕구리",
+          "set": "XY8-Br",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY8/XY8_RED_034.jpg",
+          "score": 9.05,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2715,
+            "edge": 0.0215,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.292,
+            "keypointGoodMatches": 24
+          },
+          "scoreArtCorrelation": 0.2468,
+          "scoreFullCorrelation": 0.2715,
+          "maxInliers": 7
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "english": "Cubone",
+      "englishSet": "Expedition Base Set",
+      "englishNumber": "103/165",
+      "koreanName": "탕구리",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/ecard1/103.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "BW5-BRN_024",
+          "name": "탕구리",
+          "set": "BW5-Brn",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW5/bw5_blade_024.jpg",
+          "score": 9.05,
+          "best": {
+            "mode": "art",
+            "correlation": 0.341,
+            "edge": 0.0022,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.25,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.341,
+          "scoreFullCorrelation": 0.2901,
+          "maxInliers": 2
+        },
+        {
+          "key": "SI_214",
+          "name": "탕구리",
+          "set": "SI",
+          "setName": "",
+          "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/b46d18574e6b356d.webp",
+          "score": 6.86,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0909,
+            "edge": 0.0134,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.636,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": 0.1764,
+          "scoreFullCorrelation": 0.0909,
+          "maxInliers": 7
+        },
+        {
+          "key": "SM10_045",
+          "name": "탕구리",
+          "set": "sm10",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_045.png",
+          "score": 6.04,
+          "best": {
+            "mode": "art",
+            "correlation": 0.2092,
+            "edge": 0.0141,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 6
+          },
+          "scoreArtCorrelation": 0.2092,
+          "scoreFullCorrelation": 0.1226,
+          "maxInliers": 3
+        },
+        {
+          "key": "SV7_048",
+          "name": "탕구리",
+          "set": "sv7",
+          "setName": "스텔라미라클",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_048.png",
+          "score": 5.89,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1397,
+            "edge": 0.0278,
+            "keypointInliers": 6,
+            "keypointInlierFraction": 0.353,
+            "keypointGoodMatches": 17
+          },
+          "scoreArtCorrelation": 0.1394,
+          "scoreFullCorrelation": 0.1397,
+          "maxInliers": 6
+        },
+        {
+          "key": "S5R_040",
+          "name": "탕구리",
+          "set": "s5R",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_040.png",
+          "score": 5.49,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0905,
+            "edge": 0.0102,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.625,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.1757,
+          "scoreFullCorrelation": 0.0905,
+          "maxInliers": 5
+        },
+        {
+          "key": "BS3_022",
+          "name": "탕구리",
+          "set": "BS3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS3/bs3_ko_22.jpg",
+          "score": 5.19,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1712,
+            "edge": 0.0216,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.231,
+            "keypointGoodMatches": 13
+          },
+          "scoreArtCorrelation": 0.1135,
+          "scoreFullCorrelation": 0.1712,
+          "maxInliers": 3
+        },
+        {
+          "key": "SM10A_019",
+          "name": "탕구리",
+          "set": "sm10a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_019.png",
+          "score": 3.85,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1089,
+            "edge": -0.0023,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.375,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": 0.1482,
+          "scoreFullCorrelation": 0.1089,
+          "maxInliers": 3
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "english": "Ledyba",
+      "englishSet": "Neo Destiny",
+      "englishNumber": "71/105",
+      "koreanName": "레디바",
+      "numberOfKoreanNameCandidates": 5,
+      "englishImageUrl": "https://images.pokemontcg.io/neo4/71.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 5,
+      "top": [
+        {
+          "key": "SM2+_004",
+          "name": "레디바",
+          "set": "sm2+",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_004.png",
+          "score": 5.12,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1977,
+            "edge": 0.0181,
+            "keypointInliers": 0,
+            "keypointInlierFraction": 0.0,
+            "keypointGoodMatches": 5
+          },
+          "scoreArtCorrelation": 0.0169,
+          "scoreFullCorrelation": 0.1977,
+          "maxInliers": 2
+        },
+        {
+          "key": "SV7_001",
+          "name": "레디바",
+          "set": "sv7",
+          "setName": "스텔라미라클",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_001.png",
+          "score": 3.56,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0625,
+            "edge": -0.0025,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.5,
+            "keypointGoodMatches": 8
+          },
+          "scoreArtCorrelation": -0.1085,
+          "scoreFullCorrelation": 0.0625,
+          "maxInliers": 4
+        },
+        {
+          "key": "MC_019",
+          "name": "레디바",
+          "set": "MC",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/0a900b8a21e1a834e5cfb6f173162241.png",
+          "score": 3.35,
+          "best": {
+            "mode": "full",
+            "correlation": 0.0631,
+            "edge": -0.0019,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.444,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": -0.1085,
+          "scoreFullCorrelation": 0.0631,
+          "maxInliers": 4
+        },
+        {
+          "key": "XY1-BY_004",
+          "name": "레디바",
+          "set": "XY1-By",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY1/K1_Y_004.jpg",
+          "score": 2.46,
+          "best": {
+            "mode": "art",
+            "correlation": -0.2337,
+            "edge": 0.0177,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.571,
+            "keypointGoodMatches": 7
+          },
+          "scoreArtCorrelation": -0.2337,
+          "scoreFullCorrelation": -0.1599,
+          "maxInliers": 4
+        },
+        {
+          "key": "S6K_001",
+          "name": "레디바",
+          "set": "s6K",
+          "setName": "",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S6/S6K_001.webp",
+          "score": 1.0,
+          "best": {
+            "mode": "full",
+            "correlation": -0.1338,
+            "edge": -0.0075,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.333,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": -0.0673,
+          "scoreFullCorrelation": -0.1338,
+          "maxInliers": 3
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "english": "Cubone",
+      "englishSet": "Jungle",
+      "englishNumber": "50/64",
+      "koreanName": "탕구리",
+      "numberOfKoreanNameCandidates": 17,
+      "englishImageUrl": "https://images.pokemontcg.io/base2/50.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 17,
+      "top": [
+        {
+          "key": "SVM_061",
+          "name": "탕구리",
+          "set": "SVM",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/f13fc7302f8d73bc454bb5859b85dc9f.png",
+          "score": 19.62,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2136,
+            "edge": -0.051,
+            "keypointInliers": 20,
+            "keypointInlierFraction": 0.714,
+            "keypointGoodMatches": 28
+          },
+          "scoreArtCorrelation": 0.061,
+          "scoreFullCorrelation": 0.2136,
+          "maxInliers": 20
+        },
+        {
+          "key": "CP4_068",
+          "name": "탕구리",
+          "set": "CP4",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP4/CP4_068.jpg",
+          "score": 13.77,
+          "best": {
+            "mode": "art",
+            "correlation": -0.0787,
+            "edge": -0.0212,
+            "keypointInliers": 17,
+            "keypointInlierFraction": 0.81,
+            "keypointGoodMatches": 21
+          },
+          "scoreArtCorrelation": -0.0787,
+          "scoreFullCorrelation": 0.101,
+          "maxInliers": 17
+        },
+        {
+          "key": "BS3_022",
+          "name": "탕구리",
+          "set": "BS3",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS3/bs3_ko_22.jpg",
+          "score": 6.47,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2411,
+            "edge": -0.0033,
+            "keypointInliers": 2,
+            "keypointInlierFraction": 0.222,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": 0.0316,
+          "scoreFullCorrelation": 0.2411,
+          "maxInliers": 2
+        },
+        {
+          "key": "SV2A_104",
+          "name": "탕구리",
+          "set": "sv2a",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_104.png",
+          "score": 5.74,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1738,
+            "edge": -0.0282,
+            "keypointInliers": 5,
+            "keypointInlierFraction": 0.278,
+            "keypointGoodMatches": 18
+          },
+          "scoreArtCorrelation": 0.1934,
+          "scoreFullCorrelation": 0.1738,
+          "maxInliers": 5
+        },
+        {
+          "key": "BW5-BRN_024",
+          "name": "탕구리",
+          "set": "BW5-Brn",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW5/bw5_blade_024.jpg",
+          "score": 5.17,
+          "best": {
+            "mode": "full",
+            "correlation": 0.1358,
+            "edge": -0.0126,
+            "keypointInliers": 4,
+            "keypointInlierFraction": 0.444,
+            "keypointGoodMatches": 9
+          },
+          "scoreArtCorrelation": -0.0658,
+          "scoreFullCorrelation": 0.1358,
+          "maxInliers": 4
+        },
+        {
+          "key": "SM6_041",
+          "name": "탕구리",
+          "set": "sm6",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_041.png",
+          "score": 4.55,
+          "best": {
+            "mode": "art",
+            "correlation": -0.1741,
+            "edge": 0.0096,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.636,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": -0.1741,
+          "scoreFullCorrelation": -0.0749,
+          "maxInliers": 7
+        },
+        {
+          "key": "SMK_012",
+          "name": "탕구리",
+          "set": "SMK",
+          "setName": "",
+          "image": "https://static.tcgexchange.kr/3a5ffb5e6829f975aae9611602f36a13.png",
+          "score": 4.55,
+          "best": {
+            "mode": "art",
+            "correlation": -0.1741,
+            "edge": 0.0096,
+            "keypointInliers": 7,
+            "keypointInlierFraction": 0.636,
+            "keypointGoodMatches": 11
+          },
+          "scoreArtCorrelation": -0.1741,
+          "scoreFullCorrelation": -0.075,
+          "maxInliers": 7
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "english": "Recycle",
+      "englishSet": "Fossil",
+      "englishNumber": "61/62",
+      "koreanName": "리사이클",
+      "numberOfKoreanNameCandidates": 1,
+      "englishImageUrl": "https://images.pokemontcg.io/base3/61.png",
+      "englishImageDownloaded": true,
+      "comparisonStatus": "artwork_scores_not_final_approval",
+      "koreanCandidateImagesScored": 1,
+      "top": [
+        {
+          "key": "BW1-BB_048",
+          "name": "리사이클",
+          "set": "BW1-Bb",
+          "setName": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW1/bw1_black_048.jpg",
+          "score": 7.56,
+          "best": {
+            "mode": "full",
+            "correlation": 0.2635,
+            "edge": 0.0224,
+            "keypointInliers": 3,
+            "keypointInlierFraction": 0.25,
+            "keypointGoodMatches": 12
+          },
+          "scoreArtCorrelation": 0.1024,
+          "scoreFullCorrelation": 0.2635,
+          "maxInliers": 3
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "english": "Psyduck",
+      "englishSet": "Japanese PokeKyun Promo",
+      "englishNumber": "XY-P",
+      "koreanName": "고라파덕",
+      "numberOfKoreanNameCandidates": 19,
+      "englishImageUrl": null,
+      "englishImageDownloaded": false,
+      "comparisonStatus": "source_unavailable",
+      "koreanCandidateImagesScored": 0,
+      "top": []
+    }
+  ]
+}

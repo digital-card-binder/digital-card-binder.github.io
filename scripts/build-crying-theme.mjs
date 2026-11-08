@@ -18,12 +18,45 @@ const seeds = [
   { set: "SV6", no: "104", name: "눈여아", category: "고독 · 쓸쓸함", foreign: "Froslass · Twilight Masquerade 174", source: "illudex" },
   { set: "M6a", no: "028", name: "피카츄", category: "외로움", foreign: "Pikachu · 30th Celebration 028", source: "pokecardlists" },
 ];
+// Pass 2: only pixel-confirmed identical card art or original Japanese-print mapping.
+const visualAudit = read("data/audits/crying-theme-image-similarity-20261108.json");
+const sourceMapped = read("data/audits/crying-theme-korean-original-print-mappings-20261108.json");
+const mood = (name) => {
+  if (name === "Sobble") return "울음 · 속상함";
+  if (name === "Cubone") return "슬픔 · 외로움";
+  if (name === "Hisuian Goodra") return "속상함 · 외로움";
+  if (name === "Rockruff") return "외로움 · 위로";
+  if (name === "Trubbish") return "쓸쓸함 · 속상함";
+  if (name === "Bonsly") return "울음 · 슬픔";
+  return "외로움 · 슬픔";
+};
+const scoredSeeds = visualAudit.items.flatMap((item) => (item.top || [])
+  .filter((hit) => item.englishImageDownloaded
+      && hit.score >= 90 && hit.maxInliers >= 60
+      && Math.max(hit.scoreArtCorrelation, hit.scoreFullCorrelation) >= 0.60)
+  .map((hit) => ({
+    set: hit.set, no: hit.key.split("_").pop(), name: hit.name,
+    category: mood(item.english),
+    foreign: item.english + " · " + item.englishSet + " " + item.englishNumber,
+    source: "pokecardlists",
+    supplemental: true,
+    evidenceDetail: "해외판-한국판 동일 일러스트 화상 특징점 대조: "
+      + hit.maxInliers + "개 유효 대응점, 최고 점수 " + hit.score
+      + ". 해외 원본 " + item.englishImageUrl
+  })));
+const printMappedSeeds = sourceMapped.mappings.map((m) => ({
+  set: m.set, no: m.no, name: m.name, category: mood(m.en),
+  foreign: m.en + " · " + m.setEn + " " + m.numberEn,
+  source: "pokecardlists", supplemental: true,
+  evidenceDetail: "동일 일본판 원본 인쇄 " + m.japanese
+    + " 및 한국판 마스터 DB 번호 대조: " + m.url
+}));
 function getPrintedNo(card) {
   const str = String(card.code || "").split("_").slice(1).join("_");
   return (str.match(/^([0-9]{1,3})(?:[/]([0-9]+))?/) || []).slice(1);
 }
 const cards = [], used = new Set();
-for (const seed of seeds) {
+for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds]) {
   const group = master.find((g) => String(g.code).toLowerCase() === seed.set.toLowerCase());
   if (!group) throw Error("Korean set not found: " + seed.set);
   const matched = (group.cards || []).filter((c) => {
@@ -35,16 +68,26 @@ for (const seed of seeds) {
   if (sourceCard.name !== seed.name) throw Error("Korean name mismatch " + seed.set + "_" + seed.no + ": " + sourceCard.name);
   if (!sourceCard.image || !/^https:\/\//.test(sourceCard.image)) throw Error("No Korean image for " + seed.set + "_" + seed.no);
   const key = String(group.code).toUpperCase() + "_" + seed.no;
-  if (used.has(key)) throw Error("Duplicate Korean print " + key);
+  if (used.has(key)) {
+    if (seed.supplemental) continue; // Keep the first nine account indexes unchanged.
+    throw Error("Duplicate Korean print " + key);
+  }
   used.add(key);
   const [, denominator] = getPrintedNo(sourceCard);
+  const code = String(group.code).toUpperCase();
+  const era = /^SV/.test(code) ? "SV" : /^SM/.test(code) ? "SM"
+    : /^XY|^CP|^RBD/.test(code) ? "XY"
+    : /^BW|^EBB/.test(code) ? "BW"
+    : /^DP|^BS/.test(code) ? "DP"
+    : /^M[0-9]/.test(code) ? "M" : "S";
   cards.push({
     code: key, name: sourceCard.name,
-    series: /^SV/i.test(group.code) ? "SV" : /^M/i.test(group.code) ? "M" : "S",
+    series: era,
     set: group.code, setName: group.name || "",
     cardNumber: seed.no + (denominator ? "/" + denominator : ""),
     rarity: sourceCard.rarity || "", category: seed.category,
-    evidence: "한국판 마스터 DB 세트·카드번호·한국어 카드명 대조. 해외 참고: " + seed.foreign + ".",
+    evidence: "한국판 마스터 DB 세트·카드번호·한국어 카드명 대조. 해외 참고: " + seed.foreign + "."
+      + (seed.evidenceDetail ? " " + seed.evidenceDetail : ""),
     image: sourceCard.image,
     source: sourceCard.source || ""
   });
@@ -71,6 +114,13 @@ write("data/audits/crying-theme-korean-matches-20261108.json", {
   totalEnumeratedReferences: sources.sources.reduce((sum, s) => sum + s.enumeratedCount, 0),
   notEnumeratedFromIlludex: 52,
   importedKoreanCards: cards.length,
+  priorVerifiedCards: seeds.length,
+  newlyVerifiedCardPrints: cards.length - seeds.length,
+  foreignPrimaryScansCompared: visualAudit.items.length,
+  foreignPrimaryScansAvailable: visualAudit.network.downloadedForeign,
+  foreignPrimaryScansUnavailable: visualAudit.items.filter((i) => !i.englishImageDownloaded).map((i) => i.english + " / " + i.englishSet),
+  visualProofPath: "data/audits/crying-theme-image-similarity-20261108.json",
+  printMappingProofPath: "data/audits/crying-theme-korean-original-print-mappings-20261108.json",
   koreanCards: cards.map((card) => ({ code: card.code, name: card.name, set: card.set, cardNumber: card.cardNumber, image: card.image })),
   reviewedPolicy: "정확한 한국판 세트·인쇄번호·이름 대조. 해외 동일 일러스트/감정 후보를 참고하되 나머지 목록은 번호 및 일러스트 검증 전까지 추가 금지.",
   remainingCandidateStatus: "pending_individual_illustration_and_korean_print_verification",
