@@ -6,9 +6,8 @@
     "primary": 35,
     "primaryDisposition": {
       "verified_same_art_in_korean_master": 15,
-      "legacy_registration_pending_identical_art_proof": 1,
       "none_of_current_master_images_matched": 13,
-      "verified_japanese_original_and_korean_print": 5,
+      "verified_japanese_original_and_korean_print": 6,
       "foreign_image_unavailable": 1
     },
     "secondary": 31,
@@ -108,10 +107,13 @@
       "nameEn": "Pikachu",
       "foreignSet": "30th Celebration",
       "foreignNumber": "028/128",
-      "status": "legacy_registration_pending_identical_art_proof",
-      "matchingKoreanKeys": [],
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "M6A_022"
+      ],
       "koreanNameCandidateCount": 104,
-      "foreignImageFetched": false
+      "foreignImageFetched": false,
+      "correctionNote": "English 028/128 = Korean M6a 022/103 (06/30, sowsow), not Korean 028/103 (12/30, USGMEN)"
     },
     {
       "refIndex": 8,
@@ -723,6 +725,24 @@
       "koreanName": "비조도",
       "koreanNameCandidates": 12,
       "exactArtMatch": "not_yet_individually_verified"
+    }
+  ],
+  "illudexVerifiedThisPass": [
+    {
+      "name": "Feebas",
+      "key": "SV8_110"
+    },
+    {
+      "name": "Beldum",
+      "key": "M4_057"
+    },
+    {
+      "name": "Zoroark",
+      "key": "SV11W_141"
+    },
+    {
+      "name": "Persian",
+      "key": "SV6A_075"
     }
   ]
 }
