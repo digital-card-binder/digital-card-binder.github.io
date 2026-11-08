@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08T01:25:57.523Z",
+  "checkedAt": "2026-11-08T01:27:50.271Z",
   "host": "https://www.illudex.com",
   "pages": [
     {
@@ -668,5 +668,174 @@
       ]
     }
   ],
-  "errors": []
+  "errors": [],
+  "feelDataChunk": {
+    "url": "https://www.illudex.com/_next/static/immutable/chunks/0i91w3cv6i6y_.js",
+    "status": 200,
+    "bytes": 22520,
+    "markers": [
+      {
+        "marker": "fetch(",
+        "pos": 2715,
+        "fragment": "ult.words,m=c.default.there,f=c.default.families,h=Object.fromEntries(f.flatMap(e=>e.words.map(t=>[t,e]))),p=d.length+3,g=e=>`${u.base}${e}`;async function x(e){let t=await (await fetch(g(\"points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];f"
+      },
+      {
+        "marker": "fetch(",
+        "pos": 2870,
+        "fragment": " x(e){let t=await (await fetch(g(\"points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];function v(e,t,r=3){let l=[];for(let r=0;r<d.length;r++)l.push({word:d[r],score:w(e,t,r)});return l.sort((e,t)=>t.score-e.score).slice(0,r).filter(e=>e.scor"
+      },
+      {
+        "marker": "/feel-data/",
+        "pos": 452,
+        "fragment": "tch(e){}}();\n(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push([\"object\"==typeof document?document.currentScript:void 0,489214,(e,t,r)=>{t.exports={version:\"18b0f2713d\",base:\"/feel-data/18b0f2713d/\",count:17121,cols:194,rows:89,cell:[16,22],art:[14,20],mosaic:[3104,1958],preview:[1400,883],words:[\"peaceful\",\"cozy\",\"playful\",\"funny\",\"adventurous\",\"epic\",\"tense\",\"eerie\",\"mysterious\",\"wondrous\",\"tender\",\"nostalgic\",\"melancholy\",\"fierc"
+      },
+      {
+        "marker": "base:",
+        "pos": 446,
+        "fragment": "c\")}catch(e){}}();\n(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push([\"object\"==typeof document?document.currentScript:void 0,489214,(e,t,r)=>{t.exports={version:\"18b0f2713d\",base:\"/feel-data/18b0f2713d/\",count:17121,cols:194,rows:89,cell:[16,22],art:[14,20],mosaic:[3104,1958],preview:[1400,883],words:[\"peaceful\",\"cozy\",\"playful\",\"funny\",\"adventurous\",\"epic\",\"tense\",\"eerie\",\"mysterious\",\"wondrous\",\"tender\",\"nostalgic\",\"melancholy\","
+      },
+      {
+        "marker": "new Uint8Array",
+        "pos": 2811,
+        "fragment": "=>[t,e]))),p=d.length+3,g=e=>`${u.base}${e}`;async function x(e){let t=await (await fetch(g(\"points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];function v(e,t,r=3){let l=[];for(let r=0;r<d.length;r++)l.push({word:d[r],score:w(e,t,r)});return"
+      },
+      {
+        "marker": "json()",
+        "pos": 2904,
+        "fragment": "points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];function v(e,t,r=3){let l=[];for(let r=0;r<d.length;r++)l.push({word:d[r],score:w(e,t,r)});return l.sort((e,t)=>t.score-e.score).slice(0,r).filter(e=>e.score>0)}let j=e=>e.charAt(0).toUpperC"
+      },
+      {
+        "marker": "arrayBuffer()",
+        "pos": 2750,
+        "fragment": "ault.families,h=Object.fromEntries(f.flatMap(e=>e.words.map(t=>[t,e]))),p=d.length+3,g=e=>`${u.base}${e}`;async function x(e){let t=await (await fetch(g(\"points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];function v(e,t,r=3){let l=[];for(let"
+      },
+      {
+        "marker": "index",
+        "pos": 5448,
+        "fragment": "urn;let e=A(new URLSearchParams({f:ep,q:eg}));G(t=>t.join(\",\")===e.feelings.join(\",\")?t:e.feelings),Z(t=>t.trim()===e.q.trim()?t:e.q)},[ep,eg]);let ey=(0,a.useMemo)(()=>Y.map(e=>d.indexOf(e)),[Y]),ew=Q.trim().toLowerCase();(0,a.useEffect)(()=>{let e=new AbortController;Promise.all([x(e.signal),y(e.signal)]).then(([e,t])=>{W(e),D(t)}).catch(t=>{e.signal.aborted||(console.error(t),K(!0))});let t=new Image;return t.decoding=\"async\",t.src=g"
+      },
+      {
+        "marker": "index",
+        "pos": 6451,
+        "fragment": "nvas\");return r.width=e,r.height=t,r},a=en.current??l(e,t),n=ei.current??l(e,t),s=a.getContext(\"2d\").createImageData(e,t),i=n.getContext(\"2d\").createImageData(e,t),o=ey.length?R[f.indexOf(h[d[ey[0]]])]:null;for(let e=0;e<r;e++){let t,r;if(o){let l=z(O,e,ey);t=l>=m?.5+.5*I(l,m,95):.05+l/m*.13,r=o}else{let l=0;for(let t=0;t<d.length;t++)l=Math.max(l,w(O,e,t));t=$(l),r=R[b(O,e)]}let l=!ev||ev.has(e);l||(t*=.1);let a=4*e;s.data[a]=r[0]*t,s."
+      },
+      {
+        "marker": "ids",
+        "pos": 11963,
+        "fragment": "rrent)l.has(e)||(t.remove(),e$.current.delete(e));let a=M*e.s*.06;for(let t of l){let l=e$.current.get(t);if(!l){(l=document.createElement(\"a\")).href=`/card/${encodeURIComponent(B.ids[t])}`,l.className=\"fm-card\",l.dataset.i=String(t);let e=document.createElement(\"img\");e.src=(0,s.cardImage)(B.ids[t],\"low\"),e.alt=B.names[t],e.decoding=\"async\",e.loading=\"lazy\",e.draggable=!1,l.appendChild(e),r.appendChild(l),e$.current.set(t,l)}let n=ey.l"
+      },
+      {
+        "marker": "ids",
+        "pos": 12077,
+        "fragment": "l=document.createElement(\"a\")).href=`/card/${encodeURIComponent(B.ids[t])}`,l.className=\"fm-card\",l.dataset.i=String(t);let e=document.createElement(\"img\");e.src=(0,s.cardImage)(B.ids[t],\"low\"),e.alt=B.names[t],e.decoding=\"async\",e.loading=\"lazy\",e.draggable=!1,l.appendChild(e),r.appendChild(l),e$.current.set(t,l)}let n=ey.length&&z(O,t,ey)<m||ev&&!ev.has(t);l.dataset.dim=n?\"1\":\"\";let i=t%O.cols,o=Math.floor(t/O.cols);l.style.transform="
+      },
+      {
+        "marker": "ids",
+        "pos": 16430,
+        "fragment": "v)return;let e=window.setTimeout(()=>(0,i.track)(\"feel_map_search\",{query:ew,matches:ev.size}),1200);return()=>window.clearTimeout(e)},[ev,ew]);let eP=(0,a.useMemo)(()=>new Map(B?.ids.map((e,t)=>[e,t])??[]),[B]),eT=(0,a.useMemo)(()=>{if(1===Y.length&&!ev)return e[Y[0]]??[];if(!O||!Y.length&&!ev)return[];let t=[];for(let e=0;e<O.n;e++){if(ev&&!ev.has(e))continue;let r=ey.length?z(O,e,ey):v(O,e,1)[0]?.score??0;(!ey.length||r>=m)&&t.push({"
+      },
+      {
+        "marker": "ids",
+        "pos": 16826,
+        "fragment": "1)[0]?.score??0;(!ey.length||r>=m)&&t.push({i:e,s:r})}return t.sort((e,t)=>t.s-e.s).slice(0,24).map(e=>e.i)},[Y,ey,ev,O,e]),eq=eT.length&&\"number\"==typeof eT[0]?B?eT.map(e=>({id:B.ids[e],name:B.names[e],set:B.sets[B.set[e]]})):[]:eT,e_=e=>null!=e&&O&&B?{i:e,id:B.ids[e],name:B.names[e],set:B.sets[B.set[e]],feel:v(O,e,3)}:null,eU=X&&X.i!==V?e_(X.i):null,eF=e_(V),eO=Y.map(j).join(\" and \"),eW=Y.length?h[Y[0]]:null;return(0,t.jsxs)(\"section\""
+      },
+      {
+        "marker": "ids",
+        "pos": 16909,
+        "fragment": ".slice(0,24).map(e=>e.i)},[Y,ey,ev,O,e]),eq=eT.length&&\"number\"==typeof eT[0]?B?eT.map(e=>({id:B.ids[e],name:B.names[e],set:B.sets[B.set[e]]})):[]:eT,e_=e=>null!=e&&O&&B?{i:e,id:B.ids[e],name:B.names[e],set:B.sets[B.set[e]],feel:v(O,e,3)}:null,eU=X&&X.i!==V?e_(X.i):null,eF=e_(V),eO=Y.map(j).join(\" and \"),eW=Y.length?h[Y[0]]:null;return(0,t.jsxs)(\"section\",{className:\"fm\",\"aria-label\":\"The feelings map\",children:[(0,t.jsxs)(\"div\",{classN"
+      },
+      {
+        "marker": "melancholy",
+        "pos": 694,
+        "fragment": "22],art:[14,20],mosaic:[3104,1958],preview:[1400,883],words:[\"peaceful\",\"cozy\",\"playful\",\"funny\",\"adventurous\",\"epic\",\"tense\",\"eerie\",\"mysterious\",\"wondrous\",\"tender\",\"nostalgic\",\"melancholy\",\"fierce\"],there:40,families:[{key:\"calm\",label:\"Calm\",color:\"#008300\",words:[\"peaceful\",\"cozy\",\"tender\",\"nostalgic\"]},{key:\"fun\",label:\"Fun\",color:\"#c98500\",words:[\"playful\",\"funny\"]},{key:\"grand\",label:\"Grand\",color:\"#3987e5\",words:[\"adventurous\","
+      },
+      {
+        "marker": "melancholy",
+        "pos": 1061,
+        "fragment": "funny\"]},{key:\"grand\",label:\"Grand\",color:\"#3987e5\",words:[\"adventurous\",\"epic\",\"wondrous\"]},{key:\"dark\",label:\"Dark\",color:\"#d55181\",words:[\"tense\",\"fierce\",\"eerie\",\"mysterious\",\"melancholy\"]}],says:{peaceful:\"Calm, quiet, at rest.\",cozy:\"Warm, snug and safe. Home, blankets, warm light.\",playful:\"Light, happy and cute.\",funny:\"Silly faces, pratfalls, a Pokémon looking ridiculous.\",adventurous:\"Setting out, open horizons, on the road.\","
+      },
+      {
+        "marker": "melancholy",
+        "pos": 1685,
+        "fragment": "e.\",wondrous:\"Awe and magic. Something vast or beautiful.\",tender:\"Affection and care. Sweet, gentle, loving.\",nostalgic:\"The look of the first cards, old things, faded memories.\",melancholy:\"Sad, lonely or wistful.\",fierce:\"Bared teeth, a glare, menace.\"},labels:[{w:\"peaceful\",c:35.9,r:25.8},{w:\"cozy\",c:24,r:17},{w:\"playful\",c:96.5,r:20.5},{w:\"funny\",c:92.2,r:28.9},{w:\"adventurous\",c:125.1,r:35.2},{w:\"epic\",c:149,r:60.2},{w:\"tense\",c:1"
+      },
+      {
+        "marker": "melancholy",
+        "pos": 2106,
+        "fragment": "0.2},{w:\"tense\",c:127.8,r:68.5},{w:\"eerie\",c:53.1,r:81.4},{w:\"mysterious\",c:57.5,r:69.6},{w:\"wondrous\",c:106.1,r:33.6},{w:\"tender\",c:38.8,r:15.3},{w:\"nostalgic\",c:69.3,r:48.3},{w:\"melancholy\",c:12.9,r:70.2},{w:\"fierce\",c:143,r:69.8}],counts:{peaceful:3857,cozy:504,playful:7499,funny:2244,adventurous:955,epic:4124,tense:5230,eerie:759,mysterious:2640,wondrous:1870,tender:237,nostalgic:2816,melancholy:95,fierce:4252},both:17121}},523258,e"
+      },
+      {
+        "marker": "melancholy",
+        "pos": 2318,
+        "fragment": "ierce\",c:143,r:69.8}],counts:{peaceful:3857,cozy:504,playful:7499,funny:2244,adventurous:955,epic:4124,tense:5230,eerie:759,mysterious:2640,wondrous:1870,tender:237,nostalgic:2816,melancholy:95,fierce:4252},both:17121}},523258,e=>{\"use strict\";var t=e.i(414294),r=e.i(504561),l=e.i(353913),a=e.i(430878),n=e.i(41478),s=e.i(185384),i=e.i(512674),o=e.i(568157),c=e.i(489214);let u=c.default,d=c.default.words,m=c.default.there,f=c.default.fam"
+      },
+      {
+        "marker": "bin",
+        "pos": 2731,
+        "fragment": "fault.there,f=c.default.families,h=Object.fromEntries(f.flatMap(e=>e.words.map(t=>[t,e]))),p=d.length+3,g=e=>`${u.base}${e}`;async function x(e){let t=await (await fetch(g(\"points.bin\"),{signal:e})).arrayBuffer();return{n:u.count,cols:u.cols,rows:u.rows,bytes:new Uint8Array(t)}}async function y(e){return await (await fetch(g(\"meta.json\"),{signal:e})).json()}let w=(e,t,r)=>e.bytes[t*p+r],b=(e,t)=>e.bytes[t*p+d.length+2];function v(e,t,r="
+      }
+    ]
+  },
+  "feelDataCandidates": [
+    {
+      "file": "manifest.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "metadata.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "meta.json",
+      "status": 200,
+      "bytes": 444240,
+      "preview": "{\"ids\":[\"swsh12.5gg-GG19\",\"sm8-152\",\"sm10-135\",\"A2-159\",\"A3a-070\",\"sv10.5b-151\",\"sv07-065\",\"A2-022\",\"me02.5-080\",\"neo4-51\",\"A3b-037\",\"hgss1-44\",\"swsh2-87\",\"g1-RC23\",\"g1-RC6\",\"B1a-094\",\"sv04.5-232\",\"sw"
+    },
+    {
+      "file": "index.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "cards.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "map.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "points.bin",
+      "status": 200,
+      "bytes": 291057,
+      "preview": "Ub,\u0005\u0000\u0000\u0000\u0000\u0000\u00188 \u0000\u0000W\u0010\u0000RLD\u0005\u0000\u0000\u0000\u0000\u0000\u0011N\u001b\u0000\u0000Z\u0010\u0000XDB\n\u0000\u0000\u0000\u0000\u0000\u0011?\u0016\u0000\u0000X\u0010\u0000_\"8\u0000\u0000\u0000\u0000\u0000\u0000%'\u0000\u0000\u0000^\u000f\u0000X\\,\u0012\u0000\u0000\u0000\u0000\u0000\u0018\u001b\u000f\u0000\u0000Y\u0014\u0000I/U\u0016\u0000\u0000\u0000\u0000\u0000\u0018*\u0012\u0000\u0000Y\u0012\u0000:ZU\u0002\u0000\u0000\u0000\u0000\u0000\u00163\u0016\u0000\u0000Z\u0016\u0000L H\u0000\u0000\u0000\u0000\u0000\u0000\u001b0\u0016\u0000\u0000Z\u0015\u0000I\"U\u0016\u0000\u0000\u0000\u0000\u0000\u00113\u0016\u0000\u0000Y\u0016\u0000G\u001dU%\u0000\u0000\u0000\u0000\u0000\u0016\u001dR\u0000\u0000Z\u0015\u00008,Z\u0000\u0000\u0000\u0000\u0000\u0000\u001d \u0011\u0000\u0000\\\u0016\u0000N\u001bI\b\u0000\u0000\u0000\u0000\u0000\u0018 \u0016\u0000"
+    },
+    {
+      "file": "cards.bin",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "ids.json",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    },
+    {
+      "file": "coords.bin",
+      "status": 404,
+      "bytes": 53943,
+      "preview": "<!DOCTYPE html><html data-dpl-id=\"dpl_DWenDceMDCJMM9Zk2o2nbCLi3Z3S\" lang=\"en\" class=\"cormorant_garamond_aa65093a-module__IM_2eG__variable inter_f538a49-module__f4k-Ea__variable\"><head><meta charSet=\"u"
+    }
+  ]
 }
