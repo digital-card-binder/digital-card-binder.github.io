@@ -1,0 +1,2189 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-08",
+  "scope": "35 sad list + 31 sad list + current 95 Illudex melancholy feel-map, compared with current physical Korean master",
+  "summary": {
+    "currentIlludexEmotionIndexCards": 95,
+    "digitalPocketExcluded": 13,
+    "physicalTCGCardReferences": 82,
+    "physicalImagesDownloaded": 82,
+    "referenceArtworksMatched": 61,
+    "referenceArtworksNotMatched": 21,
+    "koreanUniquePhysicalPrintsInThisIlludex95Set": 82,
+    "koreanPrintsAlreadyInPrevious54": 21,
+    "newKoreanUniquePrints": 61,
+    "previousKoreanThemePrints": 54,
+    "finalKoreanThemePrints": 115,
+    "pokecardlistsOverseasReferences": 35,
+    "woahpokeOverseasReferences": 31,
+    "woahpokeDistinctBeyondPokecardlists": 1,
+    "illudexPriorNamedGalleryEntries": 42
+  },
+  "referenceSources": [
+    {
+      "name": "PokéCardLists",
+      "url": "https://pokecardlists.com/sad-pokemon-card-list/",
+      "count": 35
+    },
+    {
+      "name": "woahpoke",
+      "url": "https://woahpoke.com/sad-pokemon-cards/",
+      "count": 31,
+      "uniqueBeyondFirst": 1
+    },
+    {
+      "name": "Illudex",
+      "url": "https://www.illudex.com/feelings?f=melancholy",
+      "count": 95,
+      "publicBinaryVersion": "18b0f2713d"
+    }
+  ],
+  "method": "Read full publicly served Illudex 17,121-card binary scores (melancholy >=40), verify 95 matches site displayed count, exclude Pocket-only digital sets, compare artwork via SIFT affine RANSAC >=60 inliers plus correlation >=0.60; match Korean master series+number+name and image. Preserve preexisting 54 card ownership identities.",
+  "nonmatchingInterpretation": "No matching artwork in this Korean master snapshot, not a categorical assertion that the card was never printed in Korean.",
+  "illudex95": [
+    {
+      "id": "xy8-77",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 98,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "RBD_005",
+          "artMatches": 228,
+          "artCorrelation": 0.909,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "XY8-BR_034",
+          "artMatches": 228,
+          "artCorrelation": 0.908,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "CP4_068",
+          "artMatches": 194,
+          "artCorrelation": 0.889,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/xy8-77",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm6-57",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 95,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM6_041",
+          "artMatches": 187,
+          "artCorrelation": 0.938,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "SMK_012",
+          "artMatches": 186,
+          "artCorrelation": 0.938,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "SM8B_053",
+          "artMatches": 185,
+          "artCorrelation": 0.933,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm6-57",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A1-151",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 95,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A1-151",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "base2-50",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 95,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/base2-50",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ecard1-103",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 92,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ecard1-103",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "hgss4-60",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 90,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/hgss4-60",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ecard2-72",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 88,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ecard2-72",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A3-089",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 88,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A3-089",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "sm4-52",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 85,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM4S_028",
+          "artMatches": 185,
+          "artCorrelation": 0.928,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm4-52",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A1-239",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 85,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A1-239",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "ex6-60",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 85,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex6-60",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh2-44",
+      "nameEn": "Tympole",
+      "nameKo": "동챙이",
+      "score": 85,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S2_023",
+          "artMatches": 152,
+          "artCorrelation": 0.934,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh2-44",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "30th-028",
+      "nameEn": "Pikachu",
+      "nameKo": "피카츄",
+      "score": 82,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "M6A_022",
+          "artMatches": 88,
+          "artCorrelation": 0.866,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/30th-028",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh5-69",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 82,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S5R_040",
+          "artMatches": 198,
+          "artCorrelation": 0.928,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "SI_214",
+          "artMatches": 180,
+          "artCorrelation": 0.928,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh5-69",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv03.5-104",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 80,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV2A_104",
+          "artMatches": 205,
+          "artCorrelation": 0.906,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv03.5-104",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh8-118",
+      "nameEn": "Galarian Cursola",
+      "nameKo": "가라르 산호르곤",
+      "score": 80,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S8_044",
+          "artMatches": 211,
+          "artCorrelation": 0.947,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh8-118",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm12-149",
+      "nameEn": "Flabébé",
+      "nameKo": "플라베베",
+      "score": 80,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM12_058",
+          "artMatches": 214,
+          "artCorrelation": 0.928,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm12-149",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv10-204",
+      "nameEn": "Kangaskhan",
+      "nameKo": "캥카",
+      "score": 78,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV10_110",
+          "artMatches": 167,
+          "artCorrelation": 0.838,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv10-204",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh2-78",
+      "nameEn": "Galarian Corsola",
+      "nameKo": "가라르 코산호",
+      "score": 78,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S1A_036",
+          "artMatches": 194,
+          "artCorrelation": 0.948,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "S4A_072",
+          "artMatches": 193,
+          "artCorrelation": 0.948,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh2-78",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "me01-066",
+      "nameEn": "Houndstone",
+      "nameKo": "묘두기",
+      "score": 78,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "MC_350",
+          "artMatches": 239,
+          "artCorrelation": 0.968,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/me01-066",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv04-148",
+      "nameEn": "Whismur",
+      "nameKo": "소곤룡",
+      "score": 72,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV4K_055",
+          "artMatches": 200,
+          "artCorrelation": 0.943,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv04-148",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex5-61",
+      "nameEn": "Feebas",
+      "nameKo": "빈티나",
+      "score": 72,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex5-61",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv10.5w-039",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 72,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "MC_320",
+          "artMatches": 228,
+          "artCorrelation": 0.961,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "SV11W_036",
+          "artMatches": 225,
+          "artCorrelation": 0.961,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv10.5w-039",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv09-076",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 70,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SVM_061",
+          "artMatches": 224,
+          "artCorrelation": 0.927,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv09-076",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh1-54",
+      "nameEn": "Sobble",
+      "nameKo": "울머기",
+      "score": 70,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S4A_039",
+          "artMatches": 189,
+          "artCorrelation": 0.878,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "S1W_017",
+          "artMatches": 185,
+          "artCorrelation": 0.894,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh1-54",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "B1-110",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 70,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/B1-110",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "ex2-45",
+      "nameEn": "Lombre",
+      "nameKo": "로토스",
+      "score": 68,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex2-45",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv08-082",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 68,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "MC_319",
+          "artMatches": 249,
+          "artCorrelation": 0.939,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "SV8_051",
+          "artMatches": 247,
+          "artCorrelation": 0.939,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv08-082",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "neo4-83",
+      "nameEn": "Sunkern",
+      "nameKo": "해너츠",
+      "score": 66,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/neo4-83",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex16-42",
+      "nameEn": "Aron",
+      "nameKo": "가보리",
+      "score": 65,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex16-42",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm1-44",
+      "nameEn": "Wishiwashi",
+      "nameKo": "약어리",
+      "score": 63,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM1S_017",
+          "artMatches": 87,
+          "artCorrelation": 0.902,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm1-44",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh2-117",
+      "nameEn": "Trubbish",
+      "nameKo": "깨봉이",
+      "score": 62,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S4A_115",
+          "artMatches": 214,
+          "artCorrelation": 0.899,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "S2_066",
+          "artMatches": 211,
+          "artCorrelation": 0.899,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh2-117",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv06-194",
+      "nameEn": "Wellspring Mask Ogerpon ex",
+      "nameKo": "우물의 가면 오거폰 ex",
+      "score": 61,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV6_117",
+          "artMatches": 146,
+          "artCorrelation": 0.887,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv06-194",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv03-110",
+      "nameEn": "Bonsly",
+      "nameKo": "꼬지지",
+      "score": 60,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV3_058",
+          "artMatches": 221,
+          "artCorrelation": 0.922,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv03-110",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex7-51",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 60,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex7-51",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex1-49",
+      "nameEn": "Aron",
+      "nameKo": "가보리",
+      "score": 58,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "ADV1-M_010",
+          "artMatches": 202,
+          "artCorrelation": 0.925,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/ex1-49",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "bw3-44",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 58,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "BW2_028",
+          "artMatches": 170,
+          "artCorrelation": 0.929,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/bw3-44",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "me06-027",
+      "nameEn": "Frillish",
+      "nameKo": "탱그릴",
+      "score": 58,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "M6_019",
+          "artMatches": 192,
+          "artCorrelation": 0.934,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/me06-027",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh11-134",
+      "nameEn": "Hisuian Goodra",
+      "nameKo": "히스이 미끄래곤",
+      "score": 57,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S10A_055",
+          "artMatches": 119,
+          "artCorrelation": 0.905,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "S12A_114",
+          "artMatches": 119,
+          "artCorrelation": 0.905,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh11-134",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh6-41",
+      "nameEn": "Sobble",
+      "nameKo": "울머기",
+      "score": 56,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SI_116",
+          "artMatches": 213,
+          "artCorrelation": 0.956,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "S8B_036",
+          "artMatches": 211,
+          "artCorrelation": 0.956,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "S5A_016",
+          "artMatches": 210,
+          "artCorrelation": 0.956,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh6-41",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swshp-SWSH173",
+      "nameEn": "Blitzle",
+      "nameKo": "줄뮤마",
+      "score": 56,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S-P_106",
+          "artMatches": 221,
+          "artCorrelation": 0.927,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swshp-SWSH173",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv07-062",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 56,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV-P_058",
+          "artMatches": 206,
+          "artCorrelation": 0.948,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv07-062",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A2a-007",
+      "nameEn": "Cherrim",
+      "nameKo": "체리꼬",
+      "score": 56,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A2a-007",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "base5-65",
+      "nameEn": "Psyduck",
+      "nameKo": "고라파덕",
+      "score": 55,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/base5-65",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv10.5b-025",
+      "nameEn": "Cubchoo",
+      "nameKo": "코고미",
+      "score": 55,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV11B_028",
+          "artMatches": 280,
+          "artCorrelation": 0.972,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv10.5b-025",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm2-90",
+      "nameEn": "Cottonee",
+      "nameKo": "소미안",
+      "score": 54,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM2L_036",
+          "artMatches": 175,
+          "artCorrelation": 0.905,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "SM2+_041",
+          "artMatches": 163,
+          "artCorrelation": 0.905,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm2-90",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "xy9-56",
+      "nameEn": "Trubbish",
+      "nameKo": "깨봉이",
+      "score": 53,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "XY_049",
+          "artMatches": 277,
+          "artCorrelation": 0.672,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "XY9_039",
+          "artMatches": 217,
+          "artCorrelation": 0.718,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/xy9-56",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh8-117",
+      "nameEn": "Galarian Corsola",
+      "nameKo": "가라르 코산호",
+      "score": 53,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S8_043",
+          "artMatches": 206,
+          "artCorrelation": 0.956,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh8-117",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "g1-RC8",
+      "nameEn": "Froslass",
+      "nameKo": "눈여아",
+      "score": 52,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "CP3_009",
+          "artMatches": 135,
+          "artCorrelation": 0.761,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/g1-RC8",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "g1-RC2",
+      "nameEn": "Shroomish",
+      "nameKo": "버섯꼬",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "CP3_002",
+          "artMatches": 72,
+          "artCorrelation": 0.678,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/g1-RC2",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh10.5-020",
+      "nameEn": "Slowbro",
+      "nameKo": "야도란",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S10B_020",
+          "artMatches": 243,
+          "artCorrelation": 0.957,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh10.5-020",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv04-083",
+      "nameEn": "Tinkatink",
+      "nameKo": "어리짱",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV4M_035",
+          "artMatches": 228,
+          "artCorrelation": 0.963,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv04-083",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh1-55",
+      "nameEn": "Sobble",
+      "nameKo": "울머기",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SA-W_007",
+          "artMatches": 111,
+          "artCorrelation": 0.882,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh1-55",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh11-080",
+      "nameEn": "Mimikyu",
+      "nameKo": "따라큐",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S11_050",
+          "artMatches": 209,
+          "artCorrelation": 0.941,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh11-080",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv06-012",
+      "nameEn": "Phantump",
+      "nameKo": "나목령",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV6_006",
+          "artMatches": 202,
+          "artCorrelation": 0.918,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "MC_055",
+          "artMatches": 201,
+          "artCorrelation": 0.92,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv06-012",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "bw5-51",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "BW4_037",
+          "artMatches": 144,
+          "artCorrelation": 0.871,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/bw5-51",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex1-17",
+      "nameEn": "Donphan",
+      "nameKo": "코리갑",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "ADV1_032",
+          "artMatches": 180,
+          "artCorrelation": 0.739,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/ex1-17",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv01-106",
+      "nameEn": "Houndstone",
+      "nameKo": "묘두기",
+      "score": 51,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV1V_048",
+          "artMatches": 150,
+          "artCorrelation": 0.926,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "SV4A_098",
+          "artMatches": 144,
+          "artCorrelation": 0.924,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv01-106",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "xy10-68",
+      "nameEn": "Snubbull",
+      "nameKo": "블루",
+      "score": 50,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "XYH_005",
+          "artMatches": 221,
+          "artCorrelation": 0.893,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/xy10-68",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv04.5-051",
+      "nameEn": "Clobbopus",
+      "nameKo": "때때무노",
+      "score": 50,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV4K_035",
+          "artMatches": 216,
+          "artCorrelation": 0.924,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv04.5-051",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "pop2-15",
+      "nameEn": "Phanpy",
+      "nameKo": "코코리",
+      "score": 50,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/pop2-15",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex10-77",
+      "nameEn": "Teddiursa",
+      "nameKo": "깜지곰",
+      "score": 50,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex10-77",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh12-074",
+      "nameEn": "Chimecho",
+      "nameKo": "치렁",
+      "score": 49,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S10A_028",
+          "artMatches": 149,
+          "artCorrelation": 0.918,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh12-074",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A2b-052",
+      "nameEn": "Tinkatink",
+      "nameKo": "어리짱",
+      "score": 49,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A2b-052",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "swsh4.5sv-SV049",
+      "nameEn": "Galarian Corsola",
+      "nameKo": "가라르 코산호",
+      "score": 48,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S4A_248",
+          "artMatches": 84,
+          "artCorrelation": 0.866,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh4.5sv-SV049",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv10.5w-126",
+      "nameEn": "Frillish",
+      "nameKo": "탱그릴",
+      "score": 48,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV11W_124",
+          "artMatches": 197,
+          "artCorrelation": 0.941,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv10.5w-126",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A4a-033",
+      "nameEn": "Mismagius",
+      "nameKo": "무우마직",
+      "score": 48,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A4a-033",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "sm8-95",
+      "nameEn": "Shedinja",
+      "nameKo": "껍질몬",
+      "score": 48,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM7B_015",
+          "artMatches": 213,
+          "artCorrelation": 0.945,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm8-95",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "xy11-50",
+      "nameEn": "Chandelure",
+      "nameKo": "샹델라",
+      "score": 48,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "XY11-BB_027",
+          "artMatches": 173,
+          "artCorrelation": 0.86,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/xy11-50",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex2-67",
+      "nameEn": "Lotad",
+      "nameKo": "연꽃몬",
+      "score": 47,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex2-67",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm6-75",
+      "nameEn": "Rockruff",
+      "nameKo": "암멍이",
+      "score": 47,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM8B_059",
+          "artMatches": 222,
+          "artCorrelation": 0.959,
+          "previouslyRegistered": true
+        },
+        {
+          "cardCode": "SM6_052",
+          "artMatches": 211,
+          "artCorrelation": 0.961,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm6-75",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A3-160",
+      "nameEn": "Alolan Marowak",
+      "nameKo": "알로라 텅구리",
+      "score": 47,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A3-160",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "ex11-67",
+      "nameEn": "Drowzee",
+      "nameKo": "슬리프",
+      "score": 47,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex11-67",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex2-51",
+      "nameEn": "Quilava",
+      "nameKo": "마그케인",
+      "score": 47,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex2-51",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh10-064",
+      "nameEn": "Drifblim",
+      "nameKo": "둥실라이드",
+      "score": 46,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S10D_027",
+          "artMatches": 148,
+          "artCorrelation": 0.953,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh10-064",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex16-64",
+      "nameEn": "Snorunt",
+      "nameKo": "눈꼬마",
+      "score": 46,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex16-64",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swsh5-5",
+      "nameEn": "Cacturne",
+      "nameKo": "밤선인",
+      "score": 46,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "S5I_002",
+          "artMatches": 228,
+          "artCorrelation": 0.939,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "SI_011",
+          "artMatches": 221,
+          "artCorrelation": 0.939,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/swsh5-5",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ex11-60",
+      "nameEn": "Cubone",
+      "nameKo": "탕구리",
+      "score": 44,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ex11-60",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "B2-156",
+      "nameEn": "Cacnea",
+      "nameKo": "선인왕",
+      "score": 44,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/B2-156",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "me04-059",
+      "nameEn": "Beldum",
+      "nameKo": "메탕",
+      "score": 44,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "M4_057",
+          "artMatches": 200,
+          "artCorrelation": 0.955,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/me04-059",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "swshp-SWSH073",
+      "nameEn": "Sobble",
+      "nameKo": "울머기",
+      "score": 43,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/swshp-SWSH073",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "B1-190",
+      "nameEn": "Whismur",
+      "nameKo": "소곤룡",
+      "score": 43,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/B1-190",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "dp1-71",
+      "nameEn": "Bonsly",
+      "nameKo": "꼬지지",
+      "score": 43,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "BS6_042",
+          "artMatches": 158,
+          "artCorrelation": 0.804,
+          "previouslyRegistered": true
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/dp1-71",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "g1-53",
+      "nameEn": "Meowth",
+      "nameKo": "나옹",
+      "score": 43,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "20TH_042",
+          "artMatches": 185,
+          "artCorrelation": 0.896,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "CP2_022",
+          "artMatches": 145,
+          "artCorrelation": 0.901,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/g1-53",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "dp1-58",
+      "nameEn": "Prinplup",
+      "nameKo": "팽태자",
+      "score": 43,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/dp1-58",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "bw7-2",
+      "nameEn": "Gloom",
+      "nameKo": "냄새꼬",
+      "score": 43,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "BW6-BF_002",
+          "artMatches": 208,
+          "artCorrelation": 0.944,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/bw7-2",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "B1-041",
+      "nameEn": "Litwick",
+      "nameKo": "불켜미",
+      "score": 43,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/B1-041",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "sm8-99",
+      "nameEn": "Yamask",
+      "nameKo": "데스마스",
+      "score": 43,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM7B_019",
+          "artMatches": 213,
+          "artCorrelation": 0.935,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm8-99",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv06.5-068",
+      "nameEn": "Duskull",
+      "nameKo": "해골몽",
+      "score": 43,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV6A_068",
+          "artMatches": 172,
+          "artCorrelation": 0.885,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv06.5-068",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sm9-20",
+      "nameEn": "Litten",
+      "nameKo": "냐오불",
+      "score": 42,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SM8A_001",
+          "artMatches": 190,
+          "artCorrelation": 0.937,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sm9-20",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "sv10.5b-109",
+      "nameEn": "Cubchoo",
+      "nameKo": "코고미",
+      "score": 41,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "SV11B_113",
+          "artMatches": 295,
+          "artCorrelation": 0.985,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/sv10.5b-109",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "A4a-034",
+      "nameEn": "Galarian Corsola",
+      "nameKo": "가라르 코산호",
+      "score": 41,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/A4a-034",
+      "referenceImageFetched": false
+    },
+    {
+      "id": "xy6-11",
+      "nameEn": "Shedinja",
+      "nameKo": "껍질몬",
+      "score": 41,
+      "physical": true,
+      "status": "same_art_korean_print_verified",
+      "koreanMatches": [
+        {
+          "cardCode": "XY6_011",
+          "artMatches": 154,
+          "artCorrelation": 0.927,
+          "previouslyRegistered": false
+        },
+        {
+          "cardCode": "CP4_009",
+          "artMatches": 99,
+          "artCorrelation": 0.904,
+          "previouslyRegistered": false
+        }
+      ],
+      "originalCardUrl": "https://www.illudex.com/card/xy6-11",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "ecard2-54",
+      "nameEn": "Marowak",
+      "nameKo": "텅구리",
+      "score": 41,
+      "physical": true,
+      "status": "no_same_art_found_in_current_korean_master",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/ecard2-54",
+      "referenceImageFetched": true
+    },
+    {
+      "id": "B2-173",
+      "nameEn": "Alolan Muk",
+      "nameKo": "알로라 질뻐기",
+      "score": 41,
+      "physical": false,
+      "status": "digital_pocket_excluded",
+      "koreanMatches": [],
+      "originalCardUrl": "https://www.illudex.com/card/B2-173",
+      "referenceImageFetched": false
+    }
+  ],
+  "originalPokecardlists35": [
+    {
+      "refIndex": 1,
+      "nameEn": "Sandygast",
+      "foreignSet": "Paldea Evolved",
+      "foreignNumber": "214/193",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV2D_075"
+      ],
+      "koreanNameCandidateCount": 14,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 2,
+      "nameEn": "Drowzee",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "210/198",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV1V_086"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 3,
+      "nameEn": "Mabosstiff",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "218/198",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SV1V_088"
+      ],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 4,
+      "nameEn": "Hisuian Goodra",
+      "foreignSet": "Crown Zenith",
+      "foreignNumber": "GG21",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S12A_196"
+      ],
+      "koreanNameCandidateCount": 3,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 5,
+      "nameEn": "Hisuian Goodra VSTAR",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "136/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S10A_057"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 6,
+      "nameEn": "Hisuian Goodra V",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "135/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S10A_056"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 7,
+      "nameEn": "Pikachu",
+      "foreignSet": "30th Celebration",
+      "foreignNumber": "028/128",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "M6A_022"
+      ],
+      "koreanNameCandidateCount": 104,
+      "foreignImageFetched": false,
+      "correctionNote": "English 028/128 = Korean M6a 022/103 (06/30, sowsow), not Korean 028/103 (12/30, USGMEN)"
+    },
+    {
+      "refIndex": 8,
+      "nameEn": "Hisuian Goodra",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "134/196",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "S12A_114",
+        "S10A_055"
+      ],
+      "koreanNameCandidateCount": 3,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 9,
+      "nameEn": "Sobble",
+      "foreignSet": "SWSH Black Star Promos",
+      "foreignNumber": "SWSH073",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 10,
+      "nameEn": "Mimikyu",
+      "foreignSet": "Lost Origin",
+      "foreignNumber": "080/196",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S11_050"
+      ],
+      "koreanNameCandidateCount": 15,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 11,
+      "nameEn": "Mimikyu",
+      "foreignSet": "Cosmic Eclipse",
+      "foreignNumber": "96/236",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SM11B_028"
+      ],
+      "koreanNameCandidateCount": 15,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 12,
+      "nameEn": "Lombre",
+      "foreignSet": "Sandstorm",
+      "foreignNumber": "45/100",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 8,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 13,
+      "nameEn": "Wooper",
+      "foreignSet": "Aquapolis",
+      "foreignNumber": "66/147",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 10,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 14,
+      "nameEn": "Misty's Tears",
+      "foreignSet": "Gym Challenge",
+      "foreignNumber": "118/132",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 0,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 15,
+      "nameEn": "Psyduck",
+      "foreignSet": "Ascended Heroes",
+      "foreignNumber": "39/217",
+      "status": "no_corresponding_korean_master_print_found",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 19,
+      "foreignImageFetched": false,
+      "referenceOriginal": "Japanese MEGA Dream ex M2a 032/193 (Jiro Sasumo) · English 039/217",
+      "proof": "https://bulbapedia.bulbagarden.net/wiki/Psyduck_%28Ascended_Heroes_39%29"
+    },
+    {
+      "refIndex": 16,
+      "nameEn": "Smoliv",
+      "foreignSet": "Scarlet & Violet Base",
+      "foreignNumber": "021/198",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "SV1S_006"
+      ],
+      "koreanNameCandidateCount": 8,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 17,
+      "nameEn": "Litten",
+      "foreignSet": "Silver Tempest",
+      "foreignNumber": "030/195",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S12_015"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 18,
+      "nameEn": "Wishiwashi",
+      "foreignSet": "Darkness Ablaze",
+      "foreignNumber": "050/189",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S2A_024"
+      ],
+      "koreanNameCandidateCount": 11,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 19,
+      "nameEn": "Sobble",
+      "foreignSet": "Sword & Shield Base",
+      "foreignNumber": "054/202",
+      "status": "verified_japanese_original_and_korean_print",
+      "matchingKoreanKeys": [
+        "S1W_017"
+      ],
+      "koreanNameCandidateCount": 7,
+      "foreignImageFetched": false
+    },
+    {
+      "refIndex": 20,
+      "nameEn": "Cubone",
+      "foreignSet": "Forbidden Light",
+      "foreignNumber": "57/131",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SMK_012",
+        "SM6_041",
+        "SM8B_053"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 21,
+      "nameEn": "Rockruff",
+      "foreignSet": "Forbidden Light",
+      "foreignNumber": "75/131",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "SM8B_059",
+        "SM6_052"
+      ],
+      "koreanNameCandidateCount": 22,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 22,
+      "nameEn": "Trubbish",
+      "foreignSet": "BREAKpoint",
+      "foreignNumber": "56/122",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY_049",
+        "XY9_039"
+      ],
+      "koreanNameCandidateCount": 22,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 23,
+      "nameEn": "Elgyem",
+      "foreignSet": "BREAKthrough",
+      "foreignNumber": "73/162",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY8-BB_029"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 24,
+      "nameEn": "Cubone",
+      "foreignSet": "BREAKthrough",
+      "foreignNumber": "77/162",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "XY8-BR_034",
+        "RBD_005",
+        "CP4_068"
+      ],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 25,
+      "nameEn": "Natu",
+      "foreignSet": "Legendary Treasures",
+      "foreignNumber": "55/113",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "EBB_046"
+      ],
+      "koreanNameCandidateCount": 12,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 26,
+      "nameEn": "Bonsly",
+      "foreignSet": "Diamond & Pearl Base",
+      "foreignNumber": "71/130",
+      "status": "verified_same_art_in_korean_master",
+      "matchingKoreanKeys": [
+        "BS6_042"
+      ],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 27,
+      "nameEn": "Electabuzz",
+      "foreignSet": "Diamond & Pearl Base",
+      "foreignNumber": "81/130",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 21,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 28,
+      "nameEn": "Smoochum δ",
+      "foreignSet": "Dragon Frontiers",
+      "foreignNumber": "64/101",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 2,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 29,
+      "nameEn": "Omanyte",
+      "foreignSet": "Legend Maker",
+      "foreignNumber": "60/92",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 4,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 30,
+      "nameEn": "Drowzee",
+      "foreignSet": "Delta Species",
+      "foreignNumber": "67/113",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 31,
+      "nameEn": "Cubone",
+      "foreignSet": "FireRed & LeafGreen",
+      "foreignNumber": "60/112",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 32,
+      "nameEn": "Cubone",
+      "foreignSet": "Expedition Base Set",
+      "foreignNumber": "103/165",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 33,
+      "nameEn": "Ledyba",
+      "foreignSet": "Neo Destiny",
+      "foreignNumber": "71/105",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 5,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 34,
+      "nameEn": "Cubone",
+      "foreignSet": "Jungle",
+      "foreignNumber": "50/64",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 17,
+      "foreignImageFetched": true
+    },
+    {
+      "refIndex": 35,
+      "nameEn": "Recycle",
+      "foreignSet": "Fossil",
+      "foreignNumber": "61/62",
+      "status": "none_of_current_master_images_matched",
+      "matchingKoreanKeys": [],
+      "koreanNameCandidateCount": 1,
+      "foreignImageFetched": true
+    }
+  ],
+  "woahpokeOnlyExtra": [
+    {
+      "nameEn": "Psyduck",
+      "setEn": "Japanese PokeKyun Promo",
+      "numberEn": "XY-P"
+    }
+  ],
+  "koreanNewPrintKeys": [
+    "SM4S_028",
+    "S2_023",
+    "S5R_040",
+    "SI_214",
+    "SV2A_104",
+    "S8_044",
+    "SV10_110",
+    "S1A_036",
+    "S4A_072",
+    "SV4K_055",
+    "MC_320",
+    "SV11W_036",
+    "SVM_061",
+    "S4A_039",
+    "MC_319",
+    "SV8_051",
+    "SM1S_017",
+    "S4A_115",
+    "S2_066",
+    "SV6_117",
+    "SV3_058",
+    "ADV1-M_010",
+    "BW2_028",
+    "M6_019",
+    "SI_116",
+    "S8B_036",
+    "S5A_016",
+    "S-P_106",
+    "SV-P_058",
+    "SV11B_028",
+    "S8_043",
+    "CP3_009",
+    "CP3_002",
+    "S10B_020",
+    "SV4M_035",
+    "SA-W_007",
+    "SV6_006",
+    "MC_055",
+    "BW4_037",
+    "ADV1_032",
+    "SV1V_048",
+    "SV4A_098",
+    "XYH_005",
+    "SV4K_035",
+    "S10A_028",
+    "S4A_248",
+    "SV11W_124",
+    "SM7B_015",
+    "XY11-BB_027",
+    "S10D_027",
+    "S5I_002",
+    "SI_011",
+    "20TH_042",
+    "CP2_022",
+    "BW6-BF_002",
+    "SM7B_019",
+    "SV6A_068",
+    "SM8A_001",
+    "SV11B_113",
+    "XY6_011",
+    "CP4_009"
+  ],
+  "prior54PrintKeys": [
+    "SV1V_086",
+    "SV1V_088",
+    "SV2D_075",
+    "S12A_196",
+    "S10A_055",
+    "S10A_056",
+    "S10A_057",
+    "SV6_104",
+    "M6A_022",
+    "S12A_114",
+    "SM11B_028",
+    "SMK_012",
+    "SM6_041",
+    "SM8B_053",
+    "SM8B_059",
+    "SM6_052",
+    "XY_049",
+    "XY9_039",
+    "XY8-BB_029",
+    "XY8-BR_034",
+    "RBD_005",
+    "CP4_068",
+    "EBB_046",
+    "BS6_042",
+    "S11_050",
+    "SV1S_006",
+    "S12_015",
+    "S2A_024",
+    "S1W_017",
+    "SV8_110",
+    "M4_057",
+    "SV11W_141",
+    "SV6A_075",
+    "SV9A_065",
+    "S6A_077",
+    "MC_350",
+    "SM12_058",
+    "SV11W_121",
+    "SV2D_088",
+    "SM2L_003",
+    "S11A_058",
+    "XY7_052",
+    "S6H_036",
+    "S8B_064",
+    "SM2L_036",
+    "SM2+_041",
+    "SV11B_145",
+    "SV10_105",
+    "S6K_076",
+    "S5A_074",
+    "BW5-BRZ_025",
+    "S3A_026",
+    "S9_046",
+    "S12A_058"
+  ],
+  "coverageComplete": {
+    "illudexAll95Referenced": true,
+    "illudexNoUnenumerated": true,
+    "english35Dispositioned": true,
+    "woahpoke31Dispositioned": true,
+    "remainingArtworkToBeRegisteredIfUnverified": 0
+  },
+  "limitations": [
+    "21 overseas physical card images did not match an image for that species in the present Korean master; release status outside this master is not proven.",
+    "An unnumbered Japanese PokéKyun Psyduck print from woahpoke has no uniquely demonstrated Korean same-artwork print.",
+    "Theme mood is editorial/subjective; matching art verifies identity, not a scientifically objective emotion."
+  ],
+  "masterSnapshot": {
+    "setCount": 273,
+    "cardCount": 20243
+  }
+}
