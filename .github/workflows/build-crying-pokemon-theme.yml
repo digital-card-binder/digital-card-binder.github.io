@@ -7,6 +7,7 @@ on:
       - 'scripts/build-crying-theme.mjs'
       - 'scripts/probe-illudex-melancholy.mjs'
       - 'scripts/extract-illudex-melancholy.mjs'
+      - 'scripts/compare-illudex-all95-art.py'
       - 'scripts/audit-crying-illustrators.mjs'
       - 'data/audits/crying-theme-korean-original-print-mappings-20261108.json'
       - 'data/audits/crying-theme-illudex-original-print-mappings-20261108.json'
@@ -40,10 +41,12 @@ jobs:
           distribution: temurin
           java-version: '21'
       - run: npm ci
-      - name: Read-only probe of Illudex public current card list
-        run: node scripts/probe-illudex-melancholy.mjs
       - name: Decode full public melancholy card score data
         run: node scripts/extract-illudex-melancholy.mjs
+      - name: Install image comparison libraries
+        run: python3 -m pip install --quiet --disable-pip-version-check numpy pillow requests opencv-python-headless
+      - name: Compare all Illudex melancholy originals to Korean print images
+        run: python3 scripts/compare-illudex-all95-art.py
       - name: Select only verified Korean cards from existing master database
         run: node scripts/build-crying-theme.mjs
       - name: Enumerate all overseas references against Korean master without automatic acceptance
@@ -62,7 +65,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/art-themes-crying.json data/audits/crying-theme-korean-matches-20261108.json data/audits/crying-theme-all-candidate-index-20261108.json data/audits/crying-theme-image-similarity-20261108.json data/audits/crying-theme-illustrator-candidate-matches-20261108.json
-          git add data/audits/crying-illudex-public-site-probe-20261108.json data/audits/crying-illudex-full-feel-data-20261108.json
+          git add data/audits/crying-illudex-public-site-probe-20261108.json data/audits/crying-illudex-full-feel-data-20261108.json data/audits/crying-illudex-all95-image-audit-20261108.json
           git add -u
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Build verified Korean crying Pokémon theme and sync site versions"
