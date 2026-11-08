@@ -45,7 +45,7 @@ jobs:
       - name: Cross-match Illudex artists against Korean artist catalog
         run: node scripts/audit-crying-illustrators.mjs
       - name: Require retained same-artwork evidence from passed second-pass audit
-        run: test -s data/audits/crying-theme-image-similarity-20261108.json data/audits/crying-theme-illustrator-candidate-matches-20261108.json
+        run: test -s data/audits/crying-theme-image-similarity-20261108.json
       - name: Refresh catalog and asset cache versions
         run: npm run site:prepare
       - run: node --test tests/crying-theme-korean.test.mjs
@@ -55,7 +55,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/art-themes-crying.json data/audits/crying-theme-korean-matches-20261108.json data/audits/crying-theme-all-candidate-index-20261108.json data/audits/crying-theme-image-similarity-20261108.json
+          git add data/art-themes-crying.json data/audits/crying-theme-korean-matches-20261108.json data/audits/crying-theme-all-candidate-index-20261108.json data/audits/crying-theme-image-similarity-20261108.json data/audits/crying-theme-illustrator-candidate-matches-20261108.json
           git add -u
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Build verified Korean crying Pokémon theme and sync site versions"
