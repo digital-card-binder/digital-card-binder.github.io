@@ -180,7 +180,8 @@ output={"checkedAt":"2026-11-08","sourceRevision":data["source"]["revision"],
             "referenceImagesDownloaded":sum(r["referenceImageAvailable"] for r in results if r["physical"]),
             "koreanArtworkImagesDownloaded":sum(cache.get(x) is not None for x in allurls),
             "sourceWithStrongArtwork":sum(bool(r["strongMatches"]) for r in results),
-            "newKoreanPhysicalPrints":len({h["key"] for r in results for h in r["strongMatches"] if not h["registered"]})},
+            "preliminaryNewKoreanImageCandidates":len({h["key"] for r in results for h in r["strongMatches"] if not h["registered"]}),
+            "newKoreanPhysicalPrints":len({h["key"] for r in results for h in r["strongMatches"] if not h["registered"] and h["inliers"]>=60 and h["corr"]>=0.60})},
  "statuses":{x:sum(r["status"]==x for r in results) for x in set(r["status"] for r in results)},
  "results":results}
 outpath=ROOT/"data/audits/crying-illudex-all95-image-audit-20261108.json"
