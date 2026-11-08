@@ -16,11 +16,12 @@ const seeds = [
   { set: "S10a", no: "056", name: "히스이 미끄래곤 V", category: "슬픔 · 불안", foreign: "Hisuian Goodra V · Lost Origin 135", source: "pokecardlists" },
   { set: "S10a", no: "057", name: "히스이 미끄래곤 VSTAR", category: "슬픔 · 불안", foreign: "Hisuian Goodra VSTAR · Lost Origin 136", source: "pokecardlists" },
   { set: "SV6", no: "104", name: "눈여아", category: "고독 · 쓸쓸함", foreign: "Froslass · Twilight Masquerade 174", source: "illudex" },
-  { set: "M6a", no: "028", name: "피카츄", category: "외로움", foreign: "Pikachu · 30th Celebration 028", source: "pokecardlists" },
+  { set: "M6a", no: "022", name: "피카츄", category: "외로움", foreign: "Pikachu · 30th Celebration 028", source: "pokecardlists" },
 ];
 // Pass 2: only pixel-confirmed identical card art or original Japanese-print mapping.
 const visualAudit = read("data/audits/crying-theme-image-similarity-20261108.json");
 const sourceMapped = read("data/audits/crying-theme-korean-original-print-mappings-20261108.json");
+const illudexMapped = read("data/audits/crying-theme-illudex-original-print-mappings-20261108.json");
 const mood = (name) => {
   if (name === "Sobble") return "울음 · 속상함";
   if (name === "Cubone") return "슬픔 · 외로움";
@@ -56,7 +57,14 @@ function getPrintedNo(card) {
   return (str.match(/^([0-9]{1,3})(?:[/]([0-9]+))?/) || []).slice(1);
 }
 const cards = [], used = new Set();
-for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds]) {
+const illudexSeeds = illudexMapped.mappings.map((m) => ({
+  set: m.set, no: m.no, name: m.name, category: "쓸쓸함 · 외로움",
+  foreign: m.en + " · " + m.setEn + " " + m.numberEn + " (" + m.artist + ")",
+  source: "illudex", supplemental: true,
+  evidenceDetail: "Illudex의 감정 분류와 원본 일러스트레이터 " + m.artist +
+    ", 일본판 원본 인쇄 " + m.japanese + " 대조. " + m.url
+}));
+for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds, ...illudexSeeds]) {
   const group = master.find((g) => String(g.code).toLowerCase() === seed.set.toLowerCase());
   if (!group) throw Error("Korean set not found: " + seed.set);
   const matched = (group.cards || []).filter((c) => {
@@ -82,6 +90,9 @@ for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds]) {
     : /^M[0-9]/.test(code) ? "M" : "S";
   cards.push({
     code: key, name: sourceCard.name,
+    // Earlier, an incorrect 30th Pikachu occupied the ninth slot. Keep its
+    // exact existing account key when displaying the corrected Korean art.
+    ...(key === "M6A_022" ? { meta: "M6A_028", legacyIdentityCode: "M6A_028" } : {}),
     series: era,
     set: group.code, setName: group.name || "",
     cardNumber: seed.no + (denominator ? "/" + denominator : ""),
@@ -121,6 +132,12 @@ write("data/audits/crying-theme-korean-matches-20261108.json", {
   foreignPrimaryScansUnavailable: visualAudit.items.filter((i) => !i.englishImageDownloaded).map((i) => i.english + " / " + i.englishSet),
   visualProofPath: "data/audits/crying-theme-image-similarity-20261108.json",
   printMappingProofPath: "data/audits/crying-theme-korean-original-print-mappings-20261108.json",
+  illudexProofPath: "data/audits/crying-theme-illudex-original-print-mappings-20261108.json",
+  correctedHistoricalArtwork: {
+    priorCode: "M6A_028", correctCode: "M6A_022",
+    originalAccountKey: "crying::M6A_028::8",
+    preservedViaMeta: true
+  },
   koreanCards: cards.map((card) => ({ code: card.code, name: card.name, set: card.set, cardNumber: card.cardNumber, image: card.image })),
   reviewedPolicy: "정확한 한국판 세트·인쇄번호·이름 대조. 해외 동일 일러스트/감정 후보를 참고하되 나머지 목록은 번호 및 일러스트 검증 전까지 추가 금지.",
   remainingCandidateStatus: "pending_individual_illustration_and_korean_print_verification",
