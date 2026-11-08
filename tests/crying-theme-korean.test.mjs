@@ -65,6 +65,8 @@ test("new matches retain first nine ownership positions and trace exact image or
   assert.equal(all95.summary.physicalCandidates,82);
   assert.equal(all95.summary.digitalPocket,13);
   assert.equal(all95.summary.referenceImagesDownloaded,82);
+  assert.equal(all95.summary.preliminaryNewKoreanImageCandidates,62);
+  assert.equal(all95.summary.newKoreanPhysicalPrints,61);
   const fullIds = new Set(all95.results.flatMap(x=>(x.physical?x.strongMatches:[])
        .filter(m=>m.inliers>=60 && m.corr>=0.60)
        .map(m=>m.key)));

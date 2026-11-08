@@ -10,7 +10,9 @@
     "referenceImagesDownloaded": 82,
     "koreanArtworkImagesDownloaded": 803,
     "sourceWithStrongArtwork": 61,
-    "newKoreanPhysicalPrints": 62
+    "newKoreanPhysicalPrints": 61,
+    "preliminaryNewKoreanImageCandidates": 62,
+    "strictAcceptanceCriterion": "At least 60 SIFT RANSAC inliers and normalized image correlation >= 0.60 (not loose screening threshold)"
   },
   "statuses": {
     "no_matching_art_detected": 21,
