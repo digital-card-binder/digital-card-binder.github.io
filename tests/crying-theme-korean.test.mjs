@@ -15,7 +15,7 @@ test("source counts are grounded and do not imply all 94 Illudex entries were ex
 test("crying theme only includes unique identified Korean master prints", () => {
   assert.equal(data.group.code, "crying");
   assert.equal(data.group.name, "우는 포켓몬 도감");
-  assert.equal(data.group.cards.length, 33);
+  assert.equal(data.group.cards.length, 40);
   const ids = new Set();
   for (const card of data.group.cards) {
     assert.ok(card.code && !ids.has(card.code));
@@ -64,6 +64,6 @@ test("new matches retain first nine ownership positions and trace exact image or
     assert.match(c.evidence,/화상 특징점 대조|동일 일본판 원본 인쇄|Illudex의 감정 분류/,c.code);
   }
   assert.equal(audit.priorVerifiedCards,9);
-  assert.equal(audit.newlyVerifiedCardPrints,24);
+  assert.equal(audit.newlyVerifiedCardPrints,31);
   assert.equal(visual.network.downloadedKorean,236);
 });
