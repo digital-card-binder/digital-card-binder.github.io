@@ -22,6 +22,7 @@ const seeds = [
 const visualAudit = read("data/audits/crying-theme-image-similarity-20261108.json");
 const sourceMapped = read("data/audits/crying-theme-korean-original-print-mappings-20261108.json");
 const illudexMapped = read("data/audits/crying-theme-illudex-original-print-mappings-20261108.json");
+const fullIlludex = read("data/audits/crying-illudex-all95-image-audit-20261108.json");
 const mood = (name) => {
   if (name === "Sobble") return "울음 · 속상함";
   if (name === "Cubone") return "슬픔 · 외로움";
@@ -64,7 +65,29 @@ const illudexSeeds = illudexMapped.mappings.map((m) => ({
   evidenceDetail: "Illudex의 감정 분류와 원본 일러스트레이터 " + m.artist +
     ", 일본판 원본 인쇄 " + m.japanese + " 대조. " + m.url
 }));
-for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds, ...illudexSeeds]) {
+const fullIlludexSeeds = fullIlludex.results.flatMap((record) => {
+  if (!record.physical) return [];
+  return (record.strongMatches || [])
+    .filter((hit) => hit.inliers >= 60 && hit.corr >= 0.60)
+    .map((hit) => ({
+      set: hit.set,
+      no: hit.no,
+      name: hit.name,
+      category: mood(record.name),
+      foreign: record.name + " · Illudex " + record.id,
+      source: "illudex", supplemental: true,
+      evidenceDetail: "공개 Illudex 감정점수 " + record.score
+        + "/100, 동일 일러스트 특징점 " + hit.inliers
+        + "개 및 정규화 이미지 상관도 " + hit.corr
+        + "; 해외 카드 https://www.illudex.com/card/" + record.id
+    }));
+});
+if (fullIlludex.summary.sourceCards !== 95
+    || fullIlludex.summary.digitalPocket !== 13
+    || fullIlludex.summary.physicalCandidates !== 82) {
+  throw Error("Illudex public feelings coverage changed; re-audit before publishing");
+}
+for (const seed of [...seeds, ...scoredSeeds, ...printMappedSeeds, ...illudexSeeds, ...fullIlludexSeeds]) {
   const group = master.find((g) => String(g.code).toLowerCase() === seed.set.toLowerCase());
   if (!group) throw Error("Korean set not found: " + seed.set);
   const matched = (group.cards || []).filter((c) => {
@@ -115,7 +138,7 @@ const output = {
   sources: [
     { name: "PokéCardLists", url: "https://pokecardlists.com/sad-pokemon-card-list/", note: "35장 참고 목록" },
     { name: "woahpoke", url: "https://woahpoke.com/sad-pokemon-cards/", note: "31장 참고 목록" },
-    { name: "Illudex", url: "https://www.illudex.com/art/melancholy-pokemon-card-art", note: "멜랑콜리 94장 중 42장 공개 갤러리" }
+    { name: "Illudex", url: "https://www.illudex.com/feelings?f=melancholy", note: "현재 멜랑콜리 95장 전체 공개 감정 데이터 검수 완료 · TCG Pocket 13장 별도 제외" }
   ]
 };
 write("data/art-themes-crying.json", output);
@@ -123,7 +146,14 @@ write("data/audits/crying-theme-korean-matches-20261108.json", {
   schemaVersion: 1, checkedAt: "2026-11-08",
   referenceEntries: sources.sources.map((s) => ({ id: s.id, claimed: s.claimedCount, enumerated: s.enumeratedCount })),
   totalEnumeratedReferences: sources.sources.reduce((sum, s) => sum + s.enumeratedCount, 0),
-  notEnumeratedFromIlludex: 52,
+  notEnumeratedFromIlludex: 0,
+  archivedIlludexGalleryEntries: 42,
+  currentIlludexMelancholyEntries: 95,
+  physicalIlludexReferences: 82,
+  digitalOnlyPocketReferencesExcluded: 13,
+  illudexReferencesWithKoreanSameArtwork: 61,
+  illudexReferencesWithoutMatchInCurrentKoreanMaster: 21,
+  fullIlludexEvidencePath: "data/audits/crying-illudex-all95-image-audit-20261108.json",
   importedKoreanCards: cards.length,
   priorVerifiedCards: seeds.length,
   newlyVerifiedCardPrints: cards.length - seeds.length,
@@ -140,7 +170,7 @@ write("data/audits/crying-theme-korean-matches-20261108.json", {
   },
   koreanCards: cards.map((card) => ({ code: card.code, name: card.name, set: card.set, cardNumber: card.cardNumber, image: card.image })),
   reviewedPolicy: "정확한 한국판 세트·인쇄번호·이름 대조. 해외 동일 일러스트/감정 후보를 참고하되 나머지 목록은 번호 및 일러스트 검증 전까지 추가 금지.",
-  remainingCandidateStatus: "pending_individual_illustration_and_korean_print_verification",
+  remainingCandidateStatus: "illudex_all_95_dispositioned; other_overseas_nonmatching_prints_retained_in_audit",
   originalMasterUnchanged: true, existingOwnershipUnchanged: true
 });
 console.log("Crying Pokemon theme: " + cards.length + " confirmed Korean master records.");
