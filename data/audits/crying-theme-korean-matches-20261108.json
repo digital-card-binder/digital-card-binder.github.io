@@ -20,9 +20,9 @@
   ],
   "totalEnumeratedReferences": 108,
   "notEnumeratedFromIlludex": 52,
-  "importedKoreanCards": 29,
+  "importedKoreanCards": 33,
   "priorVerifiedCards": 9,
-  "newlyVerifiedCardPrints": 20,
+  "newlyVerifiedCardPrints": 24,
   "foreignPrimaryScansCompared": 36,
   "foreignPrimaryScansAvailable": 28,
   "foreignPrimaryScansUnavailable": [
@@ -37,6 +37,13 @@
   ],
   "visualProofPath": "data/audits/crying-theme-image-similarity-20261108.json",
   "printMappingProofPath": "data/audits/crying-theme-korean-original-print-mappings-20261108.json",
+  "illudexProofPath": "data/audits/crying-theme-illudex-original-print-mappings-20261108.json",
+  "correctedHistoricalArtwork": {
+    "priorCode": "M6A_028",
+    "correctCode": "M6A_022",
+    "originalAccountKey": "crying::M6A_028::8",
+    "preservedViaMeta": true
+  },
   "koreanCards": [
     {
       "code": "SV1V_086",
@@ -95,11 +102,11 @@
       "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_104.png"
     },
     {
-      "code": "M6A_028",
+      "code": "M6A_022",
       "name": "피카츄",
       "set": "M6a",
-      "cardNumber": "028/103",
-      "image": "https://static.tcgexchange.kr/80ebb47f6848a6183d25b6320c27ba0c.png"
+      "cardNumber": "022/103",
+      "image": "https://static.tcgexchange.kr/a3a33fe428ed59625b2ab881641bcda0.png"
     },
     {
       "code": "S12A_114",
@@ -240,6 +247,34 @@
       "set": "s1W",
       "cardNumber": "017/060",
       "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S1W/S1W_017.png"
+    },
+    {
+      "code": "SV8_110",
+      "name": "빈티나",
+      "set": "sv8",
+      "cardNumber": "110/106",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV8/SV8_110.png"
+    },
+    {
+      "code": "M4_057",
+      "name": "메탕",
+      "set": "m4",
+      "cardNumber": "057/083",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M4/M4_057.png"
+    },
+    {
+      "code": "SV11W_141",
+      "name": "조로아크",
+      "set": "sv11W",
+      "cardNumber": "141/086",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV11W/SV11W_141.png"
+    },
+    {
+      "code": "SV6A_075",
+      "name": "페르시온",
+      "set": "sv6a",
+      "cardNumber": "075/064",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6a/SV6a_075.png"
     }
   ],
   "reviewedPolicy": "정확한 한국판 세트·인쇄번호·이름 대조. 해외 동일 일러스트/감정 후보를 참고하되 나머지 목록은 번호 및 일러스트 검증 전까지 추가 금지.",
