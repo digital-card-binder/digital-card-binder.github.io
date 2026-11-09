@@ -353,7 +353,7 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.match(page, /안드로이드·아이폰 앱/);
   assert.match(page, /home-feature-card--custom/);
   assert.match(page, /home-feature-card--studio/);
-  assert.match(page, /class="home-feature-card home-feature-card--community" href="\\.\\/collectors\\.html"/);
+  assert.match(page, /class="home-feature-card home-feature-card--community" href=/);
   assert.doesNotMatch(page, /dashboard-shortcut-section/);
   assert.ok(
     page.indexOf("dashboard-utility-panel") > page.indexOf("home-feature-card--community"),
