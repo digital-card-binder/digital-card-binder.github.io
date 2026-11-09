@@ -1114,8 +1114,7 @@ async function saveQuickVariantSelection(card, picker) {
       saved.printVariants,
       saved.owned,
     );
-    refreshCounts();
-    render();
+    refreshCatalogAfterOwnershipSave(card);
     closeQuickVariantPicker();
   } catch (error) {
     console.error(error);
@@ -1238,6 +1237,78 @@ function updateCompletionButton(button, card) {
   button.textContent = owned ? "✓ 수집완료" : "수집완료";
 }
 
+// Keep the clicked card (or the next card when a status filter removes it)
+// at the same viewport position after a Firestore ownership save. Rebuilding
+// a large grid used to detach the focused card and jump PC users to the top.
+function captureCatalogSavePosition(card) {
+  const grid = $("catalog-grid");
+  const index = renderedCards.indexOf(card);
+  const choices = status === "all"
+    ? [index, index + 1, index - 1]
+    : [index + 1, index - 1, index];
+  for (const i of choices) {
+    const node = i >= 0 ? grid?.children[i] : null;
+    if (node && renderedCards[i]) {
+      return {
+        card: renderedCards[i],
+        top: node.getBoundingClientRect().top,
+        scrollY: window.scrollY,
+      };
+    }
+  }
+  return { card: null, top: null, scrollY: window.scrollY };
+}
+
+function restoreCatalogSavePosition(position) {
+  const grid = $("catalog-grid");
+  const index = renderedCards.indexOf(position.card);
+  const node = index >= 0 ? grid?.children[index] : null;
+  const shift = node && position.top !== null
+    ? node.getBoundingClientRect().top - position.top
+    : position.scrollY - window.scrollY;
+  if (Math.abs(shift) > 1) {
+    window.scrollTo({ top: Math.max(0, window.scrollY + shift), behavior: "instant" });
+  }
+}
+
+// When the filter is "전체", ownership does not affect membership or order.
+// Patch this one card instead of recreating hundreds of card elements and
+// resetting the focused button / scroll anchor.
+function updateCatalogCardInPlace(card) {
+  if (status !== "all") return false;
+  const grid = $("catalog-grid");
+  const index = renderedCards.indexOf(card);
+  const article = index >= 0 ? grid?.children[index] : null;
+  if (!article?.classList.contains("catalog-card")) return false;
+
+  article.classList.toggle("is-missing", !card.owned);
+  const ownedBadge = article.querySelector(".card-topline .status-badge");
+  if (ownedBadge) {
+    ownedBadge.className = `status-badge ${card.owned ? "is-owned" : "is-missing"}`;
+    ownedBadge.textContent = card.owned ? "보유" : "미보유";
+  }
+  const completionButton = article.querySelector(".collection-complete-button");
+  if (completionButton) updateCompletionButton(completionButton, card);
+  const name = article.querySelector(".card-name-ko");
+  if (name) name.textContent = displayName(card);
+  const meta = article.querySelector(".card-meta");
+  if (meta) meta.textContent = actualCardCode(card);
+  const image = article.querySelector(".card-image");
+  const imageUrl = imageFor(card);
+  if (image && image.getAttribute("src") !== imageUrl) {
+    image.src = imageUrl;
+    image.alt = `${displayName(card)} 카드`;
+  }
+  return true;
+}
+
+function refreshCatalogAfterOwnershipSave(card) {
+  const position = captureCatalogSavePosition(card);
+  refreshCounts();
+  if (!updateCatalogCardInPlace(card)) render();
+  restoreCatalogSavePosition(position);
+}
+
 async function toggleCatalogCompletion(card, button) {
   const account = window.PokemonDexPageAccount;
   if (!account?.canEdit?.()) {
@@ -1265,12 +1336,11 @@ async function toggleCatalogCompletion(card, button) {
       card.image = card.originalImage || "";
     }
 
-    refreshCounts();
+    refreshCatalogAfterOwnershipSave(card);
     if (activeCard === card) {
       updateDialog(card);
       fillSeriesEditor(card);
     }
-    render();
   } catch (error) {
     console.error(error);
     alert(error.message || "수집 상태를 저장하지 못했습니다.");
@@ -1513,8 +1583,7 @@ async function saveSeriesCard() {
     activeCard.actualImage = "";
     activeCard.image = activeCard.originalImage || "";
 
-    refreshCounts();
-    render();
+    refreshCatalogAfterOwnershipSave(activeCard);
     updateDialog(activeCard);
     fillSeriesEditor(activeCard);
     setSeriesEditorMessage(
