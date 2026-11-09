@@ -353,10 +353,10 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.match(page, /안드로이드·아이폰 앱/);
   assert.match(page, /home-feature-card--custom/);
   assert.match(page, /home-feature-card--studio/);
-  assert.match(page, /class="home-community-banner"/);
+  assert.match(page, /class="home-feature-card home-feature-card--community" href=/);
   assert.doesNotMatch(page, /dashboard-shortcut-section/);
   assert.ok(
-    page.indexOf("dashboard-utility-panel") > page.indexOf("home-community-banner"),
+    page.indexOf("dashboard-utility-panel") > page.indexOf("home-feature-card--community"),
     "utility actions should follow the promoted collection and community entry points",
   );
   assert.match(css, /[.]dashboard-utility-panel\{/);
