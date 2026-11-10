@@ -172,3 +172,10 @@ test("coalesced delta sync preserves unsent changes and exposes server failure r
   assert.match(manager, /"permission-denied": "공개 데이터 저장 권한이 거부되었습니다."/);
   assert.match(source, /firestoreModule\.runTransaction\(db, async \(transaction\)/);
 });
+
+test("fresh card deltas bypass a previously failed full repair without clearing its checkpoint", () => {
+  assert.match(manager, /const useFullSync = !changes\.length \|\| typeof deltaSync !== "function"/);
+  assert.doesNotMatch(manager, /const useFullSync = largeCatalogPublicSyncNeedsFull \|\|/);
+  assert.match(manager, /if \(useFullSync\) largeCatalogPublicSyncNeedsFull = false/);
+  assert.match(manager, /if \(!largeCatalogPublicSyncNeedsFull\) \{\s*publicSyncStore\("dirty", null\)/);
+});
