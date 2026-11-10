@@ -98,6 +98,33 @@
     if (!dialog.open) dialog.showModal();
   }
 
+  let saveFeedbackTimer=null;
+  function showSaveFeedback(state, message) {
+    if (!document.body?.append) return;
+    let note=document.getElementById("dcb-save-feedback");
+    if (!note) {
+      note=document.createElement("div");
+      note.id="dcb-save-feedback";
+      note.className="dcb-save-feedback";
+      note.setAttribute("role","status");
+      note.setAttribute("aria-live","polite");
+      document.body.append(note);
+    }
+    if (saveFeedbackTimer) window.clearTimeout?.(saveFeedbackTimer);
+    note.dataset.state=state;
+    note.textContent=message || (state==="saving"?"저장 중…":
+      state==="error"?"저장하지 못했습니다. 다시 시도해 주세요.":"저장되었습니다.");
+    note.hidden=false;
+    if (state!=="saving") {
+      saveFeedbackTimer=window.setTimeout?.(()=>{
+        note.hidden=true;
+        saveFeedbackTimer=null;
+      },state==="error"?6000:2200);
+    }
+  }
+  window.DcbSaveFeedback={show:showSaveFeedback};
+  window.DcbMobileMenu={open:openLocalMenu};
+
   function init() {
     enableLocalErrorDiagnostics();
     openRequestedMenu();
