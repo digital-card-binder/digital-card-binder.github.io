@@ -1573,16 +1573,29 @@
       main.prepend(warning);
     }
     const collectionId = [...publicSyncFailures.keys()].at(-1);
+    const detail = publicSyncFailures.get(collectionId) || {};
     const meta = registry?.COLLECTIONS?.[collectionId];
-    warning.querySelector("span").textContent = meta
-      ? ` ${meta.title}의 공개 범위와 네트워크를 확인해 주세요.`
-      : " 공개 범위와 네트워크를 확인해 주세요.";
+    const stages = {
+      "owner-data": "보유 기록 조회",
+      "catalog": "공개 카드 목록 생성",
+      "public-write": "공개 데이터 저장",
+      "public-transaction": "공개 데이터 갱신",
+      "unknown": "공개 반영",
+    };
+    const stage = stages[detail.stage] || stages.unknown;
+    const explanation = detail.code
+      ? `원인: ${detail.code}`
+      : detail.message
+        ? `원인: ${detail.message}`
+        : "공개 설정과 연결 상태를 확인해 주세요.";
+    warning.querySelector("span").textContent =
+      ` ${meta?.title || "도감"} · ${stage} 실패. ${explanation}`;
     warning.querySelector("a").href = collectionId
       ? `./collector-settings.html?collection=${encodeURIComponent(collectionId)}`
       : "./collector-settings.html";
   }
   function showPublicSyncWarning(event) {
-    publicSyncFailures.set(event.detail?.collectionId || "", true);
+    publicSyncFailures.set(event.detail?.collectionId || "", event.detail || {});
     renderPublicSyncWarning();
   }
   function clearPublicSyncWarning(event) {
