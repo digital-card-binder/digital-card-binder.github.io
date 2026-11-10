@@ -19,6 +19,7 @@
     <script src="./legal.js?v=ca76fb29682d" defer></script>
     <script src="./collector-nav.js?v=ac9cdf0e06b1" defer></script>
       <script src="./site-mobile-nav.js?v=eacbc39270b3" defer></script>
+    <script src="./theme-discovery.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -74,6 +75,21 @@
             </div>
           </div>
 
+          <div class="theme-discovery" aria-label="테마 검색 및 분류">
+            <label class="theme-discovery-search" for="theme-discovery-search">
+              <span class="sr-only">테마 도감 검색</span>
+              <span aria-hidden="true">⌕</span>
+              <input id="theme-discovery-search" type="search" placeholder="테마 이름·설명 검색" autocomplete="off" />
+            </label>
+            <div class="theme-discovery-tabs" role="group" aria-label="테마 종류">
+              <button type="button" data-theme-scope="all" class="is-active" aria-pressed="true">전체</button>
+              <button type="button" data-theme-scope="story" aria-pressed="false">일러스트·스토리</button>
+              <button type="button" data-theme-scope="pokemon" aria-pressed="false">포켓몬·인물</button>
+              <button type="button" data-theme-scope="special" aria-pressed="false">특별 컬렉션</button>
+            </div>
+            <p id="theme-discovery-count" class="theme-discovery-count" role="status" aria-live="polite"></p>
+          </div>
+          <p id="theme-discovery-empty" class="theme-discovery-empty" hidden>일치하는 테마가 없습니다. 검색어 또는 분류를 변경해 주세요.</p>
           <div class="theme-card-grid">
             <a class="theme-card" href="./eevee.html">
               <div class="theme-card-top"><span class="theme-card-symbol" aria-hidden="true">✧</span><span class="theme-card-badge">EEVEE · 6 DEX</span></div>
