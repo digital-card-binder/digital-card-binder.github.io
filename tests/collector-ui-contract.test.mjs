@@ -1168,7 +1168,7 @@ test("collection public visibility uses simple on-off switches while preserving 
   assert.doesNotMatch(settingsClient, /data-setting="dashboard"/);
   assert.match(settingsClient, /dashboardVisible: isPublic/);
   assert.match(settingsClient, /visibility: isPublic \? "public" : "private"/);
-  assert.match(settingsPage, /공개 ON:[<\/]strong> 내 대시보드와 커뮤니티 공개 프로필/);
+  assert.match(settingsPage, /공개 ON:<\/strong> 내 대시보드와 커뮤니티 공개 프로필/);
   assert.equal(settingsPage.includes("나만 보기</span>"), false);
   assert.match(collectorCss, /[.]collector-unified-public-switch/);
 });
