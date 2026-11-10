@@ -491,6 +491,17 @@
       const db = firestoreModule.getFirestore(app);
       let failed = false;
       for (const collectionId of registry.COLLECTION_ORDER) {
+        // If one catalog fails to repair, keep confirmed catalog results.
+        // Otherwise each page visit republishes every successful catalog.
+        const collectionRepairKey =
+          `${PUBLIC_PROJECTION_REPAIR_STORAGE_KEY}:${user.uid}:${collectionId}`;
+        try {
+          if (window.localStorage.getItem(collectionRepairKey) === PUBLIC_PROJECTION_REPAIR_VERSION) {
+            continue;
+          }
+        } catch {
+          // Continue safely when local storage is unavailable.
+        }
         try {
           await sync({
             db,
@@ -498,7 +509,13 @@
             user,
             collectionId,
             preferServer: true,
+            reportError: false,
           });
+          try {
+            window.localStorage.setItem(collectionRepairKey, PUBLIC_PROJECTION_REPAIR_VERSION);
+          } catch {
+            // A later visit may recheck; card ownership is never modified.
+          }
         } catch (error) {
           failed = true;
           console.warn(`${collectionId} 공개 도감 자동 복구 실패`, error);
@@ -1533,10 +1550,17 @@
     heroContent.append(actions);
   }
 
-  function showPublicSyncWarning(event) {
+  // A failed public projection can recover automatically. The warning must
+  // disappear on confirmed success, without hiding failures of other dexes.
+  const publicSyncFailures = new Map();
+  function renderPublicSyncWarning() {
     const main = document.querySelector(".main-content");
     if (!main) return;
     let warning = document.querySelector("#collector-sync-warning");
+    if (!publicSyncFailures.size) {
+      warning?.remove();
+      return;
+    }
     if (!warning) {
       warning = document.createElement("div");
       warning.id = "collector-sync-warning";
@@ -1548,7 +1572,7 @@
       `;
       main.prepend(warning);
     }
-    const collectionId = event.detail?.collectionId || "";
+    const collectionId = [...publicSyncFailures.keys()].at(-1);
     const meta = registry?.COLLECTIONS?.[collectionId];
     warning.querySelector("span").textContent = meta
       ? ` ${meta.title}의 공개 범위와 네트워크를 확인해 주세요.`
@@ -1557,8 +1581,17 @@
       ? `./collector-settings.html?collection=${encodeURIComponent(collectionId)}`
       : "./collector-settings.html";
   }
+  function showPublicSyncWarning(event) {
+    publicSyncFailures.set(event.detail?.collectionId || "", true);
+    renderPublicSyncWarning();
+  }
+  function clearPublicSyncWarning(event) {
+    publicSyncFailures.delete(event.detail?.collectionId || "");
+    renderPublicSyncWarning();
+  }
 
   window.addEventListener("pokemon-dex:public-sync-error", showPublicSyncWarning);
+  window.addEventListener("pokemon-dex:public-sync-success", clearPublicSyncWarning);
   void refreshStaleShell({ force: true });
   window.addEventListener("pageshow", () => {
     void refreshStaleShell();
