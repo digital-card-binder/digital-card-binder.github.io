@@ -40,7 +40,8 @@ test("phase 1 theme discovery filters rendered links only; search has a clear em
   assert.match(html, /id="theme-discovery-empty"/);
   assert.match(html, /src="[.]\/theme-discovery[.]js(?:\?v=[^"]+)?"/);
   assert.match(js, /entry[.]card[.]hidden = !match/);
-  assert.doesNotMatch(js, /saveOwned|saveOverride|deleteDoc|setDoc|fetch[(]/);
+  assert.doesNotMatch(js, /saveOwned|saveOverride|deleteDoc|setDoc/);
+  assert.match(js, /fetch\("\.\/data\/art-theme-supplements[.]json"/);
   assert.match(css, /[.]theme-card\[hidden\] \{display:none!important\}/);
 });
 
