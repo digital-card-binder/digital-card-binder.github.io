@@ -18,6 +18,7 @@ import {
   updateDoc,
   where,
   writeBatch,
+  runTransaction,
 } from "firebase/firestore";
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
@@ -678,6 +679,47 @@ test("large series projections support catalog totals up to 50,000 cards", async
     visibility: "private",
     updatedAt: serverTimestamp(),
   });
+  revoke.delete(publicRef);
+  await assertSucceeds(revoke.commit());
+});
+
+
+test("public series transactional owner writes are permitted by current Firestore rules", async () => {
+  const settingRef = doc(alice, "users", ALICE_UID, "collectionSettings", "series");
+  const publicRef = doc(alice, "publicProfiles", PUBLIC_ID, "collections", "series");
+  const batch = writeBatch(alice);
+  batch.set(settingRef, {
+    schemaVersion: 1,
+    collectionId: "series",
+    dashboardVisible: true,
+    visibility: "public",
+    displayOrder: 1,
+    shareId: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  batch.set(publicRef, {
+    ...projection("series"), ownedKeys: ["a", "b"], ownedCount: 2, totalCount: 20241,
+  });
+  await assertSucceeds(batch.commit());
+
+  await assertSucceeds(runTransaction(alice, async (tx) => {
+    const [privateProfile, settings, publicSnapshot] = await Promise.all([
+      tx.get(doc(alice, "users", ALICE_UID, "profile", "main")),
+      tx.get(settingRef),
+      tx.get(publicRef),
+    ]);
+    assert.equal(privateProfile.data().publicId, PUBLIC_ID);
+    assert.equal(settings.data().visibility, "public");
+    const existing = publicSnapshot.data();
+    tx.set(publicRef, { ...existing, ownedKeys: ["b", "c"], ownedCount: 2 });
+  }));
+  const saved = await assertSucceeds(getDoc(publicRef));
+  assert.deepEqual(saved.data().ownedKeys, ["b", "c"]);
+
+  const settings = (await getDoc(settingRef)).data();
+  const revoke = writeBatch(alice);
+  revoke.set(settingRef, { ...settings, visibility: "private", updatedAt: serverTimestamp() });
   revoke.delete(publicRef);
   await assertSucceeds(revoke.commit());
 });
