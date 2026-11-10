@@ -67,3 +67,28 @@
     font-size:16px;
   }
 }
+
+/* UX phase 1: consistent find/filter/ownership affordances across collecting surfaces. */
+:where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
+  :is(.catalog-toolbar,.pokemon-search-filters,.custom-workspace-filter) .segmented-control {
+  display:flex;align-items:stretch;gap:4px;
+}
+:where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
+  :is(.catalog-toolbar,.catalog-filter-row,.pokemon-search-filters,.custom-workspace-filter)
+  .segmented-control button {
+  flex:1 1 0;min-width:0;min-height:44px;border-radius:10px;touch-action:manipulation;
+}
+:where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
+  :is(.catalog-toolbar,.pokemon-search-box,.custom-workspace-filter) .search-field {
+  min-width:0;max-width:100%;border-radius:12px;
+}
+:where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
+  :is(.catalog-toolbar,.catalog-filter-row,.pokemon-search-filters,.custom-workspace-filter) :is(input,select,button):focus-visible {
+  outline:3px solid var(--dcb-control-focus);outline-offset:2px;
+}
+@media(max-width:760px) {
+  :where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
+    :is(.catalog-toolbar,.catalog-filter-row,.pokemon-search-filters,.custom-workspace-filter) {
+    row-gap:8px;
+  }
+}
