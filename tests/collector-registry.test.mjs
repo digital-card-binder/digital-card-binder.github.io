@@ -74,6 +74,47 @@ test("generated catalog metrics cover every core and extended dex", () => {
   assert.equal(metrics.pack.promoCardCount, 186);
 });
 
+test("repeated Korean series builds keep exclusions out of the active catalog without mutating cached sources", async () => {
+  const catalog = context.window.DigitalCardBinder.catalog;
+  const [base, legacy] = await Promise.all([
+    catalog.json("./data/series.json"),
+    catalog.json("./data/series-legacy.json"),
+  ]);
+  const excludedEntries = [
+    ["S-P", "s-p_022/S-P"],
+    ["SN", "sn_026/024"],
+  ];
+  const hasSourceCard = ([setCode, cardCode]) =>
+    [...base, ...legacy].some((group) =>
+      String(group.code).toLowerCase() === setCode.toLowerCase()
+      && (group.cards || []).some((card) =>
+        String(card.code).toLowerCase() === cardCode.toLowerCase()
+      ),
+    );
+  assert.deepEqual(excludedEntries.map(hasSourceCard), [true, true]);
+
+  // Repeated calls previously modified the shared JSON objects, causing
+  // "Korean excluded item mapping does not match 2 records" on call #2.
+  const first = await catalog.series();
+  const second = await catalog.series();
+  const [third, fourth] = await Promise.all([catalog.series(), catalog.series()]);
+  for (const result of [first, second, third, fourth]) {
+    assert.equal(result.reduce((total, group) => total + group.cards.length, 0), 20241);
+    for (const [setCode, cardCode] of excludedEntries) {
+      assert.equal(result.some((group) =>
+        String(group.code).toLowerCase() === setCode.toLowerCase()
+        && group.cards.some((card) =>
+          String(card.code).toLowerCase() === cardCode.toLowerCase(),
+        ),
+      ), false);
+    }
+  }
+  // The cached raw catalog must retain excluded records on every rebuild.
+  assert.deepEqual(excludedEntries.map(hasSourceCard), [true, true]);
+  assert.notStrictEqual(first[0], second[0]);
+  assert.notStrictEqual(first[0].cards[0], second[0].cards[0]);
+});
+
 test("Korean unreleased promo and duplicate Lightning Energy are excluded while legacy ownership remains readable", async () => {
   const series = await registry.loadCatalog("series");
   assert.equal(series.items.length, 20241);
