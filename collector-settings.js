@@ -882,13 +882,11 @@
           <span class="collector-setting-number ui-icon ui-icon--${collectionId}" aria-hidden="true"></span>
           <span><strong></strong><small></small></span>
         </div>
-        <label class="collector-dashboard-switch">
-          <span>내 대시보드에 표시</span>
-          <input type="checkbox" data-setting="dashboard" />
-          <i aria-hidden="true"></i>
-        </label>
-        <label class="collector-public-switch">
-          <span>공개 프로필에 표시</span>
+        <label class="collector-public-switch collector-unified-public-switch">
+          <span class="collector-unified-public-label">
+            <strong>공개</strong>
+            <small>내 대시보드 + 커뮤니티</small>
+          </span>
           <input type="checkbox" data-setting="visibility" />
           <i aria-hidden="true"></i>
         </label>
@@ -896,11 +894,11 @@
       card.querySelector(".collector-setting-identity strong").textContent = meta.title;
       card.querySelector(".collector-setting-identity small").textContent =
         `${metric.owned.toLocaleString("ko-KR")} / ${metric.total.toLocaleString("ko-KR")}${meta.unit}`;
-      const dashboard = card.querySelector('[data-setting="dashboard"]');
       const visibility = card.querySelector('[data-setting="visibility"]');
-      dashboard.checked = setting.dashboardVisible;
+      // Keep legacy personal-only visibility unchanged until the member edits
+      // this switch. A deliberate save unifies both visibility settings.
       visibility.checked = setting.visibility === "public";
-      dashboard.addEventListener("change", () => markSettingDirty(card));
+      visibility.setAttribute("aria-label", meta.title + " 공개 설정");
       visibility.addEventListener("change", () => markSettingDirty(card));
       return card;
     });
@@ -918,12 +916,13 @@
 
   function settingFromCard(card, collectionId) {
     const current = settings.get(collectionId)?.value || registry.defaultSetting(collectionId);
+    const isPublic = card.querySelector('[data-setting="visibility"]').checked;
+    // One user choice controls both destinations, preserving all other
+    // collection fields and the existing public/private Firestore schema.
     return {
       ...current,
-      dashboardVisible: card.querySelector('[data-setting="dashboard"]').checked,
-      visibility: card.querySelector('[data-setting="visibility"]').checked
-        ? "public"
-        : "private",
+      dashboardVisible: isPublic,
+      visibility: isPublic ? "public" : "private",
     };
   }
 
@@ -971,18 +970,30 @@
       batch.set(settingReference, settingPayload);
       await batch.commit();
     } else {
-      const projection = await registry.buildProjection(
-        collectionId,
-        sourceDocuments.get(collectionId) || {},
-        profile.publicId,
-      );
       const publicReference = sync.publicProjectionRef(
         firebase.firestoreModule,
         firebase.db,
         profile.publicId,
         collectionId,
       );
-      const projectionPayload = { ...projection };
+      // Publishing must use the complete server-owned dataset, including
+      // override shards. The settings screen's cached summary can be stale
+      // and must never overwrite another device's public owned-card list.
+      let projectionPayload = null;
+      if (next.visibility === "public") {
+        const context = await sync.loadPrivateContext({
+          db: firebase.db,
+          firestoreModule: firebase.firestoreModule,
+          user: currentUser,
+          collectionId,
+          preferServer: true,
+        });
+        projectionPayload = await registry.buildProjection(
+          collectionId,
+          context.source,
+          profile.publicId,
+        );
+      }
 
       batch.set(settingReference, settingPayload);
       if (next.visibility === "public") {
