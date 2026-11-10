@@ -27,6 +27,8 @@
   let largeCatalogPublicSyncRunning = false;
   let largeCatalogPublicSyncRevision = 0;
   let largeCatalogPublicSyncRetryCount = 0;
+  let largeCatalogPublicSyncNeedsFull = false;
+  const largeCatalogPublicSyncChanges = new Map();
   const PUBLIC_SYNC_REPAIR_VERSION = "20261110";
   let resolveReady;
 
@@ -556,7 +558,10 @@
       notice.id = "public-series-sync-issue";
       notice.className = "catalog-caption";
       notice.setAttribute("role", "status");
-      notice.textContent = "커뮤니티 반영이 지연되고 있어요. ";
+      const label = document.createElement("span");
+      label.className = "public-sync-error-message";
+      label.textContent = "커뮤니티 공개 반영 실패. ";
+      notice.append(label);
       const retry = document.createElement("button");
       retry.type = "button";
       retry.textContent = "다시 시도";
@@ -564,7 +569,22 @@
       notice.append(retry);
       (document.querySelector(".catalog-toolbar") || document.querySelector(".hero-content"))?.append(notice);
     }
-    if (notice) notice.hidden = !visible;
+    if (notice) {
+      if (visible) {
+        const code = String(arguments[1]?.code || "");
+        const messages = {
+          "permission-denied": "공개 데이터 저장 권한이 거부되었습니다.",
+          "resource-exhausted": "서버 요청 한도를 초과했습니다.",
+          "unavailable": "서버에 연결하지 못했습니다.",
+          "deadline-exceeded": "서버 응답 시간이 초과되었습니다.",
+          "failed-precondition": "공개 데이터 저장 조건을 확인해야 합니다.",
+        };
+        notice.querySelector(".public-sync-error-message").textContent =
+          (messages[code] || "커뮤니티 공개 반영에 실패했습니다.") +
+          (code ? " (" + code + ")" : "") + " ";
+      }
+      notice.hidden = !visible;
+    }
   }
 
   function scheduleLargeCatalogPublicSync(delay = 750) {
@@ -579,25 +599,32 @@
 
   async function flushLargeCatalogPublicSync() {
     if (largeCatalogPublicSyncRunning || !firebase || !currentUser) return;
-    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
-    if (typeof sync !== "function") return;
+    const fullSync = window.CollectorPublicSync?.syncCollectionWithRetry;
+    const deltaSync = window.CollectorPublicSync?.syncCollectionChangesWithRetry;
+    if (typeof fullSync !== "function") return;
     largeCatalogPublicSyncRunning = true;
     const requestedRevision = largeCatalogPublicSyncRevision;
+    const changes = [...largeCatalogPublicSyncChanges].map(([key, owned]) => ({ key, owned }));
+    largeCatalogPublicSyncChanges.clear();
+    const useFullSync = largeCatalogPublicSyncNeedsFull ||
+      !changes.length || typeof deltaSync !== "function";
     let failed = false;
     try {
-      // Only publish after local card writes have settled, and read the server's
-      // latest shards instead of a potentially stale cached snapshot.
       await saveQueue;
-      await sync({
+      const result = await (useFullSync ? fullSync : deltaSync)({
         db: firebase.db,
         firestoreModule: firebase.firestoreModule,
         user: currentUser,
         collectionId: mode,
-        preferServer: true,
+        ...(useFullSync ? { preferServer: true } : { changes }),
       });
+      if (!result?.synced && result?.visibility !== "private") {
+        throw new Error("공개 도감 저장 결과를 확인하지 못했습니다.");
+      }
       largeCatalogPublicSyncRetryCount = 0;
       showPublicSyncIssue(false);
       if (requestedRevision === largeCatalogPublicSyncRevision) {
+        largeCatalogPublicSyncNeedsFull = false;
         publicSyncStore("dirty", null);
         publicSyncStore("repair", PUBLIC_SYNC_REPAIR_VERSION);
       }
@@ -605,11 +632,17 @@
       failed = true;
       largeCatalogPublicSyncRetryCount += 1;
       console.warn(`${page.documentId} 공개 도감 자동 반영 실패`, error);
-      showPublicSyncIssue(true);
+      showPublicSyncIssue(true, error);
     } finally {
+      if (failed && !useFullSync) {
+        for (const change of changes) {
+          if (!largeCatalogPublicSyncChanges.has(change.key)) {
+            largeCatalogPublicSyncChanges.set(change.key, change.owned);
+          }
+        }
+      }
       largeCatalogPublicSyncRunning = false;
       if (requestedRevision !== largeCatalogPublicSyncRevision) {
-        // A card changed during publication: always publish the newest state.
         scheduleLargeCatalogPublicSync();
       } else if (failed && largeCatalogPublicSyncRetryCount <= 3) {
         scheduleLargeCatalogPublicSync(
@@ -619,8 +652,13 @@
     }
   }
 
-  function queueLargeCatalogPublicSync() {
+  function queueLargeCatalogPublicSync(change = null) {
     if ((mode !== "series" && mode !== "ar") || !firebase || !currentUser) return;
+    if (change && typeof change.key === "string" && typeof change.owned === "boolean") {
+      largeCatalogPublicSyncChanges.set(change.key, change.owned);
+    } else {
+      largeCatalogPublicSyncNeedsFull = true;
+    }
     largeCatalogPublicSyncRevision += 1;
     publicSyncStore("dirty", "1");
     scheduleLargeCatalogPublicSync();
@@ -683,7 +721,7 @@
       };
       notifyOwnerSheets(key);
       if (isLargeFixedCatalog && backgroundPublicSync) {
-        queueLargeCatalogPublicSync();
+        queueLargeCatalogPublicSync({ key, owned: Boolean(savedItem.owned) });
       } else {
         try {
           await window.CollectorPublicSync?.syncCollectionWithRetry?.({
