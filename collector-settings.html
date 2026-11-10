@@ -176,6 +176,15 @@
             <div class="collector-form-actions collector-settings-save-actions">
               <button id="collector-settings-save" class="primary-button" type="button">변경한 설정 저장</button>
             </div>
+            <div id="collector-public-sync-panel" class="collector-public-sync-panel" hidden>
+              <div class="collector-public-sync-copy">
+                <strong>커뮤니티 공개 상태</strong>
+                <p id="collector-public-sync-summary" role="status" aria-live="polite">공개 도감 상태를 확인하고 있습니다.</p>
+                <small>마지막 반영 시각은 이 기기에서 성공이 확인된 기록입니다. 다른 기기에서의 변경 시각은 포함하지 않습니다.</small>
+              </div>
+              <button id="collector-public-sync-refresh" class="manager-button" type="button">공개 도감 다시 반영</button>
+            </div>
+            <p id="collector-public-sync-feedback" class="collector-form-status" role="status" aria-live="polite"></p>
           </section>
 
           <section id="binder-settings" class="catalog-panel collector-binder-settings-panel" aria-labelledby="collector-binder-settings-title">
