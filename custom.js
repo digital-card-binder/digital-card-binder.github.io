@@ -706,8 +706,8 @@
     refreshCustomOwnershipUi(entry, dex);
     try {
       await saveDexes();
-      if (typeof window !== "undefined") window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
       if (offerUndo && typeof window !== "undefined") offerCustomOwnershipUndo(entry, dex);
+      if (typeof window !== "undefined") window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
     } catch (error) {
       entry.owned = previousOwned;
       dex.updatedAt = previousUpdatedAt;
