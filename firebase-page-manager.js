@@ -551,7 +551,7 @@
     }
   }
 
-  function showPublicSyncIssue(visible) {
+  function showPublicSyncIssue(visible, error = null) {
     let notice = document.querySelector("#public-series-sync-issue");
     if (!notice && visible) {
       notice = document.createElement("p");
@@ -571,7 +571,16 @@
     }
     if (notice) {
       if (visible) {
-        const code = String(arguments[1]?.code || "");
+        const detail = window.CollectorPublicSync?.publicSyncErrorDetail?.(error, mode) || {};
+        const code = String(detail.code || "");
+        const stages = {
+          "owner-data": "내 보유 기록 조회",
+          "catalog": "공개 카드 목록 생성",
+          "public-write": "Firebase 공개 데이터 저장",
+          "public-transaction": "Firebase 공개 데이터 갱신",
+          "unknown": "공개 데이터 처리",
+        };
+        const stage = stages[detail.stage] || stages.unknown;
         const messages = {
           "permission-denied": "공개 데이터 저장 권한이 거부되었습니다.",
           "resource-exhausted": "서버 요청 한도를 초과했습니다.",
@@ -579,9 +588,10 @@
           "deadline-exceeded": "서버 응답 시간이 초과되었습니다.",
           "failed-precondition": "공개 데이터 저장 조건을 확인해야 합니다.",
         };
+        const issue = messages[code] || "커뮤니티 공개 반영에 실패했습니다.";
+        const reason = code ? " (" + code + ")" : detail.message ? " · " + detail.message : "";
         notice.querySelector(".public-sync-error-message").textContent =
-          (messages[code] || "커뮤니티 공개 반영에 실패했습니다.") +
-          (code ? " (" + code + ")" : "") + " ";
+          issue + " [" + stage + "]" + reason + " ";
       }
       notice.hidden = !visible;
     }

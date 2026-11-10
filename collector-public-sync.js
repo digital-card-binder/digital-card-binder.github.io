@@ -3,6 +3,36 @@
 (function () {
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
 
+  // Distinguish server-side permission failures from JavaScript/catalog errors.
+  // Never include owner UIDs, email addresses or raw documents in error events.
+  async function atSyncStage(stage, work) {
+    try {
+      return await work();
+    } catch (error) {
+      if (error && typeof error === "object" && !error.publicSyncStage) {
+        try { error.publicSyncStage = stage; } catch (_) { /* read-only error */ }
+      }
+      throw error;
+    }
+  }
+
+  function publicSyncErrorDetail(error, collectionId) {
+    const allowedStages = new Set([
+      "owner-data", "catalog", "public-write", "public-transaction", "unknown",
+    ]);
+    const stage = allowedStages.has(error?.publicSyncStage)
+      ? error.publicSyncStage : "unknown";
+    const code = typeof error?.code === "string" && /^[a-z-]{2,48}$/.test(error.code)
+      ? error.code : "";
+    // The UI sees a short sanitized message only, never a Firestore document path.
+    const message = String(error?.message || "공개 도감 동기화 실패")
+      .replace(/https?:\/\/\S+/g, "[링크]")
+      .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[계정]")
+      .replace(/(?:users|publicProfiles|collectorPublicIdOwners)\/[A-Za-z0-9_-]+/g, "[보호된 경로]")
+      .slice(0, 160);
+    return { collectionId, code, stage, message };
+  }
+
   function profileRef(firestoreModule, db, uid) {
     return firestoreModule.doc(db, "users", uid, "profile", "main");
   }
@@ -155,13 +185,13 @@
     const { db, firestoreModule, user, collectionId } = options || {};
     if (!db || !firestoreModule || !user?.uid) return { synced: false };
 
-    const context = await loadPrivateContext({
+    const context = await atSyncStage("owner-data", () => loadPrivateContext({
       db,
       firestoreModule,
       user,
       collectionId,
       preferServer: Boolean(options?.preferServer),
-    });
+    }));
     const { setting, profile } = context;
     if (setting.visibility !== "public") {
       if (collectionId === "custom" && profile?.profileCompleted && profile?.publicId) {
@@ -172,15 +202,16 @@
     if (!profile?.profileCompleted || !profile.publicId) {
       throw new Error("컬렉터 프로필을 먼저 완성해 주세요.");
     }
-    const projection = await window.CollectorCollectionRegistry.buildProjection(
-      collectionId,
-      context.source,
-      profile.publicId,
-    );
+    const projection = await atSyncStage("catalog", () =>
+      window.CollectorCollectionRegistry.buildProjection(
+        collectionId,
+        context.source,
+        profile.publicId,
+      ));
 
     const payload = { ...projection };
 
-    await firestoreModule.setDoc(
+    await atSyncStage("public-write", () => firestoreModule.setDoc(
       publicProjectionRef(
         firestoreModule,
         db,
@@ -188,7 +219,7 @@
         collectionId,
       ),
       payload,
-    );
+    ));
     if (collectionId === "custom") {
       await syncCustomDexPhotos({ db, firestoreModule, user, publicId: profile.publicId, projection });
     }
@@ -215,7 +246,8 @@
     }
 
     const registry = window.CollectorCollectionRegistry;
-    const result = await firestoreModule.runTransaction(db, async (transaction) => {
+    const result = await atSyncStage("public-transaction", () =>
+      firestoreModule.runTransaction(db, async (transaction) => {
       const profileSnapshot = await transaction.get(profileRef(firestoreModule, db, user.uid));
       const settingSnapshot = await transaction.get(settingRef(firestoreModule, db, user.uid, collectionId));
       const profile = profileSnapshot.exists() ? profileSnapshot.data() || {} : null;
@@ -251,7 +283,7 @@
         ownedCount: ownedKeys.size,
       });
       return { synced: true, visibility: "public" };
-    });
+    }));
     return result?.fullRequired
       ? syncCollection({ ...options, preferServer: true })
       : result;
@@ -272,11 +304,7 @@
     }
     if (options?.reportError !== false) {
       window.dispatchEvent(new CustomEvent("pokemon-dex:public-sync-error", {
-        detail: {
-          collectionId: options?.collectionId || "",
-          message: lastError?.message || "공개 도감 동기화 실패",
-          code: lastError?.code || "unknown",
-        },
+        detail: publicSyncErrorDetail(lastError, options?.collectionId || ""),
       }));
     }
     throw lastError;
@@ -326,10 +354,7 @@
     if (options?.reportError !== false) {
       window.dispatchEvent(
         new CustomEvent("pokemon-dex:public-sync-error", {
-          detail: {
-            collectionId: options?.collectionId || "",
-            message: lastError?.message || "공개 도감 동기화 실패",
-          },
+          detail: publicSyncErrorDetail(lastError, options?.collectionId || ""),
         }),
       );
     }
@@ -357,5 +382,6 @@
     syncCollectionWithRetry,
     lastSuccessfulSync,
     recordSuccessfulSync,
+    publicSyncErrorDetail,
   };
 })();
