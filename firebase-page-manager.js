@@ -606,8 +606,9 @@
     const requestedRevision = largeCatalogPublicSyncRevision;
     const changes = [...largeCatalogPublicSyncChanges].map(([key, owned]) => ({ key, owned }));
     largeCatalogPublicSyncChanges.clear();
-    const useFullSync = largeCatalogPublicSyncNeedsFull ||
-      !changes.length || typeof deltaSync !== "function";
+    // Even when a previous full repair failed, publish the newly saved keys
+    // through the independent transaction path instead of repeating its failure.
+    const useFullSync = !changes.length || typeof deltaSync !== "function";
     let failed = false;
     try {
       await saveQueue;
@@ -624,9 +625,13 @@
       largeCatalogPublicSyncRetryCount = 0;
       showPublicSyncIssue(false);
       if (requestedRevision === largeCatalogPublicSyncRevision) {
-        largeCatalogPublicSyncNeedsFull = false;
-        publicSyncStore("dirty", null);
-        publicSyncStore("repair", PUBLIC_SYNC_REPAIR_VERSION);
+        if (useFullSync) largeCatalogPublicSyncNeedsFull = false;
+        if (!largeCatalogPublicSyncNeedsFull) {
+          publicSyncStore("dirty", null);
+          publicSyncStore("repair", PUBLIC_SYNC_REPAIR_VERSION);
+        }
+        // A successful delta must not falsely certify an older failed full
+        // repair: the dirty flag remains for an explicit or future recheck.
       }
     } catch (error) {
       failed = true;
