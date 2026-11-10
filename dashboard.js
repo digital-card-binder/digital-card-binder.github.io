@@ -1249,7 +1249,9 @@
     if (!menu || !menuTrigger) return;
 
     const syncExpandedState = () => {
-      menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
+      const sharedDialog = document.getElementById("dcb-site-menu-dialog");
+      menuTrigger.setAttribute("aria-expanded",
+        menu.open || sharedDialog?.open ? "true" : "false");
     };
 
     menuTrigger.addEventListener("click", (event) => {
