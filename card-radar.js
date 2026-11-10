@@ -1300,6 +1300,14 @@
     }
     return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
   }
+  // Only recent inventory responses can establish a stock state.
+  function stockDisplayState(store) {
+    if (store.kind === "vending") return { kind:"unknown", label:"재고 정보 미제공" };
+    const summary=inventoryLabel(store);
+    if (summary.known) return { kind:"positive", label:"수량 확인" };
+    if (summary.checked) return { kind:"zero", label:"조회 수량 0" };
+    return { kind:"unknown", label:"재고 확인 불가" };
+  }
   function filterStoresForDisplay(stores) {
     return state.onlyInStock ? stores.filter((store) => inventoryLabel(store).known) : stores;
   }
@@ -1354,6 +1362,8 @@
         store.origin==="authorized-feed"?"재고 데이터 제공 매장":
         store.origin==="official-vending-directory"?"포켓몬코리아 공식 자판기 설치 목록":"지도에 등록된 매장 후보")));
     const summary=inventoryLabel(store);
+    const stockState=stockDisplayState(store);
+    card.append(make("span","radar-availability-badge radar-availability-badge--"+stockState.kind,stockState.label));
     if(store.kind==="vending"){
       card.append(make("p","radar-stock-note","포켓몬코리아 공식 설치 위치 · 실시간 재고 미제공"));
     }else{
@@ -1508,6 +1518,7 @@
       const mapColors={convenience:"#4168dc",mart:"#ed9b2a",vending:"#16846c"};
       const hasStock=store.kind!=="vending" && inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.mart;
+      const displayState=stockDisplayState(store);
       const count=stockProductCount(store);
       const stockBadge=hasStock?stockMarkerSummary(store):null;
       const marker=(stockBadge && window.L.divIcon
@@ -1518,8 +1529,11 @@
             '</small></span>',iconSize:[56,40],iconAnchor:[28,38]})
         })
         : window.L.circleMarker([store.lat,store.lng],{
-          color:hasStock?"#bd263f":color,
-          fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
+          color:hasStock?"#bd263f":displayState.kind==="zero"?"#b27927":color,
+          fillColor:displayState.kind==="zero"?"#fff2dc":color,
+          fillOpacity:displayState.kind==="zero"?1:.92,
+          weight:hasStock?4:displayState.kind==="zero"?3:2,
+          radius:hasStock?9:7
         })).addTo(state.pinLayer);
       const popup=make("div","");
       const stock = inventoryLabel(store);
@@ -1572,6 +1586,15 @@
     byId("radar-stock-checked").textContent =
       state.kind==="vending"||unresolvedMartMap||martStockUnlinked?"—":
       hasResults ? String(inStockStores.length) : "—";
+    const statusSummary=byId("radar-stock-state-summary");
+    statusSummary.hidden=!hasResults||unresolvedMartMap||state.kind==="vending";
+    if (!statusSummary.hidden) {
+      const counts={positive:0,zero:0,unknown:0};
+      for (const store of nearbyStores) counts[stockDisplayState(store).kind]++;
+      byId("radar-positive-count").textContent=String(counts.positive);
+      byId("radar-zero-count").textContent=String(counts.zero);
+      byId("radar-unknown-count").textContent=String(counts.unknown);
+    }
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
       const box = make("div","radar-empty");
@@ -2291,6 +2314,7 @@
       if(state.kind!=="mart"){state.region=null;byId("radar-region").value="";}
       updateRegionControls();centerMap();
       document.body.classList.toggle("radar-vending-mode",state.kind==="vending");
+      document.body.classList.toggle("radar-mart-region-mode",state.kind==="mart");
       byId("radar-vending-source-note").hidden=state.kind!=="vending";
       const martUnlinked=state.kind==="mart"&&!state.martInventory.length &&
         ![...state.masterShops,...state.shops,...state.inventory].some(store=>
