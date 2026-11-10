@@ -65,7 +65,9 @@ test("phase 4: newly verified crying theme becomes searchable without changing m
     throw Error("unexpected fetch");
   }
   vm.runInNewContext(source,{document,window:{},fetch,console});
-  for(let i=0;i<5;i++)await Promise.resolve();
+  for(let i=0;i<10 && cards.length<2;i++) {
+    await new Promise((resolve)=>setImmediate(resolve));
+  }
   assert.deepEqual(urls,["./data/art-theme-supplements.json","./data/art-themes-crying.json"]);
   assert.equal(cards.length,2);
   const crying=cards.find(card=>card.href.endsWith("theme=crying"));
