@@ -275,9 +275,17 @@
       json("./data/series-image-overrides.json").catch(() => ({ sets: {} })),
       json("./data/series-collection-exclusions.json"),
     ]);
-    const merged = applySeriesImageOverrides(
-      mergeGroups(base, legacy, "code"), imageOverrides,
-    );
+    // JSON catalog sources are cached and shared with other consumers.
+    // Never remove exclusions, change accountIndex, or apply image overrides
+    // directly on those source objects: the next series() call must still
+    // see the original two excluded entries.
+    const detachedGroups = mergeGroups(base, legacy, "code").map((group) => ({
+      ...group,
+      cards: Array.isArray(group.cards)
+        ? group.cards.map((card) => ({ ...card }))
+        : [],
+    }));
+    const merged = applySeriesImageOverrides(detachedGroups, imageOverrides);
     const excluded = new Set((exceptions.exclusions || []).map((item) =>
       clean(item.setCode).toLowerCase() + "::" + clean(item.cardCode).toLowerCase()
     ));
