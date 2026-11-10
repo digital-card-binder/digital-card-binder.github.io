@@ -94,5 +94,5 @@ const result={
 };
 mkdirSync(path.dirname(outputPath),{recursive:true});
 writeFileSync(outputPath,JSON.stringify(result,null,2)+"\n");
-console.log(JSON.stringify({manifestAssets:result.manifestAssets,...counters,criticalCount:critical.length}));
+console.log(JSON.stringify({manifestAssets:result.manifestAssets,...counters,criticalCount:critical.length,warningExamples:warnings.slice(0,5)}));
 if (critical.length) process.exitCode=1;
