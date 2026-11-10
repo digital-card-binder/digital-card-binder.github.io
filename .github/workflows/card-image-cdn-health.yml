@@ -1,0 +1,71 @@
+name: Card image CDN health (read-only)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/card-image-cdn-health.yml'
+      - '.github/workflows/deploy-card-images.yml'
+      - 'scripts/restore_card_images_from_cloudflare.py'
+      - 'tests/test_cloudflare_archive_recovery.py'
+      - 'scripts/audit-card-image-integrity.mjs'
+      - 'tests/phase4-image-integrity.test.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/card-image-cdn-health.yml'
+      - 'scripts/restore_card_images_from_cloudflare.py'
+      - '.github/workflows/deploy-card-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: card-image-cdn-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    name: Probe existing CDN without modifying images
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image verifier
+        run: python -m pip install --quiet 'Pillow==12.3.0'
+      - name: Test archive restoration safety
+        run: python -m unittest discover -s tests -p test_cloudflare_archive_recovery.py
+      - name: Build manifest (read-only)
+        run: node scripts/build-card-image-manifest.mjs
+      - name: Probe 24 images per project without changing existing deployments
+        id: probe
+        shell: bash
+        run: |
+          set +e
+          python scripts/restore_card_images_from_cloudflare.py --project modern --probe-only --sample 24 --workers 8 --timeout 10
+          MODERN=$?
+          python scripts/restore_card_images_from_cloudflare.py --project legacy --probe-only --sample 24 --workers 8 --timeout 10
+          LEGACY=$?
+          echo "modern=$MODERN" >> "$GITHUB_OUTPUT"
+          echo "legacy=$LEGACY" >> "$GITHUB_OUTPUT"
+          echo "### Public CDN evidence (sample, not complete inventory)" >> "$GITHUB_STEP_SUMMARY"
+          cat tmp/card-images/cdn-health-modern.json >> "$GITHUB_STEP_SUMMARY"
+          cat tmp/card-images/cdn-health-legacy.json >> "$GITHUB_STEP_SUMMARY"
+          if [ "$MODERN" -ne 0 ] || [ "$LEGACY" -ne 0 ]; then
+            echo "::warning::Public image samples failed; do not overwrite the live archive with incomplete caches."
+          fi
+          # Sample CDN errors are reported rather than blocking unrelated site CI.
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: card-image-cdn-health-${{ github.run_id }}
+          path: tmp/card-images/cdn-health-*.json
+          retention-days: 14
