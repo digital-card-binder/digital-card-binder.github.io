@@ -234,14 +234,18 @@
       }
     }
 
-    window.dispatchEvent(
-      new CustomEvent("pokemon-dex:public-sync-error", {
-        detail: {
-          collectionId: options?.collectionId || "",
-          message: lastError?.message || "공개 도감 동기화 실패",
-        },
-      }),
-    );
+    // Automatic maintenance failures are logged by their caller. They must
+    // not masquerade as a failed card save in the user's current screen.
+    if (options?.reportError !== false) {
+      window.dispatchEvent(
+        new CustomEvent("pokemon-dex:public-sync-error", {
+          detail: {
+            collectionId: options?.collectionId || "",
+            message: lastError?.message || "공개 도감 동기화 실패",
+          },
+        }),
+      );
+    }
     throw lastError;
   }
 
