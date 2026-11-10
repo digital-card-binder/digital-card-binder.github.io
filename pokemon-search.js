@@ -617,22 +617,30 @@
   }
 
   function filteredCards() {
-    // 31차: one pass and a precomputed era lookup avoid repeated arrays
-    // and ERA_ORDER.indexOf calls while filtering 20k+ cards.
+    // 6차: search matches do not change order when the user toggles
+    // owned/missing, series or era filters. Sort once per query result
+    // rather than re-sorting up to 20k+ cards after every toggle.
+    const matches = targetCards();
+    if (state.sortedSearchCache?.source !== matches) {
+      state.sortedSearchCache = {
+        source: matches,
+        ordered: matches.slice().sort((left, right) => {
+          const eraDiff = (ERA_RANK[left.era] ?? -1) - (ERA_RANK[right.era] ?? -1);
+          if (eraDiff) return eraDiff;
+          if (left.groupIndex !== right.groupIndex) return left.groupIndex - right.groupIndex;
+          return cardNumber(left.card) - cardNumber(right.card);
+        }),
+      };
+    }
     const filtered = [];
-    for (const item of targetCards()) {
+    for (const item of state.sortedSearchCache.ordered) {
       if (state.era !== "ALL" && item.era !== state.era) continue;
       if (state.setCode !== "ALL" && item.setCode !== state.setCode) continue;
       if (state.status === "owned" && !item.card.owned) continue;
       if (state.status === "missing" && item.card.owned) continue;
       filtered.push(item);
     }
-    return filtered.sort((left, right) => {
-      const eraDiff = (ERA_RANK[left.era] ?? -1) - (ERA_RANK[right.era] ?? -1);
-      if (eraDiff) return eraDiff;
-      if (left.groupIndex !== right.groupIndex) return left.groupIndex - right.groupIndex;
-      return cardNumber(left.card) - cardNumber(right.card);
-    });
+    return filtered;
   }
 
   function updateSummary() {
