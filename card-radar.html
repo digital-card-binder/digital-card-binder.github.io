@@ -49,7 +49,7 @@
       <p class="radar-coordinate" id="radar-location-label" aria-live="polite">기본 지도 위치: 서울시청 · 지역 검색 또는 내 위치를 선택해 주세요.</p>
       <p id="radar-location-feedback" class="radar-location-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="radar-field-grid">
-        <div class="radar-field">
+        <div class="radar-field radar-field--region">
           <label class="radar-label" for="radar-region">지역 전체 마트 검색</label>
           <select id="radar-region">
             <option value="">지역 전체 선택 · 미사용</option>
@@ -85,7 +85,10 @@
         <div class="radar-field">
           <label class="radar-label" for="radar-pack">상품 검색</label>
           <select id="radar-pack"><option value="">전체 카드팩 · 기본값</option></select>
-          <small class="radar-tiny" id="radar-pack-coverage-note">전체 자동탐색은 주요 12종부터 조회합니다. 팩·박스·덱 등 총 62종에서 선택해 개별 재고를 조회할 수 있습니다. 상품별 판매처 제공 여부는 다릅니다.</small>
+          <details class="radar-pack-help">
+            <summary>조회 가능한 상품 안내</summary>
+            <small class="radar-tiny" id="radar-pack-coverage-note">전체 자동탐색은 주요 12종부터 조회합니다. 팩·박스·덱 등 총 62종에서 선택해 개별 재고를 조회할 수 있습니다. 상품별 판매처 제공 여부는 다릅니다.</small>
+          </details>
         </div>
         <div class="radar-field">
           <label class="radar-label" for="radar-store-kind">매장 유형</label>
@@ -174,6 +177,12 @@
         </div>
       </details>
       <p id="radar-status" class="radar-status" role="status" aria-live="polite"></p>
+      <div id="radar-stock-state-summary" class="radar-stock-state-summary" aria-label="매장별 재고 확인 상태" hidden>
+        <div class="radar-stock-state-item radar-stock-state-item--positive"><span>수량 확인</span><strong id="radar-positive-count">0</strong><small>곳</small></div>
+        <div class="radar-stock-state-item radar-stock-state-item--zero"><span>조회 수량 0</span><strong id="radar-zero-count">0</strong><small>곳</small></div>
+        <div class="radar-stock-state-item radar-stock-state-item--unknown"><span>확인 불가</span><strong id="radar-unknown-count">0</strong><small>곳</small></div>
+      </div>
+      <p class="radar-stock-disclaimer">수량 0은 조회된 상품에 한정됩니다. 확인 불가는 품절을 의미하지 않습니다. 방문 전 판매처에서 재확인해 주세요.</p>
       <div class="radar-result-grid">
         <div class="radar-list-panel" id="radar-list-panel">
           <div id="radar-stores" class="radar-stores">
@@ -194,7 +203,9 @@
           <div class="radar-map-legend" aria-label="지도 마커 범례">
             <span><i class="radar-legend-dot is-convenience" aria-hidden="true"></i>편의점</span>
             <span><i class="radar-legend-dot is-mart" aria-hidden="true"></i>마트</span>
-            <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>카드 재고 있음 (조회 기준)</span>
+            <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>수량 확인</span>
+            <span><i class="radar-legend-dot is-zero" aria-hidden="true"></i>조회 수량 0</span>
+            <span><i class="radar-legend-dot is-unknown" aria-hidden="true"></i>재고 미확인</span>
           </div>
           <div class="radar-map-caption"><strong id="radar-map-caption">반경 10km</strong><span>편의점 · 마트</span></div>
         </div>

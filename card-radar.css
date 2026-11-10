@@ -307,3 +307,105 @@ body.radar-mart-unlinked-mode .radar-stock-filter,
 body.radar-mart-unlinked-mode .radar-map-mode button[data-map-mode="stock"],
 body.radar-mart-unlinked-mode .radar-metric-in-stock{display:none!important}
 body.radar-mart-unlinked-mode .radar-metrics{grid-template-columns:1fr}
+
+
+/* UX 2차 (2026-11-10): calmer search, explicit inventory evidence, responsive layout. */
+.radar-field--region {display:none}
+body.radar-mart-region-mode .radar-field--region {display:block}
+.radar-stock-state-summary {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;margin:8px 0 9px;
+}
+.radar-stock-state-summary[hidden] {display:none!important}
+.radar-stock-state-item {
+  display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;
+  min-width:0;padding:12px 14px;border:1px solid #dce6ef;
+  border-radius:12px;background:#f8fbfe;color:#4e647c;
+}
+.radar-stock-state-item span {flex-basis:100%;font-size:11px;font-weight:800}
+.radar-stock-state-item strong {font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;color:#27415f}
+.radar-stock-state-item small {font-size:11px;font-weight:750}
+.radar-stock-state-item--positive {border-color:#c6e4d7;background:#f3fbf7}
+.radar-stock-state-item--positive strong {color:#19754c}
+.radar-stock-state-item--zero {border-color:#f1dcb4;background:#fffaf0}
+.radar-stock-state-item--zero strong {color:#95611e}
+.radar-stock-state-item--unknown {border-color:#d9e1ea;background:#f7f9fc}
+.radar-stock-disclaimer {margin:0 0 13px;color:#64778c;font-size:11px;line-height:1.55}
+.radar-availability-badge {
+  display:inline-flex;align-items:center;gap:5px;
+  border:1px solid #d5dfeb;border-radius:999px;
+  padding:5px 10px;background:#f6f8fc;
+  color:#596b80;font-size:11px;font-weight:850;
+}
+.radar-availability-badge::before {content:"";width:7px;height:7px;border-radius:50%;background:#98a7b8}
+.radar-availability-badge--positive {color:#176d48;background:#eff9f3;border-color:#bee2d0}
+.radar-availability-badge--positive::before {background:#249663}
+.radar-availability-badge--zero {color:#94601c;background:#fff8e9;border-color:#eed9ac}
+.radar-availability-badge--zero::before {background:#d69c43}
+.radar-stock.in-stock {white-space:normal;overflow-wrap:anywhere;background:#edf8f3;color:#1a704b;border-color:#c6e5d5}
+.radar-stock-note {overflow-wrap:anywhere}
+.radar-store {background:linear-gradient(160deg,#fff,#fbfdff);box-shadow:0 3px 12px rgba(33,63,100,.035)}
+.radar-store-actions a,.radar-store-actions button {min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.radar-pack-help {margin-top:7px;color:#58728d}
+.radar-pack-help summary {display:list-item;list-style-position:inside;cursor:pointer;font-size:11px;font-weight:750}
+.radar-pack-help small {display:block;margin:6px 0 0;max-width:58ch}
+.radar-legend-dot.is-zero {border:2px solid #b27927;background:#fff2dc}
+.radar-legend-dot.is-unknown {background:linear-gradient(90deg,#4168dc 50%,#ed9b2a 50%)}
+.radar-map-legend {gap:8px 14px}
+.radar-radius button {min-height:44px}
+.radar-view-switch button,.radar-map-mode button {min-height:44px}
+.radar-controls :is(input,select,button):focus-visible,
+.radar-results :is(button,a,input):focus-visible {outline:3px solid #297ab1;outline-offset:2px}
+@media(max-width:900px){
+  .radar-hero {min-height:125px;padding:22px 26px;margin-bottom:12px}
+  .radar-hero h1 {font-size:1.55rem;margin:6px 0}
+  .radar-hero-orb {opacity:.45}
+  .radar-controls {padding:18px 20px}
+  .radar-field-grid {gap:12px}
+  .radar-result-grid {gap:11px}
+}
+@media(max-width:640px) {
+  .radar-layout {padding:10px 10px 32px}
+  .radar-hero {min-height:86px;padding:14px 16px;border-radius:15px;margin-bottom:10px}
+  .radar-hero h1 {font-size:1.35rem;margin:2px 0}
+  .radar-hero .radar-eyebrow {display:none}
+  .radar-hero p {font-size:11px;max-width:100%;line-height:1.4}
+  .radar-hero-orb {display:none}
+  .radar-controls,.radar-results {padding:13px;border-radius:15px}
+  .radar-location-row {gap:7px}
+  .radar-input-wrap>label,.radar-label {font-size:12px;margin-bottom:5px}
+  .radar-mini-button {padding:0 9px;white-space:nowrap}
+  .radar-locate {width:auto;flex:1}
+  .radar-coordinate {margin:8px 0 10px;font-size:11px;overflow-wrap:anywhere}
+  .radar-location-feedback {margin:0 0 8px}
+  .radar-field-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 9px}
+  .radar-field-grid>.radar-field--region,
+  .radar-field-grid>.radar-field:nth-child(3) {grid-column:1/-1}
+  .radar-field-grid>.radar-field:nth-child(2) .radar-radius {display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .radar-radius button {min-height:42px;padding:7px 3px;font-size:12px}
+  .radar-field-grid select {min-height:44px;padding:9px 7px;font-size:13px}
+  .radar-submit-row {margin-top:12px}
+  .radar-submit {min-height:46px;padding:11px 16px;font-size:14px}
+  .radar-result-top {gap:8px;margin-bottom:9px}
+  .radar-result-top .radar-progress {padding:8px 10px}
+  .radar-progress small {display:none}
+  .radar-metrics {gap:7px;margin:9px 0}
+  .radar-metrics > div {padding:8px 10px}
+  .radar-metrics strong {font-size:21px}
+  .radar-metrics p {line-height:1.25}
+  .radar-stock-state-summary {gap:6px;margin:7px 0}
+  .radar-stock-state-item {padding:8px 7px;gap:2px;border-radius:10px}
+  .radar-stock-state-item span {font-size:10px;line-height:1.3}
+  .radar-stock-state-item strong {font-size:18px}
+  .radar-stock-state-item small {font-size:10px}
+  .radar-stock-disclaimer {font-size:10px}
+  .radar-store {padding:12px;margin-bottom:7px}
+  .radar-store-sub {margin-bottom:7px}
+  .radar-store-actions {gap:7px}
+  .radar-store-actions a,.radar-store-actions button {font-size:11px;min-height:42px}
+  .radar-empty {min-height:190px;padding:18px}
+  .radar-coverage {margin:8px 0 10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .radar-hero,.radar-store,.radar-radius button {transition:none!important}
+}

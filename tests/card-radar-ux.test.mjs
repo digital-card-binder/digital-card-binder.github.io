@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
-    "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
+    "globalThis.__radarTests = {isCardProduct, inventoryLabel, stockDisplayState, showGeolocate, geolocationErrorMessage,",
     "parseAdministrativeRegion,regionSearchActive,withinSearchArea,KOREAN_REGIONS,stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, parsePhotonMartShops, loadPhotonMartShops, state};",
     "})();",
   ].join("\n"));
@@ -1079,7 +1079,8 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(summary,/재고 있는 매장/);
   assert.match(summary,/카드 재고 1개 이상 조회된 곳/);
   assert.doesNotMatch(summary,/재고 확인|검색 완료|검색 실패/);
-  const details=html.slice(html.indexOf('<details class="radar-coverage"'),html.indexOf("</details>"));
+  const coverageStart=html.indexOf('<details class="radar-coverage"');
+  const details=html.slice(coverageStart,html.indexOf("</details>",coverageStart));
   assert.match(details,/id="radar-search-completed"/);
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
@@ -1704,4 +1705,45 @@ test("mart administrative region search includes far-away stores in same region 
   state.kind="convenience";
   assert.equal(regionSearchActive(),false);
   assert.equal(withinSearchArea({lat:37.8,lng:127.4}),false);
+});
+
+test("phase 2: zero-response, unavailable, and positive are not conflated", () => {
+  const { stockDisplayState, state } = harness();
+  state.pack = "";
+  const now=new Date().toISOString();
+  const stale=new Date(Date.now()-31*60*1000).toISOString();
+  const base=(quantity,checkedAt=now)=>({kind:"mart",verifiedInventory:[
+    {name:"포켓몬카드 닌자스피너",code:"m4",quantity,checkedAt}
+  ]});
+  assert.equal(stockDisplayState(base(4)).kind,"positive");
+  assert.equal(stockDisplayState(base(0)).kind,"zero");
+  assert.match(stockDisplayState(base(0)).label,/조회 수량 0/);
+  assert.equal(stockDisplayState(base(4,stale)).kind,"unknown");
+  assert.equal(stockDisplayState({kind:"mart",verifiedInventory:[]}).kind,"unknown");
+  assert.equal(stockDisplayState({kind:"vending",verifiedInventory:[]}).label,"재고 정보 미제공");
+  const mixed={kind:"convenience",verifiedInventory:[
+    {name:"포켓몬카드 닌자스피너",code:"m4",quantity:0,checkedAt:now},
+    {name:"포켓몬카드 메가심포니아",code:"m1S",quantity:7,checkedAt:now}
+  ]};
+  assert.equal(stockDisplayState(mixed).kind,"positive");
+  state.pack="m4";
+  assert.equal(stockDisplayState(mixed).kind,"zero",
+    "a selected zero-response must not reuse positive stock for a different pack");
+});
+
+test("phase 2: radar counts are evidence categories, not sold-out claims", () => {
+  const html=read("card-radar.html");
+  const css=read("card-radar.css");
+  for(const id of ["radar-stock-state-summary","radar-positive-count","radar-zero-count","radar-unknown-count"]){
+    assert.match(html,new RegExp('id="'+id+'"'));
+  }
+  assert.match(html,/확인 불가는 품절을 의미하지 않습니다/);
+  assert.match(html,/class="radar-pack-help"/);
+  assert.match(css,/[.]radar-stock-state-summary\[hidden\]/);
+  assert.match(css,/body[.]radar-mart-region-mode [.]radar-field--region/);
+  assert.match(source,/counts\[stockDisplayState\(store\)[.]kind\]\+\+/);
+  assert.match(source,/statusSummary[.]hidden=!hasResults/);
+  assert.match(source,/displayState[.]kind==="zero"/);
+  assert.doesNotMatch(source.slice(source.indexOf("  function stockDisplayState(store) {"),
+    source.indexOf("  function filterStoresForDisplay(stores)")),/saveOwned|fetchJson|setDoc|deleteDoc/);
 });
