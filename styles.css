@@ -2541,6 +2541,28 @@ body:has(.card-dialog.show) .dex-scroll-top { display: none !important; }
   }
 }
 
+/* UX phase 3: non-blocking save state, shared across series and custom collecting. */
+.dcb-save-feedback {
+  box-sizing:border-box;
+  position:fixed;
+  z-index:1900;
+  bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+  left:50%;transform:translateX(-50%);
+  width:max-content;max-width:calc(100vw - 28px);
+  padding:10px 17px;border:1px solid #c8dceb;border-radius:999px;
+  box-shadow:0 9px 30px rgba(24,54,87,.16);
+  background:#fff;color:#2d5473;text-align:center;
+  font-size:12px;font-weight:800;line-height:1.5;
+  pointer-events:none;
+}
+.dcb-save-feedback[hidden] {display:none!important}
+.dcb-save-feedback[data-state="saving"] {color:#426587;background:#f6faff}
+.dcb-save-feedback[data-state="success"] {color:#146f4b;border-color:#b8e0ce;background:#f2fbf6}
+.dcb-save-feedback[data-state="error"] {color:#b02f41;border-color:#f0bdc6;background:#fff6f7}
+@media(max-width:760px) {
+  .dcb-save-feedback {bottom:calc(88px + env(safe-area-inset-bottom, 0px))}
+}
+
 /* 25차 — bright shared foundation. Neutral ink, airy blue/lilac/coral accents.
    No card colors, owned-state semantics, or page structure are changed. */
 :root {

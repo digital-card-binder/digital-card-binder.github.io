@@ -1099,6 +1099,7 @@ async function saveQuickVariantSelection(card, picker) {
 
   const variants = selected.length ? [...new Set(selected)] : ["normal"];
   const save = picker.querySelector("[data-quick-variant-save]");
+  window.DcbSaveFeedback?.show?.("saving","카드 형태 저장 중…");
   if (save) {
     save.disabled = true;
     save.textContent = "저장 중…";
@@ -1115,9 +1116,11 @@ async function saveQuickVariantSelection(card, picker) {
       saved.owned,
     );
     refreshCatalogAfterOwnershipSave(card);
+    window.DcbSaveFeedback?.show?.("success","카드 형태 저장 완료");
     closeQuickVariantPicker();
   } catch (error) {
     console.error(error);
+    window.DcbSaveFeedback?.show?.("error","카드 형태 저장 실패");
     alert(error.message || "인쇄 형태를 저장하지 못했습니다.");
     if (save) {
       save.disabled = false;
@@ -1317,6 +1320,7 @@ async function toggleCatalogCompletion(card, button) {
   }
 
   const nextOwned = !card.owned;
+  window.DcbSaveFeedback?.show?.("saving","보유 상태 저장 중…");
   button.disabled = true;
   button.classList.add("is-saving");
   button.textContent = "저장 중…";
@@ -1337,12 +1341,14 @@ async function toggleCatalogCompletion(card, button) {
     }
 
     refreshCatalogAfterOwnershipSave(card);
+    window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
     if (activeCard === card) {
       updateDialog(card);
       fillSeriesEditor(card);
     }
   } catch (error) {
     console.error(error);
+    window.DcbSaveFeedback?.show?.("error","보유 상태 저장 실패");
     alert(error.message || "수집 상태를 저장하지 못했습니다.");
     updateCompletionButton(button, card);
   }
@@ -1565,6 +1571,7 @@ async function saveSeriesCard() {
 
   save.disabled = true;
   save.textContent = "저장 중…";
+  window.DcbSaveFeedback?.show?.("saving","보유 상태 저장 중…");
 
   try {
     const saved = await account.saveOverride(activeCard.accountKey, {
@@ -1586,6 +1593,7 @@ async function saveSeriesCard() {
     refreshCatalogAfterOwnershipSave(activeCard);
     updateDialog(activeCard);
     fillSeriesEditor(activeCard);
+    window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
     setSeriesEditorMessage(
       owned
         ? `보유 카드로 저장되었습니다. · ${activeCard.printVariants
@@ -1600,6 +1608,7 @@ async function saveSeriesCard() {
     );
   } catch (error) {
     console.error(error);
+    window.DcbSaveFeedback?.show?.("error","보유 상태 저장 실패");
     setSeriesEditorMessage(error.message || "저장하지 못했습니다.", "error");
   } finally {
     save.disabled = false;

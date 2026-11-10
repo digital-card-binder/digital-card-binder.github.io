@@ -1249,10 +1249,18 @@
     if (!menu || !menuTrigger) return;
 
     const syncExpandedState = () => {
-      menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
+      const sharedDialog = document.getElementById("dcb-site-menu-dialog");
+      menuTrigger.setAttribute("aria-expanded",
+        menu.open || sharedDialog?.open ? "true" : "false");
     };
 
     menuTrigger.addEventListener("click", (event) => {
+      if (window.DcbMobileMenu?.open) {
+        // Use the same accessible dialog as every other collecting page.
+        menu.open=false;
+        window.DcbMobileMenu.open(event, menuTrigger);
+        return;
+      }
       event.preventDefault();
       menu.open = !menu.open;
       syncExpandedState();

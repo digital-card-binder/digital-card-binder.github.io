@@ -3964,3 +3964,22 @@ body.collector-collection-page.collector-simple-dex[data-catalog="ar"] .catalog-
     gap: 4px;
   }
 }
+
+/* UX phase 3: show confirmed local public-sync activity without exposing internal logs. */
+.collector-public-sync-panel {
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  border:1px solid #dce6f3;border-radius:14px;
+  padding:13px 15px;margin-top:14px;
+  background:linear-gradient(140deg,#f8fbff,#fff);
+}
+.collector-public-sync-panel[hidden] {display:none!important}
+.collector-public-sync-copy {flex:1;min-width:0}
+.collector-public-sync-copy strong {font-size:13px;color:#29496a}
+.collector-public-sync-copy p {font-size:12px;color:#365777;margin:4px 0}
+.collector-public-sync-copy small {font-size:11px;color:#6e8096;line-height:1.5;display:block}
+.collector-public-sync-panel button {min-height:44px;padding:9px 13px;white-space:nowrap;border-radius:10px}
+.collector-public-sync-panel button:disabled {opacity:.55}
+@media(max-width:690px) {
+  .collector-public-sync-panel {align-items:stretch;flex-direction:column;gap:10px;padding:12px}
+  .collector-public-sync-panel button {width:100%}
+}

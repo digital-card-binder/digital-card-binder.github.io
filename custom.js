@@ -700,16 +700,19 @@
     const previousUpdatedAt = dex.updatedAt;
     if (typeof window !== "undefined") dismissCustomOwnershipUndo();
     setCustomOwnershipSaving(true);
+    if (typeof window !== "undefined") window.DcbSaveFeedback?.show?.("saving","보유 상태 저장 중…");
     entry.owned = !previousOwned;
     dex.updatedAt = new Date().toISOString();
     refreshCustomOwnershipUi(entry, dex);
     try {
       await saveDexes();
       if (offerUndo && typeof window !== "undefined") offerCustomOwnershipUndo(entry, dex);
+      if (typeof window !== "undefined") window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
     } catch (error) {
       entry.owned = previousOwned;
       dex.updatedAt = previousUpdatedAt;
       refreshCustomOwnershipUi(entry, dex);
+      if (typeof window !== "undefined") window.DcbSaveFeedback?.show?.("error","보유 상태 저장 실패");
       alert(error.message || "보유 상태를 저장하지 못했습니다.");
     } finally {
       setCustomOwnershipSaving(false);

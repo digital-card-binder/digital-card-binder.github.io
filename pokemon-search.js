@@ -1234,6 +1234,7 @@
     button.textContent = "저장 중…";
     message.textContent = "보유 상태를 저장하고 있습니다.";
     message.dataset.state = "loading";
+    window.DcbSaveFeedback?.show?.("saving","보유 상태 저장 중…");
 
     try {
       await account.saveOwned(item.card.accountKey, nextOwned);
@@ -1248,10 +1249,12 @@
           ? "시리즈 도감에서는 해제했지만 다른 도감의 보유 기록으로 검색에서는 보유로 표시됩니다."
           : "시리즈 도감에서 미보유로 저장했습니다.";
       message.dataset.state = "success";
+      window.DcbSaveFeedback?.show?.("success","보유 상태 저장 완료");
     } catch (error) {
       console.error(error);
       message.textContent = error?.message || "보유 상태를 저장하지 못했습니다.";
       message.dataset.state = "error";
+      window.DcbSaveFeedback?.show?.("error","보유 상태 저장 실패");
       updateDialog(item);
     }
   }
