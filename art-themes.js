@@ -358,14 +358,29 @@
       if (!response.ok) throw new Error(`${DATA_URL} ${response.status}`);
       dataset = await response.json();
       if (!EEVEE_MODE) {
-        // Load supplemental Korean-verified themes without rewriting the 16MB
-        // legacy catalog or changing any existing ownership identity.
+        // Supplemental themes share a lightweight index with the theme landing
+        // page. Existing card identities, original catalog and ownership remain intact.
+        let supplementalPaths = ["./data/art-themes-crying.json?v=20261108"];
         try {
-          const extraResponse = await fetch("./data/art-themes-crying.json?v=20261108", { cache: "no-store" });
-          if (extraResponse.ok) {
+          const indexResponse = await fetch("./data/art-theme-supplements.json", { cache:"no-store" });
+          if (indexResponse.ok) {
+            const index = await indexResponse.json();
+            if (index?.schemaVersion === 1 && Array.isArray(index.feeds)) {
+              supplementalPaths = index.feeds.slice(0, 24)
+                .map((feed) => String(feed?.path || ""))
+                .filter((path) => /^\.\/data\/art-themes-[a-z0-9-]+\.json$/.test(path));
+            }
+          }
+        } catch (indexError) {
+          console.warn("추가 테마 목록 확인 불가, 기본 우는 테마를 사용합니다.", indexError);
+        }
+        for (const path of supplementalPaths) {
+          try {
+            const extraResponse = await fetch(path, { cache: "no-store" });
+            if (!extraResponse.ok) continue;
             const extra = await extraResponse.json();
-            if (extra?.group?.code === "crying" && Array.isArray(extra.group.cards)
-                && extra.group.cards.length && !dataset.groups.some((group) => group.code === "crying")) {
+            if (extra?.group?.code && Array.isArray(extra.group.cards)
+                && extra.group.cards.length && !dataset.groups.some((group) => group.code === extra.group.code)) {
               const unique = new Set();
               const valid = extra.group.cards.every((card) => {
                 const key = String(card.code || "").toLowerCase();
@@ -378,9 +393,9 @@
                 dataset.sources = [...(dataset.sources || []), ...(extra.sources || [])];
               }
             }
+          } catch (extraError) {
+            console.warn("추가 테마 데이터 확인 불가", path, extraError);
           }
-        } catch (extraError) {
-          console.warn("우는 포켓몬 테마 추가 데이터 확인 불가", extraError);
         }
         const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017d", { cache: "no-store" });
         if (auditResponse.ok) storyReview = await auditResponse.json();
