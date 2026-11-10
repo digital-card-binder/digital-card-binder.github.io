@@ -272,3 +272,24 @@
   .theme-card{transition:none}
   .theme-card:hover,.theme-card:focus-visible{transform:none}
 }
+
+/* UX phase 1: theme discovery remains compact above the existing link cards. */
+.theme-discovery {display:grid;gap:11px;margin:0 0 16px}
+.theme-discovery-search {display:flex;align-items:center;gap:10px;min-height:48px;max-width:560px;padding:0 14px;border:1px solid #d7e4f0;border-radius:13px;background:#fff;color:#63819b}
+.theme-discovery-search:focus-within {outline:3px solid #94c6ed;outline-offset:1px}
+.theme-discovery-search > span {font-size:24px}
+.theme-discovery-search input {flex:1;min-width:0;width:100%;border:0;outline:0;background:transparent;color:#243e5b;font:inherit;font-size:16px}
+.theme-discovery-search input::placeholder {color:#78889b}
+.theme-discovery-tabs {display:flex;flex-wrap:wrap;gap:7px}
+.theme-discovery-tabs button {min-height:44px;padding:9px 13px;border:1px solid #dbe6f1;border-radius:12px;background:#fff;color:#496680;font:inherit;font-size:.8rem;font-weight:800;cursor:pointer}
+.theme-discovery-tabs button.is-active {background:#eaf4ff;border-color:#9bc5eb;color:#205e93}
+.theme-discovery-tabs button:focus-visible {outline:3px solid #2479b1;outline-offset:2px}
+.theme-discovery-count {margin:0;color:#657c91;font-size:.76rem;font-weight:700}
+.theme-discovery-empty {margin:0 0 14px;padding:24px 16px;border:1px dashed #c9d8e8;border-radius:14px;background:#fff;color:#4e6680;text-align:center}
+.theme-discovery-empty[hidden],.theme-card[hidden] {display:none!important}
+@media(max-width:620px) {
+  .theme-discovery {gap:9px;margin-bottom:12px}
+  .theme-discovery-search {max-width:none;min-height:44px}
+  .theme-discovery-tabs {flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:3px}
+  .theme-discovery-tabs button {flex:0 0 auto;padding:8px 11px;font-size:.72rem}
+}
