@@ -41,6 +41,7 @@
   let sourceDocuments = new Map();
   let customBinders = [];
   let publicBinderIds = new Set();
+  let publicSyncRefreshing = false;
 
   function configured() {
     const config = CONFIG.config || {};
@@ -66,7 +67,7 @@
     const ids=registry.COLLECTION_ORDER.filter((collectionId)=>
       settings.get(collectionId)?.value?.visibility === "public"
     );
-    elements.publicSyncRefresh.disabled=!ids.length;
+    elements.publicSyncRefresh.disabled=!ids.length || publicSyncRefreshing;
     if (!ids.length) {
       elements.publicSyncSummary.textContent="현재 공개로 선택한 도감이 없습니다.";
       return;
@@ -101,6 +102,7 @@
       return;
     }
     const button=elements.publicSyncRefresh;
+    publicSyncRefreshing=true;
     button.disabled=true;
     button.textContent="다시 반영 중…";
     let succeeded=0;
@@ -126,8 +128,10 @@
         : succeeded+"개 공개 도감을 최신 보유 기록으로 다시 반영했습니다.",
         failed.length?"error":"success");
     } finally {
+      publicSyncRefreshing=false;
       button.disabled=false;
       button.textContent="공개 도감 다시 반영";
+      renderPublicSyncStatus();
     }
   }
 
