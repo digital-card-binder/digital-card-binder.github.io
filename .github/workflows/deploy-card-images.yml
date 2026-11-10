@@ -244,6 +244,15 @@ jobs:
             card-images-v2-${{ runner.os }}-legacy-
             card-images-v1-${{ runner.os }}-legacy-
 
+      - name: Preflight existing Cloudflare image sources before archive recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project modern --probe-only --sample 18 --workers 8 --timeout 12
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project legacy --probe-only --sample 18 --workers 8 --timeout 12
+
       - name: Recover verified images from existing Cloudflare Pages archives
         # Runs after normal GitHub cache restore. Copies only missing valid WebP
         # assets, never writes to Cloudflare and never creates placeholders.
@@ -318,6 +327,8 @@ jobs:
             tmp/card-images/failures-*.json
             tmp/card-images/validation-*.json
             tmp/card-images/archive-verification.json
+            tmp/card-images/cdn-health-modern.json
+            tmp/card-images/cdn-health-legacy.json
           retention-days: 14
 
       - name: Select Cloudflare Pages projects
