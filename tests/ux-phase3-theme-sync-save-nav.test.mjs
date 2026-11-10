@@ -79,3 +79,17 @@ test("phase 3: dashboard and other dex pages share one menu and all three save o
   assert.match(styles, /env\(safe-area-inset-bottom/);
   assert.ok(styles.indexOf("/* UX phase 3:") < styles.indexOf("/* 28차 — final legibility"));
 });
+
+test("public projection maintenance is non-disruptive and recovered warnings clear", () => {
+  const sync = read("collector-public-sync.js");
+  const nav = read("collector-nav.js");
+  assert.match(sync, /if \(options\?\.reportError !== false\)/);
+  assert.match(nav, /reportError: false/);
+  assert.match(nav, /collectionRepairKey/);
+  assert.match(nav, /localStorage[.]getItem\(collectionRepairKey\)/);
+  assert.match(nav, /localStorage[.]setItem\(collectionRepairKey, PUBLIC_PROJECTION_REPAIR_VERSION\)/);
+  assert.match(nav, /new Map\(\)/);
+  assert.match(nav, /publicSyncFailures[.]delete\(event[.]detail\?\.collectionId/);
+  assert.match(nav, /warning\?[.]remove\(\)/);
+  assert.match(nav, /addEventListener\("pokemon-dex:public-sync-success", clearPublicSyncWarning\)/);
+});
