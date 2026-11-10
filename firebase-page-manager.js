@@ -23,7 +23,11 @@
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let saveQueue = Promise.resolve();
-  let largeCatalogPublicSyncQueue = Promise.resolve();
+  let largeCatalogPublicSyncTimer = null;
+  let largeCatalogPublicSyncRunning = false;
+  let largeCatalogPublicSyncRevision = 0;
+  let largeCatalogPublicSyncRetryCount = 0;
+  const PUBLIC_SYNC_REPAIR_VERSION = "20261110";
   let resolveReady;
 
   const ready = new Promise((resolve) => {
@@ -403,6 +407,7 @@
         }
       } else if (currentUser) {
         await loadAccountDocument(currentUser);
+        repairLargeCatalogPublicSync();
       }
       updateAuthUi();
       resolveReady();
@@ -520,25 +525,115 @@
     );
   }
 
-  function queueLargeCatalogPublicSync() {
-    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
-    if (typeof sync !== "function" || !firebase || !currentUser) return;
+  function publicSyncStorageKey(suffix) {
+    return `dcb-public-sync-v2:${currentUser?.uid || ""}:${mode}:${suffix}`;
+  }
 
-    const operation = async () => {
-      try {
-        await sync({
-          db: firebase.db,
-          firestoreModule: firebase.firestoreModule,
-          user: currentUser,
-          collectionId: mode,
-        });
-      } catch (error) {
-        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+  function publicSyncStored(suffix) {
+    try {
+      return window.localStorage.getItem(publicSyncStorageKey(suffix));
+    } catch {
+      return null;
+    }
+  }
+
+  function publicSyncStore(suffix, value) {
+    try {
+      if (value === null) {
+        window.localStorage.removeItem(publicSyncStorageKey(suffix));
+      } else {
+        window.localStorage.setItem(publicSyncStorageKey(suffix), value);
       }
-    };
+    } catch {
+      // Private-mode browsers may disable localStorage; in-page retries still work.
+    }
+  }
 
-    const queued = largeCatalogPublicSyncQueue.then(operation, operation);
-    largeCatalogPublicSyncQueue = queued.catch(() => undefined);
+  function showPublicSyncIssue(visible) {
+    let notice = document.querySelector("#public-series-sync-issue");
+    if (!notice && visible) {
+      notice = document.createElement("p");
+      notice.id = "public-series-sync-issue";
+      notice.className = "catalog-caption";
+      notice.setAttribute("role", "status");
+      notice.textContent = "커뮤니티 반영이 지연되고 있어요. ";
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.textContent = "다시 시도";
+      retry.addEventListener("click", () => queueLargeCatalogPublicSync());
+      notice.append(retry);
+      (document.querySelector(".catalog-toolbar") || document.querySelector(".hero-content"))?.append(notice);
+    }
+    if (notice) notice.hidden = !visible;
+  }
+
+  function scheduleLargeCatalogPublicSync(delay = 750) {
+    if (largeCatalogPublicSyncTimer !== null) {
+      window.clearTimeout(largeCatalogPublicSyncTimer);
+    }
+    largeCatalogPublicSyncTimer = window.setTimeout(() => {
+      largeCatalogPublicSyncTimer = null;
+      void flushLargeCatalogPublicSync();
+    }, delay);
+  }
+
+  async function flushLargeCatalogPublicSync() {
+    if (largeCatalogPublicSyncRunning || !firebase || !currentUser) return;
+    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
+    if (typeof sync !== "function") return;
+    largeCatalogPublicSyncRunning = true;
+    const requestedRevision = largeCatalogPublicSyncRevision;
+    let failed = false;
+    try {
+      // Only publish after local card writes have settled, and read the server's
+      // latest shards instead of a potentially stale cached snapshot.
+      await saveQueue;
+      await sync({
+        db: firebase.db,
+        firestoreModule: firebase.firestoreModule,
+        user: currentUser,
+        collectionId: mode,
+        preferServer: true,
+      });
+      largeCatalogPublicSyncRetryCount = 0;
+      showPublicSyncIssue(false);
+      if (requestedRevision === largeCatalogPublicSyncRevision) {
+        publicSyncStore("dirty", null);
+        publicSyncStore("repair", PUBLIC_SYNC_REPAIR_VERSION);
+      }
+    } catch (error) {
+      failed = true;
+      largeCatalogPublicSyncRetryCount += 1;
+      console.warn(`${page.documentId} 공개 도감 자동 반영 실패`, error);
+      showPublicSyncIssue(true);
+    } finally {
+      largeCatalogPublicSyncRunning = false;
+      if (requestedRevision !== largeCatalogPublicSyncRevision) {
+        // A card changed during publication: always publish the newest state.
+        scheduleLargeCatalogPublicSync();
+      } else if (failed && largeCatalogPublicSyncRetryCount <= 3) {
+        scheduleLargeCatalogPublicSync(
+          [0, 3000, 10000, 30000][largeCatalogPublicSyncRetryCount],
+        );
+      }
+    }
+  }
+
+  function queueLargeCatalogPublicSync() {
+    if ((mode !== "series" && mode !== "ar") || !firebase || !currentUser) return;
+    largeCatalogPublicSyncRevision += 1;
+    publicSyncStore("dirty", "1");
+    scheduleLargeCatalogPublicSync();
+  }
+
+  function repairLargeCatalogPublicSync() {
+    if (mode !== "series" || !currentUser || sharedViewActive || collectorPublicViewActive) {
+      return;
+    }
+    if (publicSyncStored("dirty") || publicSyncStored("repair") !== PUBLIC_SYNC_REPAIR_VERSION) {
+      // One-time repair for older unsynced public series plus interrupted updates.
+      queueLargeCatalogPublicSync();
+    }
   }
 
   async function saveOverride(key, value, options = {}) {
