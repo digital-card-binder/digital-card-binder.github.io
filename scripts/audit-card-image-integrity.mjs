@@ -76,6 +76,13 @@ if (counters.imagesMissingFromManifest) critical.push({
   type:"series-images-unmapped-to-archive",
   count:counters.imagesMissingFromManifest,
 });
+for (const [metric,type] of [
+  ["cardCodesRepeatedWithinSet","repeated-card-identity-in-set"],
+  ["cardCodesWithoutValue","missing-card-identity"],
+  ["cardsWithoutImages","missing-card-image-source"],
+]) {
+  if (counters[metric] > 0) critical.push({type,count:counters[metric]});
+}
 const result={
   schemaVersion:1,
   verifiedScope:"static-identity-and-routing-only",
