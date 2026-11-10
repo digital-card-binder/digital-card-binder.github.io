@@ -35,7 +35,7 @@
           const code = String(feed?.code || "");
           const path = String(feed?.path || "");
           if (!/^[a-z0-9-]{2,40}$/.test(code) ||
-              !/^\\.\\/data\\/art-themes-[a-z0-9-]+\\.json$/.test(path)) continue;
+              !/^\.\/data\/art-themes-[a-z0-9-]+\.json$/.test(path)) continue;
           const href = "./art-themes.html?theme=" + encodeURIComponent(code);
           if (entries.some((entry) => entry.card.getAttribute("href") === href)) continue;
           try {
@@ -74,7 +74,7 @@
             grid.insertBefore(card, grid.querySelector(".theme-card--art"));
             entries.push({
               card, category: "story",
-              text: card.textContent.toLocaleLowerCase("ko-KR").replace(/\\s+/g, "")
+              text: card.textContent.toLocaleLowerCase("ko-KR").replace(/\s+/g, "")
             });
           } catch (error) {
             console.warn("추가 테마 도감 항목을 불러오지 못했습니다.", code, error);
