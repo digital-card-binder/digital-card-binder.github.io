@@ -1162,11 +1162,65 @@ test("collection public visibility uses simple on-off switches while preserving 
   const settingsPage = await source("collector-settings.html");
   const collectorCss = await source("collector.css");
 
-  assert.match(settingsClient, /<span>공개 프로필에 표시<[/]span>/);
-  assert.match(settingsClient, /visibility: card[.]querySelector\('\[data-setting="visibility"\]'\)[.]checked[\s\S]*?\? "public"[\s\S]*?: "private"/);
-  assert.match(settingsPage, /보여줄 도감만 켜기/);
+  assert.match(settingsClient, /<strong>공개<[/]strong>/);
+  assert.match(settingsClient, /<small>내 대시보드 \+ 커뮤니티<[/]small>/);
+  assert.match(settingsClient, /data-setting="visibility"/);
+  assert.doesNotMatch(settingsClient, /data-setting="dashboard"/);
+  assert.match(settingsClient, /dashboardVisible: isPublic/);
+  assert.match(settingsClient, /visibility: isPublic \? "public" : "private"/);
+  assert.match(settingsPage, /공개 ON:[<\/]strong> 내 대시보드와 커뮤니티 공개 프로필/);
   assert.equal(settingsPage.includes("나만 보기</span>"), false);
-  assert.match(collectorCss, /[.]collector-public-switch/);
+  assert.match(collectorCss, /[.]collector-unified-public-switch/);
+});
+
+
+test("a single public switch writes dashboard and community visibility together without migrating legacy settings", async () => {
+  const source = await readFile(new URL("../collector-settings.js", import.meta.url), "utf8");
+  const start = source.indexOf("  function settingFromCard(card, collectionId) {");
+  const end = source.indexOf("  function markSettingDirty(card)", start);
+  assert.ok(start >= 0 && end > start);
+  const block = source.slice(start, end);
+  const legacy = {
+    schemaVersion: 1, collectionId: "series", dashboardVisible: true,
+    visibility: "private", displayOrder: 7, shareId: "",
+  };
+  const context = {
+    settings: new Map([["series", { value: legacy }]]),
+    registry: { defaultSetting: () => ({ ...legacy }) },
+  };
+  vm.createContext(context);
+  vm.runInContext(block + "\nthis.compute = settingFromCard;", context);
+  const card = (checked) => ({
+    querySelector: (selector) => {
+      assert.equal(selector, '[data-setting="visibility"]');
+      return { checked };
+    },
+  });
+
+  const active = context.compute(card(true), "series");
+  assert.equal(active.dashboardVisible, true);
+  assert.equal(active.visibility, "public");
+  const hidden = context.compute(card(false), "series");
+  assert.equal(hidden.dashboardVisible, false);
+  assert.equal(hidden.visibility, "private");
+  assert.equal(hidden.displayOrder, 7);
+  assert.equal(legacy.dashboardVisible, true);
+  assert.equal(legacy.visibility, "private");
+});
+
+test("settings publishing reads complete server data instead of an old partial cache", async () => {
+  const client = await source("collector-settings.js");
+  const begin = client.indexOf("  async function saveOneSetting(");
+  const end = client.indexOf("  async function saveSettings()", begin);
+  assert.ok(begin >= 0 && end > begin);
+  const writer = client.slice(begin, end);
+  assert.match(writer, /if \(next.visibility === "public"\) \{\s*const context = await sync.loadPrivateContext/);
+  assert.match(writer, /preferServer: true/);
+  assert.match(writer, /registry.buildProjection\([\s\S]*?context.source/);
+  assert.doesNotMatch(writer, /sourceDocuments.get\(collectionId\)/);
+  assert.match(writer, /batch.set\(settingReference, settingPayload\)/);
+  assert.match(writer, /batch.set\(publicReference, projectionPayload\)/);
+  assert.match(writer, /batch.delete\(publicReference\)/);
 });
 
 test("the public profile client has no private user-document read route", async () => {
