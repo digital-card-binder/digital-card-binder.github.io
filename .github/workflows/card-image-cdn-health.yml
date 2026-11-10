@@ -44,6 +44,8 @@ jobs:
         run: python -m unittest discover -s tests -p test_cloudflare_archive_recovery.py
       - name: Build manifest (read-only)
         run: node scripts/build-card-image-manifest.mjs
+      - name: Run read-only image and card identity integrity audit
+        run: npm run images:audit
       - name: Probe 24 images per project without changing existing deployments
         id: probe
         shell: bash
@@ -67,5 +69,7 @@ jobs:
         if: always()
         with:
           name: card-image-cdn-health-${{ github.run_id }}
-          path: tmp/card-images/cdn-health-*.json
+          path: |
+            tmp/card-images/cdn-health-*.json
+            tmp/card-images/integrity-audit.json
           retention-days: 14
