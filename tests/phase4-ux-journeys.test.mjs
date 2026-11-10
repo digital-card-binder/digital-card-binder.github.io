@@ -9,7 +9,7 @@ function node(tag="div") {
   let ownText="";
   return {
     tagName:tag.toUpperCase(),children,hidden:false,
-    className:"",value:"",href:"",
+    className:"",dataset:{},value:"",href:"",
     listeners:{},
     set textContent(s){ownText=String(s)},
     get textContent(){return ownText+children.map(x=>x.textContent||"").join(" ")},
