@@ -1370,7 +1370,7 @@ body.collector-collection-page .world-story-header {
 
 .collector-setting-card {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(150px, 0.8fr) minmax(190px, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(225px, 0.45fr);
   align-items: center;
   gap: 16px;
   padding: 18px;
@@ -1412,7 +1412,6 @@ body.collector-collection-page .world-story-header {
   font-size: 11px;
 }
 
-.collector-dashboard-switch,
 .collector-public-switch {
   display: flex;
   align-items: center;
@@ -1422,13 +1421,11 @@ body.collector-collection-page .world-story-header {
   font-size: 12px;
 }
 
-.collector-dashboard-switch input,
 .collector-public-switch input {
   position: absolute;
   opacity: 0;
 }
 
-.collector-dashboard-switch i,
 .collector-public-switch i {
   position: relative;
   flex: 0 0 auto;
@@ -1439,7 +1436,6 @@ body.collector-collection-page .world-story-header {
   transition: background 0.18s ease;
 }
 
-.collector-dashboard-switch i::after,
 .collector-public-switch i::after {
   position: absolute;
   top: 3px;
@@ -1453,14 +1449,50 @@ body.collector-collection-page .world-story-header {
   transition: transform 0.18s ease;
 }
 
-.collector-dashboard-switch input:checked + i,
 .collector-public-switch input:checked + i {
   background: #3d5e9d;
 }
 
-.collector-dashboard-switch input:checked + i::after,
 .collector-public-switch input:checked + i::after {
   transform: translateX(20px);
+}
+
+.collector-unified-public-switch {
+  justify-self: end;
+  width: min(100%, 290px);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.collector-unified-public-label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.collector-unified-public-label strong {
+  color: #253755;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.collector-unified-public-label small {
+  color: #778399;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.collector-unified-public-switch input:focus-visible + i {
+  outline: 3px solid rgba(61, 94, 157, 0.26);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .collector-unified-public-switch {
+    justify-self: stretch;
+    width: 100%;
+  }
 }
 
 .collector-settings-save-actions {
@@ -2094,11 +2126,11 @@ body.collector-collection-page .world-story-header {
 
 @media (max-width: 900px) {
   .collector-setting-card {
-    grid-template-columns: minmax(0, 1fr) minmax(170px, 0.8fr);
+    grid-template-columns: minmax(0, 1fr) minmax(185px, 0.8fr);
   }
 
   .collector-setting-identity {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   .collector-public-grid {
@@ -2461,7 +2493,6 @@ body.collector-collection-page .world-story-header {
     padding: 14px;
   }
 
-  body[data-page="collector-settings"] .collector-dashboard-switch,
   body[data-page="collector-settings"] .collector-public-switch {
     min-height: 36px;
   }
