@@ -350,7 +350,7 @@ body.radar-mart-region-mode .radar-field--region {display:block}
 .radar-pack-help summary {display:list-item;list-style-position:inside;cursor:pointer;font-size:11px;font-weight:750}
 .radar-pack-help small {display:block;margin:6px 0 0;max-width:58ch}
 .radar-legend-dot.is-zero {border:2px solid #b27927;background:#fff2dc}
-.radar-legend-dot.is-unknown {background:#889ab0}
+.radar-legend-dot.is-unknown {background:linear-gradient(90deg,#4168dc 50%,#ed9b2a 50%)}
 .radar-map-legend {gap:8px 14px}
 .radar-radius button {min-height:44px}
 .radar-view-switch button,.radar-map-mode button {min-height:44px}
