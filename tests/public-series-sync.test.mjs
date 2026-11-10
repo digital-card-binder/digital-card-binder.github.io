@@ -95,6 +95,80 @@ test("serial per-card publication is replaced with coalesced publication and rep
   assert.match(manager, /publicSyncStore\("dirty", "1"\)/);
   assert.match(manager, /publicSyncStore\("dirty", null\)/);
   assert.match(manager, /repairLargeCatalogPublicSync\(\)/);
-  assert.match(manager, /showPublicSyncIssue\(true\)/);
+  assert.match(manager, /showPublicSyncIssue\(true, error\)/);
   assert.equal(manager.includes("largeCatalogPublicSyncQueue"), false);
+});
+
+test("card delta publish updates only confirmed ownership in a public transaction", async () => {
+  const api = createSync();
+  const calls = [];
+  const initial = {
+    schemaVersion: 1, publicId: "abcdefghijkl", collectionId: "series",
+    ownedKeys: ["sv1a:001", "sv1a:002"], ownedCount: 2,
+    totalCount: 20241, promoOwnedKeys: [], promoOwnedCount: 0,
+  };
+  const doc = (...parts) => ({ id: parts.at(-1), parts });
+  const snapshot = (value) => ({ exists: () => true, data: () => value });
+  let published;
+  const firestore = {
+    doc,
+    async runTransaction(_db, operation) {
+      return operation({
+        async get(ref) {
+          calls.push(ref.parts.join("/"));
+          if (ref.id === "main") return snapshot({ profileCompleted: true, publicId: "abcdefghijkl" });
+          if (ref.parts.includes("collectionSettings")) return snapshot({ visibility: "public" });
+          return snapshot(initial);
+        },
+        set(ref, payload) { calls.push("set:" + ref.parts.join("/")); published = payload; },
+      });
+    },
+    async getDocsFromServer() { throw new Error("full shard scan is forbidden on delta"); },
+  };
+  const result = await api.syncCollectionChanges({
+    db: {}, firestoreModule: firestore, user: { uid: "collector1" }, collectionId: "series",
+    changes: [{ key: "sv1a:001", owned: false }, { key: "sv1a:003", owned: true }],
+  });
+  assert.equal(result.synced, true);
+  assert.equal(published.ownedCount, 2);
+  assert.deepEqual([...published.ownedKeys], ["sv1a:002", "sv1a:003"]);
+  assert.equal(published.totalCount, 20241);
+  assert.equal(calls.some((call) => call.includes("overrideShards")), false);
+  assert.equal(calls.filter((call) => call.startsWith("set:")).length, 1);
+});
+
+test("private collections are not accidentally published by card delta", async () => {
+  const api = createSync();
+  const doc = (...parts) => ({ id: parts.at(-1), parts });
+  const snapshot = (value) => ({ exists: () => true, data: () => value });
+  let writes = 0;
+  const firestore = {
+    doc,
+    async runTransaction(_db, operation) {
+      return operation({
+        async get(ref) {
+          if (ref.id === "main") return snapshot({ profileCompleted: true, publicId: "abcdefghijkl" });
+          if (ref.parts.includes("collectionSettings")) return snapshot({ visibility: "private" });
+          throw new Error("must not read public projection for private collections");
+        },
+        set() { writes++; },
+      });
+    },
+  };
+  const result = await api.syncCollectionChanges({
+    db: {}, firestoreModule: firestore, user: { uid: "collector1" }, collectionId: "series",
+    changes: [{ key: "sv1a:003", owned: true }],
+  });
+  assert.equal(result.visibility, "private");
+  assert.equal(writes, 0);
+});
+
+test("coalesced delta sync preserves unsent changes and exposes server failure reasons", () => {
+  assert.match(manager, /const largeCatalogPublicSyncChanges = new Map\(\)/);
+  assert.match(manager, /changes = \[\.\.\.largeCatalogPublicSyncChanges\]/);
+  assert.match(manager, /syncCollectionChangesWithRetry/);
+  assert.match(manager, /largeCatalogPublicSyncChanges\.set\(change\.key, change\.owned\)/);
+  assert.match(manager, /queueLargeCatalogPublicSync\(\{ key, owned: Boolean\(savedItem\.owned\) \}\)/);
+  assert.match(manager, /"permission-denied": "공개 데이터 저장 권한이 거부되었습니다."/);
+  assert.match(source, /firestoreModule\.runTransaction\(db, async \(transaction\)/);
 });
