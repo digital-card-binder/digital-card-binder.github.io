@@ -2669,3 +2669,34 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
     max-width:calc(100vw - 16px);
   }
 }
+
+/* UX phase 1 (2026-11-10): accessible local mobile navigation sheet. */
+.dcb-site-menu-dialog {
+  box-sizing:border-box;
+  position:fixed;
+  inset:auto 12px calc(76px + env(safe-area-inset-bottom, 0px)) 12px;
+  width:min(520px, calc(100vw - 24px));
+  max-width:calc(100vw - 24px);
+  max-height:min(72dvh, 680px);
+  margin:0 auto;
+  padding:0;
+  overflow:auto;
+  border:1px solid #dce6f0;
+  border-radius:20px;
+  background:#fff;
+  color:#253e57;
+  box-shadow:0 22px 70px rgba(16,36,68,.24);
+}
+.dcb-site-menu-dialog::backdrop {background:rgba(13,27,48,.43)}
+.dcb-site-menu-panel {padding:18px}
+.dcb-site-menu-header {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.dcb-site-menu-header h2 {margin:0;font-size:1.1rem;color:#203c58}
+.dcb-site-menu-close {min-height:44px;padding:0 13px;border:1px solid #d8e5f0;border-radius:12px;background:#f5f9fd;color:#2f5678;font:inherit;font-weight:800;cursor:pointer}
+.dcb-site-menu-group + .dcb-site-menu-group {margin-top:16px}
+.dcb-site-menu-group h3 {margin:0 0 8px;font-size:.78rem;color:#60758a}
+.dcb-site-menu-group nav {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dcb-site-menu-group a {display:flex;align-items:center;min-height:46px;padding:10px 12px;border:1px solid #e1e9f3;border-radius:12px;background:#f8fbff;color:#284866;text-decoration:none;font-size:.82rem;font-weight:750}
+.dcb-site-menu-group a:hover,.dcb-site-menu-group a:focus-visible {border-color:#9dc5e5;background:#edf6ff;outline:2px solid transparent}
+.dcb-site-menu-dialog :is(button,a):focus-visible {outline:3px solid #2477ab;outline-offset:2px}
+@media (min-width:761px) {.dcb-site-menu-dialog {inset:10vh 12px auto}}
+@media (max-width:350px) {.dcb-site-menu-panel {padding:12px}.dcb-site-menu-group nav {gap:6px}.dcb-site-menu-group a {font-size:.75rem;padding:8px}}
