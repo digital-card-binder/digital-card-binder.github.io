@@ -263,5 +263,6 @@
     syncCollection,
     syncCollectionWithRetry,
     lastSuccessfulSync,
+    recordSuccessfulSync,
   };
 })();
