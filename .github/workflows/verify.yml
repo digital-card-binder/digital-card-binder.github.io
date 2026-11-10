@@ -54,3 +54,16 @@ jobs:
         run: npm run theme-audit:sync && npm run related-dex:sync && npm run search-index:sync && npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync
       - name: Run verification suite
         run: npm test
+      - name: Read-only card data and image source quality reports
+        run: npm run images:audit && npm run images:triage
+      - name: Attach diagnostic reports without uploading private member data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-quality-${{ github.run_id }}
+          path: |
+            tmp/card-images/integrity-audit.json
+            tmp/card-images/image-source-triage.json
+          if-no-files-found: ignore
+          retention-days: 14
+
