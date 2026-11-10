@@ -355,3 +355,43 @@ body.is-quick-collect .catalog-card:not(.is-missing){
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
+
+/* UX phase 1: keep the series selection and ownership actions near the first viewport. */
+@media (max-width:760px) {
+  body[data-catalog="series"] .main-content > .hero {
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    min-height:0;padding:13px 16px;border-radius:16px;
+  }
+  body[data-catalog="series"] .main-content > .hero .hero-content {min-width:0}
+  body[data-catalog="series"] .main-content > .hero h1 {margin:0;font-size:1.25rem;line-height:1.25}
+  body[data-catalog="series"] .main-content > .hero .hero-description {display:none}
+  body[data-catalog="series"] .main-content > .hero .hero-progress {min-width:0;gap:8px;margin:0}
+  body[data-catalog="series"] .main-content > .hero .progress-ring {width:49px;height:49px;min-width:49px}
+  body[data-catalog="series"] .main-content > .hero .progress-ring strong {font-size:.75rem}
+  body[data-catalog="series"] .main-content > .hero .hero-progress-copy > span,
+  body[data-catalog="series"] .main-content > .hero .hero-progress-copy p {display:none}
+  body[data-catalog="series"] .main-content > .hero .hero-progress-copy > strong {font-size:.9rem;white-space:nowrap}
+  body[data-catalog="series"] .stats-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+  body[data-catalog="series"] .stats-grid .stat-card {min-width:0;min-height:0;gap:0;padding:9px 7px;border-radius:12px}
+  body[data-catalog="series"] .stats-grid .stat-icon {display:none}
+  body[data-catalog="series"] .stats-grid .stat-card span {font-size:.62rem}
+  body[data-catalog="series"] .stats-grid .stat-card strong {font-size:.91rem;white-space:nowrap}
+  body[data-catalog="series"] .catalog-panel {padding:13px}
+  body[data-catalog="series"] .catalog-heading {margin-bottom:6px}
+  body[data-catalog="series"] .catalog-heading h2 {font-size:1.07rem}
+  body[data-catalog="series"] .catalog-era-filter {margin-top:10px;gap:7px}
+  body[data-catalog="series"] .catalog-era-tabs {
+    display:flex;grid-template-columns:none;gap:7px;overflow-x:auto;overscroll-behavior-x:contain;
+    padding:2px 1px 7px;scroll-snap-type:x proximity;scrollbar-width:thin;
+  }
+  body[data-catalog="series"] .catalog-era-tabs button {
+    flex:0 0 auto;min-height:44px;padding:7px 12px;border-radius:12px;scroll-snap-align:start;
+  }
+  body[data-catalog="series"] .catalog-era-tabs button strong {white-space:nowrap}
+  body[data-catalog="series"] .series-dashboard {margin-top:8px;gap:7px}
+  body[data-catalog="series"] .series-dashboard-card {min-height:112px;gap:6px;padding:10px}
+  body[data-catalog="series"] .series-dashboard-progress {height:5px}
+  body[data-catalog="series"] .catalog-toolbar {gap:7px;margin-top:8px}
+  body[data-catalog="series"] .catalog-filter-row {margin-top:8px}
+  body[data-catalog="series"] .catalog-summary {margin-top:9px;padding:9px 11px}
+}
