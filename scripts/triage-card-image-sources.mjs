@@ -28,20 +28,31 @@ function describeSource(raw){
   if(!source)return {category:"empty",host:"",problem:"blank"};
   if(source.startsWith("data:")||source.startsWith("blob:"))
     return {category:"embedded-or-blob",host:"",problem:"manual-review"};
-  if(source.startsWith("/")||source.startsWith("./")||source.startsWith("../")){
+  function localStatus(publicPath,host){
     let local;
-    try {local=path.resolve(root,"."+source.replace(/^\.+\//,"/").split(/[?#]/)[0]);}
-    catch{return {category:"local-invalid",host:"",problem:"unsafe-path"};}
+    try {
+      const decoded=decodeURIComponent(publicPath.split(/[?#]/)[0]).replace(/^\/+/, "");
+      local=path.resolve(root,decoded);
+    } catch {return {category:"local-invalid",host,problem:"unsafe-path"};}
     if(!local.startsWith(root+path.sep))
-      return {category:"local-invalid",host:"",problem:"unsafe-path"};
-    return {category:fs.existsSync(local)?"local-existing":"local-missing",
-      host:"local",problem:fs.existsSync(local)?"":"missing-file"};
+      return {category:"local-invalid",host,problem:"unsafe-path"};
+    const exists=fs.existsSync(local)&&fs.statSync(local).isFile();
+    const isOwnSite=host!=="local";
+    return {category:isOwnSite
+        ?(exists?"own-site-published-existing":"own-site-published-missing")
+        :(exists?"local-existing":"local-missing"),
+      host,problem:exists?"":"missing-file"};
   }
+  if(source.startsWith("../"))return {category:"local-invalid",host:"local",problem:"unsafe-path"};
+  if(source.startsWith("/")||source.startsWith("./"))
+    return localStatus(source.replace(/^\.\//,""),"local");
   try{
     const url=new URL(source);
     if(!allowedRemote.has(url.protocol))return {category:"unsupported-protocol",host:url.protocol,problem:"manual-review"};
     if(/(?:^|\.)pages[.]dev$/i.test(url.hostname)&&url.hostname.startsWith("dcb-card-images-"))
       return {category:"existing-selfhosted-cloudflare",host:url.hostname,problem:""};
+    if(url.hostname.toLowerCase()==="digital-card-binder.github.io")
+      return localStatus(url.pathname,url.hostname.toLowerCase());
     return {category:"third-party-image-source",host:url.hostname.toLowerCase(),problem:"unverified-live-source"};
   }catch{
     return {category:"unparseable-image-source",host:"",problem:"manual-review"};
