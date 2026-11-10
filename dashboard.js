@@ -1253,6 +1253,12 @@
     };
 
     menuTrigger.addEventListener("click", (event) => {
+      if (window.DcbMobileMenu?.open) {
+        // Use the same accessible dialog as every other collecting page.
+        menu.open=false;
+        window.DcbMobileMenu.open(event, menuTrigger);
+        return;
+      }
       event.preventDefault();
       menu.open = !menu.open;
       syncExpandedState();
