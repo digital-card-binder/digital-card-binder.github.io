@@ -3,14 +3,10 @@ name: Deploy card images to Cloudflare Pages
 on:
   push:
     branches: [main]
+    # Deployment must be explicit: changing card metadata cannot destroy a
+    # healthy public image archive when the temporary GitHub cache has expired.
     paths:
       - '.github/card-image-deploy-request.json'
-      - 'data/*.json'
-      - 'mega-latest.js'
-      - 'scripts/card-image-routing.mjs'
-      - 'scripts/build-card-image-manifest.mjs'
-      - 'scripts/card-image-source-repairs.json'
-      - 'scripts/download_card_images.py'
   workflow_dispatch:
     inputs:
       repair_only:
@@ -248,6 +244,26 @@ jobs:
             card-images-v2-${{ runner.os }}-legacy-
             card-images-v1-${{ runner.os }}-legacy-
 
+      - name: Preflight existing Cloudflare image sources before archive recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project modern --probe-only --sample 18 --workers 8 --timeout 12
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project legacy --probe-only --sample 18 --workers 8 --timeout 12
+
+      - name: Recover verified images from existing Cloudflare Pages archives
+        # Runs after normal GitHub cache restore. Copies only missing valid WebP
+        # assets, never writes to Cloudflare and never creates placeholders.
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project modern --workers 8 --timeout 14 --max-unavailable 600
+          python scripts/restore_card_images_from_cloudflare.py \
+            --project legacy --workers 8 --timeout 14 --max-unavailable 600
+
       - name: Refresh requested M6a Korean base images
         if: github.event_name == 'push'
         run: |
@@ -277,20 +293,6 @@ jobs:
           python scripts/download_card_images.py --project legacy --missing-only --max-missing 600 --min-delay 2.0 --allow-failures || FAILED=1
           exit "$FAILED"
 
-      - name: Save repaired modern archive
-        if: always() && steps.modern-cache.outcome == 'success'
-        uses: actions/cache/save@v4
-        with:
-          path: tmp/card-images/build/modern
-          key: ${{ steps.modern-cache.outputs.cache-primary-key }}
-
-      - name: Save repaired remaining-card archive
-        if: always() && steps.legacy-cache.outcome == 'success'
-        uses: actions/cache/save@v4
-        with:
-          path: tmp/card-images/build/legacy
-          key: ${{ steps.legacy-cache.outputs.cache-primary-key }}
-
       - name: Validate every expected image before deployment
         if: always() && steps.modern-cache.outcome == 'success' && steps.legacy-cache.outcome == 'success'
         run: |
@@ -300,6 +302,20 @@ jobs:
           node scripts/validate-card-image-build.mjs --project=legacy || FAILED=1
           python scripts/verify_card_image_archive.py || FAILED=1
           exit "$FAILED"
+
+      - name: Save repaired modern archive
+        if: success() && steps.modern-cache.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/card-images/build/modern
+          key: ${{ steps.modern-cache.outputs.cache-primary-key }}
+
+      - name: Save repaired remaining-card archive
+        if: success() && steps.legacy-cache.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/card-images/build/legacy
+          key: ${{ steps.legacy-cache.outputs.cache-primary-key }}
 
       - name: Upload complete recovery and validation reports
         if: always()
@@ -311,6 +327,8 @@ jobs:
             tmp/card-images/failures-*.json
             tmp/card-images/validation-*.json
             tmp/card-images/archive-verification.json
+            tmp/card-images/cdn-health-modern.json
+            tmp/card-images/cdn-health-legacy.json
           retention-days: 14
 
       - name: Select Cloudflare Pages projects

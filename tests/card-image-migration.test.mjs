@@ -292,12 +292,13 @@ test("MEGA promo energy sources route to stable modern archive paths", () => {
   }
 });
 
-test("card image deployment follows catalog changes and verifies MEGA promo energies", () => {
+test("card image deployment requires explicit request and verifies MEGA promo energies", () => {
   const workflow = fs.readFileSync(
     path.join(repositoryRoot, ".github/workflows/deploy-card-images.yml"),
     "utf8",
   );
-  assert.match(workflow, /- 'data\/\*\.json'/);
+  assert.match(workflow, /- '[.]github\/card-image-deploy-request[.]json'/);
+  assert.doesNotMatch(workflow, /^      - 'data\/\*\.json'$/m);
   for (const token of ["GRA", "FIR", "WAT"]) {
     assert.ok(
       workflow.includes(`data/wmimages/MEGA/M-P/M-P_${token}.webp`),

@@ -17,9 +17,9 @@ test("4 completed staging workflows are archived with byte-for-byte YAML and no 
 });
 test("core site, official-card watch, image deploy, Firestore and Android workflows remain",async()=>{
  const inventory=await inspectWorkflows(new URL(".github/workflows",root).pathname);
- assert.equal(inventory.aggregate.total,594);
+ assert.equal(inventory.aggregate.total,595);
  assert.equal(inventory.aggregate.protectedCore.length,7);
  for(const required of ["verify.yml","watch-official-card-updates.yml","deploy-card-images.yml","deploy-firestore-rules.yml","build-android-apk.yml"])
    assert.ok(inventory.aggregate.protectedCore.includes(required),required);
- assert.equal(inventory.aggregate.notAutomaticallyDeactivated,594);
+ assert.equal(inventory.aggregate.notAutomaticallyDeactivated,595);
 });
