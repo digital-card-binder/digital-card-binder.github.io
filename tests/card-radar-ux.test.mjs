@@ -1079,7 +1079,8 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(summary,/재고 있는 매장/);
   assert.match(summary,/카드 재고 1개 이상 조회된 곳/);
   assert.doesNotMatch(summary,/재고 확인|검색 완료|검색 실패/);
-  const details=html.slice(html.indexOf('<details class="radar-coverage"'),html.indexOf("</details>"));
+  const coverageStart=html.indexOf('<details class="radar-coverage"');
+  const details=html.slice(coverageStart,html.indexOf("</details>",coverageStart));
   assert.match(details,/id="radar-search-completed"/);
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
