@@ -119,7 +119,10 @@
           });
           succeeded++;
         } catch (error) {
-          failed.push(registry.COLLECTIONS[collectionId]?.title || collectionId);
+          const detail=sync.publicSyncErrorDetail?.(error,collectionId) || {};
+          const title=registry.COLLECTIONS[collectionId]?.title || collectionId;
+          const reason=detail.code || detail.message || "원인 미확인";
+          failed.push(title+" · "+(detail.stage || "unknown")+" · "+reason);
         }
       }
       renderPublicSyncStatus();
