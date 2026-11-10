@@ -179,3 +179,47 @@ test("fresh card deltas bypass a previously failed full repair without clearing 
   assert.match(manager, /if \(useFullSync\) largeCatalogPublicSyncNeedsFull = false/);
   assert.match(manager, /if \(!largeCatalogPublicSyncNeedsFull\) \{\s*publicSyncStore\("dirty", null\)/);
 });
+
+test("sync diagnostics distinguish failures in common private source reads", async () => {
+  const api = createSync();
+  const firestore = makeFirestore({ failDocument: true });
+  let caught;
+  try {
+    await api.syncCollection({
+      db: {}, firestoreModule: firestore, user: { uid: "collector1" },
+      collectionId: "series", preferServer: true,
+    });
+  } catch (error) { caught = error; }
+  assert.equal(caught?.publicSyncStage, "owner-data");
+  const detail = api.publicSyncErrorDetail(caught, "series");
+  assert.equal(detail.stage, "owner-data");
+  assert.equal(detail.code, "");
+  assert.equal(detail.collectionId, "series");
+  assert.match(detail.message, /server unavailable/);
+});
+
+test("diagnostics remove private identifiers from an unexpected exception", () => {
+  const api = createSync();
+  const error = new Error(
+    "problem at users/sensitiveUser123 and publicProfiles/sensitivePublic123 for collector@example.com",
+  );
+  error.publicSyncStage = "catalog";
+  const detail = api.publicSyncErrorDetail(error, "national");
+  assert.equal(detail.stage, "catalog");
+  assert.equal(detail.collectionId, "national");
+  assert.equal(detail.message.includes("sensitiveUser123"), false);
+  assert.equal(detail.message.includes("sensitivePublic123"), false);
+  assert.equal(detail.message.includes("collector@example.com"), false);
+});
+
+test("common sync modules present actionable causes in all dex pages", async () => {
+  const nav = await readFile(new URL("../collector-nav.js", import.meta.url), "utf8");
+  const settings = await readFile(new URL("../collector-settings.js", import.meta.url), "utf8");
+  assert.match(nav, /const detail = publicSyncFailures.get\(collectionId\)/);
+  assert.match(nav, /원인: \$\{detail\.message\}/);
+  assert.match(settings, /sync\.publicSyncErrorDetail\?\.\(error,collectionId\)/);
+  assert.match(source, /atSyncStage\("owner-data"/);
+  assert.match(source, /atSyncStage\("catalog"/);
+  assert.match(source, /atSyncStage\("public-write"/);
+  assert.match(source, /atSyncStage\("public-transaction"/);
+});
