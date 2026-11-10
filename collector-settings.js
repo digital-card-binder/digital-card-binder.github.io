@@ -26,6 +26,10 @@
     settingsGrid: document.querySelector("#collector-settings-grid"),
     settingsStatus: document.querySelector("#collector-settings-status"),
     settingsSave: document.querySelector("#collector-settings-save"),
+    publicSyncPanel: document.querySelector("#collector-public-sync-panel"),
+    publicSyncSummary: document.querySelector("#collector-public-sync-summary"),
+    publicSyncFeedback: document.querySelector("#collector-public-sync-feedback"),
+    publicSyncRefresh: document.querySelector("#collector-public-sync-refresh"),
     binderSettingsGrid: document.querySelector("#collector-binder-settings-grid"),
     binderSettingsStatus: document.querySelector("#collector-binder-settings-status"),
     ownerTools: document.querySelector("#collector-owner-tools"),
@@ -52,6 +56,79 @@
     if (!element) return;
     element.textContent = message;
     element.dataset.state = state;
+  }
+
+  function renderPublicSyncStatus() {
+    const panel=elements.publicSyncPanel;
+    if (!panel) return;
+    panel.hidden=!currentUser || !profile?.profileCompleted;
+    if (panel.hidden) return;
+    const ids=registry.COLLECTION_ORDER.filter((collectionId)=>
+      settings.get(collectionId)?.value?.visibility === "public"
+    );
+    elements.publicSyncRefresh.disabled=!ids.length;
+    if (!ids.length) {
+      elements.publicSyncSummary.textContent="현재 공개로 선택한 도감이 없습니다.";
+      return;
+    }
+    const timestamps=ids.map((collectionId)=>
+      sync.lastSuccessfulSync?.(currentUser, collectionId) || ""
+    ).filter((value)=>Number.isFinite(Date.parse(value)));
+    const latest=timestamps.length
+      ? new Date(Math.max(...timestamps.map((value)=>Date.parse(value))))
+        .toLocaleString("ko-KR",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})
+      : "";
+    elements.publicSyncSummary.textContent=
+      "공개 도감 "+ids.length+"개 · "+(latest
+        ? "이 기기에서 마지막 반영 "+latest
+        : "이 기기에서 확인된 반영 기록 없음");
+  }
+
+  // Refresh is explicit and reads current owner documents from the server.
+  // Pending UI switches must be saved first, otherwise a refresh could silently
+  // republish the previous visibility settings instead of the visible draft.
+  async function refreshPublicCollections() {
+    if (!currentUser || !profile?.profileCompleted || !firebase) return;
+    if (elements.settingsGrid.querySelector(".is-dirty")) {
+      setStatus(elements.publicSyncFeedback,"변경한 공개 설정을 먼저 저장해 주세요.","error");
+      return;
+    }
+    const ids=registry.COLLECTION_ORDER.filter((collectionId)=>
+      settings.get(collectionId)?.value?.visibility === "public"
+    );
+    if (!ids.length) {
+      setStatus(elements.publicSyncFeedback,"공개로 선택한 도감이 없습니다.");
+      return;
+    }
+    const button=elements.publicSyncRefresh;
+    button.disabled=true;
+    button.textContent="다시 반영 중…";
+    let succeeded=0;
+    const failed=[];
+    try {
+      for (const collectionId of ids) {
+        setStatus(elements.publicSyncFeedback,
+          "공개 도감 확인 및 반영 중 · "+(succeeded+failed.length+1)+"/"+ids.length,"loading");
+        try {
+          await sync.syncCollectionWithRetry({
+            db:firebase.db,
+            firestoreModule:firebase.firestoreModule,
+            user:currentUser,collectionId,preferServer:true,
+          });
+          succeeded++;
+        } catch (error) {
+          failed.push(registry.COLLECTIONS[collectionId]?.title || collectionId);
+        }
+      }
+      renderPublicSyncStatus();
+      setStatus(elements.publicSyncFeedback,failed.length
+        ? succeeded+"개 반영, "+failed.length+"개 실패 ("+failed.slice(0,3).join(" · ")+"). 네트워크 확인 후 다시 시도해 주세요."
+        : succeeded+"개 공개 도감을 최신 보유 기록으로 다시 반영했습니다.",
+        failed.length?"error":"success");
+    } finally {
+      button.disabled=false;
+      button.textContent="공개 도감 다시 반영";
+    }
   }
 
   function cleanNickname(value) {
@@ -916,6 +993,7 @@
       createdAt: snapshot.data()?.createdAt || current.createdAt,
     });
     await reconcileDirectoryEntry();
+    if (next.visibility === "public") sync.recordSuccessfulSync?.({ user:currentUser, collectionId });
   }
 
   async function saveSettings() {
@@ -939,6 +1017,7 @@
         "설정을 저장했습니다. 실제 도감 데이터는 변경하지 않았습니다.",
         "success",
       );
+      renderPublicSyncStatus();
     } catch (error) {
       console.error("도감 설정 저장 실패", error);
       setStatus(
@@ -1067,6 +1146,7 @@
       renderProfile();
       await renderSettings();
       renderBinderSettings();
+      renderPublicSyncStatus();
       setStatus(elements.settingsStatus, "");
     } catch (error) {
       console.error("내 프로필 관리 초기화 실패", error);
@@ -1083,5 +1163,7 @@
   });
   elements.profileForm.addEventListener("submit", saveProfile);
   elements.settingsSave.addEventListener("click", saveSettings);
+  elements.publicSyncRefresh?.addEventListener("click",()=>void refreshPublicCollections());
+  window.addEventListener("pokemon-dex:public-sync-success",renderPublicSyncStatus);
   void initializeFirebase();
 })();
