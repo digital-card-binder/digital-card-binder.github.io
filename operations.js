@@ -383,7 +383,7 @@
       URL.revokeObjectURL(url);
       setStatus(
         $("operations-backup-status"),
-        `${Object.keys(documents).length}개 도감 문서와 커스텀 바인더 ${customBinders.length}개를 백업했습니다.`,
+        `${Object.keys(documents).length}개 도감 문서와 커스텀 바인더 ${customBinders.length}개에 대한 백업 파일 다운로드를 요청했습니다. 브라우저 다운로드 목록에서 파일을 확인한 뒤 아래에서 검증해 주세요.`,
         "success",
       );
     } catch (error) {
@@ -926,7 +926,7 @@
         $("operations-restore").disabled = false;
         setStatus(
           $("operations-restore-status"),
-          `복구 전 용량·구조 검증 완료: ${Object.keys(state.restorePayload.documents).length}개 도감 문서, 커스텀 바인더 ${state.restorePayload.customBinders?.length || 0}개.` + (state.restorePayload.accountUid ? "" : " 이전 백업이라 계정 식별 정보가 없습니다."),
+          `백업 파일 검사 통과(읽기 전용): ${Object.keys(state.restorePayload.documents).length}개 도감 문서, 커스텀 바인더 ${state.restorePayload.customBinders?.length || 0}개. 기존 기록은 변경하지 않았습니다.` + (state.restorePayload.accountUid ? "" : " 이전 백업이라 계정 식별 정보가 없습니다."),
           "success",
         );
       } catch (error) {
