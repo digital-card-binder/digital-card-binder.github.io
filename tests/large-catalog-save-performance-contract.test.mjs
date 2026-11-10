@@ -27,7 +27,7 @@ test("series and AR use single-entry Firestore writes without migrating user dat
 test("normal series and AR completion saves do not wait for public projection sync", async () => {
   const manager = await read("firebase-page-manager.js");
   assert.match(manager, /const backgroundPublicSync =\s*mode === "series" \|\| Boolean\(options\.backgroundPublicSync\)/);
-  assert.match(manager, /if \(isLargeFixedCatalog && backgroundPublicSync\) \{\s*queueLargeCatalogPublicSync\(\)/);
+  assert.match(manager, /if \(isLargeFixedCatalog && backgroundPublicSync\) \{\s*queueLargeCatalogPublicSync\(\{ key, owned: Boolean\(savedItem\.owned\) \}\)/);
   assert.match(manager, /\{ backgroundPublicSync: mode === "ar" \}/);
 });
 

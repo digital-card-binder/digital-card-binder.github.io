@@ -195,6 +195,93 @@
     return { synced: true, visibility: "public" };
   }
 
+
+  // Apply only the confirmed card changes to the existing public projection.
+  // Reading all 128 private override shards and rebuilding the 20k-card
+  // catalog after each click is unnecessarily expensive and failure-prone.
+  // Firestore transactions serialize concurrent edits across browser tabs.
+  async function syncCollectionChanges(options) {
+    const { db, firestoreModule, user, collectionId } = options || {};
+    const changes = options?.changes;
+    if (!db || !firestoreModule || !user?.uid) return { synced: false };
+    if (!Array.isArray(changes) || !changes.length ||
+        !["series", "ar"].includes(collectionId) ||
+        typeof firestoreModule.runTransaction !== "function") {
+      return syncCollection({ ...options, preferServer: true });
+    }
+    if (changes.some((change) => !change || typeof change.key !== "string" ||
+        !change.key || typeof change.owned !== "boolean")) {
+      throw new Error("변경된 카드의 공개 반영 정보가 올바르지 않습니다.");
+    }
+
+    const registry = window.CollectorCollectionRegistry;
+    const result = await firestoreModule.runTransaction(db, async (transaction) => {
+      const profileSnapshot = await transaction.get(profileRef(firestoreModule, db, user.uid));
+      const settingSnapshot = await transaction.get(settingRef(firestoreModule, db, user.uid, collectionId));
+      const profile = profileSnapshot.exists() ? profileSnapshot.data() || {} : null;
+      const setting = registry.normalizeSetting(
+        collectionId,
+        settingSnapshot.exists() ? settingSnapshot.data() || {} : null,
+      );
+      if (setting.visibility !== "public") return { synced: false, visibility: "private" };
+      if (!profile?.profileCompleted || !profile.publicId) {
+        throw new Error("컬렉터 프로필을 먼저 완성해 주세요.");
+      }
+
+      const reference = publicProjectionRef(firestoreModule, db, profile.publicId, collectionId);
+      const snapshot = await transaction.get(reference);
+      const existing = snapshot.exists() ? snapshot.data() || {} : null;
+      if (!existing || existing.schemaVersion !== 1 ||
+          existing.publicId !== profile.publicId ||
+          existing.collectionId !== collectionId ||
+          !Array.isArray(existing.ownedKeys) ||
+          existing.ownedCount !== existing.ownedKeys.length) {
+        // Old, absent, or inconsistent projections need the complete repair path.
+        return { fullRequired: true };
+      }
+
+      const ownedKeys = new Set(existing.ownedKeys);
+      for (const change of changes) {
+        if (change.owned) ownedKeys.add(change.key);
+        else ownedKeys.delete(change.key);
+      }
+      transaction.set(reference, {
+        ...existing,
+        ownedKeys: [...ownedKeys],
+        ownedCount: ownedKeys.size,
+      });
+      return { synced: true, visibility: "public" };
+    });
+    return result?.fullRequired
+      ? syncCollection({ ...options, preferServer: true })
+      : result;
+  }
+
+  async function syncCollectionChangesWithRetry(options) {
+    let lastError;
+    for (const delay of [0, 350, 1200]) {
+      if (delay) await new Promise((resolve) => window.setTimeout(resolve, delay));
+      try {
+        const result = await syncCollectionChanges(options);
+        if (result?.synced) recordSuccessfulSync(options);
+        return result;
+      } catch (error) {
+        lastError = error;
+        if (["permission-denied", "invalid-argument"].includes(error?.code)) break;
+      }
+    }
+    if (options?.reportError !== false) {
+      window.dispatchEvent(new CustomEvent("pokemon-dex:public-sync-error", {
+        detail: {
+          collectionId: options?.collectionId || "",
+          message: lastError?.message || "공개 도감 동기화 실패",
+          code: lastError?.code || "unknown",
+        },
+      }));
+    }
+    throw lastError;
+  }
+
   // This timestamp confirms that *this device* finished a successful public
   // projection write. It is not presented as the source document's edit time.
   function lastSuccessfulSync(user, collectionId) {
@@ -265,6 +352,8 @@
     sourceDocumentFromSnapshot,
     syncAfterCollectionWrite,
     syncCollection,
+    syncCollectionChanges,
+    syncCollectionChangesWithRetry,
     syncCollectionWithRetry,
     lastSuccessfulSync,
     recordSuccessfulSync,
