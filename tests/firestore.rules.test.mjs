@@ -687,6 +687,10 @@ test("large series projections support catalog totals up to 50,000 cards", async
 test("public series transactional owner writes are permitted by current Firestore rules", async () => {
   const settingRef = doc(alice, "users", ALICE_UID, "collectionSettings", "series");
   const publicRef = doc(alice, "publicProfiles", PUBLIC_ID, "collections", "series");
+  // Earlier test already created the series setting; preserve immutable createdAt.
+  const previousSetting = await getDoc(settingRef);
+  const createdAt = previousSetting.exists()
+    ? previousSetting.data().createdAt : serverTimestamp();
   const batch = writeBatch(alice);
   batch.set(settingRef, {
     schemaVersion: 1,
@@ -695,7 +699,7 @@ test("public series transactional owner writes are permitted by current Firestor
     visibility: "public",
     displayOrder: 1,
     shareId: "",
-    createdAt: serverTimestamp(),
+    createdAt,
     updatedAt: serverTimestamp(),
   });
   batch.set(publicRef, {
