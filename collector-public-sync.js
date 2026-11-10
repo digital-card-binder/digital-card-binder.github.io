@@ -195,6 +195,30 @@
     return { synced: true, visibility: "public" };
   }
 
+  // This timestamp confirms that *this device* finished a successful public
+  // projection write. It is not presented as the source document's edit time.
+  function lastSuccessfulSync(user, collectionId) {
+    if (!user?.uid || !collectionId) return "";
+    try {
+      return window.localStorage?.getItem(
+        "dcb-public-sync-v1:" + user.uid + ":" + collectionId
+      ) || "";
+    } catch (_) { return ""; }
+  }
+  function recordSuccessfulSync(options) {
+    const user=options?.user,collectionId=options?.collectionId;
+    const confirmedAt=new Date().toISOString();
+    if (user?.uid && collectionId) {
+      try {
+        window.localStorage?.setItem(
+          "dcb-public-sync-v1:" + user.uid + ":" + collectionId, confirmedAt
+        );
+      } catch (_) { /* private browsing: in-page status still works */ }
+      window.dispatchEvent(new CustomEvent("pokemon-dex:public-sync-success", {
+        detail: { collectionId, confirmedAt },
+      }));
+    }
+  }
   async function syncCollectionWithRetry(options) {
     let lastError;
     for (const delay of [0, 350, 1200]) {
@@ -202,7 +226,9 @@
         await new Promise((resolve) => window.setTimeout(resolve, delay));
       }
       try {
-        return await syncCollection(options);
+        const result = await syncCollection(options);
+        if (result?.synced) recordSuccessfulSync(options);
+        return result;
       } catch (error) {
         lastError = error;
       }
@@ -236,5 +262,6 @@
     syncAfterCollectionWrite,
     syncCollection,
     syncCollectionWithRetry,
+    lastSuccessfulSync,
   };
 })();
