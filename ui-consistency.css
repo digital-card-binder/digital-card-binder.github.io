@@ -71,7 +71,7 @@
 /* UX phase 1: consistent find/filter/ownership affordances across collecting surfaces. */
 :where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
   :is(.catalog-toolbar,.pokemon-search-filters,.custom-workspace-filter) .segmented-control {
-  display:flex;align-items:stretch;gap:4px;
+  align-items:stretch;gap:4px;
 }
 :where(body[data-catalog="series"],body[data-page="pokemon-search"],body[data-page="custom-dex"])
   :is(.catalog-toolbar,.catalog-filter-row,.pokemon-search-filters,.custom-workspace-filter)
