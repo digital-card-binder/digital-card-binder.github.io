@@ -34,7 +34,7 @@ test("phase 4 audit checks current image manifest without modifying card data",(
 test("phase 4 recovery preserves production CDN and does not remove original card images",()=>{
   const flow=read(".github/workflows/deploy-card-images.yml");
   const script=read("scripts/restore_card_images_from_cloudflare.py");
-  assert.match(flow,/Restore verified images from existing Cloudflare Pages archives/);
+  assert.match(flow,/Recover verified images from existing Cloudflare Pages archives/);
   assert.match(flow,/max-unavailable 600/);
   assert.match(flow,/\.github\/card-image-deploy-request[.]json/);
   assert.doesNotMatch(flow,/^      - 'data\/[*][.]json'$/m);
