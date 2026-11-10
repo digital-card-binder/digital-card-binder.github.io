@@ -64,12 +64,12 @@
     if (!user?.uid) throw new Error("Google 로그인이 필요합니다.");
 
     const read = async (reference) => {
-      if (preferServer && typeof firestoreModule.getDocFromServer === "function") {
-        try {
-          return await firestoreModule.getDocFromServer(reference);
-        } catch (error) {
-          console.warn("공개 도감 원본 서버 조회 실패, 로컬 캐시로 대체합니다.", error);
+      if (preferServer) {
+        if (typeof firestoreModule.getDocFromServer !== "function") {
+          throw new Error("공개 도감 서버 확인을 사용할 수 없습니다.");
         }
+        // Never publish cached ownership over newer Firestore data.
+        return firestoreModule.getDocFromServer(reference);
       }
       return firestoreModule.getDoc(reference);
     };
@@ -85,7 +85,18 @@
       settingSnapshot.exists() ? settingSnapshot.data() || {} : null,
     );
     const reference = sourceRef(firestoreModule, db, user.uid, collectionId);
-    const shards = await window.DigitalCardBinder.firebaseAccount.readOverrideShards(firestoreModule, reference, { preferServer });
+    let shards;
+    if (preferServer && window.DigitalCardBinder.firebaseAccount.usesOverrideShards(reference.id)) {
+      if (typeof firestoreModule.getDocsFromServer !== "function") {
+        throw new Error("공개 도감 서버 확인을 사용할 수 없습니다.");
+      }
+      const snapshot = await firestoreModule.getDocsFromServer(
+        firestoreModule.collection(reference, "overrideShards"),
+      );
+      shards = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+    } else {
+      shards = await window.DigitalCardBinder.firebaseAccount.readOverrideShards(firestoreModule, reference);
+    }
     const source = window.DigitalCardBinder.firebaseAccount.mergedCollectionData(sourceDocumentFromSnapshot(sourceSnapshot, user), shards);
     return { profile, setting, source };
   }
