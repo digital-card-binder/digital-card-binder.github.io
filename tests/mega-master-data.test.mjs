@@ -97,10 +97,10 @@ test("legacy series codes remain compatible after corrected numbering", async ()
   ]);
 });
 
-test("master inventory reflects the three newly verified Korean promo cards", async () => {
+test("master inventory retains verified Korean promos and adds three 2026 MEGA starter ex decks", async () => {
   const inventory = JSON.parse(await read("data/series-inventory-audit.json"));
-  assert.equal(inventory.summary.setCount, 273);
-  assert.equal(inventory.summary.cardCount, 20243);
+  assert.equal(inventory.summary.setCount, 276);
+  assert.equal(inventory.summary.cardCount, 20304);
   assert.equal(inventory.summary.duplicateSetCodeCount, 0);
   assert.equal(inventory.summary.duplicateCardIdentityCount, 0);
 });

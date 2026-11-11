@@ -53,10 +53,10 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
   const expected = {
     national: [1025, 9],
-    series: [20241, 273],
+    series: [20302, 276],
     ar: [530, 33],
     pack: [151, 9],
-    pokemon: [15031, 1025],
+    pokemon: [15061, 1025],
     artist: [4873, 40],
     people: [179, 9],
     trainerPokemon: [245, 172],
@@ -99,7 +99,7 @@ test("repeated Korean series builds keep exclusions out of the active catalog wi
   const second = await catalog.series();
   const [third, fourth] = await Promise.all([catalog.series(), catalog.series()]);
   for (const result of [first, second, third, fourth]) {
-    assert.equal(result.reduce((total, group) => total + group.cards.length, 0), 20241);
+    assert.equal(result.reduce((total, group) => total + group.cards.length, 0), 20302);
     for (const [setCode, cardCode] of excludedEntries) {
       assert.equal(result.some((group) =>
         String(group.code).toLowerCase() === setCode.toLowerCase()
@@ -117,7 +117,7 @@ test("repeated Korean series builds keep exclusions out of the active catalog wi
 
 test("Korean unreleased promo and duplicate Lightning Energy are excluded while legacy ownership remains readable", async () => {
   const series = await registry.loadCatalog("series");
-  assert.equal(series.items.length, 20241);
+  assert.equal(series.items.length, 20302);
   assert.equal(series.items.some((item) => item.key.toLowerCase().includes("s-p_022/s-p")), false);
   assert.equal(series.items.some((item) => item.key.toLowerCase().includes("sn_026/024")), false);
   const lightning = series.items.find((item) => item.key.toLowerCase().includes("sn_025/024"));
@@ -131,13 +131,13 @@ test("Korean unreleased promo and duplicate Lightning Energy are excluded while 
   assert.equal(latest.effectiveOverrides[lightning.key]?.owned, false);
 });
 
-test("all existing catalogs retain their expected item counts", async () => {
+test("all existing catalogs plus three Korean MEGA starter decks retain their expected item counts", async () => {
   const expected = {
     national: 1025,
     pack: 151,
     artist: 4873,
-    series: 20241,
-    pokemon: 15031,
+    series: 20302,
+    pokemon: 15061,
     ar: 530,
     people: 179,
     trainerPokemon: 245,
@@ -167,7 +167,7 @@ test("Pokemon collection resolves all 1,025 Korean species while preserving cura
   const expected = JSON.parse(await readFile(new URL("../data/pokedex.json", import.meta.url), "utf8"));
   const curated = JSON.parse(await readFile(new URL("../data/pokemon-collections.json", import.meta.url), "utf8"));
   assert.equal(catalog.groups.length, expected.records.length);
-  assert.equal(catalog.items.length, 15031);
+  assert.equal(catalog.items.length, 15061);
 
   for (const record of expected.records) {
     const group = catalog.groups.find((item) => item.name === record.nameKo);
@@ -249,7 +249,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 20241,
+    totalCount: 20302,
     promoOwnedCount: 0,
   });
 });
@@ -276,12 +276,12 @@ test("removing the non-existent M1L 093 preserves every later collection key", a
   }
 });
 
-test("existing nonempty top-level catalog group counts stay unchanged", async () => {
+test("existing nonempty top-level catalog group counts reflect three new released MEGA starter decks", async () => {
   const expected = {
     national: 9,
     pack: 9,
     artist: 40,
-    series: 273,
+    series: 276,
     pokemon: 1025,
     ar: 33,
     people: 9,

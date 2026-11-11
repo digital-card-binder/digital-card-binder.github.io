@@ -23,7 +23,7 @@
     "completeDefinition": "해당 한국판 세트의 모든 canonical card slot을 12개 테마 기준으로 확인하고, 해당 카드는 레어도와 무관하게 art-themes.json에 반영한 상태",
     "multiThemeRule": "한 카드는 테마 적합 시 여러 독립 테마 도감에 동시에 수록할 수 있다.",
     "japaneseReference": "일본판은 구조·일러스트 대조 참고용이며 한국판 존재 근거를 대신하지 않는다.",
-    "futureSetGate": "baseline 이후 추가된 신규 세트는 theme review가 complete가 아니면 CI 검증을 통과하지 못한다.",
+    "futureSetGate": "신규 세트는 원칙적으로 12테마 검수 완료가 필요하다. 단, 이미 한국 공식 발매가 확인되고 정확한 카드 수가 명시된 한시적 catalog-only-pending-theme-review 등록 세트는 일반 시리즈도감에 먼저 추가할 수 있다. 테마 검수 완료 상태를 부여하지 않으며 검수 대기열에 남긴다.",
     "changedSetGate": "baseline 세트라도 canonical card slot 수가 기준보다 변하면 해당 세트를 다시 12개 테마 전수검수해 complete 처리하기 전까지 CI를 막는다."
   },
   "sourceFiles": [
@@ -33,16 +33,16 @@
     "data/audits/theme-series-review-status.json"
   ],
   "summary": {
-    "masterSetCount": 273,
-    "masterCardCount": 20243,
+    "masterSetCount": 276,
+    "masterCardCount": 20304,
     "themeCount": 12,
     "themeCardSlots": 24231,
     "uniqueThemeCards": 15807,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
-    "incrementalSetCount": 0,
-    "incrementalIncompleteSetCount": 0,
+    "incrementalSetCount": 3,
+    "incrementalIncompleteSetCount": 3,
     "changedBaselineSetCount": 0,
     "changedBaselineIncompleteSetCount": 0,
     "unknownThemeSetReferenceCount": 0
@@ -54,8 +54,19 @@
   },
   "incrementalGate": {
     "status": "pass",
-    "rule": "2026-10-06 baseline 이후 신규 세트 또는 기존 세트 카드 수 변경은 해당 세트의 12테마 전수검수 complete 전까지 CI를 차단한다.",
-    "incrementalIncompleteSetCodes": [],
+    "rule": "2026-10-06 baseline 이후 신규 세트는 원칙적으로 12테마 검수 complete가 필요하다. 명시 등록된 catalog-only-pending-theme-review는 카드 수와 공식 출시 근거가 맞을 때만 일반 도감 등록을 허용하며 검수 완료로 표시하지 않는다. 기존 세트 변경은 계속 차단한다.",
+    "incrementalIncompleteSetCodes": [
+      "MEZ",
+      "MEM",
+      "MEE"
+    ],
+    "catalogOnlyPendingSetCodes": [
+      "MEZ",
+      "MEM",
+      "MEE"
+    ],
+    "blockingIncrementalIncompleteSetCodes": [],
+    "danglingCatalogOnlyRegistrations": [],
     "changedBaselineIncompleteSetCodes": [],
     "removedBaselineSetCodes": [],
     "missingRequiredThemes": [],
@@ -272,10 +283,10 @@
   "eras": [
     {
       "era": "M",
-      "setCount": 14,
-      "cardCount": 2133,
+      "setCount": 17,
+      "cardCount": 2194,
       "completeSetCount": 14,
-      "remainingSetCount": 0,
+      "remainingSetCount": 3,
       "currentThemeSlots": 3521
     },
     {
@@ -344,6 +355,27 @@
     }
   ],
   "nextQueue": [
+    {
+      "era": "M",
+      "code": "MEE",
+      "name": "MEGA 스타터 세트 ex 「이브이 ex」",
+      "cardCount": 21,
+      "status": "unregistered"
+    },
+    {
+      "era": "M",
+      "code": "MEM",
+      "name": "MEGA 스타터 세트 ex 「나오하&마스카나 ex」",
+      "cardCount": 19,
+      "status": "unregistered"
+    },
+    {
+      "era": "M",
+      "code": "MEZ",
+      "name": "MEGA 스타터 세트 ex 「조로아&조로아크 ex」",
+      "cardCount": 21,
+      "status": "unregistered"
+    },
     {
       "era": "SV",
       "code": "CLL",
@@ -531,27 +563,6 @@
       "code": "SMN",
       "name": "파워업덱 BOX 「TAG TEAM GX」",
       "cardCount": 44,
-      "status": "partial"
-    },
-    {
-      "era": "SM",
-      "code": "SML",
-      "name": "패밀리 포켓몬 카드 게임",
-      "cardCount": 57,
-      "status": "partial"
-    },
-    {
-      "era": "SM",
-      "code": "SMM",
-      "name": "스타터 세트 TAG TEAM GX",
-      "cardCount": 33,
-      "status": "partial"
-    },
-    {
-      "era": "SM",
-      "code": "sm60B",
-      "name": "전격 스타터 세트 「라이코 GX」",
-      "cardCount": 23,
       "status": "partial"
     }
   ],
@@ -4822,6 +4833,39 @@
         "sleeping": 2,
         "color": 167
       }
+    },
+    {
+      "era": "M",
+      "code": "MEZ",
+      "name": "MEGA 스타터 세트 ex 「조로아&조로아크 ex」",
+      "cardCount": 21,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "unregistered",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "MEM",
+      "name": "MEGA 스타터 세트 ex 「나오하&마스카나 ex」",
+      "cardCount": 19,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "unregistered",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "MEE",
+      "name": "MEGA 스타터 세트 ex 「이브이 ex」",
+      "cardCount": 21,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "unregistered",
+      "reviewedAt": "",
+      "themeHits": {}
     }
   ],
   "unknownThemeSetRefs": []
