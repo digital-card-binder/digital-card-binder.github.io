@@ -94,6 +94,11 @@ let mobileCatalogPreferences = {};
 let seriesPrintVariantMetadata = { coverage: {}, slots: {} };
 let seriesLegacyPackImages = new Map();
 let quickCollectMode = false;
+// Cards checked in quick mode stay in the current filtered grid until the
+// filter or selected set changes. A WeakSet does not touch saved card data.
+let quickCollectPinnedCards = new WeakSet();
+let quickCollectPendingCards = new WeakSet();
+let quickCollectViewKey = "";
 let quickVariantCard = null;
 let renderedCards = [];
 let pokemonVisibleLimit = 96;
@@ -851,6 +856,35 @@ function renderSeriesDashboard() {
   dashboard.replaceChildren(fragment);
 }
 
+// Fast ownership saves must not replace dozens of set cards above the grid.
+// Updating text and progress in-place keeps the entire page height stable.
+function updateSeriesDashboardCountsInPlace() {
+  if (mode !== "series" || activeEra === "ALL") return;
+  const dashboard = $("series-dashboard");
+  if (!dashboard) return;
+  const byCode = new Map(seriesGroupsForEra(activeEra)
+    .map((group) => [String(group.code || group.name), group]));
+  for (const button of dashboard.querySelectorAll(".series-set-dashboard-card")) {
+    const group = byCode.get(button.dataset.group);
+    if (!group) continue;
+    const total = Number(group.total || 0);
+    const owned = Number(group.owned || 0);
+    const missing = Math.max(0, total - owned);
+    const rate = pct(owned, total);
+    const count = button.querySelector(".series-dashboard-metrics strong");
+    const percentage = button.querySelector(".series-dashboard-metrics > span");
+    const bar = button.querySelector(".series-dashboard-progress > span");
+    const missingText = button.querySelector(".series-dashboard-footer > span");
+    if (count) count.textContent = `${owned} / ${total}`;
+    if (percentage) percentage.textContent = `${rate}%`;
+    if (bar) bar.style.width = `${Math.min(100, Math.max(0, rate))}%`;
+    if (missingText) missingText.textContent =
+      rate === 100 && total > 0 ? "완성" : `미보유 ${missing}장`;
+    button.setAttribute("aria-label",
+      `${groupName(group)} ${owned}/${total}장, 수집률 ${rate}% 카드 목록 보기`);
+  }
+}
+
 function populateCatalogSelect() {
   const select = $("catalog-select");
   const visibleGroups = selectableGroups();
@@ -1056,6 +1090,8 @@ function renderQuickCollectControl() {
         return;
       }
       quickCollectMode = next;
+      quickCollectPinnedCards = new WeakSet();
+      quickCollectViewKey = "";
       writeQuickCollectPreference(next);
       document.body.classList.toggle("is-quick-collect", next);
       renderQuickCollectControl();
@@ -1197,6 +1233,7 @@ async function quickToggleCatalogCard(card, button) {
 
   const wasOwned = Boolean(card.owned);
   card.quickCollectSaving = true;
+  quickCollectPendingCards.add(card);
   try {
     await toggleCatalogCompletion(card, button);
 
@@ -1210,6 +1247,7 @@ async function quickToggleCatalogCard(card, button) {
       openQuickVariantPicker(card);
     }
   } finally {
+    quickCollectPendingCards.delete(card);
     card.quickCollectSaving = false;
   }
 }
@@ -1278,7 +1316,9 @@ function restoreCatalogSavePosition(position) {
 // Patch this one card instead of recreating hundreds of card elements and
 // resetting the focused button / scroll anchor.
 function updateCatalogCardInPlace(card) {
-  if (status !== "all") return false;
+  const retainedQuickCard = typeof quickCollectMode !== "undefined" &&
+    quickCollectMode && quickCollectPinnedCards.has(card);
+  if (status !== "all" && !retainedQuickCard) return false;
   const grid = $("catalog-grid");
   const index = renderedCards.indexOf(card);
   const article = index >= 0 ? grid?.children[index] : null;
@@ -1306,10 +1346,16 @@ function updateCatalogCardInPlace(card) {
 }
 
 function refreshCatalogAfterOwnershipSave(card) {
-  const position = captureCatalogSavePosition(card);
-  refreshCounts();
+  const quickSave = typeof quickCollectMode !== "undefined" && quickCollectMode &&
+    (quickCollectPendingCards.has(card) || quickCollectPinnedCards.has(card));
+  // A quick save never removes the clicked card, rebuilds the grid or calls
+  // scrollTo. Preserving the DOM position also avoids browser scroll anchoring
+  // fighting an explicit scroll correction after the Firestore response.
+  if (quickSave) quickCollectPinnedCards.add(card);
+  const position = quickSave ? null : captureCatalogSavePosition(card);
+  refreshCounts(quickSave);
   if (!updateCatalogCardInPlace(card)) render();
-  restoreCatalogSavePosition(position);
+  if (position) restoreCatalogSavePosition(position);
 }
 
 async function toggleCatalogCompletion(card, button) {
@@ -1538,7 +1584,7 @@ function createSeriesEditor() {
   updateSeriesEditorState();
 }
 
-function refreshCounts() {
+function refreshCounts(stableQuickSave = false) {
   groups.forEach((group) => {
     group.total = group.cards.length;
     group.owned = group.cards.filter((card) => card.owned).length;
@@ -1547,10 +1593,18 @@ function refreshCounts() {
   if (mode === "series" && activeEra !== "ALL") {
     const currentValue = selected?.code || selected?.name || "";
     const select = $("catalog-select");
-    populateCatalogSelect();
-    if (select && currentValue) select.value = currentValue;
+    if (stableQuickSave) {
+      // Update the current option text without replacing the focused select.
+      const option = [...(select?.options || [])].find((item) => item.value === currentValue);
+      if (option && selected) option.textContent =
+        `${groupName(selected)} · ${selected.code} · ${selected.owned}/${selected.total}장 · ${pct(selected.owned, selected.total)}%`;
+    } else {
+      populateCatalogSelect();
+      if (select && currentValue) select.value = currentValue;
+    }
   }
-  renderSeriesDashboard();
+  if (stableQuickSave) updateSeriesDashboardCountsInPlace();
+  else renderSeriesDashboard();
   updateSelected();
   rememberCurrentCatalog();
 }
@@ -1874,11 +1928,20 @@ function makeCard(card) {
 }
 
 function render() {
+  // Switching filters/searches/sets ends the previous quick-collect view.
+  // Only cards changed while this exact view is active remain temporarily visible.
+  const viewKey = [mode, activeEra, selected?.code || selected?.name || "ALL",
+    status, query, seriesBaseOnly].join("|");
+  if (quickCollectViewKey !== viewKey) {
+    quickCollectViewKey = viewKey;
+    quickCollectPinnedCards = new WeakSet();
+  }
   const normalizedQuery = query.trim().toLowerCase();
   const selectedGroupName = groupName(selected).toLowerCase();
   const shown = cards.filter((card) => {
-    const matchesStatus =
-      status === "all" || (status === "owned") === card.owned;
+    const matchesStatus = status === "all" ||
+      (status === "owned") === card.owned ||
+      (quickCollectMode && quickCollectPinnedCards.has(card));
     const haystack = [
       card.name,
       card.pokemonName,
