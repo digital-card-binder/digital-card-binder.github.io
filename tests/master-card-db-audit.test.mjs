@@ -84,8 +84,12 @@ test("MEGA Korean membership keeps secondary evidence provisional until Pokemon 
   const mega = audit.eras.M.koreanMembershipAudit;
   assert.equal(mega.status, "partial");
   assert.equal(mega.verifiedSetCount, 11);
-  assert.equal(mega.pendingSetCount, 3);
-  assert.deepEqual(mega.pendingSetCodes, ["M6a", "MC", "M-P"]);
+  // The 14 previously reviewed MEGA products retain their evidence state.
+  // Three newly released starter decks are additional catalog-only pending
+  // products and must NOT be counted as officially membership-verified yet.
+  assert.equal(audit.eras.M.setCount, 17);
+  assert.equal(mega.pendingSetCount, 6);
+  assert.deepEqual(mega.pendingSetCodes, ["M6a", "MC", "M-P", "MEZ", "MEM", "MEE"]);
   assert.equal(mega.koreanSupportedCompleteSetCount, 14);
   assert.equal(mega.pendingOfficialEvidenceCount, 14);
   assert.equal(mega.unresolvedGapCount, 0);
