@@ -127,6 +127,13 @@ async function buildAudit() {
     ),
   );
   const reviews = normalizedReviewMap(reviewState?.reviews);
+  // Released Korean sets may be catalog-only while visual theme review remains pending.
+  // Entries are explicit and cardinality-locked; ordinary new sets still block CI.
+  const catalogOnlyPending = new Map(
+    Object.entries(reviewState?.catalogOnlyPending || {}).map(
+      ([code, registration]) => [keyOf(code), registration],
+    ),
+  );
 
   const themeGroups = Array.isArray(themeData?.groups) ? themeData.groups : [];
   const themeCodes = themeGroups.map((group) => keyOf(group?.code));
@@ -232,6 +239,25 @@ async function buildAudit() {
     const row = rows.find((item) => keyOf(item.code) === set.key);
     return row?.status !== "complete";
   });
+  const catalogOnlyPendingRows = incrementalIncomplete.filter((row) => {
+    const registration = catalogOnlyPending.get(keyOf(row.code));
+    return Boolean(
+      registration &&
+      registration.status === "catalog-only-pending-theme-review" &&
+      Number.isInteger(registration.expectedCardCount) &&
+      registration.expectedCardCount === row.cardCount &&
+      registration.release === "2026-09-30" &&
+      clean(registration.referenceSource).startsWith("https://") &&
+      clean(registration.reason),
+    );
+  });
+  const approvedCatalogOnly = new Set(catalogOnlyPendingRows.map((row) => keyOf(row.code)));
+  const blockingIncrementalIncomplete = incrementalIncomplete.filter(
+    (row) => !approvedCatalogOnly.has(keyOf(row.code)),
+  );
+  const danglingCatalogOnlyRegistrations = [...catalogOnlyPending.keys()].filter(
+    (key) => !setByKey.has(key) || baselineCodes.has(key),
+  );
 
   const eras = ERA_ORDER.map((era) => {
     const eraRows = rows.filter((row) => row.era === era);
@@ -274,7 +300,8 @@ async function buildAudit() {
     }));
 
   const incrementalGateBlocked =
-    incrementalIncomplete.length > 0 ||
+    blockingIncrementalIncomplete.length > 0 ||
+    danglingCatalogOnlyRegistrations.length > 0 ||
     changedIncomplete.length > 0 ||
     baselineRemovedSetCodes.length > 0 ||
     missingRequiredThemes.length > 0 ||
@@ -322,8 +349,11 @@ async function buildAudit() {
     incrementalGate: {
       status: incrementalGateBlocked ? "blocked" : "pass",
       rule:
-        "2026-10-06 baseline 이후 신규 세트 또는 기존 세트 카드 수 변경은 해당 세트의 12테마 전수검수 complete 전까지 CI를 차단한다.",
+        "2026-10-06 baseline 이후 신규 세트는 원칙적으로 12테마 검수 complete가 필요하다. 명시 등록된 catalog-only-pending-theme-review는 카드 수와 공식 출시 근거가 맞을 때만 일반 도감 등록을 허용하며 검수 완료로 표시하지 않는다. 기존 세트 변경은 계속 차단한다.",
       incrementalIncompleteSetCodes: incrementalIncomplete.map((row) => row.code),
+      catalogOnlyPendingSetCodes: catalogOnlyPendingRows.map((row) => row.code),
+      blockingIncrementalIncompleteSetCodes: blockingIncrementalIncomplete.map((row) => row.code),
+      danglingCatalogOnlyRegistrations,
       changedBaselineIncompleteSetCodes: changedIncomplete.map((set) => set.code),
       removedBaselineSetCodes: baselineRemovedSetCodes,
       missingRequiredThemes,
