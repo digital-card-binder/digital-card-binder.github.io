@@ -23,7 +23,7 @@
     "completeDefinition": "해당 한국판 세트의 모든 canonical card slot을 12개 테마 기준으로 확인하고, 해당 카드는 레어도와 무관하게 art-themes.json에 반영한 상태",
     "multiThemeRule": "한 카드는 테마 적합 시 여러 독립 테마 도감에 동시에 수록할 수 있다.",
     "japaneseReference": "일본판은 구조·일러스트 대조 참고용이며 한국판 존재 근거를 대신하지 않는다.",
-    "futureSetGate": "baseline 이후 추가된 신규 세트는 theme review가 complete가 아니면 CI 검증을 통과하지 못한다.",
+    "futureSetGate": "신규 세트는 원칙적으로 12테마 검수 완료가 필요하다. 단, 이미 한국 공식 발매가 확인되고 정확한 카드 수가 명시된 한시적 catalog-only-pending-theme-review 등록 세트는 일반 시리즈도감에 먼저 추가할 수 있다. 테마 검수 완료 상태를 부여하지 않으며 검수 대기열에 남긴다.",
     "changedSetGate": "baseline 세트라도 canonical card slot 수가 기준보다 변하면 해당 세트를 다시 12개 테마 전수검수해 complete 처리하기 전까지 CI를 막는다."
   },
   "baseline": {
@@ -65199,5 +65199,31 @@
     "archiveVerificationStatus": "existing_CDN_95_Korean_images_verified",
     "checkedAt": "2026-10-12",
     "evidenceFile": "data/audits/theme-sv4k-001-095-art-review.json"
+  },
+  "catalogOnlyPending": {
+    "MEZ": {
+      "status": "catalog-only-pending-theme-review",
+      "expectedCardCount": 21,
+      "release": "2026-09-30",
+      "registeredAt": "2026-11-11",
+      "referenceSource": "https://pokemoncard.co.kr/card/967",
+      "reason": "한국판 60장 구축덱의 서로 다른 카드 21종 등록. 시리즈도감/검색 먼저 배포, 12개 테마 영상·일러스트 전수검수 미완료."
+    },
+    "MEM": {
+      "status": "catalog-only-pending-theme-review",
+      "expectedCardCount": 19,
+      "release": "2026-09-30",
+      "registeredAt": "2026-11-11",
+      "referenceSource": "https://new.pokemonkorea.co.kr/card/968",
+      "reason": "한국판 60장 구축덱의 서로 다른 카드 19종 등록. 시리즈도감/검색 먼저 배포, 12개 테마 영상·일러스트 전수검수 미완료."
+    },
+    "MEE": {
+      "status": "catalog-only-pending-theme-review",
+      "expectedCardCount": 21,
+      "release": "2026-09-30",
+      "registeredAt": "2026-11-11",
+      "referenceSource": "https://new.pokemonkorea.co.kr/card/966",
+      "reason": "한국판 60장 구축덱의 서로 다른 카드 21종 등록. 시리즈도감/검색 먼저 배포, 12개 테마 영상·일러스트 전수검수 미완료."
+    }
   }
 }
