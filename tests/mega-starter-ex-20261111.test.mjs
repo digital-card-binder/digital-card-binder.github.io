@@ -51,3 +51,18 @@ test("starter deck print IDs do not duplicate existing master or legacy groups",
     seen.add(key);
   }
 });
+
+test("new sets remain honest about the unfinished visual theme review", () => {
+  const reviewState = read("data/audits/theme-series-review-status.json");
+  for (const entry of required) {
+    const pending = reviewState.catalogOnlyPending?.[entry.code];
+    assert.equal(pending?.status, "catalog-only-pending-theme-review");
+    assert.equal(pending?.expectedCardCount, entry.count);
+    assert.equal(pending?.release, "2026-09-30");
+    assert.notEqual(reviewState.reviews?.[entry.code]?.status, "complete");
+  }
+  const script = readFileSync(new URL("../scripts/audit-theme-series-coverage.mjs", import.meta.url), "utf8");
+  assert.match(script, /blockingIncrementalIncomplete/);
+  assert.match(script, /catalogOnlyPendingSetCodes/);
+  assert.match(script, /danglingCatalogOnlyRegistrations/);
+});
