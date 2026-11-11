@@ -1358,6 +1358,7 @@
       caption.setAttribute("aria-hidden", "true");
       primarySelector.append(caption);
       summary.append(primarySelector);
+      summary.classList.add("collector-summary-with-switcher");
     }
 
     if (
