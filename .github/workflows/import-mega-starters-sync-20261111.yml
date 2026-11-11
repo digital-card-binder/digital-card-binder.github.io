@@ -1,0 +1,42 @@
+name: Build generated catalog indexes for MEGA starter sets (temporary)
+on:
+  push:
+    branches:
+      - data/mega-starter-ex-mee-mez-mem-20261111
+    paths:
+      - .github/workflows/import-mega-starters-sync-20261111.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: data/mega-starter-ex-mee-mez-mem-20261111
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Regenerate audits, master index, related dex index, search and site versions
+        run: npm run site:prepare
+      - name: Run targeted static syntax and UI tests
+        run: npm run test:syntax && node --test tests/mega-starter-ex-20261111.test.mjs
+      - name: Commit generated outputs to the import branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "Sync Korean MEGA starter set catalog indexes and asset versions"
+          git push origin HEAD:data/mega-starter-ex-mee-mez-mem-20261111
