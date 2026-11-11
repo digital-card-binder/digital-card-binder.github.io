@@ -39,4 +39,12 @@ jobs:
             exit 0
           fi
           git commit -m "Sync Korean MEGA starter set catalog indexes and asset versions"
-          git push origin HEAD:data/mega-starter-ex-mee-mez-mem-20261111
+          # Rebase if another editor changed this working branch while the job ran.
+          for attempt in 1 2 3; do
+            git fetch origin data/mega-starter-ex-mee-mez-mem-20261111
+            git rebase origin/data/mega-starter-ex-mee-mez-mem-20261111
+            if git push origin HEAD:data/mega-starter-ex-mee-mez-mem-20261111; then
+              exit 0
+            fi
+          done
+          exit 1
