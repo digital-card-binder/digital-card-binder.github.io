@@ -48,12 +48,12 @@
     "data/audits/sv-p-official-detail-audit.json"
   ],
   "summary": {
-    "setCount": 273,
-    "cardCount": 20243,
+    "setCount": 276,
+    "cardCount": 20304,
     "duplicateSetCodeCount": 0,
     "duplicateCardIdentityCount": 0,
     "officialVariantVerifiedSetCount": 119,
-    "officialVariantPendingSetCount": 154,
+    "officialVariantPendingSetCount": 157,
     "officialVariantVerifiedSlotCount": 681,
     "verifiedVariantCounts": {
       "holo": 0,
@@ -62,9 +62,9 @@
     },
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
-    "koreanMembershipScopedSetCount": 67,
+    "koreanMembershipScopedSetCount": 70,
     "koreanMembershipVerifiedSetCount": 58,
-    "koreanMembershipPendingSetCount": 9,
+    "koreanMembershipPendingSetCount": 12,
     "koreanSupportedSetCount": 67,
     "metadataGaps": {
       "missingCode": 0,
@@ -72,8 +72,8 @@
       "missingLabel": 0,
       "missingImage": 0,
       "missingSource": 4215,
-      "missingRarity": 19068,
-      "missingIllustrator": 20243,
+      "missingRarity": 19129,
+      "missingIllustrator": 20304,
       "pokemonNameFallback": 533
     }
   },
@@ -561,12 +561,12 @@
       }
     },
     "M": {
-      "setCount": 14,
-      "cardCount": 2133,
+      "setCount": 17,
+      "cardCount": 2194,
       "officialVariantAudit": {
         "status": "partial",
         "verifiedSetCount": 2,
-        "pendingSetCount": 12,
+        "pendingSetCount": 15,
         "verifiedSetCodes": [
           "MBD",
           "MBG"
@@ -583,7 +583,10 @@
           "M6a",
           "MC",
           "MA",
-          "M-P"
+          "M-P",
+          "MEZ",
+          "MEM",
+          "MEE"
         ],
         "verifiedVariantSlotCount": 0,
         "variantCounts": {
@@ -595,7 +598,7 @@
       "firstPartyMembershipAudit": {
         "status": "partial",
         "verifiedSetCount": 11,
-        "pendingSetCount": 3,
+        "pendingSetCount": 6,
         "verifiedSetCodes": [
           "m1S",
           "m1L",
@@ -612,7 +615,10 @@
         "pendingSetCodes": [
           "M6a",
           "MC",
-          "M-P"
+          "M-P",
+          "MEZ",
+          "MEM",
+          "MEE"
         ],
         "productSearchGapCount": 164,
         "firstPartyVerifiedGapCount": 150,
@@ -623,7 +629,7 @@
         "status": "partial",
         "auditedSetCount": 14,
         "verifiedSetCount": 11,
-        "pendingSetCount": 3,
+        "pendingSetCount": 6,
         "verifiedSetCodes": [
           "m1S",
           "m1L",
@@ -640,7 +646,10 @@
         "pendingSetCodes": [
           "M6a",
           "MC",
-          "M-P"
+          "M-P",
+          "MEZ",
+          "MEM",
+          "MEE"
         ],
         "koreanSupportedCompleteSetCount": 14,
         "expectedSlotCount": 2133,

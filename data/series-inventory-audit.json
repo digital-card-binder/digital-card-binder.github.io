@@ -7,8 +7,8 @@
   "mergeRule": "Group code is matched case-insensitively; a legacy group replaces the same base group, otherwise it is appended.",
   "cardIdentityRule": "lowercase(set code) + '::' + lowercase(card code)",
   "summary": {
-    "setCount": 273,
-    "cardCount": 20243,
+    "setCount": 276,
+    "cardCount": 20304,
     "duplicateSetCodeCount": 0,
     "duplicateCardIdentityCount": 0,
     "metadata": {
@@ -17,8 +17,8 @@
       "missingLabel": 0,
       "missingImage": 0,
       "missingSource": 4215,
-      "missingRarity": 19068,
-      "missingIllustrator": 20243,
+      "missingRarity": 19129,
+      "missingIllustrator": 20304,
       "pokemonNameFallback": 533
     }
   },
@@ -105,13 +105,13 @@
     },
     {
       "era": "M",
-      "setCount": 14,
-      "cardCount": 2133,
+      "setCount": 17,
+      "cardCount": 2194,
       "missingName": 533,
       "missingLabel": 0,
       "missingSource": 1018,
-      "missingRarity": 1900,
-      "missingIllustrator": 2133
+      "missingRarity": 1961,
+      "missingIllustrator": 2194
     }
   ],
   "imageHosts": {
@@ -119,15 +119,18 @@
     "cards.image.pokemonkorea.co.kr": 12896,
     "cdn.collectory.cc": 57,
     "cdn6966.templcdn.com": 1,
+    "collec-hub.store": 3,
     "dcb-card-images-legacy-2026.pages.dev": 1368,
     "dcb-card-images-modern-2026.pages.dev": 1915,
     "digital-card-binder.github.io": 82,
     "k-tcgpanda.com": 11,
+    "pokemoncard.co.kr": 58,
     "static.tcgexchange.kr": 3734,
     "tcgbox.co.kr": 164
   },
   "sourceHosts": {
     "(missing)": 4215,
+    "collec-hub.store": 61,
     "k-tcgpanda.com": 12,
     "pokemoncard.co.kr": 10400,
     "pokemonkorea.co.kr": 1,
@@ -5322,6 +5325,63 @@
         "source": 0,
         "rarity": 191,
         "illustrator": 191
+      }
+    },
+    {
+      "era": "M",
+      "code": "MEZ",
+      "title": "MEGA 스타터 세트 ex 「조로아&조로아크 ex」 (21/019)",
+      "displayName": "MEGA 스타터 세트 ex 「조로아&조로아크 ex」",
+      "cardCount": 21,
+      "firstCardCode": "mez_001/019",
+      "lastCardCode": "mez_021/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 21,
+        "illustrator": 21
+      }
+    },
+    {
+      "era": "M",
+      "code": "MEM",
+      "title": "MEGA 스타터 세트 ex 「나오하&마스카나 ex」 (19/017)",
+      "displayName": "MEGA 스타터 세트 ex 「나오하&마스카나 ex」",
+      "cardCount": 19,
+      "firstCardCode": "mem_001/017",
+      "lastCardCode": "mem_019/017",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "M",
+      "code": "MEE",
+      "title": "MEGA 스타터 세트 ex 「이브이 ex」 (21/019)",
+      "displayName": "MEGA 스타터 세트 ex 「이브이 ex」",
+      "cardCount": 21,
+      "firstCardCode": "mee_001/019",
+      "lastCardCode": "mee_021/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 21,
+        "illustrator": 21
       }
     }
   ]
