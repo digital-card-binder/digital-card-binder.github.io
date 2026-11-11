@@ -9,7 +9,7 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-9bd77678d3c1";
+  const SITE_BUILD_VERSION = "b-9f4792eebdee";
   const CARD_SCANNER_JS_VERSION = "03f62e451e5f";
   const CARD_SCANNER_CSS_VERSION = "1f4470ec220e";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
@@ -1310,6 +1310,7 @@
     artThemes: ".art-theme-selected-summary",
   });
   const SIMPLE_DEX_PRIMARY_SELECTORS = Object.freeze({
+    series: ".catalog-toolbar .catalog-select",
     ar: ".catalog-toolbar .catalog-select",
   });
   const STICKY_SELECTOR_COLLECTIONS = new Set([
@@ -1339,16 +1340,25 @@
     const primarySelector = primarySelectorQuery
       ? document.querySelector(primarySelectorQuery)
       : null;
-    if (
-      primarySelector &&
-      summary &&
-      !primarySelector.closest(".collector-primary-selector")
-    ) {
-      const primaryWrap = document.createElement("div");
-      primaryWrap.className = "collector-primary-selector";
-      primaryWrap.setAttribute("data-primary-selector", collectionId);
-      summary.insertAdjacentElement("beforebegin", primaryWrap);
-      primaryWrap.append(primarySelector);
+    // The current set is already named in the summary. Keep the existing
+    // native picker and change listeners, but offer it as one compact action
+    // instead of repeating the full set name in a second wide row.
+    if (primarySelector && summary && !summary.contains(primarySelector)) {
+      const select = primarySelector.querySelector("select");
+      if (select) {
+        select.setAttribute(
+          "aria-label",
+          collectionId === "series" ? "다른 시리즈 세트 선택" : "다른 AR 세트 선택",
+        );
+      }
+      primarySelector.classList.add("collector-set-switcher");
+      const caption = document.createElement("span");
+      caption.className = "collector-set-switcher-caption";
+      caption.textContent = "다른 세트";
+      caption.setAttribute("aria-hidden", "true");
+      primarySelector.append(caption);
+      summary.append(primarySelector);
+      summary.classList.add("collector-summary-with-switcher");
     }
 
     if (

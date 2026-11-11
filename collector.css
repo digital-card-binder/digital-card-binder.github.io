@@ -4014,3 +4014,138 @@ body.collector-collection-page.collector-simple-dex[data-catalog="ar"] .catalog-
   .collector-public-sync-panel {align-items:stretch;flex-direction:column;gap:10px;padding:12px}
   .collector-public-sync-panel button {width:100%}
 }
+
+
+/* Shared dex toolbar v2: one title, one status bar and one search surface.
+   Keeps the original native selectors, event handlers and collection writes. */
+body.collector-collection-page.collector-simple-dex .collector-summary-with-switcher {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 4px;
+  align-items: center;
+  min-height: 64px;
+  margin: 8px 0 5px;
+  padding: 6px 2px;
+}
+body.collector-simple-dex .collector-summary-with-switcher > div:first-child {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+body.collector-simple-dex .collector-summary-with-switcher > p {
+  grid-column: 1;
+  grid-row: 2;
+  font-variant-numeric: tabular-nums;
+  font-size: .73rem;
+}
+body.collector-simple-dex .collector-summary-with-switcher .collector-set-switcher {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: block;
+  width: 112px;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+  margin: 0;
+  border: 1px solid #dce6ee;
+  border-radius: 10px;
+  background: #f4f8fb;
+  cursor: pointer;
+}
+body.collector-simple-dex .collector-set-switcher .filter-label {
+  display: none;
+}
+body.collector-simple-dex .collector-set-switcher select {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+body.collector-simple-dex .collector-set-switcher-caption {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #28465e;
+  font-size: .73rem;
+  font-weight: 800;
+  pointer-events: none;
+}
+body.collector-simple-dex .collector-set-switcher-caption::after {
+  content: "⌄";
+  color: #547387;
+  font-size: 1rem;
+  line-height: 1;
+}
+body.collector-simple-dex .collector-set-switcher:focus-within {
+  outline: 3px solid var(--dcb-control-focus, #176783);
+  outline-offset: 2px;
+}
+body.collector-simple-dex .collector-set-switcher:hover {
+  border-color: #b6d0dd;
+  background: #eaf4f8;
+}
+body.collector-collection-page.collector-simple-dex[data-catalog="series"] .catalog-toolbar,
+body.collector-collection-page.collector-simple-dex[data-catalog="ar"] .catalog-toolbar {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.collector-collection-page.collector-simple-dex:is([data-catalog="series"],[data-catalog="ar"]) .catalog-toolbar {
+  margin-top: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.collector-collection-page.collector-simple-dex:is([data-catalog="series"],[data-catalog="ar"]) .catalog-toolbar .search-field {
+  width: 100%;
+  min-width: 0;
+}
+body.collector-collection-page.collector-simple-dex .collector-quick-controls {
+  border-color: #e3ebf0;
+  background: #f5f8fa;
+  box-shadow: none;
+}
+body.collector-collection-page.collector-simple-dex .collector-quick-controls button:focus-visible {
+  outline: 3px solid #176783;
+  outline-offset: 2px;
+}
+body.collector-collection-page.collector-simple-dex .results-bar-actions {
+  gap: 6px;
+}
+@media (max-width: 690px) {
+  body.collector-collection-page.collector-simple-dex .collector-summary-with-switcher {
+    min-height: 56px;
+    column-gap: 8px;
+    margin-top: 5px;
+    padding: 4px 0;
+  }
+  body.collector-simple-dex .collector-summary-with-switcher strong {
+    max-width: 100%;
+  }
+  body.collector-simple-dex .collector-summary-with-switcher .collector-set-switcher {
+    width: 98px;
+    min-height: 44px;
+  }
+  body.collector-simple-dex .collector-summary-with-switcher > p {
+    font-size: .65rem;
+  }
+  body.collector-collection-page.collector-simple-dex .collector-quick-controls {
+    margin-bottom: 7px;
+  }
+}
+@media print {
+  body.collector-simple-dex .collector-set-switcher {
+    display: none !important;
+  }
+}
