@@ -119,17 +119,31 @@
   const sourceDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
   const nativeSetAttribute = Element.prototype.setAttribute;
   const originalSources = new WeakMap();
+  const archiveSources = new WeakMap();
   const fallbackAttempts = new WeakSet();
+  const retryAttempts = new WeakMap();
+  const retryTimers = new WeakMap();
+  const RETRY_DELAYS_MS = [350, 1100];
+
+  function clearPendingRetry(image) {
+    const timer = retryTimers.get(image);
+    if (timer !== undefined) window.clearTimeout(timer);
+    retryTimers.delete(image);
+    retryAttempts.delete(image);
+  }
 
   function sourceFor(image, value) {
+    clearPendingRetry(image);
     const original = repairSource(value);
     const destination = resolve(original);
     if (enabled && destination && destination !== original) {
       originalSources.set(image, original);
+      archiveSources.set(image, destination);
       fallbackAttempts.delete(image);
       return destination;
     }
     originalSources.delete(image);
+    archiveSources.delete(image);
     fallbackAttempts.delete(image);
     return original;
   }
@@ -138,16 +152,43 @@
     if (!(image instanceof HTMLImageElement)) return false;
     const original = originalSources.get(image);
     if (!original || fallbackAttempts.has(image)) return false;
-    fallbackAttempts.add(image);
+    const destination = archiveSources.get(image);
+    const previousAttempts = retryAttempts.get(image) || 0;
 
-    // Never fall back to the third-party source at runtime.
-    // If our self-hosted archive misses an image, keep all traffic on our site.
+    // A transient Cloudflare/CDN error should not permanently turn a valid
+    // thumbnail into the "image preparing" SVG while a detail view works.
+    // Retry our own archive with a fresh cache key before showing a fallback.
+    if (destination && previousAttempts < RETRY_DELAYS_MS.length) {
+      const attempt = previousAttempts + 1;
+      retryAttempts.set(image, attempt);
+      const retryUrl = new URL(destination);
+      retryUrl.searchParams.set("dcb_image_retry", `${Date.now()}-${attempt}`);
+      const timer = window.setTimeout(() => {
+        retryTimers.delete(image);
+        if (originalSources.get(image) !== original ||
+            archiveSources.get(image) !== destination) return;
+        // Bypass our src rewrite: this is already the canonical archive URL.
+        if (sourceDescriptor?.set) {
+          sourceDescriptor.set.call(image, retryUrl.href);
+        } else {
+          nativeSetAttribute.call(image, "src", retryUrl.href);
+        }
+      }, RETRY_DELAYS_MS[previousAttempts]);
+      retryTimers.set(image, timer);
+      return true;
+    }
+
+    fallbackAttempts.add(image);
+    clearPendingRetry(image);
+    // Never fall back to a third-party source at runtime.
+    // Missing archive images remain on our own neutral placeholder.
     if (sourceDescriptor?.set) {
       sourceDescriptor.set.call(image, FALLBACK_IMAGE);
     } else {
       nativeSetAttribute.call(image, "src", FALLBACK_IMAGE);
     }
     originalSources.delete(image);
+    archiveSources.delete(image);
     return true;
   }
 
