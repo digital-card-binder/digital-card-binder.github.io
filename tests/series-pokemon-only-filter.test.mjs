@@ -9,11 +9,11 @@ const national = JSON.parse(readFileSync(new URL("../data/pokedex.json", import.
 const species = national.records.map((record) => record.nameKo);
 
 function sourceOf(name) {
-  const match = catalog.match(new RegExp(
-    "function " + name + "\\\\([^]*?\\\\n\\\\}",
-  ));
-  assert.ok(match, "missing " + name);
-  return match[0];
+  const start = catalog.indexOf("function " + name + "(");
+  assert.notEqual(start, -1, "missing " + name);
+  const end = catalog.indexOf("\n}\n", start);
+  assert.notEqual(end, -1, "missing end of " + name);
+  return catalog.slice(start, end + 2);
 }
 
 const definitions = [
