@@ -4,6 +4,9 @@ const $ = (id) => document.getElementById(id);
 const mode = document.body.dataset.catalog;
 let seriesBaseOnly = mode === "series" &&
   new URLSearchParams(window.location.search).get("scope") === "base";
+let seriesPokemonOnly = mode === "series" &&
+  new URLSearchParams(window.location.search).get("pokemon") === "1";
+let seriesPokemonNames = new Set();
 const SERIES_DATA_URL = "./data/series.json";
 const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
 const SERIES_PRINT_VARIANTS_URL = "./data/series-print-variants.json";
@@ -562,8 +565,34 @@ function isSeriesSpecialPokemon(card) {
 }
 
 function isSeriesPokemonCard(card) {
-  return Boolean(String(card?.pokemonName || "").trim()) ||
-    isSeriesSpecialPokemon(card);
+  // Modern cards sometimes have explicit species metadata. Most older sets do
+  // not, so validate their printed names against the Korean National Pokédex.
+  if (String(card?.pokemonName || "").trim()) return true;
+  if (!seriesPokemonNames.size) return false;
+
+  const printedName = String(card?.name || "").normalize("NFKC").trim();
+  if (!printedName) return false;
+  if (seriesPokemonNames.has(printedName)) return true;
+  // Trainer items may mention Pokémon; an arbitrary substring is not enough.
+  if (/에너지|스피릿링크/i.test(printedName)) return false;
+
+  const withoutVariants = printedName
+    .replace(/\s*\[[^\]]+\]\s*$/, "")
+    .replace(/\s*\((?:프리즘스타|다이맥스)\)\s*$/, "")
+    .replace(/(?:\s*(?:ex|gx|vmax|vstar|v-union|v|lv\.?x|break|legend|☆|★|프라임|δ종|δ))+\s*$/gi, "")
+    .trim();
+  if (seriesPokemonNames.has(withoutVariants)) return true;
+
+  const speciesName = withoutVariants
+    .replace(/^(?:알로라|가라르|히스이|팔데아|빛나는|찬란한|다크|원시|백마|흑마|화이트|블랙|오리진|일격|연격|메가)\s*/i, "")
+    .replace(/^M\s+/i, "")
+    .replace(/^[^\s]{1,20}의\s+/, "")
+    .trim();
+  if (seriesPokemonNames.has(speciesName) ||
+      seriesPokemonNames.has(speciesName.replace(/\s*[XY]$/, ""))) return true;
+
+  const pair = speciesName.split(/\s*[&＆]\s*/);
+  return pair.length > 1 && pair.every((name) => seriesPokemonNames.has(name));
 }
 
 function seriesRepresentativeCard(group) {
@@ -1931,7 +1960,7 @@ function render() {
   // Switching filters/searches/sets ends the previous quick-collect view.
   // Only cards changed while this exact view is active remain temporarily visible.
   const viewKey = [mode, activeEra, selected?.code || selected?.name || "ALL",
-    status, query, seriesBaseOnly].join("|");
+    status, query, seriesBaseOnly, seriesPokemonOnly].join("|");
   if (quickCollectViewKey !== viewKey) {
     quickCollectViewKey = viewKey;
     quickCollectPinnedCards = new WeakSet();
@@ -2027,22 +2056,27 @@ function isBaseSeriesCard(card) {
 }
 
 function applySeriesScope() {
-  if (!seriesBaseOnly) return;
+  if (!seriesBaseOnly && !seriesPokemonOnly) return;
   groups = groups
     .map((group) => ({
       ...group,
-      cards: (group.cards || []).filter(isBaseSeriesCard),
+      // Filtering never rewrites original cards, accountIndex or accountKey.
+      cards: (group.cards || []).filter((card) =>
+        (!seriesBaseOnly || isBaseSeriesCard(card)) &&
+        (!seriesPokemonOnly || isSeriesPokemonCard(card))),
     }))
     .filter((group) => group.cards.length > 0);
 }
 
-function setSeriesScope(nextScope) {
+function setSeriesFilters(nextScope, nextPokemonOnly) {
   if (mode !== "series" || !allSeriesGroups) return false;
+  if (nextPokemonOnly && !seriesPokemonNames.size) return false;
   const nextBaseOnly = nextScope === "base";
-  if (seriesBaseOnly === nextBaseOnly) return true;
+  if (seriesBaseOnly === nextBaseOnly && seriesPokemonOnly === nextPokemonOnly) return true;
 
   const previousGroup = selected?.code || selected?.name || $("catalog-select")?.value;
   seriesBaseOnly = nextBaseOnly;
+  seriesPokemonOnly = nextPokemonOnly;
   groups = allSeriesGroups;
   applySeriesScope();
   groups.forEach((group) => {
@@ -2065,6 +2099,14 @@ function setSeriesScope(nextScope) {
   return true;
 }
 
+function setSeriesScope(nextScope) {
+  return setSeriesFilters(nextScope, seriesPokemonOnly);
+}
+
+function setSeriesPokemonOnly(enabled) {
+  return setSeriesFilters(seriesBaseOnly ? "base" : "all", Boolean(enabled));
+}
+
 function rememberCurrentCatalog() {
   if (!selected) return;
   const recentDex = window.DigitalCardBinder?.recentDex;
@@ -2078,6 +2120,7 @@ function rememberCurrentCatalog() {
     const params = new URLSearchParams();
     params.set("group", groupValue);
     if (seriesBaseOnly) params.set("scope", "base");
+    if (seriesPokemonOnly) params.set("pokemon", "1");
     recentDex.remember({
       collectionId: "series",
       title: "시리즈 도감",
@@ -2211,7 +2254,22 @@ async function loadCatalogGroups() {
 
 async function init() {
   try {
-    groups = await loadCatalogGroups();
+    const [loadedGroups, pokedex] = await Promise.all([
+      loadCatalogGroups(),
+      mode === "series"
+        ? fetchJson(POKEDEX_DATA_URL).catch((error) => {
+            console.warn("포켓몬 카드 필터용 전국도감 목록을 불러오지 못했습니다.", error);
+            return null;
+          })
+        : Promise.resolve(null),
+    ]);
+    groups = loadedGroups;
+    if (mode === "series") {
+      seriesPokemonNames = new Set(
+        (pokedex?.records || []).map((item) => String(item.nameKo || "").trim()).filter(Boolean),
+      );
+      if (!seriesPokemonNames.size) seriesPokemonOnly = false;
+    }
     mobileCatalogPreferences = readMobileCatalogPreferences();
 
     const requestedGroupValue =
@@ -2351,7 +2409,16 @@ async function init() {
       );
     }
     if (mode === "series") {
-      window.PokemonDexSeriesScope = { setScope: setSeriesScope };
+      window.PokemonDexSeriesScope = {
+        setScope: setSeriesScope,
+        setPokemonOnly: setSeriesPokemonOnly,
+        setFilters: setSeriesFilters,
+        getState: () => ({
+          scope: seriesBaseOnly ? "base" : "all",
+          pokemonOnly: seriesPokemonOnly,
+          pokemonAvailable: seriesPokemonNames.size > 0,
+        }),
+      };
       window.dispatchEvent(new Event("pokemon-dex:catalog-ready"));
     }
   } catch (error) {
