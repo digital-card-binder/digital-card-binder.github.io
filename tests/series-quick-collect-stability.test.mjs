@@ -58,7 +58,7 @@ function harness() {
   const calls = { scroll: 0, renders: 0, stableRefreshes: [] };
   const context = vm.createContext({
     cards, mode: "series", selected: { code: "m4", name: "닌자스피너" },
-    activeEra: "M", seriesBaseOnly: false,
+    activeEra: "M", seriesBaseOnly: false, seriesPokemonOnly: false,
     status: "missing", query: "", renderedCards: [],
     quickCollectMode: true,
     quickCollectPinnedCards: new WeakSet(),
