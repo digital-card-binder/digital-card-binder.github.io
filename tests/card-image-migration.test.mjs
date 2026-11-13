@@ -44,7 +44,24 @@ function loadBrowserRouter(search = "") {
     },
   });
 
-  const window = { location: { search } };
+  const pendingTimers = new Map();
+  let timerId = 0;
+  const window = {
+    location: { search },
+    setTimeout(callback) {
+      const id = ++timerId;
+      pendingTimers.set(id, callback);
+      return id;
+    },
+    clearTimeout(id) {
+      pendingTimers.delete(id);
+    },
+  };
+  function runTimers() {
+    const callbacks = [...pendingTimers.values()];
+    pendingTimers.clear();
+    callbacks.forEach((callback) => callback());
+  }
   vm.runInNewContext(fs.readFileSync(browserRouterPath, "utf8"), {
     window,
     URL,
@@ -58,7 +75,7 @@ function loadBrowserRouter(search = "") {
     Element,
     HTMLImageElement,
   });
-  return { window, HTMLImageElement };
+  return { window, HTMLImageElement, runTimers };
 }
 
 test("official card images are split into deterministic Pages paths", () => {
@@ -197,6 +214,12 @@ test("browser routing is enabled after cutover and routes supported images to Pa
   fallbackImage.src = ownedOverride;
   assert.equal(fallbackImage.src, ownedOverrideCdn);
   assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), true);
+  active.runTimers();
+  assert.match(fallbackImage.src, /dcb_image_retry=.+-1/);
+  assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), true);
+  active.runTimers();
+  assert.match(fallbackImage.src, /dcb_image_retry=.+-2/);
+  assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), true);
   assert.equal(fallbackImage.src, "/assets/card-image-unavailable.svg");
   assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), false);
 
@@ -251,7 +274,7 @@ test("public pages expose no clickable Pokemon Korea links", () => {
 });
 
 test("broken representative paths resolve to the same catalog cards and preserve a valid fallback", () => {
-  const { window, HTMLImageElement } = loadBrowserRouter();
+  const { window, HTMLImageElement, runTimers } = loadBrowserRouter();
   const router = window.DigitalCardBinderImageCdn;
   const series = JSON.parse(fs.readFileSync(path.join(repositoryRoot, "data/series-legacy.json"), "utf8"));
   const cases = [
@@ -271,6 +294,10 @@ test("broken representative paths resolve to the same catalog cards and preserve
     assert.equal(router.resolve(original), router.resolve(card.image));
     const image = new HTMLImageElement(); image.src = original;
     assert.equal(image.src, router.resolve(card.image));
+    assert.equal(router.restoreOriginal(image), true);
+    runTimers();
+    assert.equal(router.restoreOriginal(image), true);
+    runTimers();
     assert.equal(router.restoreOriginal(image), true);
     assert.equal(image.src, "/assets/card-image-unavailable.svg");
   }
