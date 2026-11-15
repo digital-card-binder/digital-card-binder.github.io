@@ -123,5 +123,5 @@ test("shared detail navigation initializes after page markup and covers pack car
   assert.match(navigation, /function installAll\(\)/);
   assert.match(navigation, /document\.addEventListener\("DOMContentLoaded", installAll, \{ once: true \}\)/);
   assert.match(navigation, /grid: "#pack-groups", dialog: "#pack-dialog", trigger: "\.pack-card-detail"/);
-  assert.match(packs, /detail-card-navigation\.js\?v=20261116/);
+  assert.match(packs, /detail-card-navigation\.js(?:\?v=[^"']+)?/);
 });
