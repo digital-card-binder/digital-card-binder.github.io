@@ -271,7 +271,10 @@ function resetFilters() {
 
 function openCardDialog(record) {
   activeRecord = record;
-  elements.dialogImage.src = record.imageUrl;
+  elements.dialogImageWrap.classList.remove("has-image-error");
+  elements.dialogImage.onload = () => elements.dialogImageWrap.classList.remove("has-image-error");
+  elements.dialogImage.onerror = () => elements.dialogImageWrap.classList.add("has-image-error");
+  elements.dialogImage.src = record.imageUrl || "/assets/card-image-unavailable.svg";
   elements.dialogImage.alt = `${record.nameKo} 포켓몬 카드 크게 보기`;
   elements.dialogImageWrap.classList.toggle("is-missing", !record.owned);
   elements.dialogNumber.textContent = record.numberLabel;
