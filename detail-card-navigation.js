@@ -14,6 +14,10 @@
     { grid: "#art-theme-card-grid", dialog: "#art-theme-dialog", trigger: ".art-theme-card-open", name: "일러스트 테마 도감" },
     { grid: "#people-grid", dialog: "#people-dialog", trigger: ".pokemon-card-button", name: "인물 도감" },
     { grid: "#world-binder-content", dialog: "#world-card-dialog", trigger: ".world-card-open", name: "월드탐험 도감" },
+    { grid: "#card-grid", dialog: "#card-dialog", trigger: ".pokemon-card-button", name: "전국도감" },
+    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "시리즈 도감", hideNavigationOnMobile: true },
+    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "포켓몬 컬렉션", hideNavigationOnMobile: true },
+    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "AR 도감", hideNavigationOnMobile: true },
   ];
   const style = document.createElement("style");
   style.textContent = `
@@ -21,7 +25,7 @@
     .detail-card-navigation button{min-width:88px;min-height:42px;padding:8px 16px;border:1px solid rgba(100,116,139,.28);border-radius:12px;background:#f8fafc;color:#17233f;font:inherit;font-weight:700}
     .detail-card-navigation button:disabled{opacity:.35;cursor:not-allowed}
     .detail-card-navigation span{font-size:12px;color:#64748b}
-    @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}}
+    @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none}}
   `;
   document.head.append(style);
 
@@ -71,7 +75,7 @@
     if (!dialog) return;
     if (!dialog.querySelector(".detail-card-navigation")) {
       const nav = document.createElement("nav");
-      nav.className = "detail-card-navigation";
+      nav.className = `detail-card-navigation${config.hideNavigationOnMobile ? " is-duplicate-mobile" : ""}`;
       nav.setAttribute("aria-label", "상세 카드 이동");
       nav.innerHTML = `
         <button type="button" data-detail-prev aria-label="이전 카드">← 이전</button>
