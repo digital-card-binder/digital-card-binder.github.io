@@ -42,6 +42,8 @@ test("navigation follows currently rendered cards and supports keyboard and hori
   const helper = await read("detail-card-navigation.js");
   assert.match(helper, /querySelectorAll\("article"\)/);
   assert.match(helper, /dialog\.querySelector\("\.dialog-card-copy, \.art-theme-dialog-copy"\)/, "navigation is placed inside the visible detail content");
+  assert.match(helper, /#art-theme-dialog \.detail-card-navigation\{display:flex!important;position:sticky/, "theme navigation controls remain visible at the bottom of the detail pane");
+  assert.match(helper, /#art-theme-dialog \.detail-card-navigation button\{display:inline-flex!important/, "theme navigation buttons have explicit visible styling");
   assert.match(helper, /event\.key === "ArrowLeft"/);
   assert.match(helper, /event\.key === "ArrowRight"/);
   assert.match(helper, /addEventListener\("touchstart"/);
