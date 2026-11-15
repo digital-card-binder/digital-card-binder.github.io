@@ -24,6 +24,13 @@
     .detail-card-navigation button:disabled{opacity:.35;cursor:not-allowed}
     .detail-card-navigation span{font-size:12px;color:#64748b}
     @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none}}
+    /* Theme dex uses a custom two-column dialog. Keep its controls visibly anchored
+       to the bottom of the details pane on desktop and mobile. */
+    #art-theme-dialog .detail-card-navigation{display:flex!important;position:sticky;bottom:0;z-index:20;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:58px;margin:18px 0 0;padding:10px 0;background:#fff;visibility:visible!important;opacity:1!important}
+    #art-theme-dialog .detail-card-navigation button{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;min-width:92px;min-height:44px;padding:8px 14px;border:1px solid #cbd5e1;border-radius:12px;background:#17233f;color:#fff;font-size:14px;font-weight:800;line-height:1;visibility:visible!important;opacity:1!important}
+    #art-theme-dialog .detail-card-navigation button:disabled{background:#e2e8f0;color:#64748b;opacity:1!important}
+    #art-theme-dialog .detail-card-navigation span{display:block;flex:1;text-align:center;color:#475569;font-size:12px;font-weight:700}
+    @media(max-width:620px){#art-theme-dialog .detail-card-navigation{position:sticky;bottom:0;min-height:62px;margin:12px 0 0;padding:10px 0 calc(10px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,rgba(255,255,255,.94),#fff 24%)}#art-theme-dialog .detail-card-navigation button{min-width:86px;min-height:46px;font-size:14px}}
   `;
   document.head.append(style);
 
