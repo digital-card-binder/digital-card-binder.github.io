@@ -41,6 +41,7 @@ test("shared detail navigation is wired to the real grid, dialog and card trigge
 test("navigation follows currently rendered cards and supports keyboard and horizontal touch gestures", async () => {
   const helper = await read("detail-card-navigation.js");
   assert.match(helper, /querySelectorAll\("article"\)/);
+  assert.match(helper, /dialog\.querySelector\("\.dialog-card-copy, \.art-theme-dialog-copy"\)/, "navigation is placed inside the visible detail content");
   assert.match(helper, /event\.key === "ArrowLeft"/);
   assert.match(helper, /event\.key === "ArrowRight"/);
   assert.match(helper, /addEventListener\("touchstart"/);

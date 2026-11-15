@@ -80,7 +80,11 @@
         <span data-detail-count aria-live="polite"></span>
         <button type="button" data-detail-next aria-label="다음 카드">다음 →</button>
       `;
-      dialog.append(nav);
+      // Keep navigation inside the dialog copy area. Appending it as a third
+      // direct child places it in an implicit grid row on two-column dialogs,
+      // where it can be pushed below the visible card details.
+      const content = dialog.querySelector(".dialog-card-copy, .art-theme-dialog-copy");
+      (content || dialog).append(nav);
       nav.querySelector("[data-detail-prev]").addEventListener("click", () => move(-1));
       nav.querySelector("[data-detail-next]").addEventListener("click", () => move(1));
     }
