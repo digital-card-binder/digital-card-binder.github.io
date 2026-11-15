@@ -15,9 +15,7 @@
     { grid: "#people-grid", dialog: "#people-dialog", trigger: ".pokemon-card-button", name: "인물 도감" },
     { grid: "#world-binder-content", dialog: "#world-card-dialog", trigger: ".world-card-open", name: "월드탐험 도감" },
     { grid: "#card-grid", dialog: "#card-dialog", trigger: ".pokemon-card-button", name: "전국도감" },
-    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "시리즈 도감", hideNavigationOnMobile: true },
-    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "포켓몬 컬렉션", hideNavigationOnMobile: true },
-    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "AR 도감", hideNavigationOnMobile: true },
+    { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "통합 카탈로그 도감", hideNavigationOnMobile: true },
   ];
   const style = document.createElement("style");
   style.textContent = `
