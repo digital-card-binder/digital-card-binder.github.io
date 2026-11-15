@@ -20,8 +20,10 @@
   ];
   const style = document.createElement("style");
   style.textContent = `
-    .detail-card-navigation{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;margin-top:16px}
-    .detail-card-navigation button{min-width:88px;min-height:42px;padding:8px 16px;border:1px solid rgba(100,116,139,.28);border-radius:12px;background:#f8fafc;color:#17233f;font:inherit;font-weight:700}
+    .detail-card-navigation{display:flex!important;visibility:visible!important;opacity:1!important;position:relative;z-index:30;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:48px;margin-top:16px;clear:both}
+    .detail-card-navigation button{display:inline-flex!important;visibility:visible!important;opacity:1!important;align-items:center;justify-content:center;flex:0 0 auto;min-width:88px;min-height:44px;padding:8px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#17233f;color:#fff;font:inherit;font-weight:800;line-height:1;cursor:pointer}
+    .detail-card-navigation button:disabled{background:#e2e8f0;color:#64748b;opacity:1;cursor:not-allowed}
+    .detail-card-navigation span{display:block;visibility:visible!important;opacity:1!important;flex:1;text-align:center;font-size:12px;color:#475569;font-weight:700}
     .detail-card-navigation button:disabled{opacity:.35;cursor:not-allowed}
     .detail-card-navigation span{font-size:12px;color:#64748b}
     @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none}}
@@ -76,26 +78,31 @@
     }
   }
 
+  function ensureNavigation(config, dialog) {
+    const content = dialog.querySelector(".dialog-card-copy, .art-theme-dialog-copy");
+    if (!content || content.querySelector(".detail-card-navigation")) return;
+    const nav = document.createElement("nav");
+    nav.className = `detail-card-navigation${config.hideNavigationOnMobile ? " is-duplicate-mobile" : ""}`;
+    nav.setAttribute("aria-label", "상세 카드 이동");
+    nav.innerHTML = `
+      <button type="button" data-detail-prev aria-label="이전 카드">← 이전</button>
+      <span data-detail-count aria-live="polite"></span>
+      <button type="button" data-detail-next aria-label="다음 카드">다음 →</button>
+    `;
+    content.append(nav);
+    nav.querySelector("[data-detail-prev]").addEventListener("click", () => move(-1));
+    nav.querySelector("[data-detail-next]").addEventListener("click", () => move(1));
+    requestAnimationFrame(() => sync(config));
+  }
+
   function install(config) {
     const dialog = document.querySelector(config.dialog);
     if (!dialog) return;
-    if (!dialog.querySelector(".detail-card-navigation")) {
-      const nav = document.createElement("nav");
-      nav.className = `detail-card-navigation${config.hideNavigationOnMobile ? " is-duplicate-mobile" : ""}`;
-      nav.setAttribute("aria-label", "상세 카드 이동");
-      nav.innerHTML = `
-        <button type="button" data-detail-prev aria-label="이전 카드">← 이전</button>
-        <span data-detail-count aria-live="polite"></span>
-        <button type="button" data-detail-next aria-label="다음 카드">다음 →</button>
-      `;
-      // Keep navigation inside the dialog copy area. Appending it as a third
-      // direct child places it in an implicit grid row on two-column dialogs,
-      // where it can be pushed below the visible card details.
-      const content = dialog.querySelector(".dialog-card-copy, .art-theme-dialog-copy");
-      (content || dialog).append(nav);
-      nav.querySelector("[data-detail-prev]").addEventListener("click", () => move(-1));
-      nav.querySelector("[data-detail-next]").addEventListener("click", () => move(1));
-    }
+    ensureNavigation(config, dialog);
+    // Detail renderers replace the copy pane's innerHTML when a card opens.
+    // Reattach the controls after each render so they cannot disappear.
+    const observer = new MutationObserver(() => ensureNavigation(config, dialog));
+    observer.observe(dialog, { childList: true, subtree: true });
     dialog.addEventListener("close", () => {
       if (!pendingButton) return;
       const target = pendingButton;
