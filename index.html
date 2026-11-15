@@ -15,11 +15,11 @@
     <link rel="manifest" href="./manifest.webmanifest?v=a54b174a6bc6" />
     <link rel="stylesheet" href="./styles.css?v=04e8ea0bd27a" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./dashboard.css?v=c3249c94c35f" />
+    <link rel="stylesheet" href="./dashboard.css?v=phase1-20261115" />
     <link rel="stylesheet" href="./collector.css?v=6a45be7eaca2" />
     <link rel="stylesheet" href="./news.css?v=4d1c8eac9aba" />
     <link rel="stylesheet" href="./pwa.css?v=a88f945c52db" />
-    <link rel="stylesheet" href="./home-preview.css?v=8afb19b66633" />
+    <link rel="stylesheet" href="./home-preview.css?v=phase1-20261115" />
     <link rel="stylesheet" href="./dashboard-compact.css?v=a6cfa2c5fbe9" />
     <link rel="stylesheet" href="./card-scanner.css?v=3a1eb26c57af" data-card-scanner-style="true" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
@@ -34,7 +34,7 @@
     <script src="./collector-public-sync.js?v=c43b09152bfb" defer></script>
     <script src="./collector-nav.js?v=3bc9765eb1b0" defer></script>
     <script src="./card-scanner.js?v=e09b092918b3" defer data-card-scanner-script="true"></script>
-    <script src="./dashboard.js?v=574dc66d3186" defer></script>
+    <script src="./dashboard.js?v=phase1-20261115" defer></script>
     <script src="./feedback.js?v=a25731573a87" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./pwa.js?v=8a4337e69dcb" defer></script>
@@ -54,7 +54,7 @@
         <a href="./pokemon-search.html">카드 검색</a>
         <a href="./series.html">시리즈</a>
         <a href="./national.html">전국도감</a>
-        <a href="#dashboard-theme-section">테마도감</a>
+        <a href="./theme.html">테마도감</a>
         <a href="./packs.html">팩도감</a>
         <a href="./studio.html">바인더 스튜디오</a>
         <a href="#home-collection-section">나의 수집</a>
@@ -64,8 +64,8 @@
         <a class="home-radar-trigger" href="./card-radar.html" aria-label="카드 레이더 열기">
           <span class="home-radar-symbol" aria-hidden="true">📡</span><span class="home-radar-text">레이더</span>
         </a>
-        <a id="home-account-trigger" class="home-account-trigger" href="./collector-settings.html" aria-label="로그인 및 프로필 관리">
-          <span class="home-account-icon" aria-hidden="true"></span>
+        <a id="home-account-trigger" class="home-account-trigger" href="./collector-settings.html" aria-label="수집 설정">
+          <span class="home-account-icon" aria-hidden="true">⚙</span><span class="home-account-label">수집 설정</span>
         </a>
         <details id="home-menu" class="home-menu">
           <summary aria-label="메뉴 열기"><span aria-hidden="true"></span>메뉴</summary>
@@ -73,7 +73,7 @@
             <a href="./pokemon-search.html">카드 검색</a>
             <a href="./series.html">시리즈 도감</a>
             <a href="./national.html">전국도감</a>
-            <a href="#dashboard-theme-section">테마도감</a>
+            <a href="./theme.html">테마도감</a>
             <a href="./packs.html">팩도감</a>
             <a href="./studio.html">바인더 스튜디오</a>
             <a href="#home-collection-section">나의 수집</a>
@@ -92,9 +92,9 @@
           <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon ui-icon ui-icon--search" aria-hidden="true"></span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span><strong>전국도감</strong><small>1,025종 · 1–9세대</small></span></a>
-          <a class="collection-link" href="./series.html"><span><strong>시리즈 도감</strong><small>276세트 · 20,302장</small></span></a>
+          <a class="collection-link" href="./series.html"><span><strong>시리즈 도감</strong><small data-catalog-summary="series">불러오는 중</small></span></a>
           <a class="collection-link" href="./ar.html"><span><strong>AR 전종도감</strong><small>33세트 · 530장</small></span></a>
-          <a class="collection-link" href="./packs.html"><span><strong>팩 전종수집</strong><small>151팩 · 프로모 222</small></span></a>
+          <a class="collection-link" href="./packs.html"><span><strong>팩 전종수집</strong><small data-catalog-summary="pack">불러오는 중</small></span></a>
           <a class="collection-link" href="./theme.html"><span><strong>테마 도감</strong><small>무드·스토리·장면 테마</small></span></a>
           <div class="sidebar-label collection-nav-section">테마 컬렉션</div>
           <a class="collection-link" href="./pokemon-collections.html"><span><strong>포켓몬 컬렉션</strong><small>1,025종 · 15,061장</small></span></a>
@@ -160,16 +160,22 @@
               <span class="home-panel-icon" aria-hidden="true"><img src="./assets/brand/logo-symbol.png" alt="" /></span>
               <div class="home-collection-copy">
                 <span id="home-collection-title">나의 수집 현황</span>
-                <strong><b id="home-series-owned">0</b> <small>/ <span id="home-series-total">—</span></small></strong>
-                <span class="home-progress-track" aria-hidden="true"><i id="home-series-progress"></i></span>
+                <div id="home-series-personal" hidden>
+                  <strong><b id="home-series-owned"></b> <small>/ <span id="home-series-total"></span></small></strong>
+                  <span class="home-progress-track" aria-hidden="true"><i id="home-series-progress"></i></span>
+                </div>
+                <div id="home-series-guest" class="home-collection-guest">
+                  <p>로그인하면 내 진행률을 확인할 수 있어요.</p>
+                  <button id="home-series-login-cta" type="button">Google 로그인</button>
+                </div>
               </div>
-              <b id="home-series-rate" class="home-collection-rate">0%</b>
+              <b id="home-series-rate" class="home-collection-rate" hidden></b>
             </section>
           </div>
 
           <div class="home-hero-meta sr-only" aria-label="대시보드 도감 요약">
-            <span>사용 도감 <strong id="dashboard-active-collections">—</strong>개</span>
-            <span>완성한 도감 <strong id="dashboard-complete-collections">—</strong>개</span>
+            <span>사용 도감 <strong id="dashboard-active-collections">로그인 필요</strong>개</span>
+            <span>완성한 도감 <strong id="dashboard-complete-collections">로그인 필요</strong>개</span>
           </div>
         </section>
 
@@ -194,7 +200,7 @@
                 <small>확장팩별로 한눈에</small>
                 <strong>시리즈 도감</strong>
                 <em>역대 시리즈와 카드 목록을 세트별로 탐색하세요.</em>
-                <span class="home-feature-meta" data-home-metric-copy>20,243장 둘러보기</span>
+                <span class="home-feature-meta" data-home-metric-copy>불러오는 중</span>
               </span>
               <b aria-hidden="true">→</b>
             </a>
@@ -214,7 +220,7 @@
               <b aria-hidden="true">→</b>
             </a>
 
-            <a class="home-feature-card home-feature-card--theme" href="#dashboard-theme-section">
+            <a class="home-feature-card home-feature-card--theme" href="./theme.html">
               <span class="home-feature-collage" aria-hidden="true">
                 <img src="https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM12a/SM12a_191.webp" alt="" loading="lazy" decoding="async" />
                 <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_083.webp" alt="" loading="lazy" decoding="async" />
@@ -239,7 +245,7 @@
                 <small>개봉한 팩을 기록하는</small>
                 <strong>팩도감</strong>
                 <em>확장팩과 프로모 팩 수집을 관리하세요.</em>
-                <span class="home-feature-meta" data-home-metric-copy>64팩 둘러보기</span>
+                <span class="home-feature-meta" data-home-metric-copy>불러오는 중</span>
               </span>
               <b aria-hidden="true">→</b>
             </a>

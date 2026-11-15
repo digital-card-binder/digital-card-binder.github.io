@@ -451,6 +451,7 @@
     panel.querySelector("#firebase-login")?.addEventListener("click", signIn);
     panel.querySelector("#firebase-logout")?.addEventListener("click", signOutUser);
     elements.loginCta?.addEventListener("click", signIn);
+    document.querySelector("#home-series-login-cta")?.addEventListener("click", signIn);
     updateAuthUi();
   }
 
@@ -943,12 +944,31 @@
     };
   }
 
+  function renderCatalogSummaries() {
+    const source = window.DigitalCardBinder?.catalog?.catalogMetrics || {};
+    const series = source.series;
+    const pack = source.pack;
+    document.querySelectorAll("[data-catalog-summary]").forEach((element) => {
+      const key = element.dataset.catalogSummary;
+      if (key === "series" && series) {
+        element.textContent = `${formatNumber(series.groupCount)}세트 · ${formatNumber(series.itemCount)}장`;
+      } else if (key === "pack" && pack) {
+        element.textContent = `${formatNumber(pack.itemCount)}팩 · 프로모 ${formatNumber(pack.promoItemCount)}`;
+      }
+    });
+  }
+
   function renderSummary(metrics) {
+    const canShowPersonalProgress = Boolean(currentUser || sharedViewActive);
     if (elements.activeCollections) {
-      elements.activeCollections.textContent = formatNumber(metrics.visibleCategories.length);
+      elements.activeCollections.textContent = canShowPersonalProgress
+        ? formatNumber(metrics.visibleCategories.length)
+        : "로그인 필요";
     }
     if (elements.completeCollections) {
-      elements.completeCollections.textContent = formatNumber(metrics.completedCollections);
+      elements.completeCollections.textContent = canShowPersonalProgress
+        ? formatNumber(metrics.completedCollections)
+        : "로그인 필요";
     }
   }
 
@@ -958,23 +978,36 @@
       if (!metric) return;
       const copy = card.querySelector("[data-home-metric-copy]");
       if (copy) {
-        copy.textContent = currentUser || sharedViewActive
-          ? `${formatNumber(metric.owned)} / ${formatNumber(metric.total)}${metric.unit} 수집`
-          : `${formatNumber(metric.total)}${metric.unit} 둘러보기`;
+        if (card.dataset.homeMetric === "pack") {
+          const totalPacks = window.DigitalCardBinder?.catalog?.metric("pack")?.itemCount ?? metric.total;
+          copy.textContent = `${formatNumber(metric.total)}팩 수집 대상 · 전체 ${formatNumber(totalPacks)}팩`;
+        } else {
+          copy.textContent = currentUser || sharedViewActive
+            ? `${formatNumber(metric.owned)} / ${formatNumber(metric.total)}${metric.unit} 수집`
+            : `${formatNumber(metric.total)}${metric.unit} 둘러보기`;
+        }
       }
       card.style.setProperty("--home-rate", metric.rate);
     });
 
     const seriesMetric = metrics.categories.series;
     if (!seriesMetric) return;
+    const canShowPersonalProgress = Boolean(currentUser || sharedViewActive);
+    const personal = document.querySelector("#home-series-personal");
+    const guest = document.querySelector("#home-series-guest");
     const owned = document.querySelector("#home-series-owned");
     const total = document.querySelector("#home-series-total");
     const rate = document.querySelector("#home-series-rate");
     const progress = document.querySelector("#home-series-progress");
-    if (owned) owned.textContent = formatNumber(seriesMetric.owned);
-    if (total) total.textContent = formatNumber(seriesMetric.total);
-    if (rate) rate.textContent = `${seriesMetric.rate.toFixed(1)}%`;
-    if (progress) progress.style.width = `${seriesMetric.rate}%`;
+    if (personal) personal.hidden = !canShowPersonalProgress;
+    if (guest) guest.hidden = canShowPersonalProgress;
+    if (owned) owned.textContent = canShowPersonalProgress ? formatNumber(seriesMetric.owned) : "";
+    if (total) total.textContent = canShowPersonalProgress ? formatNumber(seriesMetric.total) : "";
+    if (rate) {
+      rate.hidden = !canShowPersonalProgress;
+      rate.textContent = canShowPersonalProgress ? `${seriesMetric.rate.toFixed(1)}%` : "";
+    }
+    if (progress) progress.style.width = canShowPersonalProgress ? `${seriesMetric.rate}%` : "0%";
   }
 
   function createCollectionCard(metric) {
@@ -1187,9 +1220,8 @@
   }
 
   function renderAccountNote() {
-    if (!currentUser) {
-      elements.accountNote.hidden = false;
-      elements.accountNote.dataset.state = "";
+    if (!currentUser && !sharedViewActive) {
+      elements.accountNote.hidden = true;
       return;
     }
 
@@ -1279,6 +1311,7 @@
   function renderDashboard() {
     if (!catalogs) return;
     const metrics = getMetrics();
+    renderCatalogSummaries();
     renderSummary(metrics);
     renderHomeFeatureMetrics(metrics);
     renderCollections(metrics);
