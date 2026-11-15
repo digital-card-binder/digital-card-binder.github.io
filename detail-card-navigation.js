@@ -16,6 +16,7 @@
     { grid: "#world-binder-content", dialog: "#world-card-dialog", trigger: ".world-card-open", name: "월드탐험 도감" },
     { grid: "#card-grid", dialog: "#card-dialog", trigger: ".pokemon-card-button", name: "전국도감" },
     { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "통합 카탈로그 도감", hideNavigationOnMobile: true },
+    { grid: "#pack-groups", dialog: "#pack-dialog", trigger: ".pack-card-detail", name: "팩 전종수집" },
   ];
   const style = document.createElement("style");
   style.textContent = `
@@ -150,5 +151,15 @@
     if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
   });
 
-  configs.forEach(install);
+  function installAll() {
+    configs.forEach(install);
+  }
+
+  // Several pages load this shared script from the head without defer.
+  // Wait until their dialogs and grids exist before installing controls.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installAll, { once: true });
+  } else {
+    installAll();
+  }
 })();
