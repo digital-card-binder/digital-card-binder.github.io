@@ -685,3 +685,9 @@
   grid-column:1/-1;
   font-size:16px;
 }
+
+
+/* Keep the dashboard's pack card clear; the hero already provides a scan action. */
+body[data-page="dashboard"] .card-scan-fab {
+  display: none !important;
+}
