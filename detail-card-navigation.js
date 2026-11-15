@@ -7,7 +7,7 @@
  */
 (() => {
   const configs = [
-    { grid: "#fossil-card-grid", dialog: "#fossil-dialog", trigger: ".pokemon-card-button", name: "화석 도감" },
+    { grid: "#fossil-card-grid", dialog: "#fossil-dialog", trigger: ".fossil-card-button", name: "화석 도감" },
     { grid: "#tp-card-grid", dialog: "#tp-dialog", trigger: ".pokemon-card-button", name: "트레이너 × 포켓몬 도감" },
     { grid: "#pokemon-search-grid", dialog: "#pokemon-search-dialog", trigger: ".pokemon-card-button", name: "카드 검색" },
     { grid: "#artist-card-grid", dialog: "#artist-dialog", trigger: ".artist-card-button", name: "작가 도감" },
