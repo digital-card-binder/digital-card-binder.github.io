@@ -30,7 +30,11 @@ test("shared detail navigation is wired to the real grid, dialog and card trigge
     assert.ok(helper.includes(`dialog: "#${page.dialog}"`), `${page.html}: dialog configured`);
     assert.ok(helper.includes(`trigger: ".${page.trigger}"`), `${page.html}: correct trigger configured`);
     assert.ok(script.includes(page.trigger), `${page.script}: trigger class is generated`);
-    assert.match(script, /article\.className\s*=|article\.className\s*=/, `${page.script}: card articles are generated`);
+    if (page.script === "app.js") {
+      assert.match(script, /cardTemplate\.content\.firstElementChild\.cloneNode\(true\)/, `${page.script}: card template articles are cloned`);
+    } else {
+      assert.match(script, /article\.className\s*=|article\.className\s*=/, `${page.script}: card articles are generated`);
+    }
   }
 });
 
