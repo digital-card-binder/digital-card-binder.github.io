@@ -12,6 +12,10 @@ const pages = [
   { html: "art-themes.html", script: "art-themes.js", grid: "art-theme-card-grid", dialog: "art-theme-dialog", trigger: "art-theme-card-open" },
   { html: "people.html", script: "people.js", grid: "people-grid", dialog: "people-dialog", trigger: "pokemon-card-button" },
   { html: "world.html", script: "world.js", grid: "world-binder-content", dialog: "world-card-dialog", trigger: "world-card-open" },
+  { html: "national.html", script: "app.js", grid: "card-grid", dialog: "card-dialog", trigger: "pokemon-card-button" },
+  { html: "series.html", script: "catalog.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
+  { html: "pokemon-collections.html", script: "catalog.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
+  { html: "ar.html", script: "ar.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
 ];
 
 test("shared detail navigation is wired to the real grid, dialog and card trigger on every target dex", async () => {
