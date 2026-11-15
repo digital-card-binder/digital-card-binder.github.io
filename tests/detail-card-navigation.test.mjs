@@ -12,6 +12,10 @@ const pages = [
   { html: "art-themes.html", script: "art-themes.js", grid: "art-theme-card-grid", dialog: "art-theme-dialog", trigger: "art-theme-card-open" },
   { html: "people.html", script: "people.js", grid: "people-grid", dialog: "people-dialog", trigger: "pokemon-card-button" },
   { html: "world.html", script: "world.js", grid: "world-binder-content", dialog: "world-card-dialog", trigger: "world-card-open" },
+  { html: "national.html", script: "app.js", grid: "card-grid", dialog: "card-dialog", trigger: "pokemon-card-button" },
+  { html: "series.html", script: "catalog.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
+  { html: "pokemon-collections.html", script: "catalog.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
+  { html: "ar.html", script: "ar.js", grid: "catalog-grid", dialog: "catalog-dialog", trigger: "pokemon-card-button" },
 ];
 
 test("shared detail navigation is wired to the real grid, dialog and card trigger on every target dex", async () => {
@@ -26,7 +30,11 @@ test("shared detail navigation is wired to the real grid, dialog and card trigge
     assert.ok(helper.includes(`dialog: "#${page.dialog}"`), `${page.html}: dialog configured`);
     assert.ok(helper.includes(`trigger: ".${page.trigger}"`), `${page.html}: correct trigger configured`);
     assert.ok(script.includes(page.trigger), `${page.script}: trigger class is generated`);
-    assert.match(script, /article\.className\s*=|article\.className\s*=/, `${page.script}: card articles are generated`);
+    if (page.script === "app.js") {
+      assert.match(script, /cardTemplate\.content\.firstElementChild\.cloneNode\(true\)/, `${page.script}: card template articles are cloned`);
+    } else {
+      assert.match(script, /article\.className\s*=|article\.className\s*=/, `${page.script}: card articles are generated`);
+    }
   }
 });
 
