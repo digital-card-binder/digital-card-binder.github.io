@@ -9,7 +9,10 @@
   const configs = [
     { grid: "#fossil-card-grid", dialog: "#fossil-dialog", name: "화석 도감" },
     { grid: "#tp-card-grid", dialog: "#tp-dialog", name: "트레이너 × 포켓몬 도감" },
-    { grid: "#pokemon-search-grid", dialog: "#pokemon-search-dialog", name: "카드 검색" },
+    { grid: "#pokemon-search-grid", dialog: "#pokemon-search-dialog", trigger: ".pokemon-card-button", name: "카드 검색" },
+    { grid: "#artist-card-grid", dialog: "#artist-dialog", trigger: ".artist-card-button", name: "작가 도감" },
+    { grid: "#art-theme-card-grid", dialog: "#art-theme-dialog", trigger: ".art-theme-card-open", name: "일러스트 테마 도감" },
+    { grid: "#people-grid", dialog: "#people-dialog", trigger: ".pokemon-card-button", name: "인물 도감" },
   ];
   const style = document.createElement("style");
   style.textContent = `
@@ -25,13 +28,13 @@
   let pendingButton = null;
   let touchStart = null;
 
-  const cardsInGrid = (grid) => [...(grid?.children || [])]
-    .filter((node) => node.querySelector("button"));
+  const cardsInGrid = (grid, config) => [...(grid?.querySelectorAll("article") || [])]
+    .filter((node) => node.querySelector(config.trigger || "button"));
 
   function sync(config) {
     const dialog = document.querySelector(config.dialog);
     const grid = document.querySelector(config.grid);
-    const items = cardsInGrid(grid);
+    const items = cardsInGrid(grid, config);
     const current = active?.button?.closest("article");
     const index = items.indexOf(current);
     const nav = dialog?.querySelector(".detail-card-navigation");
@@ -46,10 +49,10 @@
     if (!active) return;
     const grid = document.querySelector(active.config.grid);
     const dialog = document.querySelector(active.config.dialog);
-    const items = cardsInGrid(grid);
+    const items = cardsInGrid(grid, active.config);
     const index = items.indexOf(active.button.closest("article"));
     const next = items[index + direction];
-    const nextButton = next?.querySelector("button");
+    const nextButton = next?.querySelector(active.config.trigger || "button");
     if (!nextButton || index < 0) return;
     pendingButton = nextButton;
     if (dialog?.open && typeof dialog.close === "function") {
