@@ -395,3 +395,7 @@ body.is-quick-collect .catalog-card:not(.is-missing){
   body[data-catalog="series"] .catalog-filter-row {margin-top:8px}
   body[data-catalog="series"] .catalog-summary {margin-top:9px;padding:9px 11px}
 }
+
+.catalog-dialog-image.has-image-error { display: grid; place-items: center; }
+.catalog-dialog-image.has-image-error img { display: none; }
+.catalog-dialog-image.has-image-error::after { content: "카드 이미지를 불러오지 못했습니다"; padding: 28px; color: #7b8495; font-size: .9rem; font-weight: 700; text-align: center; }

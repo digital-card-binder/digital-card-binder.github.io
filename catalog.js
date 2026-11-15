@@ -1703,7 +1703,10 @@ function updateDialog(card) {
   const image = $("catalog-dialog-image");
   const imageWrap = $("catalog-dialog-image-wrap");
 
-  image.src = imageFor(card);
+  imageWrap.classList.remove("has-image-error");
+  image.onload = () => imageWrap.classList.remove("has-image-error");
+  image.onerror = () => imageWrap.classList.add("has-image-error");
+  image.src = imageFor(card) || "/assets/card-image-unavailable.svg";
   image.alt = `${displayName(card)} 카드`;
   imageWrap.classList.toggle("is-missing", !card.owned);
   setText("dialog-code", actualCardCode(card));

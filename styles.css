@@ -2723,3 +2723,18 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
   }
 }
 
+
+
+/* Card detail image fallback for sources that cannot be recovered by the image CDN. */
+.dialog-card-image.has-image-error img { display: none; }
+.dialog-card-image.has-image-error::after {
+  content: "카드 이미지를 불러오지 못했습니다";
+  display: grid;
+  min-height: 180px;
+  place-items: center;
+  padding: 24px;
+  color: #7b8495;
+  font-size: .9rem;
+  font-weight: 700;
+  text-align: center;
+}
