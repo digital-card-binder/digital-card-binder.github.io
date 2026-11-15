@@ -7,8 +7,8 @@
  */
 (() => {
   const configs = [
-    { grid: "#fossil-card-grid", dialog: "#fossil-dialog", name: "화석 도감" },
-    { grid: "#tp-card-grid", dialog: "#tp-dialog", name: "트레이너 × 포켓몬 도감" },
+    { grid: "#fossil-card-grid", dialog: "#fossil-dialog", trigger: ".pokemon-card-button", name: "화석 도감" },
+    { grid: "#tp-card-grid", dialog: "#tp-dialog", trigger: ".pokemon-card-button", name: "트레이너 × 포켓몬 도감" },
     { grid: "#pokemon-search-grid", dialog: "#pokemon-search-dialog", trigger: ".pokemon-card-button", name: "카드 검색" },
     { grid: "#artist-card-grid", dialog: "#artist-dialog", trigger: ".artist-card-button", name: "작가 도감" },
     { grid: "#art-theme-card-grid", dialog: "#art-theme-dialog", trigger: ".art-theme-card-open", name: "일러스트 테마 도감" },
@@ -117,9 +117,11 @@
     for (const config of configs) {
       const grid = document.querySelector(config.grid);
       if (!grid?.contains(button)) continue;
-      const article = button.closest("article");
+      const trigger = button.closest(config.trigger || "button");
+      if (!trigger) continue;
+      const article = trigger.closest("article");
       if (!article) return;
-      active = { config, button: article.querySelector("button") || button };
+      active = { config, button: trigger };
       requestAnimationFrame(() => sync(config));
       return;
     }
