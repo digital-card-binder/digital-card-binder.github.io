@@ -11,20 +11,28 @@ from pathlib import Path
 EXPECTED_ARTISTS = [
     "5ban Graphics",
     "AKIRA EGAWA",
+    "Akira Komayama",
+    "Anesaki Dynamic",
     "Asako Ito",
     "Atsuko Nishida",
     "Aya Kusube",
     "Gapao",
+    "Hideki Ishikawa",
     "Hitoshi Ariga",
     "HYOGONOSUKE",
     "Jerky",
     "Kagemaru Himeno",
     "kantaro",
     "kawayoo",
+    "Ken Sugimori",
     "kodama",
+    "Kouki Saitou",
+    "Masakazu Fukuda",
+    "Megumi Mizutani",
     "miki kudo",
     "Miki Tanaka",
     "Mitsuhiro Arita",
+    "nagimiso",
     "Naoki Saito",
     "Naoyo Kimura",
     "Narumi Sato",
@@ -40,9 +48,11 @@ EXPECTED_ARTISTS = [
     "Saya Tsuruta",
     "Sekio",
     "Shibuzoh",
+    "Shin Nagasawa",
     "Shinji Kanda",
     "sowsow",
     "sui",
+    "takuyoa",
     "Tetsu Kayama",
     "Tika Matsuno",
     "Tomokazu Komiya",
@@ -54,8 +64,10 @@ EXPECTED_ARTISTS = [
 NEW_ARTISTS = {
     "5ban Graphics", "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
     "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
+    "nagimiso", "Ken Sugimori", "Kouki Saitou", "Akira Komayama", "Masakazu Fukuda",
+    "Megumi Mizutani", "Anesaki Dynamic", "Hideki Ishikawa", "Shin Nagasawa", "takuyoa",
 }
-EXPECTED_CARD_COUNT = 4873
+EXPECTED_CARD_COUNT = 6073
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -92,7 +104,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 40-artist catalog")
+        fail("Artist list/order does not match the approved 50-artist catalog")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
