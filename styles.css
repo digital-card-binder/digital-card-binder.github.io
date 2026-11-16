@@ -2211,8 +2211,23 @@ img {
 }
 
 
+/* 모바일 시트 전용 조작부는 PC 폭에서 숨긴다. 모바일에서는 아래 미디어 쿼리가 다시 표시한다. */
+.mobile-card-sheet-nav,
+.mobile-card-sheet-actions {
+  display: none;
+}
+
 /* Mobile card detail bottom sheet */
 @media (max-width: 690px) {
+  /* 좌우 스와이프를 브라우저의 뒤로 가기 제스처에 빼앗기지 않게 한다. */
+  .card-dialog {
+    overscroll-behavior-x: contain;
+  }
+
+  .card-dialog .dialog-card-image {
+    touch-action: pan-y;
+  }
+
   .card-dialog[open] {
     position: fixed;
     inset: auto 0 0 0;

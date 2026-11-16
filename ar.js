@@ -469,7 +469,14 @@ function openAdjacentCard(direction) {
   updateDialog(activeCard);
   updateMobileCardSheetControls();
   animateMobileSheetDirection(direction);
+  window.DetailCardNavigation?.sync("#catalog-dialog");
 }
+
+// 하단 이동 막대·키보드·스와이프가 이 화면의 활성 카드 하나만 기준으로 이동하도록 등록한다.
+(window.DetailCardNavigationAdapters ||= {})["#catalog-dialog"] = {
+  state: () => (activeCard ? { index: renderedCards.indexOf(activeCard), total: renderedCards.length } : null),
+  step: (direction) => openAdjacentCard(direction),
+};
 
 function ensureMobileCardSheetControls() {
   const dialog = $("catalog-dialog");
@@ -521,10 +528,7 @@ function ensureMobileCardSheetControls() {
       const dy = touch.clientY - mobileSheetGestureStart.y;
       mobileSheetGestureStart = null;
 
-      if (Math.abs(dx) >= 56 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-        openAdjacentCard(dx < 0 ? 1 : -1);
-        return;
-      }
+      // 좌우 스와이프는 공통 상세 이동 모듈이 처리한다. 여기서는 아래로 내려 닫기만 담당한다.
       if (dy >= 90 && Math.abs(dy) > Math.abs(dx) * 1.25) {
         closeArDialog();
       }

@@ -26,7 +26,7 @@
     .detail-card-navigation span{display:block;visibility:visible!important;opacity:1!important;flex:1;text-align:center;font-size:12px;color:#475569;font-weight:700}
     .detail-card-navigation button:disabled{opacity:.35;cursor:not-allowed}
     .detail-card-navigation span{font-size:12px;color:#64748b}
-    @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none}}
+    @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none!important}}
     /* Theme dex uses a custom two-column dialog. Keep its controls visibly anchored
        to the bottom of the details pane on desktop and mobile. */
     #art-theme-dialog .detail-card-navigation{display:flex!important;position:sticky;bottom:0;z-index:20;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:58px;margin:18px 0 0;padding:10px 0;background:#fff;visibility:visible!important;opacity:1!important}
@@ -41,11 +41,27 @@
   let pendingButton = null;
   let touchStart = null;
 
+  // 페이지가 자기 목록 상태를 직접 관리하는 경우(시리즈·AR 도감) 어댑터를 등록한다.
+  // 어댑터가 있으면 이동·위치·버튼 상태는 모두 그 어댑터 하나만 기준으로 삼아
+  // 하단 이동 막대와 모바일 시트 화살표가 서로 어긋나지 않게 한다.
+  const adapterFor = (config) => (window.DetailCardNavigationAdapters || {})[config.dialog] || null;
+
   const cardsInGrid = (grid, config) => [...(grid?.querySelectorAll("article") || [])]
     .filter((node) => node.querySelector(config.trigger || "button"));
 
   function sync(config) {
     const dialog = document.querySelector(config.dialog);
+    const adapter = adapterFor(config);
+    if (adapter) {
+      const nav = dialog?.querySelector(".detail-card-navigation");
+      const position = adapter.state();
+      if (!nav || !position) return;
+      nav.querySelector("[data-detail-prev]").disabled = position.index <= 0;
+      nav.querySelector("[data-detail-next]").disabled = position.index < 0 || position.index >= position.total - 1;
+      nav.querySelector("[data-detail-count]").textContent =
+        position.index < 0 ? "목록이 변경됨" : `${position.index + 1} / ${position.total}`;
+      return;
+    }
     const grid = document.querySelector(config.grid);
     const items = cardsInGrid(grid, config);
     const current = active?.button?.closest("article");
@@ -60,6 +76,12 @@
 
   function move(direction) {
     if (!active) return;
+    const adapter = adapterFor(active.config);
+    if (adapter) {
+      adapter.step(direction);
+      sync(active.config);
+      return;
+    }
     const grid = document.querySelector(active.config.grid);
     const dialog = document.querySelector(active.config.dialog);
     const items = cardsInGrid(grid, active.config);
@@ -157,6 +179,11 @@
     if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
     if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
   });
+
+  window.DetailCardNavigation = { sync: (dialogSelector) => {
+    const config = configs.find((item) => item.dialog === dialogSelector);
+    if (config) sync(config);
+  } };
 
   function installAll() {
     configs.forEach(install);
