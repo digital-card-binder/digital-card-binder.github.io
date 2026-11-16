@@ -588,6 +588,16 @@
       ownedKeys = ownedKeys.filter((key) => !hiddenSet.has(groupOf.get(key)?.groupKey));
       totalCount = items.filter((item) => !hiddenSet.has(item.groupKey)).length;
       projection.hiddenGroups = hidden;
+      // 공개 프로필에서 테마별 카드로 바로 보여 주기 위한 테마별 집계.
+      const ownedSet = new Set(ownedKeys);
+      projection.themeCounts = ownership.catalog.groups
+        .filter((group) => !hiddenSet.has(group.key))
+        .map((group) => ({
+          c: group.key,
+          n: cleanString(group.name).slice(0, 40),
+          o: group.itemKeys.filter((key) => ownedSet.has(key)).length,
+          t: group.itemKeys.length,
+        }));
       // 이브이 도감은 별도 공개 스위치(eeveePublic)를 켠 경우에만 공개 사본에 넣는다.
       if (options?.eeveePublic === true) {
         const eevee = await eeveeKeys();

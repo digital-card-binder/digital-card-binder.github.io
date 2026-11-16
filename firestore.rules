@@ -373,8 +373,17 @@ service cloud.firestore {
           "customDexes",
           "hiddenGroups",
           "eeveeOwnedKeys",
-          "eeveeTotalCount"
+          "eeveeTotalCount",
+          "themeCounts"
         ])
+        && (
+          !request.resource.data.keys().hasAny(["themeCounts"])
+          || (
+            collectionId == "artThemes"
+            && request.resource.data.themeCounts is list
+            && request.resource.data.themeCounts.size() <= 20
+          )
+        )
         && (
           !request.resource.data.keys().hasAny(["eeveeOwnedKeys"])
           || (
