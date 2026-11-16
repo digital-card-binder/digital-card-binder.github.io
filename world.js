@@ -29,12 +29,13 @@
 
   function loadOwned() {
     try {
+      // 게스트 기록은 화면에 표시하지 않는다. 로그인 후 계정으로 이전하기 위한 대상으로만 읽는다.
       const saved = JSON.parse(localStorage.getItem(OWNED_STORAGE_KEY) || "[]");
-      state.owned = new Set(Array.isArray(saved) ? saved : []);
-      state.legacyOwned = new Set(state.owned);
+      state.legacyOwned = new Set(Array.isArray(saved) ? saved : []);
     } catch {
-      state.owned = new Set();
+      state.legacyOwned = new Set();
     }
+    state.owned = new Set();
   }
 
   function localKey(key) {
@@ -46,7 +47,7 @@
   }
 
   function saveOwnedLocal() {
-    if (publicReadOnly()) return;
+    if (publicReadOnly() || !state.localUid) return;
     try {
       localStorage.setItem(localKey(OWNED_STORAGE_KEY), JSON.stringify([...state.owned]));
     } catch {
@@ -67,6 +68,18 @@
       localStorage.setItem(localKey(OWNED_MIGRATION_KEY), "done");
     } catch {
       // 마이그레이션 표식을 저장하지 못해도 원격 저장 결과는 유지된다.
+    }
+  }
+
+  // 게스트(비로그인) 소유 기록은 남기지 않는다. 로그인 계정으로 이전이 끝난 뒤에만 호출한다.
+  function clearGuestRecords() {
+    try {
+      localStorage.removeItem(OWNED_STORAGE_KEY);
+      localStorage.removeItem(CARD_OVERRIDE_STORAGE_KEY);
+      state.legacyOwned = new Set();
+      state.legacyCardOverrides = {};
+    } catch {
+      // 저장소 접근이 제한되면 다음 방문에 다시 시도한다.
     }
   }
 
@@ -122,8 +135,11 @@
         migrationAllowed = !owner || owner === state.localUid;
         if (migrationAllowed && (state.legacyOwned.size || Object.keys(state.legacyCardOverrides).length)) localStorage.setItem(claimKey, state.localUid);
         const cached = localStorage.getItem(localKey(CARD_OVERRIDE_STORAGE_KEY));
-        const saved = cached === null && migrationAllowed ? state.legacyCardOverrides : JSON.parse(cached || "{}");
+        const seeded = cached === null && migrationAllowed;
+        const saved = seeded ? state.legacyCardOverrides : JSON.parse(cached || "{}");
         state.cardOverrides = saved && typeof saved === "object" && !Array.isArray(saved) ? { ...saved } : {};
+        // 게스트 카드 교체 기록은 이 계정의 캐시로 옮겨 둔 뒤에만 게스트 키를 지운다.
+        if (seeded && Object.keys(state.cardOverrides).length) saveCardOverrides();
       } catch {
         migrationAllowed = false;
       }
@@ -144,6 +160,9 @@
         }
       }
       if (!pendingOwned.size) markOwnedMigrationDone();
+    }
+    if (!readOnly && migrationAllowed && account.canEdit?.() && !pendingOwned.size && (ownedMigrationDone() || !state.legacyOwned.size)) {
+      clearGuestRecords();
     }
 
     state.accountManaged = Boolean(account.currentUser || readOnly);
@@ -195,15 +214,15 @@
           if (item) normalized[slotId] = item;
         }
       }
-      state.cardOverrides = normalized;
-      state.legacyCardOverrides = { ...normalized };
+      state.legacyCardOverrides = normalized;
     } catch {
-      state.cardOverrides = {};
+      state.legacyCardOverrides = {};
     }
+    state.cardOverrides = {};
   }
 
   function saveCardOverrides() {
-    if (publicReadOnly()) return;
+    if (publicReadOnly() || !state.localUid) return;
     try {
       localStorage.setItem(localKey(CARD_OVERRIDE_STORAGE_KEY), JSON.stringify(state.cardOverrides));
     } catch {
@@ -430,18 +449,21 @@
     }
     ownedButton.addEventListener("click", async () => {
       if (isReadOnly) return;
-      const nextOwned = !state.owned.has(slot.id);
       const account = window.PokemonDexPageAccount;
+      if (!account?.canEdit?.()) {
+        alert("Google 로그인 후 내 수집 상태를 저장할 수 있습니다.");
+        return;
+      }
+      const nextOwned = !state.owned.has(slot.id);
       const accountKey = state.accountKeys.get(slot.id);
 
       ownedButton.disabled = true;
       try {
         let effectiveOwned = nextOwned;
-        if (account?.canEdit?.() && accountKey) {
-          const saved = await account.saveOwned(accountKey, nextOwned);
-          effectiveOwned = Boolean(saved?.owned);
-          state.accountManaged = true;
-        }
+        if (!accountKey) throw new Error("이 카드는 내 도감에 저장할 수 없습니다.");
+        const saved = await account.saveOwned(accountKey, nextOwned);
+        effectiveOwned = Boolean(saved?.owned);
+        state.accountManaged = true;
         if (effectiveOwned) state.owned.add(slot.id);
         else state.owned.delete(slot.id);
         saveOwnedLocal();
@@ -692,6 +714,10 @@
     if (publicReadOnly()) return;
     const slot = activeSlot();
     if (!slot) return;
+    if (!window.PokemonDexPageAccount?.canEdit?.()) {
+      setCardEditorMessage("Google 로그인 후 대표 카드를 변경할 수 있습니다.", "error");
+      return;
+    }
 
     const saveButton = el("world-save-card");
     const setCode = el("world-edit-set-code")?.value.trim() || "";
@@ -730,7 +756,7 @@
       };
       const account = window.PokemonDexPageAccount;
       const accountKey = state.accountKeys.get(slot.id);
-      if (account?.canEdit?.() && accountKey) {
+      if (accountKey) {
         await account.saveOverride(accountKey, {
           owned: state.owned.has(slot.id),
           setCode,
@@ -742,8 +768,7 @@
         saveCardOverrides();
         await applyAccountOwnership();
       } else {
-        state.cardOverrides[slot.id] = nextOverride;
-        saveCardOverrides();
+        throw new Error("이 카드는 내 도감에 저장할 수 없습니다.");
       }
       renderAll();
       populateCardDialog(slot);
@@ -762,6 +787,10 @@
     if (publicReadOnly()) return;
     const slot = activeSlot();
     if (!slot) return;
+    if (!window.PokemonDexPageAccount?.canEdit?.()) {
+      setCardEditorMessage("Google 로그인 후 대표 카드를 변경할 수 있습니다.", "error");
+      return;
+    }
     const account = window.PokemonDexPageAccount;
     const accountKey = state.accountKeys.get(slot.id);
     const accountCard = state.accountCards.get(slot.id);
