@@ -293,6 +293,25 @@ test("theme dex settings may carry a bounded hiddenGroups list only for artTheme
       hiddenGroups: ["night"],
     }),
   );
+  await assertSucceeds(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "artThemes"), {
+      ...base("artThemes"),
+      hiddenGroups: [],
+      eeveePublic: true,
+    }),
+  );
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "series"), {
+      ...base("series"),
+      eeveePublic: true,
+    }),
+  );
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "artThemes"), {
+      ...base("artThemes"),
+      eeveePublic: "yes",
+    }),
+  );
   await assertFails(
     setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "artThemes"), {
       ...base("artThemes"),

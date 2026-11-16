@@ -406,10 +406,18 @@
             firestoreModule,
             mode,
           );
+          const eeveeView = mode === "artThemes"
+            && new URL(window.location.href).searchParams.get("eevee") === "1";
+          if (eeveeView && !Array.isArray(context.projection?.eeveeOwnedKeys)) {
+            throw new Error("이 도감은 공개되어 있지 않습니다.");
+          }
+          // 이브이 도감은 아트 테마와 같은 문서를 쓰지만 공개 목록은 따로 둔다.
           remoteOverrides = window.CollectorPublicView.projectionOverrides(
-            context.projection,
+            eeveeView
+              ? { ownedKeys: context.projection.eeveeOwnedKeys }
+              : context.projection,
           );
-          publicHiddenGroups = mode === "artThemes" && Array.isArray(context.projection?.hiddenGroups)
+          publicHiddenGroups = mode === "artThemes" && !eeveeView && Array.isArray(context.projection?.hiddenGroups)
             ? context.projection.hiddenGroups.map((code) => String(code))
             : [];
         } catch (error) {

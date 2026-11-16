@@ -4241,3 +4241,8 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
 .collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity strong { font-size: .86rem; }
 .collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity small { font-size: .72rem; }
 .collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-number { width: 34px; height: 34px; }
+
+.collector-theme-emoji { display: inline-grid; place-items: center; flex: 0 0 auto; width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(145deg, #eef4ff, #e2ecfb); font-size: 1.3rem; line-height: 1; }
+.collector-theme-group-row { gap: 10px; }
+.collector-theme-group-row .collector-theme-group-text { flex: 1 1 auto; }
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity { display: flex; align-items: center; gap: 10px; }

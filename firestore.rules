@@ -226,6 +226,7 @@ service cloud.firestore {
           "displayOrder",
           "shareId",
           "hiddenGroups",
+          "eeveePublic",
           "createdAt",
           "updatedAt"
         ])
@@ -235,6 +236,13 @@ service cloud.firestore {
             collectionId == "artThemes"
             && request.resource.data.hiddenGroups is list
             && request.resource.data.hiddenGroups.size() <= 40
+          )
+        )
+        && (
+          !request.resource.data.keys().hasAny(["eeveePublic"])
+          || (
+            collectionId == "artThemes"
+            && request.resource.data.eeveePublic is bool
           )
         )
         && request.resource.data.schemaVersion == 1
@@ -363,8 +371,20 @@ service cloud.firestore {
           "promoOwnedKeys",
           "promoOwnedCount",
           "customDexes",
-          "hiddenGroups"
+          "hiddenGroups",
+          "eeveeOwnedKeys",
+          "eeveeTotalCount"
         ])
+        && (
+          !request.resource.data.keys().hasAny(["eeveeOwnedKeys"])
+          || (
+            collectionId == "artThemes"
+            && request.resource.data.eeveeOwnedKeys is list
+            && request.resource.data.eeveeOwnedKeys.size() <= 200
+            && request.resource.data.eeveeTotalCount is int
+            && request.resource.data.eeveeTotalCount <= 200
+          )
+        )
         && (
           !request.resource.data.keys().hasAny(["hiddenGroups"])
           || (

@@ -560,7 +560,7 @@
     const seen = new Set();
     for (const entry of value) {
       const code = cleanString(entry);
-      if (/^[A-Za-z0-9_-]{1,40}$/.test(code)) seen.add(code);
+      if (code !== "eevee" && /^[A-Za-z0-9_-]{1,40}$/.test(code)) seen.add(code);
       if (seen.size >= 40) break;
     }
     return [...seen];
@@ -588,6 +588,15 @@
       ownedKeys = ownedKeys.filter((key) => !hiddenSet.has(groupOf.get(key)?.groupKey));
       totalCount = items.filter((item) => !hiddenSet.has(item.groupKey)).length;
       projection.hiddenGroups = hidden;
+      // 이브이 도감은 별도 공개 스위치(eeveePublic)를 켠 경우에만 공개 사본에 넣는다.
+      if (options?.eeveePublic === true) {
+        const eevee = await eeveeKeys();
+        const overrides = sourceDocument?.overrides && typeof sourceDocument.overrides === "object"
+          ? sourceDocument.overrides
+          : {};
+        projection.eeveeOwnedKeys = eevee.filter((key) => overrideOwned(overrides[key]) === true);
+        projection.eeveeTotalCount = eevee.length;
+      }
     }
     return {
       ...projection,
@@ -597,14 +606,36 @@
     };
   }
 
-  // 설정 화면의 테마별 공개 스위치에 쓸 테마 목록.
+  // 이브이 도감 카드 키. 보유 체크는 테마 도감 문서에 같은 방식으로 저장되어 있다.
+  let eeveeKeysPromise = null;
+  function eeveeKeys() {
+    if (!eeveeKeysPromise) {
+      eeveeKeysPromise = catalogService.json("./data/eevee-dex.json").then((data) => {
+        const keys = [];
+        (data.groups || []).forEach((group, groupIndex) => {
+          (group.cards || []).forEach((card, cardIndex) => {
+            keys.push(identityService.cardIdentity("artThemes", group, card, groupIndex, cardIndex));
+          });
+        });
+        return keys;
+      }).catch((error) => {
+        eeveeKeysPromise = null;
+        throw error;
+      });
+    }
+    return eeveeKeysPromise;
+  }
+
+  // 설정 화면의 테마별 공개 스위치에 쓸 목록: 아트 테마 12개 + 이브이 도감.
   async function themeGroups() {
     const catalog = await loadCatalog("artThemes");
-    return catalog.groups.map((group) => ({
+    const groups = catalog.groups.map((group) => ({
       code: group.key,
       name: group.name,
       count: group.itemKeys.length,
     }));
+    groups.push({ code: "eevee", name: "이브이 도감", count: (await eeveeKeys()).length });
+    return groups;
   }
 
   function projectionOwnership(projection, catalog) {
@@ -668,7 +699,7 @@
     }
     const visibility = source.visibility === "public" ? "public" : "private";
     const themeExtras = collectionId === "artThemes"
-      ? { hiddenGroups: cleanHiddenGroups(source.hiddenGroups) }
+      ? { hiddenGroups: cleanHiddenGroups(source.hiddenGroups), eeveePublic: source.eeveePublic === true }
       : {};
     return {
       ...fallback,

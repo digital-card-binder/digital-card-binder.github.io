@@ -141,7 +141,7 @@
       options.collectionId,
       context.source,
       context.profile.publicId,
-      { hiddenGroups: context.setting?.hiddenGroups },
+      { hiddenGroups: context.setting?.hiddenGroups, eeveePublic: context.setting?.eeveePublic },
     );
     return { ...context, projection };
   }
@@ -208,7 +208,7 @@
         collectionId,
         context.source,
         profile.publicId,
-        { hiddenGroups: setting.hiddenGroups },
+        { hiddenGroups: setting.hiddenGroups, eeveePublic: setting.eeveePublic },
       ));
 
     const payload = { ...projection };
