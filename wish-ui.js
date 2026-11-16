@@ -6,7 +6,7 @@
   const wishlist = () => window.DigitalCardBinder?.wishlist;
   let toastTimer = 0;
 
-  function showToast(message) {
+  function showToast(message, undo) {
     let toast = document.getElementById("wish-toast");
     if (!toast) {
       toast = document.createElement("div");
@@ -15,11 +15,50 @@
       toast.setAttribute("role", "status");
       document.body.append(toast);
     }
-    toast.textContent = message;
+    toast.replaceChildren(document.createTextNode(message));
+    toast.classList.toggle("has-action", typeof undo === "function");
+    if (typeof undo === "function") {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "wish-toast-undo";
+      button.textContent = "되돌리기";
+      button.addEventListener("click", () => {
+        toast.classList.remove("is-visible", "has-action");
+        undo();
+      });
+      toast.append(button);
+    }
     toast.classList.add("is-visible");
     window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2400);
+    toastTimer = window.setTimeout(
+      () => toast.classList.remove("is-visible", "has-action"),
+      typeof undo === "function" ? 4500 : 2400,
+    );
   }
+
+  const NEAR_LIMIT = 20;
+
+  function toggleWithToast(info, onDone) {
+    return wishlist()?.toggle(info).then((result) => {
+      const api = wishlist();
+      if (result === "signed-out") showToast("로그인하면 위시카드를 저장할 수 있어요.");
+      else if (result === "full") showToast(`위시카드는 최대 ${api.MAX_ITEMS}장까지 담을 수 있어요.`);
+      else if (result === "error") showToast("위시카드를 저장하지 못했어요. 잠시 후 다시 시도해 주세요.");
+      else if (result === "added" || result === "removed") {
+        const count = api.list().length;
+        const undo = () => toggleWithToast(info, onDone);
+        if (result === "added") {
+          const near = count >= api.MAX_ITEMS - NEAR_LIMIT;
+          showToast(near ? `위시에 담았어요. (${count}/${api.MAX_ITEMS}장)` : "위시에 담았어요.", undo);
+        } else showToast("위시에서 뺐어요.", undo);
+      }
+      if (onDone) onDone(result);
+      return result;
+    });
+  }
+
+  window.DigitalCardBinder = window.DigitalCardBinder || {};
+  window.DigitalCardBinder.wishToggleWithToast = toggleWithToast;
 
   function pageRef() {
     const file = window.location.pathname.split("/").pop() || "index.html";
@@ -58,12 +97,7 @@
       event.stopPropagation();
       const info = infoFrom(card);
       if (!info.name) return;
-      const result = await wishlist()?.toggle(info);
-      if (result === "signed-out") showToast("로그인하면 위시카드를 저장할 수 있어요.");
-      else if (result === "full") showToast(`위시카드는 최대 ${wishlist().MAX_ITEMS}장까지 담을 수 있어요.`);
-      else if (result === "error") showToast("위시카드를 저장하지 못했어요. 잠시 후 다시 시도해 주세요.");
-      else if (result === "added") showToast("위시에 담았어요.");
-      else if (result === "removed") showToast("위시에서 뺐어요.");
+      await toggleWithToast(info);
       paint(button, infoFrom(card));
     });
     card.append(button);

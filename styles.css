@@ -2805,6 +2805,19 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
   transform: translate(-50%, 8px);
   transition: opacity .18s ease, transform .18s ease;
 }
+.wish-toast.has-action { display: flex; align-items: center; gap: 12px; pointer-events: auto; }
+.wish-toast-undo {
+  flex: none;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 10px;
+  background: transparent;
+  color: #ffe08a;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
 .wish-toast.is-visible {
   opacity: 1;
   transform: translate(-50%, 0);
