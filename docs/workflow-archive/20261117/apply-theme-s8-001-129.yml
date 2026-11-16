@@ -1,7 +1,7 @@
 name: Apply verified s8 Korean Fusion Arts 001-129 themes
 on:
   push:
-    branches: [main]
+    branches: [archived/s8-001-129-20261117]
     paths:
       - '.github/workflows/apply-theme-s8-001-129.yml'
       - 'scripts/apply-theme-s8-001-129-korean.mjs'
