@@ -71,18 +71,6 @@
     }
   }
 
-  // 게스트(비로그인) 소유 기록은 남기지 않는다. 로그인 계정으로 이전이 끝난 뒤에만 호출한다.
-  function clearGuestRecords() {
-    try {
-      localStorage.removeItem(OWNED_STORAGE_KEY);
-      localStorage.removeItem(CARD_OVERRIDE_STORAGE_KEY);
-      state.legacyOwned = new Set();
-      state.legacyCardOverrides = {};
-    } catch {
-      // 저장소 접근이 제한되면 다음 방문에 다시 시도한다.
-    }
-  }
-
   function worldPokemonItemId(number) {
     return `world-pokemon-${String(Number(number)).padStart(4, "0")}`;
   }
@@ -138,7 +126,7 @@
         const seeded = cached === null && migrationAllowed;
         const saved = seeded ? state.legacyCardOverrides : JSON.parse(cached || "{}");
         state.cardOverrides = saved && typeof saved === "object" && !Array.isArray(saved) ? { ...saved } : {};
-        // 게스트 카드 교체 기록은 이 계정의 캐시로 옮겨 둔 뒤에만 게스트 키를 지운다.
+        // 기존 게스트 카드 교체 기록은 이 계정 캐시로 복사만 한다. 원본은 지우지 않는다.
         if (seeded && Object.keys(state.cardOverrides).length) saveCardOverrides();
       } catch {
         migrationAllowed = false;
@@ -160,9 +148,6 @@
         }
       }
       if (!pendingOwned.size) markOwnedMigrationDone();
-    }
-    if (!readOnly && migrationAllowed && account.canEdit?.() && !pendingOwned.size && (ownedMigrationDone() || !state.legacyOwned.size)) {
-      clearGuestRecords();
     }
 
     state.accountManaged = Boolean(account.currentUser || readOnly);

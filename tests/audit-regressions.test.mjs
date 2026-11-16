@@ -135,7 +135,7 @@ function worldScenario({ publicView = false, user = "alice", fail = false } = {}
   return { ctx, api, account, store, ownedKey, overrideKey, get saved() { return saved; } };
 }
 
-test("world failure retains guest and pending records, retries, then moves them to that UID and deletes the guest copy", async () => {
+test("world failure retains guest and pending records, retries, then copies them to that UID without deleting the original", async () => {
   const scene = worldScenario({ fail: true });
   await scene.api.applyAccountOwnership();
   assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]');
@@ -145,8 +145,8 @@ test("world failure retains guest and pending records, retries, then moves them 
   scene.account.saveOwned = async () => ({ owned: true });
   await scene.api.applyAccountOwnership();
   assert.equal(scene.store.records.get("digitalCardBinderWorldExplorationOwnedMigratedV2:alice"), "done");
-  assert.equal(scene.store.records.get(scene.ownedKey), undefined, "guest record is removed only after the account migration succeeds");
-  assert.equal(scene.store.records.get(scene.overrideKey), undefined);
+  assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]', "existing browser records are never deleted");
+  assert.match(scene.store.records.get(scene.overrideKey), /private-image/);
   assert.equal(scene.store.records.get(`${scene.ownedKey}:alice`), '["mine"]');
   assert.match(scene.store.records.get(`${scene.overrideKey}:alice`), /private-image/);
   scene.account.currentUser = { uid: "bob" };
@@ -162,7 +162,7 @@ test("world failure retains guest and pending records, retries, then moves them 
   explicit.account.saveOwned = async () => assert.fail("existing explicit unowned state must win over guest ownership");
   await explicit.api.applyAccountOwnership();
   assert.equal(explicit.api.state.owned.size, 0);
-  assert.equal(explicit.store.records.get(explicit.ownedKey), undefined);
+  assert.equal(explicit.store.records.get(explicit.ownedKey), '["mine"]');
 });
 
 test("guests never see or create world ownership, and guest records stay untouched until a sign-in migrates them", async () => {
