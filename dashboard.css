@@ -1982,70 +1982,47 @@
   }
 }
 
-/* 홈 테마도감 타일 이모지 — 기존 .dashboard-card-title span 규칙(작은 글씨)보다 우선하도록 선택자를 구체화한다. */
+/* 홈 테마도감 타일 이모지 — 타일 높이(compact)는 그대로 두고 이모지만 크게 보여 준다.
+   기존 .dashboard-card-title span 규칙(작은 글씨)보다 우선하도록 선택자를 구체화한다. */
 body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:6px;
+  padding-right:0;
 }
 body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > .dashboard-theme-emoji{
   display:grid;
   place-items:center;
   flex:0 0 auto;
-  width:46px;
-  height:46px;
+  width:40px;
+  height:40px;
   overflow:visible;
-  border-radius:14px;
-  background:linear-gradient(145deg,#fff,#eef4ff);
-  border:1px solid rgba(120,160,210,.3);
-  box-shadow:0 5px 12px rgba(47,93,145,.12);
+  background:none;
+  border:0;
+  box-shadow:none;
   font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
-  font-size:28px;
+  font-size:32px;
   line-height:1;
   -webkit-line-clamp:unset;
 }
 body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > strong{
+  display:-webkit-box!important;
   min-width:0;
-  overflow:hidden;
-  white-space:normal;
-  display:-webkit-box;
+  padding-right:0;
+  overflow:hidden!important;
+  white-space:normal!important;
   -webkit-box-orient:vertical;
   -webkit-line-clamp:2;
+  line-height:1.2!important;
 }
 @media(max-width:690px){
-  /* 모바일: 이모지를 위, 제목을 아래에 두어 제목이 잘리지 않게 한다. */
-  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:7px;
-    padding-right:0!important;
-  }
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title{gap:4px}
   body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > .dashboard-theme-emoji{
-    width:46px;
-    height:46px;
-    border-radius:14px;
-    font-size:29px;
+    width:36px;
+    height:34px;
+    font-size:30px;
   }
   body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > strong{
-    display:-webkit-box!important;
-    max-width:100%;
-    overflow:hidden!important;
-    white-space:normal!important;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2;
-    font-size:.82rem!important;
-    line-height:1.25!important;
-  }
-}
-
-/* 이모지가 들어가는 만큼 테마 타일 높이를 compact 고정값(82/92px)에서 풀어 준다. */
-body[data-page="dashboard"] #dashboard-theme-grid .dashboard-collection-card.dashboard-theme-card{
-  height:auto!important;
-  min-height:112px!important;
-  justify-content:flex-start!important;
-}
-@media(max-width:690px){
-  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-collection-card.dashboard-theme-card{
-    min-height:132px!important;
+    font-size:.7rem!important;
   }
 }
