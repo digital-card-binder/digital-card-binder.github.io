@@ -3,7 +3,7 @@
 const SPRITE_COLUMNS = 10;
 const SPRITE_ROWS = 7;
 const SPRITE_BACKED_PACK_COUNT = 62;
-const FIREBASE_SDK_VERSION = "10.12.5";
+const FIREBASE_SDK_VERSION = "12.16.0";
 const PROMO_DATA_URL = "./data/promo-packs.json?v=20260929-1";
 const LEGACY_PACK_IMAGE_MANIFEST_URL = "./assets/packs/legacy/manifest.json";
 

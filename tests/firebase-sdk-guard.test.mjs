@@ -10,15 +10,13 @@ const sources = [
 ];
 const read = (file) => readFileSync(join(root, file), "utf8");
 
-// 알려진 예외. 줄이는 방향으로만 바꾼다(추가 금지).
-// packs.js 는 10.12.5 를 쓴다. 같은 페이지의 다른 스크립트는 12.16.0 이라 SDK 가 두 벌 로드된다.
-// 팩 보유 저장 경로라서 계정 로그인 상태로 검증하기 전에는 올리지 않는다.
-const SDK_EXCEPTIONS = new Map([["packs.js", "10.12.5"]]);
+// 알려진 예외. 현재 없음(추가 금지). 예외가 필요하면 이유와 검증 방법을 여기에 적는다.
+const SDK_EXCEPTIONS = new Map();
 
 // window.fetch 를 감싸는 파일. 새 파일을 추가하지 않는다(모든 데이터 요청에 숨은 영향을 주기 때문).
 const FETCH_OVERRIDE_ALLOWLIST = new Set(["firebase-collection-manager.js", "firebase-people-manager.js", "guest-empty-dex.js"]);
 
-test("every Firebase SDK import uses the same version, except the documented exception", () => {
+test("every Firebase SDK import uses the same version", () => {
   const canonical = read("core/account/firebase-account.js").match(/SDK_VERSION = "(\d+\.\d+\.\d+)"/)?.[1];
   assert.ok(canonical, "core account module declares the canonical SDK version");
   const seen = new Map();
