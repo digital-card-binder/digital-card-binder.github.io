@@ -1981,3 +1981,28 @@
     min-height:84px;
   }
 }
+
+/* 홈 테마도감 타일 이모지 */
+.dashboard-theme-card .dashboard-card-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.dashboard-theme-emoji{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:linear-gradient(145deg,#fff,#eef4ff);
+  border:1px solid rgba(120,160,210,.28);
+  box-shadow:0 4px 10px rgba(47,93,145,.1);
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-size:20px;
+  line-height:1;
+}
+@media(max-width:690px){
+  .dashboard-theme-card .dashboard-card-title{gap:6px}
+  .dashboard-theme-emoji{width:28px;height:28px;border-radius:9px;font-size:16px}
+}

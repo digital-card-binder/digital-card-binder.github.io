@@ -289,7 +289,7 @@
       article.innerHTML = `
         <div class="art-theme-card-image"><img src="${image}" alt="" loading="lazy" decoding="async" /></div>
         <div class="art-theme-card-body">
-          <div class="art-theme-card-badges"><span>${card.cardNumber || card.set || ""}</span><span class="is-rarity">${card.rarity || "CARD"}</span></div>
+          <div class="art-theme-card-badges"><span>${window.DigitalCardBinder?.cardIdentity?.cardTag(card.set, card.cardNumber) || card.cardNumber || card.set || ""}</span><span class="is-rarity">${card.rarity || "CARD"}</span></div>
           <h3>${card.name || ""}</h3>
           <p class="art-theme-card-meta">${[card.set, card.setName].filter(Boolean).join(" · ")}</p>
           <p class="art-theme-card-scene">${card.storyTitle || card.category || ""}</p>

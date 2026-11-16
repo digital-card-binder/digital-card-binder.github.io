@@ -99,6 +99,32 @@
   );
   const PRIMARY_CATEGORIES = new Set(["national", "series", "pack"]);
   const THEME_CATEGORIES = new Set(["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
+  // 홈의 테마도감 타일 이모지 (theme.html 카드와 동일하게 유지한다).
+  const THEME_EMOJI = Object.freeze({
+    eevee: "🦊", ar: "🎨", artist: "🖌️", trainerPokemon: "🤝", people: "🧑",
+    world: "🌏", fossil: "🦴", pokemon: "📚",
+    "art-sleeping": "😴", "art-connected": "🧩", "art-evolution": "🦋", "art-night": "🌙",
+    "art-season": "🌸", "art-color": "🌈", "art-sunset": "🌇", "art-reflections": "🪞",
+    "art-food": "🍜", "art-street": "🏙️", "art-work": "💼", "art-cameo": "🎬", "art-crying": "😭",
+  });
+
+  function themeEmojiFor(item) {
+    if (item.kind === "art") return THEME_EMOJI[`art-${item.theme}`] || "";
+    if (item.kind === "eevee") return THEME_EMOJI.eevee;
+    return THEME_EMOJI[item.category] || "";
+  }
+
+  function addThemeEmoji(card, item) {
+    const emoji = themeEmojiFor(item);
+    const title = card.querySelector(".dashboard-card-title");
+    if (!emoji || !title || title.querySelector(".dashboard-theme-emoji")) return;
+    const mark = document.createElement("span");
+    mark.className = "dashboard-theme-emoji";
+    mark.setAttribute("aria-hidden", "true");
+    mark.textContent = emoji;
+    title.prepend(mark);
+  }
+
   const THEME_OVERVIEW_LINKS = Object.freeze([
     { title: "AR 도감", href: "./ar.html", kind: "collection", category: "ar" },
     { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection", category: "pokemon" },
@@ -1081,6 +1107,7 @@
           card.className = "dashboard-collection-card dashboard-theme-card dashboard-theme-card--untracked";
           card.href = item.href;
           card.innerHTML = `<div class="dashboard-card-title"><strong>${escapeHtml(item.title)}</strong></div><div class="dashboard-card-count"><span>도감 열기 →</span></div>`;
+          addThemeEmoji(card, item);
           fragment.append(card);
           displayed += 1;
           continue;
@@ -1092,6 +1119,7 @@
         card.className = "dashboard-collection-card dashboard-theme-card dashboard-theme-card--untracked";
         card.href = item.href;
         card.innerHTML = `<div class="dashboard-card-title"><strong>${escapeHtml(item.title)}</strong></div><div class="dashboard-card-count"><span>도감 열기 →</span></div>`;
+        addThemeEmoji(card, item);
         fragment.append(card);
         displayed += 1;
         continue;
@@ -1101,6 +1129,7 @@
       card.classList.add("dashboard-theme-card");
       card.dataset.themeKind = item.kind;
       if (item.theme) card.dataset.theme = item.theme;
+      addThemeEmoji(card, item);
       fragment.append(card);
       displayed += 1;
     }

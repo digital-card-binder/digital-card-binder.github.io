@@ -249,6 +249,11 @@ function createCard(card){
   number.textContent=card.set||`#${card.order}`;
   top.append(number,makeStatusBadge(card));
 
+  const tag=document.createElement("span");
+  tag.className="card-tag";
+  tag.textContent=window.DigitalCardBinder?.cardIdentity?.cardTag(card.set,card.cardNumber)||"";
+  body.classList.add("has-card-tag");
+
   const name=document.createElement("strong");
   name.className="card-name-ko";
   name.textContent=card.name;
@@ -267,7 +272,7 @@ function createCard(card){
   cardNumber.textContent=card.cardNumber||"";
   meta.append(set,cardNumber);
 
-  body.append(top,name,artist,meta);
+  body.append(top,tag,name,artist,meta);
   button.append(imageWrap,body);
   button.addEventListener("click",()=>openDialog(card));
   article.append(button,makeCompletionButton(card));

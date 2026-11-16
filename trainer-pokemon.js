@@ -410,6 +410,10 @@ function createCard(card) {
   number.className = "number-badge";
   number.textContent = card.set || `#${card.order}`;
   top.append(number, statusBadge(card));
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  tag.textContent = window.DigitalCardBinder?.cardIdentity?.cardTag(card.set, card.cardNumber) || "";
+  body.classList.add("has-card-tag");
   const name = document.createElement("strong");
   name.className = "card-name-ko";
   name.textContent = card.name;
@@ -425,7 +429,7 @@ function createCard(card) {
   cardNumber.className = "card-number";
   cardNumber.textContent = card.cardNumber || "";
   meta.append(set, cardNumber);
-  body.append(top, name, person, meta);
+  body.append(top, tag, name, person, meta);
   button.append(imageWrap, body);
   button.addEventListener("click", () => openDialog(card));
   article.append(button, completeButton(card));

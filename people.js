@@ -277,6 +277,10 @@ function makePersonCard(person) {
   generation.textContent = `${person.generation}세대 · ${person.category}`;
   top.append(generation, makeOwnedBadge(person));
 
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  tag.textContent = window.DigitalCardBinder?.cardIdentity?.cardTag(window.DigitalCardBinder?.cardIdentity?.setCodeFromImage(person.cards?.[0]?.image || person.image), person.cards?.[0]?.number) || "";
+  body.classList.add("has-card-tag");
   const nameKo = document.createElement("strong");
   nameKo.className = "card-name-ko";
   nameKo.textContent = person.nameKo;
@@ -290,7 +294,7 @@ function makePersonCard(person) {
   meta.className = "card-meta";
   meta.textContent = `${person.affiliation} · ${person.region}지방`;
 
-  body.append(top, nameKo, nameEn, role, makePeopleStatus(person), meta);
+  body.append(top, tag, nameKo, nameEn, role, makePeopleStatus(person), meta);
   button.append(imageWrap, body);
   article.append(button, makeCompletionButton(person));
   button.addEventListener("click", () => openPeopleDialog(person));

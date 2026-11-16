@@ -255,6 +255,10 @@ function createCard(card) {
   number.className = "number-badge";
   number.textContent = card.set;
   top.append(number, statusBadge(card));
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  tag.textContent = window.DigitalCardBinder?.cardIdentity?.cardTag(card.set, card.cardNumber) || "";
+  body.classList.add("has-card-tag");
   const name = document.createElement("strong");
   name.className = "card-name-ko";
   name.textContent = card.name;
@@ -268,7 +272,7 @@ function createCard(card) {
   const cardNumber = document.createElement("span");
   cardNumber.textContent = `${card.cardNumber} · ${card.rarity || "—"}`;
   meta.append(set, cardNumber);
-  body.append(top, name, category, meta);
+  body.append(top, tag, name, category, meta);
   button.append(imageWrap, body);
   button.addEventListener("click", () => openDialog(card));
   article.append(button, completeButton(card));
