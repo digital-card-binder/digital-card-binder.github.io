@@ -187,9 +187,8 @@
   }
 
   function createEeveeCard(eevee) {
-    const url = new URL("./art-themes.html", window.location.href);
-    url.searchParams.set("eevee", "1");
-    url.searchParams.set("theme", "eevee-v");
+    // 이브이 허브로 연결해 하위 도감을 골라 들어갈 수 있게 한다.
+    const url = new URL("./eevee.html", window.location.href);
     url.searchParams.set("collector", publicId);
     return createCardShell({
       number: "11",
