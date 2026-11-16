@@ -51,7 +51,7 @@ test("shared catalog service is the single owner of staged catalog sources", () 
   assert.match(registry, /catalogService[.]ar[(][)]/);
   assert.match(sheets, /catalogService[.]ar[(][)]/);
   assert.match(registry, /catalogService[.]series[(][)]/);
-  assert.match(dashboard, /registry[.]loadCatalog[(]category[)]/);
+  assert.match(dashboard, /registry[.]loadSummaryCatalog \|\| registry[.]loadCatalog[)][(]category[)]/);
   assert.doesNotMatch(dashboard, /catalogService[.](?:pokemonCollections|ar|series)[(]/);
 });
 
@@ -88,7 +88,7 @@ test("collection identity semantics live in one shared helper", () => {
   ]) {
     assert.match(source, /identityService[.]cardIdentity/, name);
   }
-  assert.match(dashboard, /registry[.]loadCatalog[(]category[)]/);
+  assert.match(dashboard, /registry[.]loadSummaryCatalog \|\| registry[.]loadCatalog[)][(]category[)]/);
   assert.doesNotMatch(dashboard, /identityService[.]cardIdentity/);
 });
 

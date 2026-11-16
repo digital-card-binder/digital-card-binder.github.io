@@ -425,7 +425,7 @@
     const entries = await Promise.all(
       categories.map(async (category) => [
         category,
-        cloneRegistryCatalog(category, await registry.loadCatalog(category)),
+        cloneRegistryCatalog(category, await (registry.loadSummaryCatalog || registry.loadCatalog)(category)),
       ]),
     );
     const loaded = Object.fromEntries(entries);
