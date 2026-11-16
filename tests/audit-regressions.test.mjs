@@ -29,7 +29,7 @@ function expose(ctx, file, expression, removeInit = false) {
 function storage(ctx, initial) {
   const records = new Map(Object.entries(initial));
   let writes = 0;
-  ctx.localStorage = { getItem: (key) => records.get(key) ?? null, setItem: (key, value) => { writes++; records.set(key, value); } };
+  ctx.localStorage = { getItem: (key) => records.get(key) ?? null, setItem: (key, value) => { writes++; records.set(key, value); }, removeItem: (key) => { writes++; records.delete(key); } };
   return { records, get writes() { return writes; } };
 }
 
@@ -135,7 +135,7 @@ function worldScenario({ publicView = false, user = "alice", fail = false } = {}
   return { ctx, api, account, store, ownedKey, overrideKey, get saved() { return saved; } };
 }
 
-test("world failure retains guest and pending records, retries, and marks only that UID after success", async () => {
+test("world failure retains guest and pending records, retries, then copies them to that UID without deleting the original", async () => {
   const scene = worldScenario({ fail: true });
   await scene.api.applyAccountOwnership();
   assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]');
@@ -145,7 +145,10 @@ test("world failure retains guest and pending records, retries, and marks only t
   scene.account.saveOwned = async () => ({ owned: true });
   await scene.api.applyAccountOwnership();
   assert.equal(scene.store.records.get("digitalCardBinderWorldExplorationOwnedMigratedV2:alice"), "done");
-  assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]');
+  assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]', "existing browser records are never deleted");
+  assert.match(scene.store.records.get(scene.overrideKey), /private-image/);
+  assert.equal(scene.store.records.get(`${scene.ownedKey}:alice`), '["mine"]');
+  assert.match(scene.store.records.get(`${scene.overrideKey}:alice`), /private-image/);
   scene.account.currentUser = { uid: "bob" };
   scene.account.saveOwned = async () => assert.fail("must not copy Alice's records to Bob");
   await scene.api.applyAccountOwnership();
@@ -160,6 +163,23 @@ test("world failure retains guest and pending records, retries, and marks only t
   await explicit.api.applyAccountOwnership();
   assert.equal(explicit.api.state.owned.size, 0);
   assert.equal(explicit.store.records.get(explicit.ownedKey), '["mine"]');
+});
+
+test("guests never see or create world ownership, and guest records stay untouched until a sign-in migrates them", async () => {
+  const scene = worldScenario();
+  scene.account.currentUser = null;
+  scene.account.canEdit = () => false;
+  assert.equal(scene.api.state.owned.size, 0, "a guest's browser record is not shown");
+  await scene.api.applyAccountOwnership();
+  assert.equal(scene.api.state.owned.size, 0);
+  assert.equal(scene.api.resolvedSlot({ id: "mine", title: "Mine", card: { image: "base" } }).image, "base");
+  await scene.api.applyCardOverride(); await scene.api.resetCardOverride();
+  assert.equal(scene.store.writes, 0); assert.equal(scene.saved, 0);
+  assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]');
+  const world = read("world.js");
+  const click = world.slice(world.indexOf('ownedButton.addEventListener("click"'), world.indexOf("article.append(openButton, ownedButton)"));
+  assert.ok(click.indexOf("canEdit") < click.indexOf("state.owned.add"), "the owned button checks the account before any state change");
+  assert.match(click, /Google 로그인 후 내 수집 상태를 저장할 수 있습니다/);
 });
 
 test("public world viewing and forced edit handlers leave all visitor storage and remote writes untouched", async () => {

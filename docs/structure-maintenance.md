@@ -9,7 +9,7 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - Pokemon collections: the effective populated catalog is `data/pokemon-collections.json` plus `data/pokemon-collections-21-40.json`, merged by Pokemon name. Counts must be read from the generated catalog metrics rather than duplicated in documentation or UI.
 - Trainer x Pokemon: account keys are namespaced with `trainerPokemon::` and use `accountIndex` when present.
 - Custom dex: stored under `pokemonCollectionsDex.customDexes`. `custom-sharing.js` remains a compatibility extension and must load before dashboard/settings consumers that need the custom registry entry.
-- World exploration: the independent `worldDex` stores 198 place/Pokemon/person keys. Only reference names/images come from National/People; ownership stays independent. Guest local records remain intact. Account caches and migration markers are UID-scoped, failed transfers remain retryable, and public views never read/write visitor overrides. `catalogService.worldGroups()` supplies registry, world, search and Studio metadata.
+- World exploration: the independent `worldDex` stores 198 place/Pokemon/person keys. Only reference names/images come from National/People; ownership stays independent. Guests cannot mark ownership in any dex (2026-11-16): world no longer reads, shows or writes guest ownership. A pre-existing guest browser record is never deleted: it is only copied once into the first signed-in account, and search ignores it. Account caches and migration markers are UID-scoped, failed transfers remain retryable, and public views never read/write visitor overrides. `catalogService.worldGroups()` supplies registry, world, search and Studio metadata.
 
 ## Canonical catalog metrics
 

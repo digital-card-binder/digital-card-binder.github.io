@@ -370,14 +370,10 @@
       const effective = documentData
         ? registry.resolveOverrides("world", catalog, documentData.overrides || {}).effectiveOverrides
         : {};
-      let ownedIds = new Set();
-      let localOverrides = {};
-      // A signed-in account uses worldDex, never another account's browser cache.
-      if (!documentData && !window.PokemonDexPageAccount?.currentUser) {
-        const saved = JSON.parse(localStorage.getItem("digitalCardBinderWorldExplorationOwnedV1") || "[]");
-        ownedIds = new Set(Array.isArray(saved) ? saved : []);
-        localOverrides = JSON.parse(localStorage.getItem("digitalCardBinderWorldExplorationCardOverridesV1") || "{}");
-      }
+      // 보유 여부는 계정 문서(worldDex)만 기준으로 한다. 게스트 브라우저 기록은 읽지 않는다.
+      if (!documentData) return;
+      const ownedIds = new Set();
+      const localOverrides = {};
       groups.forEach((group, groupIndex) => group.cards.forEach((card, cardIndex) => {
         const key = registry.cardIdentity("world", group, card, groupIndex, cardIndex);
         const remote = effective[key];
