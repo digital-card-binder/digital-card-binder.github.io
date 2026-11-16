@@ -673,6 +673,10 @@ test("dashboard defaults cover all eleven registered dexes", () => {
   assert.equal(registry.COLLECTIONS.world.documentId, "worldDex");
   assert.equal(registry.COLLECTIONS.artThemes.number, "11");
   assert.equal(registry.COLLECTIONS.artThemes.documentId, "artThemesDex");
+  // 테마 도감도 공개 설정 화면에 나타나야 한다.
+  for (const collectionId of registry.COLLECTION_ORDER) {
+    assert.notEqual(registry.COLLECTIONS[collectionId].settingsVisible, false, collectionId);
+  }
 });
 
 test("custom dex extension exposes dashboard ownership with per-dex keys", async () => {

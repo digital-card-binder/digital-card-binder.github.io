@@ -166,7 +166,6 @@
       catalogGroupCount: catalogGroupCount("artThemes"),
       defaultDashboardVisible: false,
       navigationVisible: false,
-      settingsVisible: false,
     },
   };
   const catalogPromises = new Map();

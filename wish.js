@@ -84,7 +84,47 @@
     return article;
   }
 
+  const shareBox = document.querySelector("#wish-share");
+  const shareInput = document.querySelector("#wish-public");
+  const shareNote = document.querySelector("#wish-share-note");
+  const DEFAULT_NOTE = "켜면 내 공개 프로필에 위시카드가 표시됩니다.";
+
+  function renderShare() {
+    if (!shareBox || !shareInput) return;
+    const ready = wishlist.state.status === "ready";
+    shareBox.hidden = !ready;
+    if (!ready) return;
+    shareInput.checked = wishlist.state.visibility === "public";
+    if (!wishlist.state.publicId && shareNote && !shareInput.checked) {
+      shareNote.textContent = "공개하려면 먼저 컬렉터 프로필을 만들어 주세요.";
+    } else if (shareNote && shareNote.dataset.busy !== "1") {
+      shareNote.textContent = shareInput.checked ? "공개 중입니다. 내 공개 프로필에서 볼 수 있어요." : DEFAULT_NOTE;
+    }
+  }
+
+  shareInput?.addEventListener("change", async () => {
+    const wanted = shareInput.checked;
+    shareInput.disabled = true;
+    shareNote.dataset.busy = "1";
+    const result = await wishlist.setVisibility(wanted);
+    shareInput.disabled = false;
+    delete shareNote.dataset.busy;
+    if (result === "no-profile") {
+      shareNote.replaceChildren("공개하려면 먼저 ");
+      shareNote.append(linkButton("컬렉터 프로필 만들기", "./collector-settings.html"));
+      shareInput.checked = false;
+      return;
+    }
+    if (result === "error") {
+      shareInput.checked = !wanted;
+      shareNote.textContent = "공개 설정을 저장하지 못했어요. 잠시 후 다시 시도해 주세요.";
+      return;
+    }
+    renderShare();
+  });
+
   function render() {
+    renderShare();
     const status = wishlist.state.status;
     const items = wishlist.list();
     if (countEl) countEl.textContent = status === "ready" ? String(items.length) : "—";

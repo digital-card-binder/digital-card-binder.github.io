@@ -12,6 +12,8 @@
     collections: document.querySelector("#collector-public-collections"),
     grid: document.querySelector("#collector-public-grid"),
     empty: document.querySelector("#collector-public-empty"),
+    wish: document.querySelector("#collector-public-wish"),
+    wishGrid: document.querySelector("#collector-public-wish-grid"),
     binders: document.querySelector("#collector-public-binders"),
     binderGrid: document.querySelector("#collector-public-binder-grid"),
     binderEmpty: document.querySelector("#collector-public-binder-empty"),
@@ -115,7 +117,7 @@
       </div>
     `;
     const iconPage = new URL(href, window.location.href).pathname.split("/").pop();
-    const iconName = ({ "national.html": "national", "series.html": "series", "ar.html": "ar", "packs.html": "pack", "pokemon-collections.html": "pokemon", "artists.html": "artist", "people.html": "people", "trainer-pokemon.html": "trainerPokemon", "fossil.html": "fossil", "world.html": "world", "custom.html": "binder" })[iconPage] || "binder";
+    const iconName = ({ "national.html": "national", "series.html": "series", "ar.html": "ar", "packs.html": "pack", "pokemon-collections.html": "pokemon", "artists.html": "artist", "people.html": "people", "trainer-pokemon.html": "trainerPokemon", "fossil.html": "fossil", "world.html": "world", "art-themes.html": "artThemes", "custom.html": "binder" })[iconPage] || "binder";
     link.querySelector(".collector-public-card-number").classList.add(`ui-icon--${iconName}`);
     link.querySelector("h3").textContent = title;
     link.querySelector("p").textContent = description;
@@ -239,6 +241,40 @@
     elements.binders.hidden = false;
   }
 
+  function renderWish(snapshot) {
+    if (!elements.wish || !elements.wishGrid || !snapshot?.exists?.()) return;
+    const data = snapshot.data() || {};
+    const items = Object.values(data.items && typeof data.items === "object" ? data.items : {})
+      .filter((item) => item && typeof item === "object" && clean(item.n))
+      .sort((left, right) => (Number(right.a) || 0) - (Number(left.a) || 0))
+      .slice(0, 300);
+    if (!items.length) return;
+    const cards = items.map((item) => {
+      const article = document.createElement("article");
+      article.className = "collector-public-wish-card";
+      const image = document.createElement("span");
+      image.className = "collector-public-wish-image";
+      const src = clean(item.i, 300);
+      if (/^https:\/\//.test(src)) {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.addEventListener("error", () => image.classList.add("is-broken"), { once: true });
+        image.append(img);
+      }
+      const tag = document.createElement("small");
+      tag.textContent = clean(item.t, 40);
+      const name = document.createElement("strong");
+      name.textContent = clean(item.n, 60);
+      article.append(image, tag, name);
+      return article;
+    });
+    elements.wishGrid.replaceChildren(...cards);
+    elements.wish.hidden = false;
+  }
+
   function showError(message) {
     elements.loading.hidden = true;
     elements.error.hidden = false;
@@ -277,7 +313,7 @@
         ? appModule.getApp()
         : appModule.initializeApp(CONFIG.config);
       const db = firestoreModule.getFirestore(app);
-      const [profileSnapshot, collectionSnapshots, binderSnapshots] = await Promise.all([
+      const [profileSnapshot, collectionSnapshots, binderSnapshots, wishSnapshot] = await Promise.all([
         firestoreModule.getDoc(
           firestoreModule.doc(db, "publicProfiles", publicId),
         ),
@@ -297,6 +333,9 @@
             "binders",
           ),
         ),
+        firestoreModule
+          .getDoc(firestoreModule.doc(db, "publicProfiles", publicId, "wishlist", "main"))
+          .catch(() => null),
       ]);
       if (!profileSnapshot.exists() || !profileSnapshot.data()?.profileCompleted) {
         throw new Error(MISSING_PROFILE_MESSAGE);
@@ -312,6 +351,7 @@
       renderProfile(profile);
       renderCollections(projections);
       renderBinders(binders);
+      renderWish(wishSnapshot);
       elements.loading.hidden = true;
     } catch (error) {
       console.error("공개 컬렉터 프로필 초기화 실패", error);

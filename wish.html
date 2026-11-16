@@ -12,12 +12,12 @@
     <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <meta property="og:image" content="https://digital-card-binder.github.io/assets/brand/og-image.png" />
-    <link rel="stylesheet" href="./styles.css?v=04fc25d4330c" />
+    <link rel="stylesheet" href="./styles.css?v=416a856890b8" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
     <link rel="stylesheet" href="./collection-manager.css?v=332f22b3a57d" />
-    <link rel="stylesheet" href="./collector.css?v=7fb4618fb4ca" />
+    <link rel="stylesheet" href="./collector.css?v=a46ebdfa5434" />
     <link rel="stylesheet" href="./collection-preview.css?v=68dbaf9e74d8" />
-    <link rel="stylesheet" href="./wish.css?v=a3eca10c82ea" />
+    <link rel="stylesheet" href="./wish.css?v=110d1da3eae6" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
     <script src="./legal.js?v=ca76fb29682d" defer></script>
@@ -25,13 +25,13 @@
     <script src="./core/catalog/card-identity.js?v=271774faf2fa" defer></script>
     <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
     <script src="./core/catalog/card-lookup.js?v=9947bcba8bc3" defer></script>
-    <script src="./collector-collection-registry.js?v=2c0a594c0867" defer></script>
-    <script src="./collector-nav.js?v=aaec92494a00" defer></script>
+    <script src="./collector-collection-registry.js?v=842ec99571ab" defer></script>
+    <script src="./collector-nav.js?v=2290f009fd51" defer></script>
     <script src="./collection-preview.js?v=54a9e3e3a9a3" defer></script>
       <script src="./site-mobile-nav.js?v=bc6c4993ccb2" defer></script>
-      <script src="./core/wish/wishlist.js?v=8ed1ea0f22b2" defer></script>
+      <script src="./core/wish/wishlist.js?v=5d4ecba0d6bb" defer></script>
       <script src="./wish-ui.js?v=4ef36914b60d" defer></script>
-      <script src="./wish.js?v=56b7db6c04ab" defer></script>
+      <script src="./wish.js?v=4a9bc422c7d2" defer></script>
   </head>
   <body data-page="wish">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -95,6 +95,14 @@
             <p class="catalog-caption">보유한 카드도 담을 수 있어요. 최대 300장까지 담을 수 있습니다.</p>
           </div>
 
+          <div id="wish-share" class="wish-share" hidden>
+            <label class="wish-share-switch">
+              <input id="wish-public" type="checkbox" />
+              <span class="wish-share-track" aria-hidden="true"></span>
+              <span class="wish-share-text"><strong>커뮤니티에 공개</strong><small id="wish-share-note">켜면 내 공개 프로필에 위시카드가 표시됩니다.</small></span>
+            </label>
+          </div>
+
           <div class="wish-toolbar">
             <label class="wish-search">
               <span class="sr-only">위시카드 검색</span>
@@ -120,7 +128,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">위시카드는 내 계정에만 저장되며 다른 사람에게 보이지 않습니다.</p>
+          <p class="site-footer-note">위시카드는 기본적으로 나에게만 보이며, 공개를 켠 경우에만 내 공개 프로필에 표시됩니다.</p>
         </footer>
       </main>
     </div>
