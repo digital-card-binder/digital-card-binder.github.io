@@ -293,3 +293,78 @@
   .theme-discovery-tabs {flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:3px}
   .theme-discovery-tabs button {flex:0 0 auto;padding:8px 11px;font-size:.72rem}
 }
+
+/* 테마 카드 이모지 아이콘: 테마별 컬러 이모지를 크게 보여 한눈에 구분한다. */
+.theme-card-symbol {
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #ffffff, #eaf3ff);
+  border: 1px solid rgba(120, 160, 210, 0.28);
+  box-shadow: 0 6px 16px rgba(47, 93, 145, 0.12);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.theme-card:nth-child(3n+2) .theme-card-symbol { background: linear-gradient(145deg, #ffffff, #f1eaff); }
+.theme-card:nth-child(3n) .theme-card-symbol { background: linear-gradient(145deg, #ffffff, #ffeee8); }
+
+/* 밝은 히어로 위에서도 버튼이 읽히도록 어두운 글씨를 쓴다. */
+.theme-hero .collector-page-actions a {
+  border-color: #cfe0ef;
+  background: #fff;
+  color: #1f3a56;
+}
+
+/* 모바일 테마 카드 압축: 2열 · 한 줄 카드(이모지 + 제목)로 한 화면에 더 많이 보이게 한다. */
+@media (max-width: 620px) {
+  .theme-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .theme-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+    min-height: 62px;
+    padding: 9px 10px;
+    border-radius: 14px;
+  }
+
+  .theme-card-top {
+    flex: 0 0 auto;
+    gap: 0;
+  }
+
+  .theme-card-badge,
+  .theme-card p,
+  .theme-card-footer {
+    display: none;
+  }
+
+  .theme-card-symbol,
+  .theme-card-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    border-radius: 12px;
+    font-size: 23px;
+  }
+
+  .theme-card h3 {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (max-width: 350px) {
+  .theme-card-grid { grid-template-columns: 1fr; }
+}
