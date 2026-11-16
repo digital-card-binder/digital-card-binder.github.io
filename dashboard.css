@@ -1982,27 +1982,47 @@
   }
 }
 
-/* 홈 테마도감 타일 이모지 */
-.dashboard-theme-card .dashboard-card-title{
+/* 홈 테마도감 타일 이모지 — 타일 높이(compact)는 그대로 두고 이모지만 크게 보여 준다.
+   기존 .dashboard-card-title span 규칙(작은 글씨)보다 우선하도록 선택자를 구체화한다. */
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:6px;
+  padding-right:0;
 }
-.dashboard-theme-emoji{
-  display:inline-grid;
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > .dashboard-theme-emoji{
+  display:grid;
   place-items:center;
   flex:0 0 auto;
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  background:linear-gradient(145deg,#fff,#eef4ff);
-  border:1px solid rgba(120,160,210,.28);
-  box-shadow:0 4px 10px rgba(47,93,145,.1);
+  width:40px;
+  height:40px;
+  overflow:visible;
+  background:none;
+  border:0;
+  box-shadow:none;
   font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
-  font-size:20px;
+  font-size:32px;
   line-height:1;
+  -webkit-line-clamp:unset;
+}
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > strong{
+  display:-webkit-box!important;
+  min-width:0;
+  padding-right:0;
+  overflow:hidden!important;
+  white-space:normal!important;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  line-height:1.2!important;
 }
 @media(max-width:690px){
-  .dashboard-theme-card .dashboard-card-title{gap:6px}
-  .dashboard-theme-emoji{width:28px;height:28px;border-radius:9px;font-size:16px}
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title{gap:4px}
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > .dashboard-theme-emoji{
+    width:36px;
+    height:34px;
+    font-size:30px;
+  }
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title > strong{
+    font-size:.7rem!important;
+  }
 }
