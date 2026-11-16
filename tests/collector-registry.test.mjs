@@ -585,6 +585,10 @@ test("theme dex public projection leaves out hidden themes", async () => {
     hiddenGroups: ["night", "bad value!", "night"],
   });
   assert.deepEqual([...partial.hiddenGroups], ["night"]);
+  assert.equal(partial.themeCounts.some((entry) => entry.c === "night"), false);
+  const sleepingCount = partial.themeCounts.find((entry) => entry.c === "sleeping");
+  assert.deepEqual({ ...sleepingCount }, { c: "sleeping", n: "잠자는 포켓몬", o: 1, t: sleeping.length });
+  assert.equal(partial.themeCounts.reduce((sum, entry) => sum + entry.t, 0), partial.totalCount);
   assert.equal(partial.totalCount, catalog.items.length - night.length);
   assert.deepEqual([...partial.ownedKeys], [sleeping[0].key]);
   assert.equal(partial.ownedCount, 1);

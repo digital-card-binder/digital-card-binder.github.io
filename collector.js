@@ -84,9 +84,19 @@
     const eeveeKeys = snapshot.id === "artThemes" && Array.isArray(data.eeveeOwnedKeys)
       ? new Set(data.eeveeOwnedKeys.map((key) => clean(key)).filter(Boolean))
       : null;
+    const themes = snapshot.id === "artThemes" && Array.isArray(data.themeCounts)
+      ? data.themeCounts.slice(0, 20).map((entry) => {
+          const code = clean(entry?.c, 40);
+          const name = clean(entry?.n, 40);
+          const total = Math.max(0, Math.min(50000, Number(entry?.t) || 0));
+          const owned = Math.max(0, Math.min(total, Number(entry?.o) || 0));
+          return /^[A-Za-z0-9_-]{1,40}$/.test(code) && name ? { code, name, owned, total } : null;
+        }).filter(Boolean)
+      : null;
     return {
       collectionId: snapshot.id,
       ...metrics,
+      themes,
       eevee: eeveeKeys
         ? {
             ownedCount: eeveeKeys.size,
@@ -161,6 +171,21 @@
     });
   }
 
+  function createThemeCard(theme) {
+    const url = new URL("./art-themes.html", window.location.href);
+    url.searchParams.set("theme", theme.code);
+    url.searchParams.set("collector", publicId);
+    return createCardShell({
+      number: "11",
+      title: theme.name,
+      description: "아트 테마 도감",
+      href: url.href,
+      ownedCount: theme.owned,
+      totalCount: theme.total,
+      unit: "장",
+    });
+  }
+
   function createEeveeCard(eevee) {
     const url = new URL("./art-themes.html", window.location.href);
     url.searchParams.set("eevee", "1");
@@ -205,8 +230,13 @@
       }
       if (projection.collectionId === "artThemes") {
         const result = [];
-        // 아트 테마를 모두 숨기고 이브이 도감만 공개한 경우 0장짜리 카드는 만들지 않는다.
-        if (projection.totalCount > 0) result.push(createCollectionCard(projection));
+        if (projection.themes) {
+          // 공개한 테마마다 카드를 만들어 해당 테마로 바로 연결한다.
+          for (const theme of projection.themes) result.push(createThemeCard(theme));
+        } else if (projection.totalCount > 0) {
+          // 테마별 집계가 없는 예전 사본은 기존처럼 한 장으로 보여 준다.
+          result.push(createCollectionCard(projection));
+        }
         if (projection.eevee) result.push(createEeveeCard(projection.eevee));
         return result;
       }
