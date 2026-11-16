@@ -2122,6 +2122,7 @@ img {
 .ui-icon { --ui-icon: url("./assets/ui/icons/binder.svg"); }
 .ui-icon--home { --ui-icon: url("./assets/ui/icons/home.svg"); }
 .ui-icon--search { --ui-icon: url("./assets/ui/icons/search.svg"); }
+.ui-icon--heart { --ui-icon: url("./assets/ui/icons/heart.svg"); }
 .ui-icon--binder { --ui-icon: url("./assets/ui/icons/binder.svg"); }
 .ui-icon--studio { --ui-icon: url("./assets/ui/icons/studio.svg"); }
 .ui-icon--community { --ui-icon: url("./assets/ui/icons/community.svg"); }
@@ -2752,4 +2753,61 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
   font-size: .9rem;
   font-weight: 700;
   text-align: center;
+}
+
+/* 위시카드 ♡ 버튼과 안내 토스트 */
+.wish-heart {
+  position: absolute;
+  z-index: 7;
+  top: 7px;
+  left: 7px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(190, 80, 110, .28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 4px 10px rgba(30, 40, 70, .16);
+  color: #d1456b;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.wish-heart.is-wished {
+  border-color: #d1456b;
+  background: #fff0f4;
+  color: #d1456b;
+}
+.wish-heart:focus-visible {
+  outline: 3px solid #2479b1;
+  outline-offset: 2px;
+}
+.pokemon-card, .art-theme-card { position: relative; }
+.wish-toast {
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 86px;
+  max-width: min(92vw, 360px);
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: rgba(23, 35, 63, .94);
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 800;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.wish-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wish-toast { transition: none; }
 }

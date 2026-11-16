@@ -1205,6 +1205,29 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // 위시카드 목록: 도감 수집 문서와 분리된 새 저장 공간이며 소유자만 읽고 씁니다.
+    match /users/{userId}/wishlist/{docId} {
+      allow get: if ownsDocument(userId) && docId == "main";
+      allow list: if false;
+      allow create: if ownsDocument(userId)
+        && docId == "main"
+        && request.resource.data.keys().hasAll(["schemaVersion", "items", "updatedAt"])
+        && request.resource.data.keys().hasOnly(["schemaVersion", "items", "updatedAt"])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.items is map
+        && request.resource.data.items.size() <= 300
+        && request.resource.data.updatedAt == request.time;
+      allow update: if ownsDocument(userId)
+        && docId == "main"
+        && request.resource.data.keys().hasAll(["schemaVersion", "items", "updatedAt"])
+        && request.resource.data.keys().hasOnly(["schemaVersion", "items", "updatedAt"])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.items is map
+        && request.resource.data.items.size() <= 300
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+
     // 대시보드 표시와 공개 범위는 도감별 독립 문서로 관리합니다.
     match /users/{userId}/collectionSettings/{collectionId} {
       allow get: if ownsDocument(userId);
