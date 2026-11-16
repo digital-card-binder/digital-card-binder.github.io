@@ -4225,3 +4225,19 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
 .collector-theme-groups summary strong { grid-column: 1; }
 .collector-theme-groups summary small { grid-column: 1; margin-left: 0; }
 .collector-theme-groups summary::after { grid-column: 2; grid-row: 1 / span 2; }
+
+/* 테마 도감 묶음: 모든 항목을 같은 크기의 한 줄 목록으로 */
+.collector-theme-family-list { gap: 8px; }
+.collector-theme-family-list > .collector-setting-card.is-theme-host { display: contents; }
+.collector-theme-family-list > .collector-setting-card.is-theme-host > .collector-setting-identity,
+.collector-theme-family-list > .collector-setting-card.is-theme-host > .collector-unified-public-switch { display: none; }
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-unified-public-label { display: none; }
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity strong { font-size: .86rem; }
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity small { font-size: .72rem; }
+.collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-number { width: 34px; height: 34px; }

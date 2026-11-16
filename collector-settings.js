@@ -899,10 +899,9 @@
       // this switch. A deliberate save unifies both visibility settings.
       visibility.checked = setting.visibility === "public";
       visibility.setAttribute("aria-label", meta.title + " 공개 설정");
-      visibility.addEventListener("change", () => {
-        markSettingDirty(card);
-        syncThemeGroupState(card);
-      });
+      visibility.addEventListener("change", () => markSettingDirty(card));
+      // 아트 테마 12개는 카드 한 장 대신 테마 도감 목록 안의 개별 줄로 보여 준다.
+      if (collectionId === "artThemes") card.classList.add("is-theme-host");
       return card;
     });
     // 사이드바 분류와 같이, 테마 도감 계열은 하나의 "테마 도감" 묶음 안에서 각각 공개를 정한다.
@@ -913,19 +912,22 @@
     const family = document.createElement("details");
     family.className = "collector-theme-family";
     family.open = THEME_FAMILY.includes(requestedCollection);
-    family.innerHTML = '<summary><span><strong>테마 도감</strong><small>AR · 작가 · 인물 · 월드 외</small></span><em></em></summary><div class="collector-theme-family-list"></div>';
+    family.innerHTML = '<summary><span><strong>테마 도감</strong><small>AR · 작가 · 인물 · 월드 · 아트 테마</small></span><em></em></summary><div class="collector-theme-family-list"></div>';
     family.querySelector(".collector-theme-family-list").append(...familyCards);
     const updateFamilySummary = () => {
-      const switches = familyCards.map((card) => card.querySelector('[data-setting="visibility"]'));
+      const switches = [
+        ...family.querySelectorAll('.collector-setting-card:not(.is-theme-host) [data-setting="visibility"]'),
+        ...family.querySelectorAll("input[data-theme-group]"),
+      ];
       family.querySelector("summary em").textContent =
-        `${switches.length}개 중 ${switches.filter((input) => input?.checked).length}개 공개`;
+        `${switches.length}개 중 ${switches.filter((input) => input.checked).length}개 공개`;
     };
     familyCards.forEach((card) =>
       card.querySelector('[data-setting="visibility"]')?.addEventListener("change", updateFamilySummary));
     updateFamilySummary();
     elements.settingsGrid.replaceChildren(...looseCards, ...(familyCards.length ? [family] : []));
     const themeCard = cards.find((card) => card.dataset.collectionId === "artThemes");
-    if (themeCard) void attachThemeGroups(themeCard);
+    if (themeCard) void attachThemeGroups(themeCard, updateFamilySummary);
 
     const requested = requestedCollection;
     if (requested && registry.supportedCollectionId(requested)) {
@@ -939,20 +941,9 @@
 
   const THEME_FAMILY = ["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"];
 
-  // 테마 도감: 테마별 공개 스위치(펼침 목록). 꺼 둔 테마는 공개 프로필에서 숨겨진다.
-  function syncThemeGroupState(card) {
-    const box = card.querySelector(".collector-theme-groups");
-    if (!box) return;
-    const master = card.querySelector('[data-setting="visibility"]').checked;
-    const inputs = [...box.querySelectorAll("input[data-theme-group]")];
-    inputs.forEach((input) => { input.disabled = !master; });
-    const shown = inputs.filter((input) => input.checked).length;
-    box.querySelector("summary small").textContent = master
-      ? `${inputs.length}개 중 ${shown}개 공개`
-      : "공개를 켜면 테마별로 고를 수 있어요";
-  }
-
-  async function attachThemeGroups(card) {
+  // 아트 테마 12개: 테마 도감 목록 안의 개별 공개 스위치. 하나라도 켜면 아트 테마 도감이 공개되고,
+  // 꺼 둔 테마(hiddenGroups)는 공개 프로필에서 숨겨진다. 모두 끄면 비공개.
+  async function attachThemeGroups(card, onChange) {
     let groups;
     try {
       groups = await registry.themeGroups();
@@ -960,11 +951,10 @@
       console.warn("테마 목록을 불러오지 못했습니다.", error);
       return;
     }
-    const hidden = new Set(settings.get("artThemes")?.value?.hiddenGroups || []);
-    const box = document.createElement("details");
-    box.className = "collector-theme-groups";
-    box.innerHTML = '<summary><strong>테마별 공개 설정</strong><small></small></summary><div class="collector-theme-group-list"></div>';
-    const list = box.querySelector(".collector-theme-group-list");
+    const master = card.querySelector('[data-setting="visibility"]');
+    const saved = settings.get("artThemes")?.value || {};
+    const hidden = new Set(saved.hiddenGroups || []);
+    const wasPublic = saved.visibility === "public";
     for (const group of groups) {
       const row = document.createElement("label");
       row.className = "collector-theme-group-row";
@@ -977,26 +967,27 @@
       const input = document.createElement("input");
       input.type = "checkbox";
       input.dataset.themeGroup = group.code;
-      input.checked = !hidden.has(group.code);
+      input.checked = wasPublic && !hidden.has(group.code);
       input.setAttribute("aria-label", `${group.name} 공개`);
       input.addEventListener("change", () => {
+        master.checked = [...card.querySelectorAll("input[data-theme-group]")].some((item) => item.checked);
         markSettingDirty(card);
-        syncThemeGroupState(card);
+        onChange?.();
       });
       const track = document.createElement("i");
       track.setAttribute("aria-hidden", "true");
       row.append(text, input, track);
-      list.append(row);
+      card.append(row);
     }
-    card.append(box);
-    syncThemeGroupState(card);
+    onChange?.();
   }
 
   function settingFromCard(card, collectionId) {
     const current = settings.get(collectionId)?.value || registry.defaultSetting(collectionId);
-    const isPublic = card.querySelector('[data-setting="visibility"]').checked;
+    let isPublic = card.querySelector('[data-setting="visibility"]').checked;
     if (collectionId === "artThemes") {
       const inputs = [...card.querySelectorAll("input[data-theme-group]")];
+      if (inputs.length) isPublic = inputs.some((input) => input.checked);
       // 목록을 아직 못 불러왔으면 기존 숨김 설정을 그대로 유지한다.
       const hiddenGroups = inputs.length
         ? inputs.filter((input) => !input.checked).map((input) => input.dataset.themeGroup)
