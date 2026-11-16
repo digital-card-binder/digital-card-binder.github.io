@@ -135,9 +135,10 @@
     collectionId,
     sourceDocument,
     publicId,
+    options,
   ) {
     if (collectionId !== "custom") {
-      return originalBuildProjection(collectionId, sourceDocument, publicId);
+      return originalBuildProjection(collectionId, sourceDocument, publicId, options);
     }
     if (!/^[a-z0-9]{12}$/.test(clean(publicId))) {
       throw new Error("공개 프로필 식별값이 올바르지 않습니다.");

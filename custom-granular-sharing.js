@@ -44,11 +44,13 @@
     collectionId,
     sourceDocument,
     publicId,
+    options,
   ) {
     const projection = await originalBuildProjection(
       collectionId,
       sourceDocument,
       publicId,
+      options,
     );
     if (collectionId !== "custom") return projection;
 
