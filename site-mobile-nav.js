@@ -58,14 +58,19 @@
       header.append(title, close);
       panel.append(header);
       const groups = [
+        // 가장 큰 카테고리 6개. AR·작가·인물 등은 모두 테마도감에 속한다.
         { title: "도감", links: [
           ["시리즈 도감", "./series.html"], ["전국도감", "./national.html"],
-          ["테마 도감", "./theme.html"], ["AR 도감", "./ar.html"],
-          ["팩 도감", "./packs.html"], ["포켓몬 컬렉션", "./pokemon-collections.html"],
-          ["작가 도감", "./artists.html"], ["인물 도감", "./people.html"]
+          ["테마 도감", "./theme.html"], ["팩 도감", "./packs.html"],
+          ["나만의 도감", "./custom.html"], ["바인더 스튜디오", "./studio.html"]
         ] },
-        { title: "나의 수집 · 도구", links: [
-          ["내 도감", "./custom.html"], ["바인더 스튜디오", "./studio.html"],
+        { title: "테마도감 바로가기", links: [
+          ["AR 도감", "./ar.html"], ["작가 도감", "./artists.html"],
+          ["인물 도감", "./people.html"], ["포켓몬 컬렉션", "./pokemon-collections.html"],
+          ["이브이 도감", "./eevee.html"], ["월드 탐험", "./world.html"],
+          ["화석 도감", "./fossil.html"], ["트레이너 × 포켓몬", "./trainer-pokemon.html"]
+        ] },
+        { title: "도구 · 커뮤니티", links: [
           ["카드 레이더", "./card-radar.html"], ["커뮤니티", "./collectors.html"],
           ["새소식", "./news.html"], ["내 설정", "./collector-settings.html"]
         ] }

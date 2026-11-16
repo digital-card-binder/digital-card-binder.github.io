@@ -325,7 +325,7 @@ test("dashboard polish follows navigation labels and restrained motion", async (
   assert.match(dashboard, /canonicalTotal/);
   assert.match(
     dashboard,
-    /THEME_CATEGORIES = new Set\(\["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"\]\)/,
+    /THEME_CATEGORIES = new Set\(\["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world"\]\)/,
   );
   assert.doesNotMatch(dashboard, /EXTRA_THEME_COLLECTIONS/);
   assert.doesNotMatch(dashboard, /dashboard-card-icon/);
@@ -579,7 +579,7 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   const navigation = await source("collector-nav.js");
   assert.match(shell, /section: "주요 도감"/);
   assert.match(shell, /title: "테마 도감"/);
-  assert.match(shell, /section: "테마 컬렉션"/);
+  assert.match(shell, /section: "테마도감 바로가기"/);
   assert.match(shell, /title: "팩 전종수집"/);
   assert.match(shell, /title: "화석 도감"/);
   assert.match(shell, /title: "나만의 도감"/);
@@ -596,10 +596,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
     'section: "주요 도감"',
     'page: "national.html"',
     'page: "series.html"',
-    'page: "ar.html"',
     'page: "packs.html"',
     'page: "theme.html"',
-    'section: "테마 컬렉션"',
+    'section: "테마도감 바로가기"',
+    'page: "ar.html"',
     'page: "pokemon-collections.html"',
     'page: "artists.html"',
     'page: "people.html"',
@@ -646,7 +646,7 @@ test("detail pages use the finalized navigation names in their static markup", a
     const html = await source(page);
     assert.match(html, /<div class="sidebar-label">도감 메뉴<\/div>/, page);
     assert.match(html, /class="sidebar-label collection-nav-section">주요 도감<\/div>/, page);
-    assert.match(html, /class="sidebar-label collection-nav-section">테마 컬렉션<\/div>/, page);
+    assert.match(html, /class="sidebar-label collection-nav-section">테마도감 바로가기<\/div>/, page);
     assert.ok(html.includes(`<strong>${title}</strong>`) || html.includes(`>${title}</h1>`), page);
     assert.equal(html.includes("도감 갤러리"), false, page);
     assert.equal(html.includes("공개 컬렉터"), false, page);

@@ -97,9 +97,10 @@
   const DOCUMENT_IDS = Object.fromEntries(
     CATEGORY_ORDER.map((key) => [key, CATEGORY_META[key].documentId]),
   );
-  const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
-  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
+  const PRIMARY_CATEGORIES = new Set(["national", "series", "pack"]);
+  const THEME_CATEGORIES = new Set(["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
   const THEME_OVERVIEW_LINKS = Object.freeze([
+    { title: "AR 도감", href: "./ar.html", kind: "collection", category: "ar" },
     { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection", category: "pokemon" },
     { title: "작가 도감", href: "./artists.html", kind: "collection", category: "artist" },
     { title: "인물 도감", href: "./people.html", kind: "collection", category: "people" },
