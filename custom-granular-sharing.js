@@ -4,8 +4,6 @@
   const registry = window.CollectorCollectionRegistry;
   if (!registry?.supportedCollectionId?.("custom")) return;
 
-  const originalBuildProjection = registry.buildProjection.bind(registry);
-
   function clean(value) {
     return String(value || "").trim();
   }
@@ -40,18 +38,8 @@
   registry.customDexVisibilityMap = visibilityMap;
   registry.customPublicDexIds = publicDexIds;
 
-  registry.buildProjection = async function buildProjectionWithGranularCustom(
-    collectionId,
-    sourceDocument,
-    publicId,
-    options,
-  ) {
-    const projection = await originalBuildProjection(
-      collectionId,
-      sourceDocument,
-      publicId,
-      options,
-    );
+  registry.extendBuildProjection(async ({ collectionId, sourceDocument }, next) => {
+    const projection = await next();
     if (collectionId !== "custom") return projection;
 
     // 기존에 '나만의 도감 전체'를 PUBLIC으로 쓰던 사용자는 세부 설정을
@@ -79,5 +67,5 @@
       ownedCount: ownedKeys.length,
       totalCount,
     };
-  };
+  });
 })();

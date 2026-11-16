@@ -757,6 +757,14 @@ test("custom dex extension exposes dashboard ownership with per-dex keys", async
     supportedCollectionId: () => false,
     ownershipFor: async () => ({ catalog: { items: [] }, ownedKeys: [] }),
     buildProjection: async () => ({}),
+    extendBuildProjection(handler) {
+      const previous = customRegistry.buildProjection;
+      customRegistry.buildProjection = (collectionId, sourceDocument, publicId, options) =>
+        handler(
+          { collectionId, sourceDocument, publicId, options },
+          () => previous(collectionId, sourceDocument, publicId, options),
+        );
+    },
   };
   const customContext = {
     console,
@@ -838,4 +846,29 @@ test("world registry preserves all legacy place account keys and appends standal
   }
   assert.ok(catalog.items.some((item) => item.key.includes("world-pokemon-") && item.name === "피카츄"));
   assert.ok(catalog.items.some((item) => item.key.includes("world-person-") && item.name === "레드"));
+});
+
+test("extendBuildProjection always forwards every argument, including options, down the chain", async () => {
+  const original = registry.buildProjection;
+  const seen = [];
+  try {
+    registry.buildProjection = async (...args) => {
+      seen.push(args);
+      return { base: true };
+    };
+    registry.extendBuildProjection(async (_context, next) => ({ ...(await next()), first: true }));
+    registry.extendBuildProjection(async (_context, next) => ({ ...(await next()), second: true }));
+
+    const options = { hiddenGroups: ["sleeping"], eeveePublic: true };
+    const result = await registry.buildProjection("artThemes", { a: 1 }, "abcdefghijkl", options);
+
+    assert.deepEqual(result, { base: true, first: true, second: true });
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0][0], "artThemes");
+    assert.deepEqual(seen[0][1], { a: 1 });
+    assert.equal(seen[0][2], "abcdefghijkl");
+    assert.equal(seen[0][3], options);
+  } finally {
+    registry.buildProjection = original;
+  }
 });

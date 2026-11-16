@@ -746,10 +746,22 @@
     return `${url.pathname.split("/").pop() || ""}${url.search}`;
   }
 
-  window.CollectorCollectionRegistry = {
+  // buildProjection을 확장하는 유일한 통로. 인자(옵션 포함)는 next()가 항상
+  // 그대로 전달하므로, 확장 코드가 옵션(hiddenGroups 등)을 빠뜨릴 수 없다.
+  function extendBuildProjection(handler) {
+    const previous = registry.buildProjection;
+    registry.buildProjection = (collectionId, sourceDocument, publicId, options) =>
+      handler(
+        { collectionId, sourceDocument, publicId, options },
+        () => previous(collectionId, sourceDocument, publicId, options),
+      );
+  }
+
+  const registry = {
     COLLECTION_ORDER,
     COLLECTIONS,
     buildProjection,
+    extendBuildProjection,
     cleanHiddenGroups,
     themeGroups,
     cardIdentity,
@@ -765,4 +777,5 @@
     resolveOverrides,
     supportedCollectionId,
   };
+  window.CollectorCollectionRegistry = registry;
 })();
