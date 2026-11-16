@@ -7,6 +7,8 @@
   const stateBox = document.querySelector("#wish-state");
   const countEl = document.querySelector("#wish-count");
   const search = document.querySelector("#wish-search");
+  const dexSelect = document.querySelector("#wish-dex");
+  const sortSelect = document.querySelector("#wish-sort");
   if (!wishlist || !grid || !stateBox) return;
 
   function setState(title, body, action) {
@@ -34,6 +36,46 @@
       element.addEventListener("click", onClick);
     }
     return element;
+  }
+
+  const DEX_LABELS = {
+    "series.html": "시리즈 도감",
+    "base-series.html": "시리즈 도감",
+    "national.html": "전국 도감",
+    "packs.html": "팩 도감",
+    "pokemon-collections.html": "포켓몬 도감",
+    "ar.html": "AR 도감",
+    "artists.html": "일러스트레이터 도감",
+    "people.html": "인물 도감",
+    "trainer-pokemon.html": "트레이너 포켓몬 도감",
+    "fossil.html": "화석 도감",
+    "world.html": "월드 도감",
+    "art-themes.html": "아트 테마 도감",
+    "eevee.html": "이브이 도감",
+    "custom.html": "커스텀 도감",
+    "theme.html": "테마 도감",
+  };
+
+  function dexOf(item) {
+    const file = String(item.p || "").split(/[?#]/)[0].split("/").pop();
+    return DEX_LABELS[file] || "기타 도감";
+  }
+
+  function syncDexOptions(items) {
+    if (!dexSelect) return;
+    const labels = [...new Set(items.map(dexOf))].sort((a, b) => a.localeCompare(b, "ko-KR"));
+    const current = dexSelect.value;
+    dexSelect.replaceChildren(new Option("전체 도감", ""), ...labels.map((label) => new Option(label, label)));
+    dexSelect.value = labels.includes(current) ? current : "";
+  }
+
+  function sortItems(list) {
+    const mode = sortSelect?.value || "recent";
+    const copy = [...list];
+    if (mode === "name") copy.sort((a, b) => String(a.n).localeCompare(String(b.n), "ko-KR", { numeric: true }));
+    else if (mode === "old") copy.sort((a, b) => (a.a || 0) - (b.a || 0));
+    else copy.sort((a, b) => (b.a || 0) - (a.a || 0));
+    return copy;
   }
 
   function cardElement(item) {
@@ -148,10 +190,15 @@
     }
 
     const query = String(search?.value || "").trim().toLocaleLowerCase("ko-KR");
-    const shown = query
-      ? items.filter((item) => `${item.n} ${item.t}`.toLocaleLowerCase("ko-KR").includes(query))
-      : items;
-    if (!shown.length) return setState("조건에 맞는 카드가 없어요.", "검색어를 바꿔 보세요.");
+    syncDexOptions(items);
+    const dex = dexSelect?.value || "";
+    const shown = sortItems(
+      items.filter((item) =>
+        (!dex || dexOf(item) === dex) &&
+        (!query || `${item.n} ${item.t}`.toLocaleLowerCase("ko-KR").includes(query)),
+      ),
+    );
+    if (!shown.length) return setState("조건에 맞는 카드가 없어요.", "검색어나 도감 필터를 바꿔 보세요.");
 
     stateBox.hidden = true;
     grid.hidden = false;
@@ -160,6 +207,8 @@
 
   wishlist.subscribe(render);
   search?.addEventListener("input", render);
+  dexSelect?.addEventListener("change", render);
+  sortSelect?.addEventListener("change", render);
   render();
   wishlist.ready().then(render);
 })();
