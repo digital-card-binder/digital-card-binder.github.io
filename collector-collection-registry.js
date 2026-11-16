@@ -342,6 +342,37 @@
     return makeCatalog(collectionId, items);
   }
 
+  // 홈 대시보드 전용: 진행률 계산에 필요한 키·그룹·호환 키만 담은 요약에서 같은 makeCatalog 로 카탈로그를 만든다.
+  // 요약이 없거나 해당 도감이 빠져 있으면 전체 카탈로그(loadCatalog)로 대신한다. 요약과 전체 카탈로그가 같은지는 테스트가 보장한다.
+  let summaryPromise = null;
+  const summaryCatalogPromises = new Map();
+
+  function loadSummaryCatalog(collectionId) {
+    if (!supportedCollectionId(collectionId)) {
+      return Promise.reject(new Error("지원하지 않는 도감입니다."));
+    }
+    if (!summaryCatalogPromises.has(collectionId)) {
+      summaryCatalogPromises.set(collectionId, (async () => {
+        try {
+          summaryPromise ||= catalogService.json("./data/dashboard-catalog-summary.json");
+          const entry = (await summaryPromise)?.collections?.[collectionId];
+          if (!entry || !Array.isArray(entry.items) || !Array.isArray(entry.groups)) throw new Error("summary missing");
+          return makeCatalog(collectionId, entry.items.map((row) => ({
+            key: row[0],
+            groupKey: entry.groups[row[1]][0],
+            groupName: entry.groups[row[1]][1],
+            baselineOwned: row[2] === 1,
+            ...(row[3] ? { compatibilityKeys: row[3] } : {}),
+          })));
+        } catch (error) {
+          console.warn(`${collectionId} 요약을 사용하지 못해 전체 카탈로그를 불러옵니다.`, error);
+          return loadCatalog(collectionId);
+        }
+      })());
+    }
+    return summaryCatalogPromises.get(collectionId);
+  }
+
   function loadCatalog(collectionId) {
     if (!supportedCollectionId(collectionId)) {
       return Promise.reject(new Error("지원하지 않는 도감입니다."));
@@ -641,6 +672,7 @@
     collectionIdForPage,
     defaultSetting,
     loadCatalog,
+    loadSummaryCatalog,
     normalizeSetting,
     ownershipFor,
     pageUrl,

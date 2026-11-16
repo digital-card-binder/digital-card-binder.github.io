@@ -297,7 +297,7 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
 test("dashboard loads every registered catalog through the shared registry", async () => {
   const dashboard = await source("dashboard.js");
   assert.match(dashboard, /CATEGORY_ORDER[.]filter/);
-  assert.match(dashboard, /registry[.]loadCatalog\(category\)/);
+  assert.match(dashboard, /registry[.]loadSummaryCatalog \|\| registry[.]loadCatalog\)\(category\)/);
   assert.match(dashboard, /cloneRegistryCatalog/);
   assert.doesNotMatch(dashboard, /[.]\/data\/trainer-pokemon[.]json/);
 });
