@@ -15,20 +15,32 @@ EXPECTED_ARTISTS = [
     "Anesaki Dynamic",
     "Asako Ito",
     "Atsuko Nishida",
+    "Atsushi Furusawa",
     "Aya Kusube",
+    "Ayaka Yoshida",
+    "chibi",
+    "DOM",
+    "Eske Yoshinob",
     "Gapao",
+    "GOSSAN",
+    "Hasuno",
     "Hideki Ishikawa",
     "Hitoshi Ariga",
+    "hncl",
     "HYOGONOSUKE",
     "Jerky",
     "Kagemaru Himeno",
     "kantaro",
     "kawayoo",
     "Ken Sugimori",
+    "kirisAki",
     "kodama",
     "Kouki Saitou",
+    "Kyoko Umemoto",
+    "MAHOU",
     "Masakazu Fukuda",
     "Megumi Mizutani",
+    "Midori Harada",
     "miki kudo",
     "Miki Tanaka",
     "Mitsuhiro Arita",
@@ -43,22 +55,30 @@ EXPECTED_ARTISTS = [
     "Pani kobayashi",
     "Ryo Ueda",
     "ryoma uratsuka",
+    "Ryota Murayama",
+    "Ryuta Fuse",
     "Saboteri",
     "Sachiko Adachi",
+    "Sanosuke Sakuma",
     "Saya Tsuruta",
     "Sekio",
     "Shibuzoh",
+    "Shigenori Negishi",
     "Shin Nagasawa",
     "Shinji Kanda",
+    "Souichirou Gunjima",
     "sowsow",
     "sui",
     "takuyoa",
+    "Teeziro",
     "Tetsu Kayama",
     "Tika Matsuno",
     "Tomokazu Komiya",
+    "You Iribi",
     "Yuka Morii",
     "Yukihiro Tada",
     "Yukiko Baba",
+    "Yuu Nishida",
 ]
 
 NEW_ARTISTS = {
@@ -66,8 +86,28 @@ NEW_ARTISTS = {
     "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
     "nagimiso", "Ken Sugimori", "Kouki Saitou", "Akira Komayama", "Masakazu Fukuda",
     "Megumi Mizutani", "Anesaki Dynamic", "Hideki Ishikawa", "Shin Nagasawa", "takuyoa",
+    "GOSSAN",
+    "Atsushi Furusawa",
+    "Midori Harada",
+    "chibi",
+    "Shigenori Negishi",
+    "kirisAki",
+    "Yuu Nishida",
+    "Ayaka Yoshida",
+    "MAHOU",
+    "DOM",
+    "Souichirou Gunjima",
+    "Ryuta Fuse",
+    "Kyoko Umemoto",
+    "Ryota Murayama",
+    "You Iribi",
+    "hncl",
+    "Hasuno",
+    "Teeziro",
+    "Sanosuke Sakuma",
+    "Eske Yoshinob",
 }
-EXPECTED_CARD_COUNT = 6073
+EXPECTED_CARD_COUNT = 7331
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -104,7 +144,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 50-artist catalog")
+        fail("Artist list/order does not match the approved 70-artist catalog")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
