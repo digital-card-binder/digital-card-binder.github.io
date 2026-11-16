@@ -35,8 +35,8 @@
       "unit": "장"
     },
     "artist": {
-      "itemCount": 6073,
-      "groupCount": 50,
+      "itemCount": 7331,
+      "groupCount": 70,
       "unit": "장"
     },
     "people": {
