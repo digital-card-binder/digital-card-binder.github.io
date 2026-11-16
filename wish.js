@@ -63,9 +63,14 @@
 
   function syncDexOptions(items) {
     if (!dexSelect) return;
-    const labels = [...new Set(items.map(dexOf))].sort((a, b) => a.localeCompare(b, "ko-KR"));
+    const counts = new Map();
+    items.forEach((item) => counts.set(dexOf(item), (counts.get(dexOf(item)) || 0) + 1));
+    const labels = [...counts.keys()].sort((a, b) => a.localeCompare(b, "ko-KR"));
     const current = dexSelect.value;
-    dexSelect.replaceChildren(new Option("전체 도감", ""), ...labels.map((label) => new Option(label, label)));
+    dexSelect.replaceChildren(
+      new Option(`전체 도감 (${items.length})`, ""),
+      ...labels.map((label) => new Option(`${label} (${counts.get(label)})`, label)),
+    );
     dexSelect.value = labels.includes(current) ? current : "";
   }
 
@@ -118,7 +123,9 @@
     remove.setAttribute("aria-label", `${item.n} 위시에서 빼기`);
     remove.addEventListener("click", async () => {
       remove.disabled = true;
-      const result = await wishlist.toggle({ name: item.n, tag: item.t, image: item.i, page: item.p });
+      const info = { name: item.n, tag: item.t, image: item.i, page: item.p };
+      const toggle = window.DigitalCardBinder?.wishToggleWithToast;
+      const result = toggle ? await toggle(info) : await wishlist.toggle(info);
       if (result === "error") remove.disabled = false;
     });
 
