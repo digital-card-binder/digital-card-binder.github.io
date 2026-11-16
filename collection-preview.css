@@ -153,15 +153,23 @@ body {
   color: #fff;
 }
 
-.collection-nav-section-toggle {
-  background: rgba(255, 255, 255, 0.035);
+/* 섹션 제목은 펼침 여부·페이지와 무관하게 항상 같은 색을 쓴다. 펼침 상태는 화살표로만 표시한다. */
+.collection-nav-section-toggle,
+.collection-nav-section-toggle.is-open {
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  color: #bcd8ea;
 }
 
 .collection-nav-section-toggle:hover,
-.collection-nav-section-toggle.is-open {
-  border-color: rgba(104, 190, 228, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+.collection-nav-section-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.09);
+  color: #e8f4fb;
+}
+
+.collection-nav-section-toggle .collection-nav-section-meta i,
+.collection-nav-section-toggle.is-open .collection-nav-section-meta i {
+  color: #7fb2cf;
 }
 
 .sidebar-note {
@@ -556,17 +564,12 @@ body[data-page="custom-dex"] .custom-dex-card.is-active {
   }
 
   .collection-nav-section-toggle,
-  .collection-nav-section-toggle[data-nav-group-toggle="main"] {
+  .collection-nav-section-toggle[data-nav-group-toggle="main"],
+  .collection-nav-section-toggle.is-open {
     min-height: 44px;
     border-color: rgba(116, 185, 217, 0.14);
-    background: rgba(255, 255, 255, 0.04);
-    color: #9cbbcd;
-  }
-
-  .collection-nav-section-toggle.is-open {
-    border-color: rgba(84, 207, 231, 0.32);
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    color: #bcd8ea;
     box-shadow: none;
   }
 
