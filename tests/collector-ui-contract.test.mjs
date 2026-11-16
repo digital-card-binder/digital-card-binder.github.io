@@ -1650,3 +1650,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(directoryClient, /function normalizedBinder/);
   assert.match(directoryClient, /collector[.]binders/);
 });
+
+test("projection wrappers forward build options such as hiddenGroups", async () => {
+  for (const file of ["custom-sharing.js", "custom-granular-sharing.js"]) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.match(source, /publicId,\s*options,\s*\)/, file);
+    assert.match(source, /originalBuildProjection\([\s\S]*?options/, file);
+  }
+});
