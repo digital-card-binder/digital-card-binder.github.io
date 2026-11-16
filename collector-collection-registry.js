@@ -554,21 +554,57 @@
     };
   }
 
-  async function buildProjection(collectionId, sourceDocument, publicId) {
+  // 테마 도감은 테마별로 공개 여부를 정한다. 숨긴 테마의 카드는 공개 사본에 넣지 않는다.
+  function cleanHiddenGroups(value) {
+    if (!Array.isArray(value)) return [];
+    const seen = new Set();
+    for (const entry of value) {
+      const code = cleanString(entry);
+      if (/^[A-Za-z0-9_-]{1,40}$/.test(code)) seen.add(code);
+      if (seen.size >= 40) break;
+    }
+    return [...seen];
+  }
+
+  async function buildProjection(collectionId, sourceDocument, publicId, options = {}) {
     if (!/^[a-z0-9]{12}$/.test(cleanString(publicId))) {
       throw new Error("공개 프로필 식별값이 올바르지 않습니다.");
     }
     const ownership = await ownershipFor(collectionId, sourceDocument);
-    return {
+    let ownedKeys = ownership.ownedKeys;
+    let totalCount = ownership.catalog.items.length;
+    const projection = {
       schemaVersion: 1,
       publicId,
       collectionId,
-      ownedKeys: ownership.ownedKeys,
-      ownedCount: ownership.ownedKeys.length,
-      totalCount: ownership.catalog.items.length,
       promoOwnedKeys: ownership.promoOwnedKeys,
       promoOwnedCount: ownership.promoOwnedKeys.length,
     };
+    if (collectionId === "artThemes") {
+      const hidden = cleanHiddenGroups(options?.hiddenGroups);
+      const hiddenSet = new Set(hidden);
+      const items = ownership.catalog.items;
+      const groupOf = ownership.catalog.itemMap;
+      ownedKeys = ownedKeys.filter((key) => !hiddenSet.has(groupOf.get(key)?.groupKey));
+      totalCount = items.filter((item) => !hiddenSet.has(item.groupKey)).length;
+      projection.hiddenGroups = hidden;
+    }
+    return {
+      ...projection,
+      ownedKeys,
+      ownedCount: ownedKeys.length,
+      totalCount,
+    };
+  }
+
+  // 설정 화면의 테마별 공개 스위치에 쓸 테마 목록.
+  async function themeGroups() {
+    const catalog = await loadCatalog("artThemes");
+    return catalog.groups.map((group) => ({
+      code: group.key,
+      name: group.name,
+      count: group.itemKeys.length,
+    }));
   }
 
   function projectionOwnership(projection, catalog) {
@@ -588,7 +624,9 @@
 
     const storedTotalCount = Math.max(0, Number(projection?.totalCount) || 0);
     const catalogCount = Number(meta.catalogCount);
-    const totalCount = Number.isInteger(catalogCount) && catalogCount >= 0
+    const partialThemes = collectionId === "artThemes"
+      && cleanHiddenGroups(projection?.hiddenGroups).length > 0;
+    const totalCount = !partialThemes && Number.isInteger(catalogCount) && catalogCount >= 0
       ? catalogCount
       : storedTotalCount;
     const ownedKeys = Array.isArray(projection?.ownedKeys)
@@ -629,8 +667,12 @@
       return fallback;
     }
     const visibility = source.visibility === "public" ? "public" : "private";
+    const themeExtras = collectionId === "artThemes"
+      ? { hiddenGroups: cleanHiddenGroups(source.hiddenGroups) }
+      : {};
     return {
       ...fallback,
+      ...themeExtras,
       dashboardVisible:
         typeof source.dashboardVisible === "boolean"
           ? source.dashboardVisible
@@ -667,6 +709,8 @@
     COLLECTION_ORDER,
     COLLECTIONS,
     buildProjection,
+    cleanHiddenGroups,
+    themeGroups,
     cardIdentity,
     collectionIdForPage,
     defaultSetting,

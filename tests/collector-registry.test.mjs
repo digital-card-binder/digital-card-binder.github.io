@@ -567,6 +567,44 @@ test("pack projection keeps every official promo item and excludes custom promo 
   assert.equal(JSON.stringify(projection).includes("private"), false);
 });
 
+test("theme dex public projection leaves out hidden themes", async () => {
+  const catalog = await registry.loadCatalog("artThemes");
+  const sleeping = catalog.items.filter((item) => item.groupKey === "sleeping");
+  const night = catalog.items.filter((item) => item.groupKey === "night");
+  assert.ok(sleeping.length > 0 && night.length > 0);
+  const overrides = {};
+  for (const item of [sleeping[0], night[0]]) overrides[item.key] = { owned: true };
+  const source = { baseMode: "empty", overrides };
+
+  const all = await registry.buildProjection("artThemes", source, "abc123def456");
+  assert.equal(all.totalCount, catalog.items.length);
+  assert.equal(all.ownedCount, 2);
+  assert.deepEqual([...all.hiddenGroups], []);
+
+  const partial = await registry.buildProjection("artThemes", source, "abc123def456", {
+    hiddenGroups: ["night", "bad value!", "night"],
+  });
+  assert.deepEqual([...partial.hiddenGroups], ["night"]);
+  assert.equal(partial.totalCount, catalog.items.length - night.length);
+  assert.deepEqual([...partial.ownedKeys], [sleeping[0].key]);
+  assert.equal(partial.ownedCount, 1);
+  // 부분 공개 사본의 총 장수는 저장된 값을 쓴다.
+  assert.equal(registry.publicProjectionMetrics(partial).totalCount, partial.totalCount);
+  assert.equal(registry.publicProjectionMetrics(all).totalCount, catalog.items.length);
+
+  // 다른 도감은 숨김 옵션의 영향을 받지 않는다.
+  const series = await registry.buildProjection("series", { baseMode: "empty", overrides: {} }, "abc123def456", {
+    hiddenGroups: ["night"],
+  });
+  assert.equal("hiddenGroups" in series, false);
+
+  const groups = await registry.themeGroups();
+  assert.equal(groups.length, themeData.groups.length);
+  assert.equal(groups.reduce((total, group) => total + group.count, 0), catalog.items.length);
+  assert.deepEqual([...registry.normalizeSetting("artThemes", { visibility: "public", hiddenGroups: ["night", "x y"] }).hiddenGroups], ["night"]);
+  assert.equal("hiddenGroups" in registry.normalizeSetting("series", { visibility: "public", hiddenGroups: ["night"] }), false);
+});
+
 test("the same physical card remains independent across catalogs", async () => {
   const nationalCatalog = await registry.loadCatalog("national");
   const artistCatalog = await registry.loadCatalog("artist");

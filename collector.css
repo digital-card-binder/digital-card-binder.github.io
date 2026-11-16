@@ -4189,3 +4189,23 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
 .collector-public-wish-card small { color: #35597d; font-size: .7rem; font-weight: 850; }
 .collector-public-wish-card strong { color: #213c58; font-size: .82rem; line-height: 1.25; }
 @media (max-width: 690px) { .collector-public-wish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
+
+.collector-theme-groups { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e3ebf5; }
+.collector-theme-groups summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; list-style: none; color: #213c58; font-size: .9rem; }
+.collector-theme-groups summary::-webkit-details-marker { display: none; }
+.collector-theme-groups summary::after { content: "▾"; color: #6b7f96; transition: transform .15s; }
+.collector-theme-groups[open] summary::after { transform: rotate(180deg); }
+.collector-theme-groups summary small { margin-left: auto; color: #6b7f96; font-size: .76rem; }
+.collector-theme-group-list { display: grid; gap: 8px; margin-top: 10px; }
+.collector-theme-group-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; border: 1px solid #e3ebf5; border-radius: 12px; background: #f9fbfe; cursor: pointer; }
+.collector-theme-group-row span { display: grid; gap: 2px; min-width: 0; }
+.collector-theme-group-row strong { color: #213c58; font-size: .86rem; }
+.collector-theme-group-row small { color: #6b7f96; font-size: .72rem; }
+.collector-theme-group-row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.collector-theme-group-row i { position: relative; flex: 0 0 auto; width: 40px; height: 24px; border-radius: 999px; background: #c5d2e2; transition: background .15s; }
+.collector-theme-group-row i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .15s; }
+.collector-theme-group-row input:checked + i { background: #3d5a99; }
+.collector-theme-group-row input:checked + i::after { transform: translateX(16px); }
+.collector-theme-group-row input:disabled + i { opacity: .45; }
+.collector-theme-group-row input:focus-visible + i { outline: 3px solid #9cc3ff; outline-offset: 2px; }
+.collector-theme-groups { grid-column: 1 / -1; }

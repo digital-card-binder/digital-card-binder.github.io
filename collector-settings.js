@@ -899,10 +899,15 @@
       // this switch. A deliberate save unifies both visibility settings.
       visibility.checked = setting.visibility === "public";
       visibility.setAttribute("aria-label", meta.title + " 공개 설정");
-      visibility.addEventListener("change", () => markSettingDirty(card));
+      visibility.addEventListener("change", () => {
+        markSettingDirty(card);
+        syncThemeGroupState(card);
+      });
       return card;
     });
     elements.settingsGrid.replaceChildren(...cards);
+    const themeCard = cards.find((card) => card.dataset.collectionId === "artThemes");
+    if (themeCard) void attachThemeGroups(themeCard);
 
     const requested = new URLSearchParams(window.location.search).get("collection");
     if (requested && registry.supportedCollectionId(requested)) {
@@ -914,9 +919,75 @@
     }
   }
 
+  // 테마 도감: 테마별 공개 스위치(펼침 목록). 꺼 둔 테마는 공개 프로필에서 숨겨진다.
+  function syncThemeGroupState(card) {
+    const box = card.querySelector(".collector-theme-groups");
+    if (!box) return;
+    const master = card.querySelector('[data-setting="visibility"]').checked;
+    const inputs = [...box.querySelectorAll("input[data-theme-group]")];
+    inputs.forEach((input) => { input.disabled = !master; });
+    const shown = inputs.filter((input) => input.checked).length;
+    box.querySelector("summary small").textContent = master
+      ? `${inputs.length}개 중 ${shown}개 공개`
+      : "공개를 켜면 테마별로 고를 수 있어요";
+  }
+
+  async function attachThemeGroups(card) {
+    let groups;
+    try {
+      groups = await registry.themeGroups();
+    } catch (error) {
+      console.warn("테마 목록을 불러오지 못했습니다.", error);
+      return;
+    }
+    const hidden = new Set(settings.get("artThemes")?.value?.hiddenGroups || []);
+    const box = document.createElement("details");
+    box.className = "collector-theme-groups";
+    box.innerHTML = '<summary><strong>테마별 공개 설정</strong><small></small></summary><div class="collector-theme-group-list"></div>';
+    const list = box.querySelector(".collector-theme-group-list");
+    for (const group of groups) {
+      const row = document.createElement("label");
+      row.className = "collector-theme-group-row";
+      const text = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = group.name;
+      const count = document.createElement("small");
+      count.textContent = `${group.count.toLocaleString("ko-KR")}장`;
+      text.append(name, count);
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.dataset.themeGroup = group.code;
+      input.checked = !hidden.has(group.code);
+      input.setAttribute("aria-label", `${group.name} 공개`);
+      input.addEventListener("change", () => {
+        markSettingDirty(card);
+        syncThemeGroupState(card);
+      });
+      const track = document.createElement("i");
+      track.setAttribute("aria-hidden", "true");
+      row.append(text, input, track);
+      list.append(row);
+    }
+    card.append(box);
+    syncThemeGroupState(card);
+  }
+
   function settingFromCard(card, collectionId) {
     const current = settings.get(collectionId)?.value || registry.defaultSetting(collectionId);
     const isPublic = card.querySelector('[data-setting="visibility"]').checked;
+    if (collectionId === "artThemes") {
+      const inputs = [...card.querySelectorAll("input[data-theme-group]")];
+      // 목록을 아직 못 불러왔으면 기존 숨김 설정을 그대로 유지한다.
+      const hiddenGroups = inputs.length
+        ? inputs.filter((input) => !input.checked).map((input) => input.dataset.themeGroup)
+        : current.hiddenGroups || [];
+      return {
+        ...current,
+        dashboardVisible: isPublic,
+        visibility: isPublic ? "public" : "private",
+        hiddenGroups,
+      };
+    }
     // One user choice controls both destinations, preserving all other
     // collection fields and the existing public/private Firestore schema.
     return {
@@ -960,6 +1031,9 @@
       visibility: next.visibility,
       displayOrder: next.displayOrder,
       shareId: next.shareId,
+      ...(collectionId === "artThemes"
+        ? { hiddenGroups: registry.cleanHiddenGroups(next.hiddenGroups) }
+        : {}),
       createdAt: current.exists
         ? current.createdAt
         : firebase.firestoreModule.serverTimestamp(),
@@ -992,6 +1066,7 @@
           collectionId,
           context.source,
           profile.publicId,
+          { hiddenGroups: next.hiddenGroups },
         );
       }
 
