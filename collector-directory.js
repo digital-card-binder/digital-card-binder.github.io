@@ -6,6 +6,7 @@
   const registry = window.CollectorCollectionRegistry;
   const elements = {
     search: document.querySelector("#collector-directory-search"),
+    sort: document.querySelector("#collector-directory-sort"),
     count: document.querySelector("#collector-directory-count strong"),
     grid: document.querySelector("#collector-directory-grid"),
     loading: document.querySelector("#collector-directory-loading"),
@@ -245,10 +246,26 @@
     ).includes(query);
   }
 
+  function byName(left, right) {
+    return left.nickname.localeCompare(right.nickname, "ko-KR", {
+      numeric: true,
+      sensitivity: "base",
+    });
+  }
+
+  function sortedCollectors(list) {
+    const mode = elements.sort?.value || "name";
+    const copy = [...list];
+    if (mode === "rate") copy.sort((a, b) => b.rate - a.rate || byName(a, b));
+    else if (mode === "wish") copy.sort((a, b) => b.wishCount - a.wishCount || byName(a, b));
+    else copy.sort(byName);
+    return copy;
+  }
+
   function render() {
     const query = normalizedSearch(elements.search.value);
-    const visible = collectors.filter((collector) =>
-      matchesSearch(collector, query),
+    const visible = sortedCollectors(
+      collectors.filter((collector) => matchesSearch(collector, query)),
     );
     elements.grid.replaceChildren(...visible.map(createCard));
     elements.count.textContent = visible.length.toLocaleString("ko-KR");
@@ -303,5 +320,6 @@
   }
 
   elements.search.addEventListener("input", render);
+  elements.sort?.addEventListener("change", render);
   void initialize();
 })();
