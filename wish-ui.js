@@ -94,11 +94,11 @@
       for (const record of records) record.addedNodes.forEach((node) => pending.add(node));
       if (queued) return;
       queued = true;
-      requestAnimationFrame(() => {
+      window.setTimeout(() => {
         queued = false;
         for (const node of pending) scan(node);
         pending.clear();
-      });
+      }, 30);
     }).observe(document.body, { childList: true, subtree: true });
     wishlist()?.subscribe(repaintAll);
     // 로그인 상태가 확인되면 이미 담긴 카드를 ♥로 표시한다.
