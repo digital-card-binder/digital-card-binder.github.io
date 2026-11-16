@@ -1206,6 +1206,7 @@ body[data-page="dashboard"] .main-content {
 }
 
 .home-progress-track {
+  display: block;
   width: 100%;
   height: 7px;
   margin-top: 7px;
@@ -3959,5 +3960,45 @@ body[data-page="dashboard"] .home-feature-card--community {
     width: 82px;
     height: 72px;
     border-radius: 17px;
+  }
+}
+
+/* 홈 모바일 다듬기: 헤더 버튼은 글자가 박스 밖으로 넘치지 않는 같은 높이의 알약 모양으로,
+   로그인 상태에서 의미 없이 떠 보이던 장식 점은 숨긴다. */
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .home-account-trigger {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: auto;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 11px;
+    white-space: nowrap;
+  }
+  body[data-page="dashboard"] .home-account-icon {
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    line-height: 1;
+  }
+  body[data-page="dashboard"] .home-account-label {
+    font-size: 12px;
+    font-weight: 850;
+  }
+  body[data-page="dashboard"] .home-hero::after {
+    display: none;
+  }
+}
+@media (max-width: 380px) {
+  body[data-page="dashboard"] .home-account-trigger {
+    padding: 0;
+    width: 40px;
+  }
+  body[data-page="dashboard"] .home-account-label {
+    display: none;
   }
 }
