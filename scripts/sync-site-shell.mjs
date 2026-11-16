@@ -8,6 +8,7 @@ const checkOnly = process.argv.includes("--check");
 const navigation = Object.freeze([
   { href: "./", page: "index.html", icon: "home", title: "통합 대시보드", subtitle: "모든 도감" },
   { href: "./pokemon-search.html", page: "pokemon-search.html", icon: "search", title: "카드 검색", subtitle: "통합 카드 검색" },
+  { href: "./wish.html", page: "wish.html", icon: "heart", title: "위시카드", subtitle: "갖고 싶은 카드 모아보기" },
   { section: "주요 도감" },
   { href: "./national.html", page: "national.html", title: "전국도감", catalogId: "national" },
   { href: "./series.html", page: "series.html", title: "시리즈 도감", catalogId: "series" },

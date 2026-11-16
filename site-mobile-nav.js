@@ -4,7 +4,7 @@
   const NAV_ITEMS = [
     { href: "./", label: "홈", icon: "⌂", name: "home" },
     { href: "./pokemon-search.html", label: "검색", icon: "⌕", name: "search" },
-    { href: "./series.html", label: "도감", icon: "▦", name: "series" },
+    { href: "./wish.html", label: "위시", icon: "♡", name: "wish" },
     { href: "./custom.html", label: "내 도감", icon: "▤", name: "custom" },
     { href: "./#home-menu", label: "메뉴", icon: "☰", name: "menu" },
   ];
@@ -13,7 +13,7 @@
     const page = window.location.pathname.split("/").pop() || "index.html";
     if (page === "index.html") return "home";
     if (page === "pokemon-search.html") return "search";
-    if (page === "series.html") return "series";
+    if (page === "wish.html") return "wish";
     if (page === "custom.html") return "custom";
     return "";
   }
@@ -71,7 +71,7 @@
           ["화석 도감", "./fossil.html"], ["트레이너 × 포켓몬", "./trainer-pokemon.html"]
         ] },
         { title: "도구 · 커뮤니티", links: [
-          ["카드 레이더", "./card-radar.html"], ["커뮤니티", "./collectors.html"],
+          ["위시카드", "./wish.html"], ["카드 레이더", "./card-radar.html"], ["커뮤니티", "./collectors.html"],
           ["새소식", "./news.html"], ["내 설정", "./collector-settings.html"]
         ] }
       ];

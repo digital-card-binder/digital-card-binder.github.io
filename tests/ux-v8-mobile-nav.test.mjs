@@ -52,7 +52,7 @@ test("common tabbar shows 5 destinations without duplicate existing home tabbar"
  assert.equal(t.navChildren.length,1);
  const anchors=t.navChildren[0].children;
  assert.equal(anchors.length,5);
- assert.deepEqual(anchors.map(x=>x.href),["./","./pokemon-search.html","./series.html","./custom.html","./#home-menu"]);
+ assert.deepEqual(anchors.map(x=>x.href),["./","./pokemon-search.html","./wish.html","./custom.html","./#home-menu"]);
  assert.equal(anchors[3].attrs["aria-current"],"page");
  assert.equal(anchors[0].attrs["aria-current"],undefined);
  assert.equal(t.attrs["dcb-has-mobile-nav"],true);
@@ -61,7 +61,7 @@ test("common tabbar shows 5 destinations without duplicate existing home tabbar"
 });
 
 test("all destinations have accessible names, active state and menu deep-link works",()=>{
- const t=simulate("series.html",false,"#home-menu");
+ const t=simulate("wish.html",false,"#home-menu");
  assert.equal(t.menu.open,true);
  const anchors=t.navChildren[0].children;
  assert.equal(anchors[2].attrs["aria-current"],"page");
@@ -75,7 +75,7 @@ test("all destinations have accessible names, active state and menu deep-link wo
 test("existing dashboard tabbar now matches the first four shared destinations",()=>{
  const index=fs.readFileSync(new URL("../index.html",import.meta.url),"utf8");
  assert.match(index,/class="home-mobile-tabbar"/);
- assert.match(index,/href="\.\/series\.html"[^>]*><span[^>]*>▦<\/span><strong>도감/);
+ assert.match(index,/href="\.\/wish\.html"[^>]*><span[^>]*>♡<\/span><strong>위시/);
  assert.match(index,/href="\.\/custom\.html"[^>]*><span[^>]*>▤<\/span><strong>내 도감/);
  assert.match(index,/id="home-mobile-menu-trigger"/);
 });

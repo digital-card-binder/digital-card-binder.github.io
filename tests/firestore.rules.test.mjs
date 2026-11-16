@@ -171,6 +171,47 @@ test("existing collection documents remain owner-only and retain baseMode", asyn
   );
 });
 
+test("wishlist is a separate owner-only document with a bounded schema", async () => {
+  const item = { n: "이상해씨", t: "SV2a / #166", i: "https://example.com/a.webp", p: "ar.html", a: 1 };
+  const reference = doc(alice, "users", ALICE_UID, "wishlist", "main");
+  await assertSucceeds(
+    setDoc(reference, { schemaVersion: 1, items: { w_a: item }, updatedAt: serverTimestamp() }),
+  );
+  await assertSucceeds(
+    updateDoc(reference, new FieldPath("items", "w_b"), item, "updatedAt", serverTimestamp()),
+  );
+  await assertSucceeds(getDoc(reference));
+
+  // 다른 사용자와 비로그인 방문자는 읽거나 쓸 수 없다.
+  await assertFails(getDoc(doc(bob, "users", ALICE_UID, "wishlist", "main")));
+  await assertFails(getDoc(doc(guest, "users", ALICE_UID, "wishlist", "main")));
+  await assertFails(
+    setDoc(doc(bob, "users", ALICE_UID, "wishlist", "main"), {
+      schemaVersion: 1,
+      items: {},
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  // 목록 조회, 다른 문서 ID, 추가 필드, 삭제는 막는다.
+  await assertFails(getDocs(collection(alice, "users", ALICE_UID, "wishlist")));
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "wishlist", "other"), {
+      schemaVersion: 1,
+      items: {},
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(
+    setDoc(reference, { schemaVersion: 1, items: {}, updatedAt: serverTimestamp(), extra: true }),
+  );
+  await assertFails(deleteDoc(reference));
+  // 항목은 최대 300개까지만 저장한다.
+  const many = Object.fromEntries(Array.from({ length: 301 }, (_, index) => [`w_${index}`, item]));
+  await assertFails(
+    setDoc(reference, { schemaVersion: 1, items: many, updatedAt: serverTimestamp() }),
+  );
+});
+
 test("owner Sheets sync can repair a legacy document without baseMode", async () => {
   const reference = doc(owner, "users", OWNER_UID, "collections", "packDex");
   await environment.withSecurityRulesDisabled(async (context) => {
