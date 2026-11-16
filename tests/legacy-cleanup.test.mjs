@@ -22,7 +22,7 @@ test("collector-nav is the only runtime navigation writer", async () => {
   const shell = await source("scripts/sync-site-shell.mjs");
   assert.match(shell, /section: "주요 도감"/);
   assert.match(shell, /title: "테마 도감"/);
-  assert.match(shell, /section: "테마 컬렉션"/);
+  assert.match(shell, /section: "테마도감 바로가기"/);
 
   for (const path of [
     "firebase-config.js",
