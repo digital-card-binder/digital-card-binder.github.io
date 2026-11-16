@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./styles.css?v=4c2b60974236" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
     <link rel="stylesheet" href="./collection-manager.css?v=332f22b3a57d" />
-    <link rel="stylesheet" href="./collector.css?v=b46652834f35" />
+    <link rel="stylesheet" href="./collector.css?v=6182af0549fc" />
     <link rel="stylesheet" href="./collection-preview.css?v=68dbaf9e74d8" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -26,9 +26,9 @@
     <script src="./core/catalog/card-lookup.js?v=9947bcba8bc3" defer></script>
     <script src="./collector-collection-registry.js?v=5d2580f4e04c" defer></script>
     <script src="./custom-sharing.js?v=e7ddd1d8a62f" defer></script>
-    <script src="./collector-nav.js?v=11bd25e4057a" defer></script>
+    <script src="./collector-nav.js?v=afcdac23e3e0" defer></script>
     <script src="./collection-preview.js?v=54a9e3e3a9a3" defer></script>
-    <script src="./collector-directory.js?v=80605580029b" defer></script>
+    <script src="./collector-directory.js?v=20a3bfff13f8" defer></script>
       <script src="./site-mobile-nav.js?v=bc6c4993ccb2" defer></script>
       <script src="./core/wish/wishlist.js?v=5d4ecba0d6bb" defer></script>
       <script src="./wish-ui.js?v=82cafbf5a4d5" defer></script>
@@ -109,6 +109,14 @@
                 autocomplete="off"
                 placeholder="닉네임·소개·공개 도감 검색"
               />
+            </label>
+            <label class="collector-directory-sort">
+              <span class="sr-only">정렬</span>
+              <select id="collector-directory-sort">
+                <option value="name">이름순</option>
+                <option value="rate">수집률 높은 순</option>
+                <option value="wish">위시 많은 순</option>
+              </select>
             </label>
             <p id="collector-directory-count" class="collector-directory-count" aria-live="polite">
               컬렉터 <strong>—</strong>명

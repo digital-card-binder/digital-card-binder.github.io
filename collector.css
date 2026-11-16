@@ -4248,3 +4248,15 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
 .collector-theme-family-list > .collector-setting-card:not(.is-theme-host) .collector-setting-identity { display: flex; align-items: center; gap: 10px; }
 
 .collector-directory-tags .collector-directory-wish-tag { background: #fff0f4; color: #c2385f; }
+
+.collector-directory-sort select {
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid #d7e4f0;
+  border-radius: 13px;
+  background: #fff;
+  color: #243e5b;
+  font: inherit;
+  font-size: 16px;
+}
+.collector-directory-sort select:focus-visible { outline: 3px solid #94c6ed; outline-offset: 1px; }
