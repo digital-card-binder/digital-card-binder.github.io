@@ -1,11 +1,12 @@
 name: Apply Korean S-P first 56 art checks and own CDN display
 on:
   push:
-    branches: [main]
+    branches: [archived/sp-001-056-20261117]
     paths:
       - '.github/workflows/apply-theme-sp-001-056.yml'
       - 'scripts/apply-theme-sp-001-056-korean.mjs'
       - 'tests/collector-registry.test.mjs'
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:
