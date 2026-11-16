@@ -649,6 +649,11 @@ function makeCard(card) {
   number.textContent = card.code;
   top.append(number, badge(card.owned));
 
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  tag.textContent = window.DigitalCardBinder?.cardIdentity?.cardTag(card.setCode, card.number) || "";
+  body.classList.add("has-card-tag");
+
   const name = document.createElement("strong");
   name.className = "card-name-ko";
   name.textContent = card.name;
@@ -664,7 +669,7 @@ function makeCard(card) {
   meta.className = "card-meta";
   meta.textContent = `${pad(card.number)} / ${card.denominator} · ART RARE`;
 
-  body.append(top, name, setName, meta);
+  body.append(top, tag, name, setName, meta);
   button.append(imageWrap, body);
 
   const complete = document.createElement("button");

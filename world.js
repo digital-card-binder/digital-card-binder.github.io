@@ -388,6 +388,13 @@
     applyOwnedBadge(statusBadge, owned);
     topline.append(numberBadge, statusBadge);
 
+    const cardTag = document.createElement("span");
+    cardTag.className = "card-tag";
+    {
+      const identity = window.DigitalCardBinder?.cardIdentity;
+      cardTag.textContent = identity?.cardTag(identity.setCodeFromImage(item.image) || item.setCode, item.number) || "";
+    }
+
     const storyTitle = document.createElement("strong");
     storyTitle.className = "card-name-ko";
     storyTitle.textContent = slot.title;
@@ -404,7 +411,7 @@
     const numberLabel = [item.number, item.rarity].filter(Boolean).join(" · ");
     meta.textContent = [item.setName, numberLabel].filter(Boolean).join(" · ");
 
-    body.append(topline, storyTitle, storySubtitle, selectedCard, meta);
+    body.append(topline, cardTag, storyTitle, storySubtitle, selectedCard, meta);
     if (item.customized) {
       const changed = document.createElement("span");
       changed.className = "collection-mini-badge world-custom-badge";

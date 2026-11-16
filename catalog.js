@@ -1923,6 +1923,17 @@ function makeCard(card) {
   number.textContent = card.code || card.meta;
   top.append(number, badge(card.owned));
 
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  {
+    const parsed = /^(\d+)\/[^\s·]+\s*·\s*[^·]*·\s*(\S+)$/.exec(String(card.meta || ""));
+    const identity = window.DigitalCardBinder?.cardIdentity;
+    tag.textContent = parsed
+      ? identity?.cardTag(parsed[2], parsed[1]) || ""
+      : identity?.cardTag(card.actualSetCode, card.actualCardNumber) || "";
+  }
+  if (tag.textContent) body.classList.add("has-card-tag");
+
   const name = document.createElement("strong");
   name.className = "card-name-ko";
   name.textContent = displayName(card);
@@ -1935,7 +1946,7 @@ function makeCard(card) {
   meta.className = "card-meta";
   meta.textContent = actualCardCode(card);
 
-  body.append(top, name, group, meta);
+  body.append(top, tag, name, group, meta);
   button.append(imageWrap, body);
 
   const completionButton = makeCompletionButton(card);

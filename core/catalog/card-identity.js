@@ -123,7 +123,26 @@
     return "";
   }
 
+  // 카드 상단에 보여 줄 "세트 / #번호" 라벨 (예: "M6a / #001").
+  function cardTag(set, number) {
+    let code = cleanPart(set);
+    if (code && /^[a-z]+\d/.test(code)) {
+      code = code.replace(/^[a-z]+/, (prefix) => prefix.toUpperCase());
+    }
+    const digits = String(number ?? "").match(/\d+/);
+    const no = digits ? (digits[0].length < 3 ? digits[0].padStart(3, "0") : digits[0]) : "";
+    return [code, no ? `#${no}` : ""].filter(Boolean).join(" / ");
+  }
+
+  // 이미지 주소(/wmimages/SERIES/SET/...)에서 세트 코드를 읽는다.
+  function setCodeFromImage(url) {
+    const match = String(url || "").match(/\/wmimages\/[^/]+\/([^/]+)\//i);
+    return match ? match[1] : "";
+  }
+
   root.cardIdentity = Object.freeze({
+    cardTag,
+    setCodeFromImage,
     groupIdentity,
     cardIdentity,
     cardCompatibilityKeys,

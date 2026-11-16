@@ -4002,3 +4002,22 @@ body[data-page="dashboard"] .home-feature-card--community {
     display: none;
   }
 }
+
+/* 홈 테마도감 타일: 대표 테마 이모지 */
+.home-feature-card--theme .home-feature-emoji {
+  display: block;
+  margin: 4px 0 2px;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: .04em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 690px) {
+  .home-feature-card--theme .home-feature-emoji {
+    margin: 2px 0 0;
+    font-size: .95rem;
+    letter-spacing: .02em;
+  }
+}

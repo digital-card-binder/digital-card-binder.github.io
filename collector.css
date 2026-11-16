@@ -4149,3 +4149,34 @@ body.collector-collection-page.collector-simple-dex .results-bar-actions {
     display: none !important;
   }
 }
+
+/* 테마 도감 카드: "세트 / #번호" 라벨을 이름 위에 또렷하게 보여 준다. */
+.card-tag {
+  display: none;
+}
+
+body.collector-simple-dex .pokemon-card .card-tag {
+  display: block;
+  max-width: 100%;
+  margin-top: 4px;
+  overflow: hidden;
+  color: #35597d;
+  font-size: .68rem;
+  font-weight: 850;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.collector-simple-dex .pokemon-card .card-tag:empty {
+  display: none;
+}
+
+body.collector-simple-dex .pokemon-card:not(.people-card):not(.world-slot) .card-body.has-card-tag > .card-topline {
+  display: none;
+}
+
+body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:empty) ~ .card-name-ko {
+  margin-top: 2px;
+}
