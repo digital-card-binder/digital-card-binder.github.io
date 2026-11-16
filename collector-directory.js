@@ -107,7 +107,7 @@
       return null;
     }
 
-    const [profileSnapshot, collectionSnapshots, binderSnapshots] = await Promise.all([
+    const [profileSnapshot, collectionSnapshots, binderSnapshots, wishCount] = await Promise.all([
       firestoreModule.getDoc(
         firestoreModule.doc(db, "publicProfiles", publicId),
       ),
@@ -127,6 +127,13 @@
           "binders",
         ),
       ),
+      firestoreModule
+        .getDoc(firestoreModule.doc(db, "publicProfiles", publicId, "wishlist", "main"))
+        .then((snapshot) => {
+          const items = snapshot.exists() ? snapshot.data()?.items : null;
+          return Array.isArray(items) ? items.length : 0;
+        })
+        .catch(() => 0),
     ]);
     const profile = profileSnapshot.data() || {};
     if (!profileSnapshot.exists() || profile.profileCompleted !== true) {
@@ -159,6 +166,7 @@
       ownedCount,
       totalCount,
       rate: totalCount ? (ownedCount / totalCount) * 100 : 0,
+      wishCount,
     };
   }
 
@@ -203,6 +211,12 @@
         tag.textContent = name;
         return tag;
       });
+    if (collector.wishCount > 0) {
+      const wish = document.createElement("span");
+      wish.className = "collector-directory-wish-tag";
+      wish.textContent = `♡ 위시 ${collector.wishCount.toLocaleString("ko-KR")}장`;
+      tags.push(wish);
+    }
     link.querySelector(".collector-directory-tags").replaceChildren(...tags);
     const summaries = link.querySelectorAll(".collector-directory-summary strong");
     summaries[0].textContent = `${collector.dexCount}개`;

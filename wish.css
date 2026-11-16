@@ -16,7 +16,19 @@
 .wish-count-badge strong { font-size: 2rem; line-height: 1; }
 .wish-count-badge small { color: #6b7a90; font-size: .78rem; font-weight: 800; }
 
-.wish-toolbar { margin: 4px 0 14px; }
+.wish-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 14px; }
+.wish-toolbar .wish-search { flex: 1 1 240px; }
+.wish-select select {
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid #d7e4f0;
+  border-radius: 13px;
+  background: #fff;
+  color: #243e5b;
+  font: inherit;
+  font-size: 16px;
+}
+.wish-select select:focus-visible { outline: 3px solid #94c6ed; outline-offset: 1px; }
 .wish-search input {
   width: 100%;
   max-width: 480px;
