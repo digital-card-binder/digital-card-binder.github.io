@@ -297,6 +297,21 @@ test("restore stages new chunk sets then atomically publishes metadata and colle
   assert.ok(published.some(([ref, data]) => ref.path.includes("customBinders") && data.background.chunkSet.startsWith("restore_")));
 });
 
+test("restoring a backup never recreates guest world records but still restores the signed-in account's cache", async () => {
+  const scene = backupContext();
+  const ownedKey = "digitalCardBinderWorldExplorationOwnedV1"; const overrideKey = "digitalCardBinderWorldExplorationCardOverridesV1";
+  const store = storage(scene.ctx, { [ownedKey]: '["kept-on-this-browser"]' });
+  const payload = backup([]);
+  payload.local = { [ownedKey]: '["old-guest"]', [overrideKey]: '{"old-guest":{"image":"x"}}', [`${ownedKey}:owner`]: '["a","b"]', [`${overrideKey}:owner`]: '{"a":{"image":"y"}}' };
+  scene.api.state.restorePayload = payload;
+  assert.doesNotThrow(() => scene.api.validateBackup(payload), "old backups that contain guest keys stay readable");
+  await scene.api.restoreBackup();
+  assert.equal(store.records.get(ownedKey), '["kept-on-this-browser"]', "existing guest data on this browser is neither overwritten nor deleted");
+  assert.equal(store.records.get(overrideKey), undefined, "guest card overrides are not recreated");
+  assert.equal(store.records.get(`${ownedKey}:owner`), '["a","b"]');
+  assert.equal(store.records.get(`${overrideKey}:owner`), '{"a":{"image":"y"}}');
+});
+
 test("interrupted chunk staging never commits active metadata or collection changes", async () => {
   const scene = backupContext(true); scene.api.state.restorePayload = backup([binder()]);
   await scene.api.restoreBackup();

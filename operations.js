@@ -887,7 +887,10 @@
 
       try {
       if (payload.local && typeof payload.local === "object") {
+        // 게스트(비로그인) 월드 기록은 더 이상 만들지 않는다. 백업 파일에는 그대로 남아 읽을 수 있지만,
+        // 복구할 때 게스트 키를 되살리면 이미 정리된 예전 상태가 다시 이전 대상이 되므로 계정 키만 복구한다.
         for (const key of worldLocalKeys()) {
+          if (WORLD_KEYS.includes(key)) continue;
           if (typeof payload.local[key] === "string") {
             localStorage.setItem(key, payload.local[key]);
           }
