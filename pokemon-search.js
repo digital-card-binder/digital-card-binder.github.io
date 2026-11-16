@@ -151,9 +151,16 @@
   // Search index images may lag behind an individual Korean image recovery.
   async function applySeriesImageOverridesToSearch(groups) {
     try {
-      const response = await fetch("./data/series-image-overrides.json");
-      if (!response.ok) return;
-      const payload = await response.json();
+      // 공용 카탈로그 서비스의 캐시를 재사용해 같은 파일을 두 번 내려받지 않는다.
+      const overridesUrl = "./data/series-image-overrides.json";
+      let payload;
+      if (typeof catalogService?.json === "function") {
+        payload = await catalogService.json(overridesUrl);
+      } else {
+        const response = await fetch(overridesUrl);
+        if (!response.ok) return;
+        payload = await response.json();
+      }
       const sets = payload?.sets && typeof payload.sets === "object"
         ? payload.sets
         : {};
