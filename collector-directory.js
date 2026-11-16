@@ -131,7 +131,8 @@
         .getDoc(firestoreModule.doc(db, "publicProfiles", publicId, "wishlist", "main"))
         .then((snapshot) => {
           const items = snapshot.exists() ? snapshot.data()?.items : null;
-          return Array.isArray(items) ? items.length : 0;
+          if (Array.isArray(items)) return items.length;
+          return items && typeof items === "object" ? Object.keys(items).length : 0;
         })
         .catch(() => 0),
     ]);
