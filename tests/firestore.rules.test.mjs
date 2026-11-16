@@ -212,6 +212,55 @@ test("wishlist is a separate owner-only document with a bounded schema", async (
   );
 });
 
+test("wishlist public mirror exists only while the owner keeps it public", async () => {
+  await createAliceProfile();
+  const item = { n: "이상해씨", t: "SV2a / #166", i: "https://example.com/a.webp", p: "ar.html", a: 1 };
+  const privateRef = doc(alice, "users", ALICE_UID, "wishlist", "main");
+  const mirrorRef = doc(alice, "publicProfiles", PUBLIC_ID, "wishlist", "main");
+
+  // 비공개 상태에서는 공개 사본을 만들 수 없다.
+  await assertSucceeds(
+    setDoc(privateRef, { schemaVersion: 1, items: { w_a: item }, visibility: "private", updatedAt: serverTimestamp() }),
+  );
+  await assertFails(
+    setDoc(mirrorRef, { schemaVersion: 1, items: { w_a: item }, updatedAt: serverTimestamp() }),
+  );
+
+  // 공개로 켤 때는 원본과 사본을 한 번에 쓴다.
+  const on = writeBatch(alice);
+  on.set(privateRef, { schemaVersion: 1, items: { w_a: item }, visibility: "public", updatedAt: serverTimestamp() });
+  on.set(mirrorRef, { schemaVersion: 1, items: { w_a: item }, updatedAt: serverTimestamp() });
+  await assertSucceeds(on.commit());
+
+  // 누구나 공개 사본을 읽을 수 있지만 목록 조회와 타인 쓰기는 막는다.
+  await assertSucceeds(getDoc(doc(guest, "publicProfiles", PUBLIC_ID, "wishlist", "main")));
+  await assertFails(getDocs(collection(guest, "publicProfiles", PUBLIC_ID, "wishlist")));
+  await assertFails(
+    setDoc(doc(bob, "publicProfiles", PUBLIC_ID, "wishlist", "main"), {
+      schemaVersion: 1,
+      items: {},
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  // 허용되지 않은 필드는 사본에 넣을 수 없다.
+  await assertFails(
+    setDoc(mirrorRef, { schemaVersion: 1, items: {}, updatedAt: serverTimestamp(), ownerUid: ALICE_UID }),
+  );
+
+  // 비공개로 되돌리면 사본을 지운다.
+  const off = writeBatch(alice);
+  off.set(privateRef, { schemaVersion: 1, items: { w_a: item }, visibility: "private", updatedAt: serverTimestamp() });
+  off.delete(mirrorRef);
+  await assertSucceeds(off.commit());
+  await assertFails(
+    setDoc(mirrorRef, { schemaVersion: 1, items: { w_a: item }, updatedAt: serverTimestamp() }),
+  );
+  // visibility 값은 public/private만 허용한다.
+  await assertFails(
+    setDoc(privateRef, { schemaVersion: 1, items: {}, visibility: "friends", updatedAt: serverTimestamp() }),
+  );
+});
+
 test("owner Sheets sync can repair a legacy document without baseMode", async () => {
   const reference = doc(owner, "users", OWNER_UID, "collections", "packDex");
   await environment.withSecurityRulesDisabled(async (context) => {

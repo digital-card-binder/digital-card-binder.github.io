@@ -2,7 +2,8 @@
 
 // 위시카드 저장소.
 // 경로: users/{uid}/wishlist/main  (기존 도감 수집 문서와 완전히 분리된 새 저장 공간)
-// 문서: { schemaVersion: 1, items: { [key]: { n, t, i, p, a } }, updatedAt }
+// 문서: { schemaVersion: 1, items: { [key]: { n, t, i, p, a } }, visibility?, updatedAt }
+// 공개로 켜면 publicProfiles/{publicId}/wishlist/main 에 같은 목록의 사본을 둔다.
 (function () {
   const SDK_VERSION = "12.16.0";
   const root = (window.DigitalCardBinder = window.DigitalCardBinder || {});
@@ -13,6 +14,8 @@
     items: new Map(),
     exists: false,
     uid: "",
+    visibility: "private",
+    publicId: "",
   };
   let firebase = null;
   let readyPromise = null;
@@ -67,11 +70,36 @@
     return firebase.firestoreModule.doc(firebase.db, "users", state.uid, "wishlist", "main");
   }
 
+  function mirrorRef() {
+    return firebase.firestoreModule.doc(firebase.db, "publicProfiles", state.publicId, "wishlist", "main");
+  }
+
+  function itemsObject() {
+    return Object.fromEntries(state.items);
+  }
+
+  async function loadPublicId() {
+    state.publicId = "";
+    try {
+      const profile = await firebase.firestoreModule.getDoc(
+        firebase.firestoreModule.doc(firebase.db, "users", state.uid, "profile", "main"),
+      );
+      const data = profile.exists() ? profile.data() || {} : {};
+      if (data.profileCompleted && /^[a-z0-9]{12}$/.test(String(data.publicId || ""))) {
+        state.publicId = data.publicId;
+      }
+    } catch (error) {
+      console.warn("컬렉터 프로필을 확인하지 못했습니다.", error);
+    }
+  }
+
   async function loadForUser(user) {
     state.uid = user.uid;
     const snapshot = await firebase.firestoreModule.getDoc(walletRef());
     state.exists = snapshot.exists();
     state.items = new Map();
+    state.visibility = snapshot.exists() && snapshot.data()?.visibility === "public" ? "public" : "private";
+    await loadPublicId();
     if (state.exists) {
       const items = snapshot.data()?.items || {};
       for (const [key, value] of Object.entries(items)) {
@@ -105,6 +133,8 @@
               state.uid = "";
               state.items = new Map();
               state.exists = false;
+              state.visibility = "private";
+              state.publicId = "";
               state.status = "signed-out";
             } else {
               await loadForUser(user);
@@ -133,8 +163,12 @@
     return readyPromise;
   }
 
+  function isPublic() {
+    return state.visibility === "public" && Boolean(state.publicId);
+  }
+
   async function write(key, item) {
-    const { setDoc, updateDoc, serverTimestamp, deleteField, FieldPath } = firebase.firestoreModule;
+    const { setDoc, updateDoc, serverTimestamp, deleteField, FieldPath, writeBatch } = firebase.firestoreModule;
     const value = item === null ? deleteField() : item;
     if (!state.exists) {
       if (item === null) return;
@@ -142,7 +176,44 @@
       state.exists = true;
       return;
     }
-    await updateDoc(walletRef(), new FieldPath("items", key), value, "updatedAt", serverTimestamp());
+    if (!isPublic()) {
+      await updateDoc(walletRef(), new FieldPath("items", key), value, "updatedAt", serverTimestamp());
+      return;
+    }
+    // 공개 중이면 원본과 공개 사본을 한 번에 갱신한다.
+    const batch = writeBatch(firebase.db);
+    batch.update(walletRef(), new FieldPath("items", key), value, "updatedAt", serverTimestamp());
+    batch.set(mirrorRef(), { schemaVersion: 1, items: itemsObject(), updatedAt: serverTimestamp() });
+    await batch.commit();
+  }
+
+  // 공개 여부 변경. 결과: "ok" | "signed-out" | "no-profile" | "error"
+  async function setVisibility(visible) {
+    await ready();
+    if (state.status === "signed-out") return "signed-out";
+    if (state.status !== "ready") return "error";
+    if (visible && !state.publicId) return "no-profile";
+    const { serverTimestamp, writeBatch } = firebase.firestoreModule;
+    const next = visible ? "public" : "private";
+    try {
+      const batch = writeBatch(firebase.db);
+      batch.set(
+        walletRef(),
+        { schemaVersion: 1, items: itemsObject(), visibility: next, updatedAt: serverTimestamp() },
+      );
+      if (state.publicId) {
+        if (visible) batch.set(mirrorRef(), { schemaVersion: 1, items: itemsObject(), updatedAt: serverTimestamp() });
+        else batch.delete(mirrorRef());
+      }
+      await batch.commit();
+      state.exists = true;
+      state.visibility = next;
+      notify();
+      return "ok";
+    } catch (error) {
+      console.warn("위시카드 공개 설정 실패", error);
+      return "error";
+    }
   }
 
   // 위시 담기/빼기. 결과: "added" | "removed" | "signed-out" | "full" | "error"
@@ -191,6 +262,7 @@
     keyFor,
     ready,
     toggle,
+    setVisibility,
     has,
     list,
     subscribe,

@@ -4180,3 +4180,12 @@ body.collector-simple-dex .pokemon-card:not(.people-card):not(.world-slot) .card
 body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:empty) ~ .card-name-ko {
   margin-top: 2px;
 }
+
+.collector-public-wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 12px; }
+.collector-public-wish-card { display: grid; gap: 3px; padding: 8px; border: 1px solid #dce7f4; border-radius: 14px; background: #fff; }
+.collector-public-wish-image { display: grid; place-items: center; aspect-ratio: 5 / 7; border-radius: 10px; background: linear-gradient(145deg, #f8f9fb, #eceef4); overflow: hidden; }
+.collector-public-wish-image img { width: 100%; height: 100%; object-fit: contain; }
+.collector-public-wish-image.is-broken img { display: none; }
+.collector-public-wish-card small { color: #35597d; font-size: .7rem; font-weight: 850; }
+.collector-public-wish-card strong { color: #213c58; font-size: .82rem; line-height: 1.25; }
+@media (max-width: 690px) { .collector-public-wish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }

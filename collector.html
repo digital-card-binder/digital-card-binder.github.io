@@ -10,9 +10,9 @@
     <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <meta property="og:image" content="https://digital-card-binder.github.io/assets/brand/og-image.png" />
-    <link rel="stylesheet" href="./styles.css?v=04fc25d4330c" />
+    <link rel="stylesheet" href="./styles.css?v=416a856890b8" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./collector.css?v=7fb4618fb4ca" />
+    <link rel="stylesheet" href="./collector.css?v=a46ebdfa5434" />
     <link rel="stylesheet" href="./collection-preview.css?v=68dbaf9e74d8" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./image-protection.js?v=0c2c642e2a17" defer></script>
@@ -21,13 +21,13 @@
     <script src="./core/catalog/card-identity.js?v=271774faf2fa" defer></script>
     <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
     <script src="./core/catalog/card-lookup.js?v=9947bcba8bc3" defer></script>
-    <script src="./collector-collection-registry.js?v=2c0a594c0867" defer></script>
+    <script src="./collector-collection-registry.js?v=842ec99571ab" defer></script>
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
-    <script src="./collector-nav.js?v=aaec92494a00" defer></script>
+    <script src="./collector-nav.js?v=2290f009fd51" defer></script>
     <script src="./collection-preview.js?v=54a9e3e3a9a3" defer></script>
-    <script src="./collector.js?v=09734e6a0657" defer></script>
+    <script src="./collector.js?v=0a5e1262dcf7" defer></script>
       <script src="./site-mobile-nav.js?v=bc6c4993ccb2" defer></script>
-      <script src="./core/wish/wishlist.js?v=8ed1ea0f22b2" defer></script>
+      <script src="./core/wish/wishlist.js?v=5d4ecba0d6bb" defer></script>
       <script src="./wish-ui.js?v=4ef36914b60d" defer></script>
   </head>
   <body data-page="collector-public">
@@ -93,6 +93,16 @@
             <strong>현재 공개된 도감이 없습니다.</strong>
             <p>컬렉터가 공개 범위를 변경하면 이곳에 표시됩니다.</p>
           </div>
+        </section>
+
+        <section id="collector-public-wish" class="catalog-panel collector-public-wish" hidden>
+          <div class="catalog-heading">
+            <div>
+              <h2>위시카드</h2>
+            </div>
+            <p class="catalog-caption">이 컬렉터가 갖고 싶어 하는 카드입니다.</p>
+          </div>
+          <div id="collector-public-wish-grid" class="collector-public-wish-grid"></div>
         </section>
 
         <section id="collector-public-binders" class="catalog-panel collector-public-binders" hidden>
