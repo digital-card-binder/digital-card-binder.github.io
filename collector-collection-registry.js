@@ -157,7 +157,7 @@
     },
     artThemes: {
       number: "11",
-      title: "테마 도감",
+      title: "아트 테마 도감",
       description: "잠·연결·진화·밤·풍경·컬러",
       href: "./art-themes.html",
       documentId: "artThemesDex",

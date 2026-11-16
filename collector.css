@@ -4221,3 +4221,7 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
 .collector-theme-family[open] > summary::after { transform: rotate(180deg); }
 .collector-theme-family-list { display: grid; gap: 10px; padding: 0 12px 14px; }
 .collector-theme-family-list > .collector-setting-card { background: #f9fbfe; }
+.collector-theme-groups summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; row-gap: 2px; }
+.collector-theme-groups summary strong { grid-column: 1; }
+.collector-theme-groups summary small { grid-column: 1; margin-left: 0; }
+.collector-theme-groups summary::after { grid-column: 2; grid-row: 1 / span 2; }
