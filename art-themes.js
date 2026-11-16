@@ -336,7 +336,7 @@
     const owned = cards.filter((card) => card.owned).length;
     recentDex.remember({
       collectionId: "artThemes",
-      title: EEVEE_MODE ? "이브이 도감" : "테마 도감",
+      title: EEVEE_MODE ? "이브이 도감" : "아트 테마 도감",
       detail: group.name || "테마",
       href: `./art-themes.html?${EEVEE_MODE ? "eevee=1&" : ""}theme=${encodeURIComponent(group.code || "")}`,
       owned,

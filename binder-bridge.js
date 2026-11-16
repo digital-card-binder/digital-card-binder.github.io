@@ -84,7 +84,7 @@
       set: "#art-theme-dialog-set",
       number: "#art-theme-dialog-card-number",
       meta: "#art-theme-dialog-number",
-      label: "테마 도감",
+      label: "아트 테마 도감",
     },
   ];
 
