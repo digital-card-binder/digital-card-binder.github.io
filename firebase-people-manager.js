@@ -9,7 +9,8 @@
     throw new Error("공통 도감 코어를 불러오지 못했습니다.");
   }
   const DOCUMENT_ID = CONFIG.userDocument || "nationalDex";
-  const originalFetch = window.fetch.bind(window);
+  const fetchPipeline = window.DigitalCardBinder?.fetchPipeline;
+  if (!fetchPipeline) throw new Error("공통 fetch 파이프라인을 불러오지 못했습니다.");
 
   let firebase = null;
   let currentUser = null;
@@ -140,13 +141,7 @@
     return data;
   }
 
-  window.fetch = async function peopleManagedFetch(input, init) {
-    const response = await originalFetch(input, init);
-    const url = typeof input === "string" ? input : input?.url || "";
-    if (!response.ok || !/data\/people\.json(?:$|[?#])/.test(url)) {
-      return response;
-    }
-
+  fetchPipeline.use(/data\/people\.json(?:$|[?#])/, async function peopleManagedFetch(response) {
     try {
       await window.CollectorPublicView.waitForDataReady(firebaseReady);
       const data = applyAccountState(await response.clone().json());
@@ -162,7 +157,7 @@
       console.warn("계정별 인물 카드 이미지를 적용하지 못했습니다.", error);
       return response;
     }
-  };
+  });
 
   function firstAuthUser(auth, authModule) {
     return accountCore.firstAuthUser(auth, authModule);

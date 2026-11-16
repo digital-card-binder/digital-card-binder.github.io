@@ -3,7 +3,8 @@
 (function () {
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
-  const previousFetch = window.fetch.bind(window);
+  const fetchPipeline = window.DigitalCardBinder?.fetchPipeline;
+  if (!fetchPipeline) throw new Error("공통 fetch 파이프라인을 불러오지 못했습니다.");
 
   let resolveAuth;
   const authReady = new Promise((resolve) => {
@@ -94,14 +95,7 @@
     return data;
   }
 
-  window.fetch = async function guestManagedFetch(input, init) {
-    const response = await previousFetch(input, init);
-    const url = typeof input === "string" ? input : input?.url || "";
-
-    if (!response.ok || !/data\/pokedex\.json(?:$|[?#])/.test(url)) {
-      return response;
-    }
-
+  fetchPipeline.use(/data\/pokedex\.json(?:$|[?#])/, async function guestManagedFetch(response) {
     // The previous fetch layer has already applied the public projection. A
     // public read-only visitor is intentionally signed out, so
     // the ordinary guest fallback must not wipe that projection back to zero.
@@ -129,7 +123,7 @@
       console.warn("비로그인 미보유 도감을 적용하지 못했습니다.", error);
       return response;
     }
-  };
+  });
 
     function updateGuestLabel(user) {
     const apply = () => {
