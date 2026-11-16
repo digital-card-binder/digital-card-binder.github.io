@@ -8,7 +8,6 @@
   const MAX_CARDS_PER_DEX = 1500;
   const originalSupportedCollectionId = registry.supportedCollectionId.bind(registry);
   const originalOwnershipFor = registry.ownershipFor.bind(registry);
-  const originalBuildProjection = registry.buildProjection.bind(registry);
 
   registry.COLLECTION_ORDER.push("custom");
   registry.COLLECTIONS.custom = {
@@ -131,15 +130,8 @@
     return originalOwnershipFor(collectionId, sourceDocument);
   };
 
-  registry.buildProjection = async function buildProjectionWithCustom(
-    collectionId,
-    sourceDocument,
-    publicId,
-    options,
-  ) {
-    if (collectionId !== "custom") {
-      return originalBuildProjection(collectionId, sourceDocument, publicId, options);
-    }
+  registry.extendBuildProjection(async ({ collectionId, sourceDocument, publicId }, next) => {
+    if (collectionId !== "custom") return next();
     if (!/^[a-z0-9]{12}$/.test(clean(publicId))) {
       throw new Error("공개 프로필 식별값이 올바르지 않습니다.");
     }
@@ -163,5 +155,5 @@
       promoOwnedCount: 0,
       customDexes: dexes,
     };
-  };
+  });
 })();
