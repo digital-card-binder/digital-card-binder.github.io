@@ -905,11 +905,29 @@
       });
       return card;
     });
-    elements.settingsGrid.replaceChildren(...cards);
+    // 사이드바 분류와 같이, 테마 도감 계열은 하나의 "테마 도감" 묶음 안에서 각각 공개를 정한다.
+    // 도감별 설정 문서와 저장 방식은 그대로이고 화면만 묶는다.
+    const requestedCollection = new URLSearchParams(window.location.search).get("collection");
+    const familyCards = cards.filter((card) => THEME_FAMILY.includes(card.dataset.collectionId));
+    const looseCards = cards.filter((card) => !THEME_FAMILY.includes(card.dataset.collectionId));
+    const family = document.createElement("details");
+    family.className = "collector-theme-family";
+    family.open = THEME_FAMILY.includes(requestedCollection);
+    family.innerHTML = '<summary><span><strong>테마 도감</strong><small>AR · 작가 · 인물 · 월드 외</small></span><em></em></summary><div class="collector-theme-family-list"></div>';
+    family.querySelector(".collector-theme-family-list").append(...familyCards);
+    const updateFamilySummary = () => {
+      const switches = familyCards.map((card) => card.querySelector('[data-setting="visibility"]'));
+      family.querySelector("summary em").textContent =
+        `${switches.length}개 중 ${switches.filter((input) => input?.checked).length}개 공개`;
+    };
+    familyCards.forEach((card) =>
+      card.querySelector('[data-setting="visibility"]')?.addEventListener("change", updateFamilySummary));
+    updateFamilySummary();
+    elements.settingsGrid.replaceChildren(...looseCards, ...(familyCards.length ? [family] : []));
     const themeCard = cards.find((card) => card.dataset.collectionId === "artThemes");
     if (themeCard) void attachThemeGroups(themeCard);
 
-    const requested = new URLSearchParams(window.location.search).get("collection");
+    const requested = requestedCollection;
     if (requested && registry.supportedCollectionId(requested)) {
       requestAnimationFrame(() => {
         elements.settingsGrid
@@ -918,6 +936,8 @@
       });
     }
   }
+
+  const THEME_FAMILY = ["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"];
 
   // 테마 도감: 테마별 공개 스위치(펼침 목록). 꺼 둔 테마는 공개 프로필에서 숨겨진다.
   function syncThemeGroupState(card) {
