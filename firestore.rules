@@ -225,9 +225,18 @@ service cloud.firestore {
           "visibility",
           "displayOrder",
           "shareId",
+          "hiddenGroups",
           "createdAt",
           "updatedAt"
         ])
+        && (
+          !request.resource.data.keys().hasAny(["hiddenGroups"])
+          || (
+            collectionId == "artThemes"
+            && request.resource.data.hiddenGroups is list
+            && request.resource.data.hiddenGroups.size() <= 40
+          )
+        )
         && request.resource.data.schemaVersion == 1
         && request.resource.data.collectionId == collectionId
         && request.resource.data.dashboardVisible is bool
@@ -353,8 +362,17 @@ service cloud.firestore {
           "totalCount",
           "promoOwnedKeys",
           "promoOwnedCount",
-          "customDexes"
+          "customDexes",
+          "hiddenGroups"
         ])
+        && (
+          !request.resource.data.keys().hasAny(["hiddenGroups"])
+          || (
+            collectionId == "artThemes"
+            && request.resource.data.hiddenGroups is list
+            && request.resource.data.hiddenGroups.size() <= 40
+          )
+        )
         && request.resource.data.schemaVersion == 1
         && request.resource.data.publicId == publicId
         && request.resource.data.collectionId == collectionId

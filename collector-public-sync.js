@@ -141,6 +141,7 @@
       options.collectionId,
       context.source,
       context.profile.publicId,
+      { hiddenGroups: context.setting?.hiddenGroups },
     );
     return { ...context, projection };
   }
@@ -207,6 +208,7 @@
         collectionId,
         context.source,
         profile.publicId,
+        { hiddenGroups: setting.hiddenGroups },
       ));
 
     const payload = { ...projection };

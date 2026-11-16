@@ -270,6 +270,37 @@ async function wishPublicMirrorScenario() {
   );
 }
 
+test("theme dex settings may carry a bounded hiddenGroups list only for artThemes", async () => {
+  const base = (collectionId) => ({
+    schemaVersion: 1,
+    collectionId,
+    dashboardVisible: false,
+    visibility: "private",
+    displayOrder: 0,
+    shareId: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  await assertSucceeds(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "artThemes"), {
+      ...base("artThemes"),
+      hiddenGroups: ["night", "food"],
+    }),
+  );
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "series"), {
+      ...base("series"),
+      hiddenGroups: ["night"],
+    }),
+  );
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "collectionSettings", "artThemes"), {
+      ...base("artThemes"),
+      hiddenGroups: Array.from({ length: 41 }, (_, index) => `g${index}`),
+    }),
+  );
+});
+
 test("owner Sheets sync can repair a legacy document without baseMode", async () => {
   const reference = doc(owner, "users", OWNER_UID, "collections", "packDex");
   await environment.withSecurityRulesDisabled(async (context) => {

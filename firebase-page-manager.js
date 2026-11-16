@@ -22,6 +22,8 @@
   let resolvedOverrides = {};
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
+  // 공개 프로필에서 숨긴 테마(테마 도감 전용). 공개 보기에서는 이 테마를 목록에서 뺀다.
+  let publicHiddenGroups = [];
   let saveQueue = Promise.resolve();
   let largeCatalogPublicSyncTimer = null;
   let largeCatalogPublicSyncRunning = false;
@@ -185,6 +187,11 @@
       });
     });
 
+    if (publicHiddenGroups.length) {
+      return groups.filter(
+        (group) => !publicHiddenGroups.includes(String(group.code || group.name || group.title || "")),
+      );
+    }
     return groups;
   }
 
@@ -402,6 +409,9 @@
           remoteOverrides = window.CollectorPublicView.projectionOverrides(
             context.projection,
           );
+          publicHiddenGroups = mode === "artThemes" && Array.isArray(context.projection?.hiddenGroups)
+            ? context.projection.hiddenGroups.map((code) => String(code))
+            : [];
         } catch (error) {
           remoteOverrides = {};
           window.CollectorPublicView.showAccessError(error);
