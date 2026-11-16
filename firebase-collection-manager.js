@@ -10,7 +10,9 @@
   }
   const LOCAL_STORAGE_KEY = "pokemonDexCollectionOverridesV1";
   const EXPORT_FORMAT = "pokemon-dex-user-collection-v1";
-  const originalFetch = window.fetch.bind(window);
+  const fetchPipeline = window.DigitalCardBinder?.fetchPipeline;
+  if (!fetchPipeline) throw new Error("공통 fetch 파이프라인을 불러오지 못했습니다.");
+  const originalFetch = fetchPipeline.native;
 
   let firebase = null;
   let userDocumentRef = null;
@@ -210,14 +212,7 @@
     return data;
   }
 
-  window.fetch = async function accountManagedFetch(input, init) {
-    const response = await originalFetch(input, init);
-    const url = typeof input === "string" ? input : input?.url || "";
-
-    if (!response.ok || !/data\/pokedex\.json(?:$|[?#])/.test(url)) {
-      return response;
-    }
-
+  fetchPipeline.use(/data\/pokedex\.json(?:$|[?#])/, async function accountManagedFetch(response) {
     try {
       await window.CollectorPublicView.waitForDataReady(firebaseReady);
       const data = applyOverrides(await response.clone().json());
@@ -233,7 +228,7 @@
       console.warn("계정별 도감 데이터를 적용하지 못했습니다.", error);
       return response;
     }
-  };
+  });
 
   function firstAuthUser(auth, authModule) {
     return accountCore.firstAuthUser(auth, authModule);

@@ -13,8 +13,8 @@ const read = (file) => readFileSync(join(root, file), "utf8");
 // 알려진 예외. 현재 없음(추가 금지). 예외가 필요하면 이유와 검증 방법을 여기에 적는다.
 const SDK_EXCEPTIONS = new Map();
 
-// window.fetch 를 감싸는 파일. 새 파일을 추가하지 않는다(모든 데이터 요청에 숨은 영향을 주기 때문).
-const FETCH_OVERRIDE_ALLOWLIST = new Set(["firebase-collection-manager.js", "firebase-people-manager.js", "guest-empty-dex.js"]);
+// window.fetch 를 감싸는 유일한 파일. 다른 모듈은 fetchPipeline.use() 로 핸들러만 등록한다.
+const FETCH_OVERRIDE_ALLOWLIST = new Set(["core/data/fetch-pipeline.js"]);
 
 test("every Firebase SDK import uses the same version", () => {
   const canonical = read("core/account/firebase-account.js").match(/SDK_VERSION = "(\d+\.\d+\.\d+)"/)?.[1];
@@ -36,7 +36,7 @@ test("every Firebase SDK import uses the same version", () => {
   for (const file of SDK_EXCEPTIONS.keys()) assert.ok(seen.has(file), `${file}: stale exception, remove it`);
 });
 
-test("only the documented files override window.fetch and the unused demo manager stays removed", () => {
+test("only the shared pipeline overrides window.fetch and the unused demo manager stays removed", () => {
   const overriding = sources.filter((file) => /window\.fetch\s*=/.test(read(file)));
   assert.deepEqual(new Set(overriding), FETCH_OVERRIDE_ALLOWLIST);
   assert.equal(existsSync(join(root, "firebase-demo-manager.js")), false);
