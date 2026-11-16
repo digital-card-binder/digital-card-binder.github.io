@@ -213,6 +213,15 @@ test("wishlist is a separate owner-only document with a bounded schema", async (
 });
 
 test("wishlist public mirror exists only while the owner keeps it public", async () => {
+  try {
+    await wishPublicMirrorScenario();
+  } finally {
+    // 이후 테스트가 프로필을 새로 만들 수 있도록 이 테스트의 데이터를 비운다.
+    await environment.clearFirestore();
+  }
+});
+
+async function wishPublicMirrorScenario() {
   await createAliceProfile();
   const item = { n: "이상해씨", t: "SV2a / #166", i: "https://example.com/a.webp", p: "ar.html", a: 1 };
   const privateRef = doc(alice, "users", ALICE_UID, "wishlist", "main");
@@ -259,7 +268,7 @@ test("wishlist public mirror exists only while the owner keeps it public", async
   await assertFails(
     setDoc(privateRef, { schemaVersion: 1, items: {}, visibility: "friends", updatedAt: serverTimestamp() }),
   );
-});
+}
 
 test("owner Sheets sync can repair a legacy document without baseMode", async () => {
   const reference = doc(owner, "users", OWNER_UID, "collections", "packDex");
