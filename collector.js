@@ -81,9 +81,18 @@
     }
     const metrics = registry.publicProjectionMetrics(data);
     if (!metrics) return null;
+    const eeveeKeys = snapshot.id === "artThemes" && Array.isArray(data.eeveeOwnedKeys)
+      ? new Set(data.eeveeOwnedKeys.map((key) => clean(key)).filter(Boolean))
+      : null;
     return {
       collectionId: snapshot.id,
       ...metrics,
+      eevee: eeveeKeys
+        ? {
+            ownedCount: eeveeKeys.size,
+            totalCount: Math.max(eeveeKeys.size, Math.min(200, Number(data.eeveeTotalCount) || 0)),
+          }
+        : null,
       customDexes: snapshot.id === "custom"
         ? normalizeCustomDexes(data.customDexes)
         : [],
@@ -152,6 +161,22 @@
     });
   }
 
+  function createEeveeCard(eevee) {
+    const url = new URL("./art-themes.html", window.location.href);
+    url.searchParams.set("eevee", "1");
+    url.searchParams.set("theme", "eevee-v");
+    url.searchParams.set("collector", publicId);
+    return createCardShell({
+      number: "11",
+      title: "이브이 도감",
+      description: "이브이와 8종 진화체",
+      href: url.href,
+      ownedCount: eevee.ownedCount,
+      totalCount: eevee.totalCount,
+      unit: "장",
+    });
+  }
+
   function createCustomDexCard(dex) {
     const url = new URL("./custom.html", window.location.href);
     url.searchParams.set("collector", publicId);
@@ -177,6 +202,13 @@
     const cards = projections.flatMap((projection) => {
       if (projection.collectionId === "custom") {
         return projection.customDexes.map(createCustomDexCard);
+      }
+      if (projection.collectionId === "artThemes") {
+        const result = [];
+        // 아트 테마를 모두 숨기고 이브이 도감만 공개한 경우 0장짜리 카드는 만들지 않는다.
+        if (projection.totalCount > 0) result.push(createCollectionCard(projection));
+        if (projection.eevee) result.push(createEeveeCard(projection.eevee));
+        return result;
       }
       return [createCollectionCard(projection)];
     });

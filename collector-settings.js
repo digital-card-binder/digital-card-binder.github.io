@@ -913,6 +913,12 @@
     family.className = "collector-theme-family";
     family.open = THEME_FAMILY.includes(requestedCollection);
     family.innerHTML = '<summary><span><strong>테마 도감</strong><small>AR · 작가 · 인물 · 월드 · 아트 테마</small></span><em></em></summary><div class="collector-theme-family-list"></div>';
+    // 목록의 모든 항목을 같은 이모지 타일로 통일한다.
+    familyCards.forEach((card) => {
+      const id = card.dataset.collectionId;
+      if (id === "artThemes") return;
+      card.querySelector(".collector-setting-number")?.replaceWith(emojiTile(THEME_ROW_EMOJI[id]));
+    });
     family.querySelector(".collector-theme-family-list").append(...familyCards);
     const updateFamilySummary = () => {
       const switches = [
@@ -925,7 +931,12 @@
     familyCards.forEach((card) =>
       card.querySelector('[data-setting="visibility"]')?.addEventListener("change", updateFamilySummary));
     updateFamilySummary();
-    elements.settingsGrid.replaceChildren(...looseCards, ...(familyCards.length ? [family] : []));
+    const wishCard = await createWishCard();
+    elements.settingsGrid.replaceChildren(
+      ...looseCards,
+      ...(familyCards.length ? [family] : []),
+      ...(wishCard ? [wishCard] : []),
+    );
     const themeCard = cards.find((card) => card.dataset.collectionId === "artThemes");
     if (themeCard) void attachThemeGroups(themeCard, updateFamilySummary);
 
@@ -939,10 +950,72 @@
     }
   }
 
+  // 위시카드: 테마 도감과 별개의 독립 항목. 저장은 위시 저장소(users/{uid}/wishlist/main)가 맡는다.
+  async function createWishCard() {
+    const wishlist = window.DigitalCardBinder?.wishlist;
+    if (!wishlist) return null;
+    try {
+      await wishlist.ready();
+    } catch (error) {
+      return null;
+    }
+    if (wishlist.state.status !== "ready") return null;
+    const card = document.createElement("article");
+    card.className = "collector-setting-card";
+    card.dataset.collectionId = "wish";
+    card.innerHTML = `
+      <div class="collector-setting-identity">
+        <span class="collector-setting-number ui-icon ui-icon--heart" aria-hidden="true"></span>
+        <span><strong>위시카드</strong><small></small></span>
+      </div>
+      <label class="collector-public-switch collector-unified-public-switch">
+        <span class="collector-unified-public-label">
+          <strong>공개</strong>
+          <small>내 공개 프로필</small>
+        </span>
+        <input type="checkbox" data-setting="visibility" />
+        <i aria-hidden="true"></i>
+      </label>
+    `;
+    card.querySelector(".collector-setting-identity small").textContent =
+      `${wishlist.list().length.toLocaleString("ko-KR")}장`;
+    const input = card.querySelector('[data-setting="visibility"]');
+    input.checked = wishlist.state.visibility === "public";
+    input.setAttribute("aria-label", "위시카드 공개 설정");
+    input.addEventListener("change", () => markSettingDirty(card));
+    return card;
+  }
+
+  async function saveWishCard(card) {
+    const wishlist = window.DigitalCardBinder.wishlist;
+    const wanted = card.querySelector('[data-setting="visibility"]').checked;
+    if (wanted && !profile?.profileCompleted) {
+      throw new Error("위시카드: 컬렉터 프로필을 먼저 만들어 주세요.");
+    }
+    const result = await wishlist.setVisibility(wanted);
+    if (result === "no-profile") throw new Error("위시카드: 컬렉터 프로필을 먼저 만들어 주세요.");
+    if (result !== "ok") throw new Error("위시카드 공개 설정을 저장하지 못했습니다.");
+  }
+
   const THEME_FAMILY = ["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"];
 
   // 아트 테마 12개: 테마 도감 목록 안의 개별 공개 스위치. 하나라도 켜면 아트 테마 도감이 공개되고,
   // 꺼 둔 테마(hiddenGroups)는 공개 프로필에서 숨겨진다. 모두 끄면 비공개.
+  const THEME_ROW_EMOJI = Object.freeze({
+    eevee: "🦊", ar: "🎨", artist: "🖌️", trainerPokemon: "🤝", people: "🧑",
+    world: "🌏", fossil: "🦴", pokemon: "📚",
+    sleeping: "😴", connected: "🧩", evolution: "🦋", night: "🌙", season: "🌸", color: "🌈",
+    sunset: "🌇", reflections: "🪞", food: "🍜", street: "🏙️", work: "💼", cameo: "🎬", crying: "😭",
+  });
+
+  function emojiTile(emoji) {
+    const tile = document.createElement("span");
+    tile.className = "collector-theme-emoji";
+    tile.setAttribute("aria-hidden", "true");
+    tile.textContent = emoji || "🃏";
+    return tile;
+  }
+
   async function attachThemeGroups(card, onChange) {
     let groups;
     try {
@@ -955,10 +1028,12 @@
     const saved = settings.get("artThemes")?.value || {};
     const hidden = new Set(saved.hiddenGroups || []);
     const wasPublic = saved.visibility === "public";
+    const eeveeWasPublic = wasPublic && saved.eeveePublic === true;
     for (const group of groups) {
       const row = document.createElement("label");
       row.className = "collector-theme-group-row";
       const text = document.createElement("span");
+      text.className = "collector-theme-group-text";
       const name = document.createElement("strong");
       name.textContent = group.name;
       const count = document.createElement("small");
@@ -967,7 +1042,9 @@
       const input = document.createElement("input");
       input.type = "checkbox";
       input.dataset.themeGroup = group.code;
-      input.checked = wasPublic && !hidden.has(group.code);
+      input.checked = group.code === "eevee"
+        ? eeveeWasPublic
+        : wasPublic && !hidden.has(group.code);
       input.setAttribute("aria-label", `${group.name} 공개`);
       input.addEventListener("change", () => {
         master.checked = [...card.querySelectorAll("input[data-theme-group]")].some((item) => item.checked);
@@ -976,7 +1053,7 @@
       });
       const track = document.createElement("i");
       track.setAttribute("aria-hidden", "true");
-      row.append(text, input, track);
+      row.append(emojiTile(THEME_ROW_EMOJI[group.code]), text, input, track);
       card.append(row);
     }
     onChange?.();
@@ -989,14 +1066,18 @@
       const inputs = [...card.querySelectorAll("input[data-theme-group]")];
       if (inputs.length) isPublic = inputs.some((input) => input.checked);
       // 목록을 아직 못 불러왔으면 기존 숨김 설정을 그대로 유지한다.
+      const eeveeInput = inputs.find((input) => input.dataset.themeGroup === "eevee");
       const hiddenGroups = inputs.length
-        ? inputs.filter((input) => !input.checked).map((input) => input.dataset.themeGroup)
+        ? inputs
+            .filter((input) => input.dataset.themeGroup !== "eevee" && !input.checked)
+            .map((input) => input.dataset.themeGroup)
         : current.hiddenGroups || [];
       return {
         ...current,
         dashboardVisible: isPublic,
         visibility: isPublic ? "public" : "private",
         hiddenGroups,
+        eeveePublic: eeveeInput ? eeveeInput.checked : current.eeveePublic === true,
       };
     }
     // One user choice controls both destinations, preserving all other
@@ -1043,7 +1124,10 @@
       displayOrder: next.displayOrder,
       shareId: next.shareId,
       ...(collectionId === "artThemes"
-        ? { hiddenGroups: registry.cleanHiddenGroups(next.hiddenGroups) }
+        ? {
+            hiddenGroups: registry.cleanHiddenGroups(next.hiddenGroups),
+            eeveePublic: next.eeveePublic === true,
+          }
         : {}),
       createdAt: current.exists
         ? current.createdAt
@@ -1077,7 +1161,7 @@
           collectionId,
           context.source,
           profile.publicId,
-          { hiddenGroups: next.hiddenGroups },
+          { hiddenGroups: next.hiddenGroups, eeveePublic: next.eeveePublic === true },
         );
       }
 
@@ -1113,7 +1197,11 @@
     try {
       for (const card of dirtyCards) {
         const collectionId = card.dataset.collectionId;
-        await saveOneSetting(collectionId, settingFromCard(card, collectionId));
+        if (collectionId === "wish") {
+          await saveWishCard(card);
+        } else {
+          await saveOneSetting(collectionId, settingFromCard(card, collectionId));
+        }
         card.classList.remove("is-dirty");
       }
       setStatus(

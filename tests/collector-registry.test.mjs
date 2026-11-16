@@ -599,10 +599,35 @@ test("theme dex public projection leaves out hidden themes", async () => {
   assert.equal("hiddenGroups" in series, false);
 
   const groups = await registry.themeGroups();
-  assert.equal(groups.length, themeData.groups.length);
-  assert.equal(groups.reduce((total, group) => total + group.count, 0), catalog.items.length);
+  const eeveeGroup = groups.find((group) => group.code === "eevee");
+  assert.equal(groups.length, themeData.groups.length + 1);
+  assert.equal(eeveeGroup.count, 73);
+  assert.equal(
+    groups.filter((group) => group.code !== "eevee").reduce((total, group) => total + group.count, 0),
+    catalog.items.length,
+  );
   assert.deepEqual([...registry.normalizeSetting("artThemes", { visibility: "public", hiddenGroups: ["night", "x y"] }).hiddenGroups], ["night"]);
   assert.equal("hiddenGroups" in registry.normalizeSetting("series", { visibility: "public", hiddenGroups: ["night"] }), false);
+});
+
+test("eevee dex is published only when eeveePublic is on and never mixes into theme keys", async () => {
+  const eeveeData = JSON.parse(await readFile(new URL("../data/eevee-dex.json", import.meta.url), "utf8"));
+  const identity = context.window.DigitalCardBinder.cardIdentity;
+  const firstKey = identity.cardIdentity("artThemes", eeveeData.groups[0], eeveeData.groups[0].cards[0], 0, 0);
+  const source = { baseMode: "empty", overrides: { [firstKey]: { owned: true } } };
+
+  const off = await registry.buildProjection("artThemes", source, "abc123def456", {});
+  assert.equal("eeveeOwnedKeys" in off, false);
+  assert.equal(off.ownedKeys.includes(firstKey), false);
+
+  const on = await registry.buildProjection("artThemes", source, "abc123def456", { eeveePublic: true });
+  assert.deepEqual([...on.eeveeOwnedKeys], [firstKey]);
+  assert.equal(on.eeveeTotalCount, 73);
+  assert.equal(on.ownedKeys.includes(firstKey), false);
+
+  assert.equal(registry.normalizeSetting("artThemes", { visibility: "public", eeveePublic: true }).eeveePublic, true);
+  assert.equal(registry.normalizeSetting("artThemes", { visibility: "public" }).eeveePublic, false);
+  assert.deepEqual([...registry.cleanHiddenGroups(["eevee", "night"])], ["night"]);
 });
 
 test("the same physical card remains independent across catalogs", async () => {
