@@ -85,3 +85,7 @@
 .health-action-tag[data-state="ok"]{background:#e8f7f1;color:#13795b}
 .health-copy-button.is-copied{border-color:#b9dccf;background:#e8f7f1;color:#13795b}
 @media(max-width:690px){.health-action-item{grid-template-columns:1fr}.health-action-buttons{justify-content:flex-start}}
+
+.health-category-row td{background:#eef1f8;color:#3b4660;font-size:.62rem;font-weight:900;padding:9px 12px}
+.health-sub-row td{background:#fbfbfd;padding-top:7px;padding-bottom:7px}
+.health-sub-row td:first-child strong{padding-left:14px;font-size:.62rem;font-weight:700;color:#59627a}

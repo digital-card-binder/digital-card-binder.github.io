@@ -106,3 +106,12 @@ test("health audit counts every registered collection and ignores images already
   assert.match(source, /ownCdnDestination/);
   assert.match(source, /isSiteAsset/);
 });
+
+test("health collection table groups collections by the site's biggest categories with sub-dexes", () => {
+  const js = read("health.js");
+  assert.match(js, /CATEGORY_ORDER = \["시리즈도감", "전국도감", "테마도감", "팩도감"\]/);
+  assert.match(js, /categoryOf\(collectionId\)/);
+  assert.match(js, /health-category-row/);
+  assert.match(js, /collectionId === "artThemes"/);
+  assert.match(read("health.css"), /\.health-category-row/);
+});
