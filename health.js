@@ -162,6 +162,15 @@
     return "ok";
   }
 
+  // 사이트의 가장 큰 카테고리. 나만의 도감·바인더 스튜디오는 회원이 만드는 도감이라 점검 대상이 아니다.
+  const CATEGORY_OF = {
+    series: "시리즈도감",
+    national: "전국도감",
+    pack: "팩도감",
+  };
+  const CATEGORY_ORDER = ["시리즈도감", "전국도감", "테마도감", "팩도감"];
+  const categoryOf = (collectionId) => CATEGORY_OF[collectionId] || "테마도감";
+
   async function auditCoreCollections() {
     const rows = await Promise.all(
       registry.COLLECTION_ORDER.map(async (collectionId) => {
@@ -184,7 +193,12 @@
           duplicates,
           emptyNames,
           renderMismatch: Math.abs(rawCount - catalog.items.length),
-          source: "핵심 도감",
+          category: categoryOf(collectionId),
+          source: categoryOf(collectionId),
+          // 아트 테마처럼 하위 도감을 가진 도감은 하위 도감별 장수도 함께 보여 준다.
+          children: collectionId === "artThemes"
+            ? (catalog.groups || []).map((group) => ({ title: group.name, total: group.itemKeys.length }))
+            : [],
         };
         row.state = rowState(row);
         return row;
@@ -641,7 +655,25 @@
     elements.collectionRows.replaceChildren();
     elements.dataDetails.replaceChildren();
 
-    rows.forEach((row) => {
+    const ordered = [...rows].sort(
+      (left, right) => CATEGORY_ORDER.indexOf(left.category) - CATEGORY_ORDER.indexOf(right.category),
+    );
+    let currentCategory = "";
+    ordered.forEach((row) => {
+      if (row.category !== currentCategory) {
+        currentCategory = row.category;
+        const members = ordered.filter((item) => item.category === currentCategory);
+        const header = document.createElement("tr");
+        header.className = "health-category-row";
+        const cell = document.createElement("td");
+        cell.colSpan = 6;
+        const subCount = members.reduce((sum, item) => sum + 1 + item.children.length, 0);
+        cell.textContent = currentCategory === "테마도감"
+          ? `${currentCategory} · 하위 도감 ${members.length}개 (아트 테마 ${members.find((item) => item.children.length)?.children.length || 0}개 포함, 총 ${subCount}개 목록)`
+          : `${currentCategory} · 도감 ${members.length}개`;
+        header.append(cell);
+        elements.collectionRows.append(header);
+      }
       const tr = document.createElement("tr");
       const expectedMismatch = Number.isFinite(row.expected) && row.expected !== row.total;
       tr.innerHTML = `
@@ -667,6 +699,14 @@
       status.dataset.state = row.state;
       status.textContent = row.state === "ok" ? "정상" : row.state === "warning" ? "확인" : "오류";
       elements.collectionRows.append(tr);
+      row.children.forEach((child) => {
+        const sub = document.createElement("tr");
+        sub.className = "health-sub-row";
+        sub.innerHTML = "<td><strong></strong></td><td></td><td></td><td></td><td></td><td></td>";
+        sub.children[0].querySelector("strong").textContent = `└ ${child.title}`;
+        sub.children[1].textContent = `${formatNumber(child.total)}${row.unit}`;
+        elements.collectionRows.append(sub);
+      });
 
       if (expectedMismatch) {
         makeDetails(elements.dataDetails, `${row.title} 기준 수치 차이`, [
