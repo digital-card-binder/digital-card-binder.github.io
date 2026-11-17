@@ -34,6 +34,17 @@ def fetch(url):
     return im
 
 
+def hub_page_image(page, setdir):
+    """collec-hub 카드 페이지에서 이 카드의 고해상도 이미지 주소를 찾는다."""
+    with urlopen(Request(page, headers={"User-Agent": UA["User-Agent"]}), timeout=25) as res:
+        html = res.read(600_000).decode("utf8", "ignore")
+    for width in ("w1200", "w600"):
+        m = re.search(rf"https://collec-hub\.store/media/pokecards/{width}/ko/{setdir.upper()}/[\w.-]+\.webp", html)
+        if m:
+            return m.group(0)
+    return None
+
+
 def candidates(image, code):
     """(시도할 주소 목록, 저장 파일명)"""
     if "pokemoncard.co.kr" in image:
@@ -60,6 +71,14 @@ def main():
                 code = str(o.get("code", ""))
                 try:
                     urls, setdir, name = candidates(image, code)
+                    page = str(o.get("source", ""))
+                    if page.startswith("https://collec-hub.store/cards/ko/"):
+                        try:
+                            hub = hub_page_image(page, setdir)
+                        except Exception:  # noqa: BLE001
+                            hub = None
+                        if hub:
+                            urls = [hub] + urls
                     if name is None:
                         name = f"{setdir.upper()}_{o.get('printedCode') or code.split('_')[-1].split('/')[0]}"
                     rel = f"assets/cards/mega/{setdir}/{name}.webp"
