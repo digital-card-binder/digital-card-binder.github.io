@@ -74,6 +74,7 @@
       name: nameEl?.textContent || "",
       tag: tagEl?.textContent || "",
       image: src,
+      id: card.dataset?.cardKey || "",
       page: pageRef(),
     };
   }

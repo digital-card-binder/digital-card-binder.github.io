@@ -37,7 +37,12 @@
     const image = String(info?.image || "");
     const match = image.match(/\/wmimages\/(.+?)\.(?:avif|gif|jpe?g|png|webp)(?:$|[?#])/i);
     if (match) return `w_${match[1].replace(/[^A-Za-z0-9]+/g, "_")}`.slice(0, 120);
-    return `f_${hashText([info?.page, info?.name, info?.tag].map((part) => cleanText(part, 120)).join("|"))}`;
+    // 같은 이름 카드(예: 피카츄 여러 장)가 한 키로 합쳐지지 않도록 카드 고유값(id)이나 이미지 경로를 함께 쓴다.
+    let identity = cleanText(info?.id, 120);
+    if (!identity && image && !/^(?:blob|data):/i.test(image)) {
+      try { identity = new URL(image, "https://x.invalid/").pathname; } catch { identity = image.split(/[?#]/)[0]; }
+    }
+    return `f_${hashText([info?.page, info?.name, info?.tag, identity].map((part) => cleanText(part, 200)).join("|"))}`;
   }
 
   function normalizeItem(info) {
