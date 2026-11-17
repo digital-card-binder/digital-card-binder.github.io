@@ -65,8 +65,9 @@ jobs:
           p = Path("data/card-visual-fingerprints.json")
           data = json.loads(p.read_text(encoding="utf-8"))
           assert data["catalogCount"] > 10000, data
-          assert data["count"] == data["catalogCount"], data
-          assert data["failed"] == 0, data
+          # 판매처에서 사진이 사라진 카드가 소수 있어도 인덱스 갱신은 막지 않는다(1% 초과 시에만 실패).
+          assert data["count"] + data["failed"] == data["catalogCount"], data
+          assert data["failed"] <= data["catalogCount"] * 0.01, data
           print(data["catalogCount"], data["count"], data["failed"])
           PY
 

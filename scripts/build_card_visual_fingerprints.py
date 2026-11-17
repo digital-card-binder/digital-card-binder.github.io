@@ -17,6 +17,8 @@ import urllib.request
 from urllib.parse import quote, urlsplit, urlunsplit
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+import threading
+import time
 from pathlib import Path
 from typing import Any
 
@@ -152,7 +154,27 @@ def normalized_request_url(value: str) -> str:
     return urlunsplit((parsed.scheme, parsed.netloc, path, query, parsed.fragment))
 
 
+# 외부 판매처(tcgbox 등)는 동시 요청이 많으면 403/429로 막으므로 동시 접속을 제한하고 재시도한다.
+EXTERNAL_LIMIT = threading.Semaphore(4)
+RETRY_STATUS = {403, 429, 500, 502, 503, 504}
+RETRY_DELAYS = (1.5, 4.0)
+
+
 def read_remote_payload(url: str, *, browser_headers: bool = False) -> bytes:
+    if not browser_headers:
+        return _read_remote_payload(url, browser_headers=False)
+    with EXTERNAL_LIMIT:
+        for attempt, delay in enumerate((*RETRY_DELAYS, None)):
+            try:
+                return _read_remote_payload(url, browser_headers=True)
+            except urllib.error.HTTPError as error:
+                if error.code not in RETRY_STATUS or delay is None:
+                    raise
+                time.sleep(delay)
+    raise OSError("unreachable")
+
+
+def _read_remote_payload(url: str, *, browser_headers: bool = False) -> bytes:
     normalized = normalized_request_url(url)
     parsed = urlsplit(normalized)
     headers = {
@@ -292,6 +314,12 @@ def payload_candidates(
     archive_root: Path,
     remote_fallback: bool,
 ):
+    if source_url.startswith("/"):
+        site_asset = ROOT / source_url.split("?", 1)[0].lstrip("/")
+        if site_asset.is_file() and site_asset.stat().st_size:
+            yield "site-asset", site_asset.read_bytes()
+        return
+
     local_path = archive_root / project / relative_path
     if local_path.is_file() and local_path.stat().st_size:
         yield "local-archive", local_path.read_bytes()
