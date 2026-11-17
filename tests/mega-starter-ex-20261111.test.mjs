@@ -35,9 +35,10 @@ test("three 2026 Korean MEGA ex starter decks have 61 unique catalog slots", () 
       seen.add(id);
     }
     for (const card of group.cards.slice(0,-1)) {
-      // 외부 프록시 주소가 더 이상 열리지 않아 자체 assets로 옮겼다. 원래 주소는 sourceImage에 보존한다.
-      assert.match(card.image, new RegExp(`^https://digital-card-binder[.]github[.]io/assets/cards/mega/${entry.code.toLowerCase()}/`));
-      assert.match(card.sourceImage, /^https:\/\/pokemoncard[.]co[.]kr\/s3[.]php[?]/);
+      // 외부 프록시 주소가 열리지 않아 자체 assets로 옮긴다(원래 주소는 sourceImage에 보존).
+      const hosted = new RegExp(`^https://digital-card-binder[.]github[.]io/assets/cards/mega/${entry.code.toLowerCase()}/`);
+      if (hosted.test(card.image)) assert.match(card.sourceImage, /^https:\/\/pokemoncard[.]co[.]kr\/s3[.]php[?]/);
+      else assert.match(card.image, /^https:\/\/pokemoncard[.]co[.]kr\/s3[.]php[?]/);
       assert.match(card.source, new RegExp(`^https://collec-hub[.]store/cards/ko/${entry.code.toLowerCase()}/`));
     }
     total += group.cards.length;
