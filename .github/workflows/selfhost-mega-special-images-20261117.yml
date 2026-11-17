@@ -1,0 +1,45 @@
+name: Selfhost MEZ/MEE/MEM series images
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: selfhost-mega-special-images
+  cancel-in-progress: false
+jobs:
+  selfhost:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - run: npm ci
+      - name: Download images to own assets and rewrite image paths
+        run: python scripts/selfhost-mega-special-images-20261117.py
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit images and catalog
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/cards/mega data
+          git add -A .
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore: MEZ/MEE/MEM 시리즈 이미지 자체 보관 (외부 프록시 제거)"
+          git pull --rebase origin main
+          git push origin HEAD:main
