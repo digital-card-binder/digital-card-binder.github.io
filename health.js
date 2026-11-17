@@ -121,6 +121,10 @@
       const payload = await fetchJson("./data/artists.json");
       return sumGroupCards(payload?.artists || []);
     }
+    if (collectionId === "artThemes") {
+      const payload = await fetchJson("./data/art-themes.json");
+      return sumGroupCards(payload?.groups || []);
+    }
     if (collectionId === "trainerPokemon") {
       const payload = await fetchJson("./data/trainer-pokemon.json");
       return sumGroupCards(payload?.groups || []);
@@ -287,9 +291,29 @@
     const expected = new Map();
     const origins = archiveOrigins();
 
+    // 이미 자체 CDN(보관소)으로 옮겨진 주소와 사이트 안의 정적 이미지는 변환 대상이 아니다.
+    const ownCdnOrigins = new Set(Object.values(origins));
+    const isSiteAsset = (value) => {
+      if (value.startsWith("/") || value.startsWith("./")) return true;
+      try {
+        return new URL(value).origin === window.location.origin;
+      } catch {
+        return false;
+      }
+    };
+    const ownCdnDestination = (value) => {
+      try {
+        return ownCdnOrigins.has(new URL(value).origin) ? value : "";
+      } catch {
+        return "";
+      }
+    };
+
     records.forEach((record) => {
       if (!record.image) return;
-      const destination = imageCdn?.destinationFor?.(record.image) || "";
+      if (isSiteAsset(record.image)) return;
+      const destination =
+        imageCdn?.destinationFor?.(record.image) || ownCdnDestination(record.image);
       if (!destination) {
         unroutable.push(record);
         return;
