@@ -57,29 +57,15 @@ jobs:
         run: |
           python scripts/build_card_visual_fingerprints.py --workers 24
 
-      - name: Validate generated index
+      - name: Show failures
         run: |
           python - <<'PY'
-          import json
-          from pathlib import Path
-          p = Path("data/card-visual-fingerprints.json")
-          data = json.loads(p.read_text(encoding="utf-8"))
-          assert data["catalogCount"] > 10000, data
-          assert data["count"] == data["catalogCount"], data
-          assert data["failed"] == 0, data
-          print(data["catalogCount"], data["count"], data["failed"])
+          import json,collections
+          f=json.load(open("data/card-visual-fingerprints-failures.json"))
+          c=collections.Counter(x["setCode"] for x in f)
+          print("FPSETS",dict(c))
+          seen=set()
+          for x in f:
+              if x["setCode"] in seen: continue
+              seen.add(x["setCode"]); print("FPERR",x["setCode"],x["rawCode"],x["error"][:240])
           PY
-
-      - name: Commit generated fingerprints
-        run: |
-          set -euo pipefail
-          if [ -z "$(git status --porcelain -- data/card-visual-fingerprints.json data/card-visual-fingerprints-failures.json)" ]; then
-            echo "Fingerprint index is already current."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/card-visual-fingerprints.json data/card-visual-fingerprints-failures.json
-          git commit -m "Generate card visual fingerprint index"
-          git pull --rebase origin main
-          git push origin HEAD:main
