@@ -155,9 +155,9 @@ def normalized_request_url(value: str) -> str:
 
 
 # 외부 판매처(tcgbox 등)는 동시 요청이 많으면 403/429로 막으므로 동시 접속을 제한하고 재시도한다.
-EXTERNAL_LIMIT = threading.Semaphore(4)
-RETRY_STATUS = {403, 429, 500, 502, 503, 504}
-RETRY_DELAYS = (1.5, 4.0)
+EXTERNAL_LIMIT = threading.Semaphore(6)
+RETRY_STATUS = {429, 500, 502, 503, 504}
+RETRY_DELAYS = (1.5,)
 
 
 def read_remote_payload(url: str, *, browser_headers: bool = False) -> bytes:
