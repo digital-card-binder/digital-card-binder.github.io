@@ -99,3 +99,10 @@ test("health catalog audit counts fossil and world from their raw datasets exact
   assert.doesNotMatch(health, /source:\s*"보조 도감"/);
   assert.doesNotMatch(health, /return \[\.\.\.rows, \.\.\.auxiliary\]/);
 });
+
+test("health audit counts every registered collection and ignores images already on the own CDN", () => {
+  const source = read("health.js");
+  assert.match(source, /collectionId === "artThemes"[\s\S]{0,200}art-themes\.json/);
+  assert.match(source, /ownCdnDestination/);
+  assert.match(source, /isSiteAsset/);
+});
