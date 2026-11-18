@@ -4143,3 +4143,18 @@ body[data-page="binder-studio"] {
 .studio-library-box>summary small{color:#55868f;font-size:.62rem;font-weight:800}
 .studio-library-box .studio-custom-library-panel{margin:0;border-top:1px solid #dfe7ed;padding:12px 14px 14px}
 @media(max-width:690px){.studio-start-choice{grid-template-columns:1fr}.studio-start-option{min-height:64px}}
+
+.studio-photo-more {
+  margin-top: 8px;
+}
+
+.studio-photo-more > summary {
+  cursor: pointer;
+  color: #245079;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.studio-photo-more[open] > summary {
+  margin-bottom: 8px;
+}

@@ -255,3 +255,19 @@ test("custom binder exposes a compact collapsible usage guide", () => {
   assert.match(css, /\.studio-binder-guide > summary/);
   assert.match(css, /\.studio-binder-guide\[open\] \.studio-binder-guide-chevron/);
 });
+
+test("page scan narrows unresolved slots to the Pokémon family of confirmed cards", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+  const matcher = readFileSync(new URL("../card-visual-matcher.js", import.meta.url), "utf8");
+
+  // 후보 범위만 좁히고 확정 기준(confidentScan)은 그대로 쓴다.
+  assert.match(matcher, /options\?\.filter\) === "function"|typeof options\?\.filter === "function"/);
+  assert.match(matcher, /fullIndex\.filter\(\(entry\) => options\.filter\(entry\.card\)\)/);
+  assert.match(studio, /PAGE_THEME_MIN_ANCHORS = 2/);
+  assert.match(studio, /PAGE_THEME_MAX_SPAN = 4/);
+  assert.match(studio, /function inferPageTheme\(/);
+  assert.match(studio, /rankImageCrop\(image, target\.crop, state\.catalog, 18, \{ filter: inTheme \}\)/);
+  assert.match(studio, /if \(confirmed\.has\(target\.index\)\) continue;/);
+  assert.match(studio, /matcher\.confidentScan\?\.\(pool\) \|\| matcher\.confident\(pool\)/);
+  assert.match(studio, /후보 더 보기/);
+});

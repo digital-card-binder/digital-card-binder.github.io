@@ -238,8 +238,13 @@
     });
   }
 
-  async function rankImageCrop(source, crop, catalog, limit = 3) {
-    const index = await prepare(catalog);
+  async function rankImageCrop(source, crop, catalog, limit = 3, options = {}) {
+    const fullIndex = await prepare(catalog);
+    // options.filter limits the comparison to a subset (e.g. one Pokémon's cards)
+    // without changing how distances or confidence are calculated.
+    const index = typeof options?.filter === "function"
+      ? fullIndex.filter((entry) => options.filter(entry.card))
+      : fullIndex;
     const signatures = photoCropVariants(crop).map((variant) =>
       signature(cropCanvas(source, variant))
     );
