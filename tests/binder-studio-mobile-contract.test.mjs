@@ -117,3 +117,13 @@ test("binder studio start screen offers photo start and blank start without touc
   assert.match(start, /studio-custom-placed-count/);
   assert.doesNotMatch(start, /localStorage|firebase|setDoc/i);
 });
+
+test("print dex list is grouped by the site's biggest categories and includes every printable theme dex", async () => {
+  const html = await read("studio.html");
+  const select = html.slice(html.indexOf('id="studio-collection"'), html.indexOf("</select>", html.indexOf('id="studio-collection"')));
+  assert.match(select, /<optgroup label="시리즈도감">[\s\S]*value="series"[\s\S]*<optgroup label="전국도감">[\s\S]*value="national"[\s\S]*<optgroup label="테마도감">/);
+  for (const id of ["ar", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"]) {
+    assert.match(select.slice(select.indexOf('<optgroup label="테마도감">')), new RegExp(`value="${id}"`), id);
+  }
+  assert.match(await read("studio.js"), /collectionId === "artThemes"/);
+});
