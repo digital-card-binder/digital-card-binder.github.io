@@ -281,3 +281,16 @@ test("page warp downsamples big photos first and slot crops keep more of each po
   assert.match(scanner, /leftGap \* 0\.8/);
   assert.match(scanner, /rightGap \* 0\.8/);
 });
+
+test("unresolved scanned slots show a candidate badge that opens a tap-to-confirm sheet", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../studio.css", import.meta.url), "utf8");
+
+  assert.match(studio, /studio-slot-review-badge/);
+  assert.match(studio, /function openSlotCandidateSheet\(slotIndex\)/);
+  assert.match(studio, /slot\.type === "card" \? null : state\.photoReview\?\.get\(slot\.index\)/);
+  assert.match(studio, /recognitionCandidateButton\(slotIndex, match\)/);
+  assert.match(studio, /사진 그대로 두기/);
+  assert.match(css, /\.studio-slot-review-badge \{/);
+  assert.match(css, /\.studio-slot-candidate-sheet \{/);
+});

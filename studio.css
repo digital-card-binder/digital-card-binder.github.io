@@ -4158,3 +4158,64 @@ body[data-page="binder-studio"] {
 .studio-photo-more[open] > summary {
   margin-bottom: 8px;
 }
+
+.studio-slot-review-badge {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+  border: 1px solid #f2c26b;
+  border-radius: 999px;
+  background: #fff4d8;
+  color: #7a4b00;
+  font-size: 0.6rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 4px 8px;
+  pointer-events: auto;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.studio-slot-candidate-sheet {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  z-index: 60;
+  max-width: 560px;
+  max-height: 60vh;
+  margin-inline: auto;
+  overflow: auto;
+  padding: 14px;
+  border: 1px solid #d4e3f2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(24, 52, 86, 0.24);
+}
+
+.studio-slot-candidate-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.studio-slot-candidate-head strong {
+  color: #223b59;
+  font-size: 0.86rem;
+}
+
+.studio-slot-candidate-close {
+  flex: 0 0 auto;
+  border: 1px solid #d4e3f2;
+  border-radius: 999px;
+  background: #f1f7ff;
+  color: #245079;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 7px 12px;
+  cursor: pointer;
+}
