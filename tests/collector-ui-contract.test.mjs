@@ -1476,7 +1476,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /data-studio-help="4"/);
   assert.match(page, /data-studio-help="8"/);
   assert.doesNotMatch(page, /data-studio-help="9"/);
-  assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
+  // 항목별 도움말 9개 + 전체를 한 번에 보여 주는 "기능 도움말" 1개
+  assert.equal((page.match(/data-studio-help="/g) || []).length, 10);
+  assert.match(page, /data-studio-help="all"/);
   assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 3);
   assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 6);
   assert.match(page, /바인더 페이지 <span class="studio-step-badge is-required">필수<\/span>/);

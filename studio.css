@@ -3767,9 +3767,6 @@ body[data-page="binder-studio"] {
     order: 1;
   }
 
-  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-library-panel {
-    display: none !important;
-  }
 
   .studio-custom-workspace:not(.is-advanced-open) .studio-preview-heading .studio-kicker {
     display: none;
@@ -4124,3 +4121,24 @@ body[data-page="binder-studio"] {
 .studio-adv-group-box>summary::after{content:"펼치기 ⌄";justify-self:end;margin-top:-18px;color:#55868f;font-size:.6rem;font-weight:800}
 .studio-adv-group-box[open]>summary::after{content:"접기 ⌃"}
 .studio-adv-group-box>.studio-control-card{margin:0;border-width:1px 0 0;border-radius:0}
+
+
+/* 2026-11-18 Binder Studio start screen */
+.studio-heading-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.studio-custom-workspace .studio-step-heading .studio-help-button,.studio-custom-workspace .studio-photo-import-head-actions .studio-help-button{display:none}
+.studio-start-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 12px}
+.studio-start-choice[hidden]{display:none}
+.studio-start-option{display:flex;align-items:center;gap:12px;min-height:74px;padding:14px;border:1px solid #d9e2e8;border-radius:14px;background:#fff;color:#263746;text-align:left;cursor:pointer;font:inherit}
+.studio-start-option>span:first-child{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:11px;background:#eef3f6;color:#2f596e;font-size:1.05rem;font-weight:850}
+.studio-start-option strong{display:block;font-size:.84rem}
+.studio-start-option small{display:block;margin-top:3px;color:#74818c;font-size:.6rem;line-height:1.4}
+.studio-start-option.is-primary{border-color:#55afbe;background:#eaf9fb}
+.studio-start-option.is-primary>span:first-child{background:#d5f1f5;color:#165a6d}
+.studio-start-option:hover{border-color:#8fc6d0}
+.studio-library-box{margin:0 0 12px;border:1px solid #e1e7ec;border-radius:14px;background:#fff;overflow:hidden}
+.studio-library-box>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;cursor:pointer;list-style:none}
+.studio-library-box>summary::-webkit-details-marker{display:none}
+.studio-library-box>summary strong{color:#263746;font-size:.8rem}
+.studio-library-box>summary small{color:#55868f;font-size:.62rem;font-weight:800}
+.studio-library-box .studio-custom-library-panel{margin:0;border-top:1px solid #dfe7ed;padding:12px 14px 14px}
+@media(max-width:690px){.studio-start-choice{grid-template-columns:1fr}.studio-start-option{min-height:64px}}

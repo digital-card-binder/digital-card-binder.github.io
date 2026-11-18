@@ -60,10 +60,9 @@ test("mobile simple mode puts the binder itself before secondary controls", asyn
     css,
     /@media \(max-width: 690px\)[\s\S]*?studio-custom-workspace:not\(\.is-advanced-open\) \.studio-custom-preview-panel\s*\{[\s\S]*?order:\s*-1/,
   );
-  assert.match(
-    css,
-    /studio-custom-workspace:not\(\.is-advanced-open\) \.studio-custom-library-panel\s*\{[\s\S]*?display:\s*none/,
-  );
+  // 저장한 바인더 목록은 화면 위쪽의 접이식 상자로 옮겨 모바일 간편 모드에서도 볼 수 있다.
+  assert.match(html, /<details class="studio-library-box" id="studio-library-box">/);
+  assert.doesNotMatch(css, /studio-custom-library-panel\s*\{\s*display:\s*none/);
   assert.match(css, /칸을 눌러 편집 · 카드는 드래그해서 이동/);
 });
 
@@ -106,4 +105,15 @@ test("quick slot photos are center-cropped to the physical card ratio", async ()
     js,
     /loadQuickSlotPhoto[\s\S]*?crop: \{ x: 0, y: 0, width: 1, height: 1 \}/,
   );
+});
+
+test("binder studio start screen offers photo start and blank start without touching editor logic", async () => {
+  const html = await read("studio.html");
+  const start = await read("studio-start.js");
+  assert.match(html, /id="studio-start-choice"/);
+  assert.match(html, /for="studio-quick-page-scan"/);
+  assert.match(html, /id="studio-start-blank"/);
+  assert.match(html, /studio-start\.js/);
+  assert.match(start, /studio-custom-placed-count/);
+  assert.doesNotMatch(start, /localStorage|firebase|setDoc/i);
 });
