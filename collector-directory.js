@@ -203,16 +203,25 @@
       collector.nickname;
     link.querySelector(".collector-directory-card-title small").textContent =
       `PUBLIC ID · ${collector.publicId}`;
-    link.querySelector(".collector-directory-bio").textContent =
-      collector.bio || "한 줄 소개가 없습니다.";
-    const tags = [
+    const bio = link.querySelector(".collector-directory-bio");
+    if (collector.bio) bio.textContent = collector.bio;
+    else bio.remove();
+    const tagNames = [
       ...collector.projections.flatMap((projection) => projectionTagNames(projection)),
       ...(collector.binders || []).map((binder) => binder.title),
-    ].map((name) => {
+    ];
+    // 태그가 많아도 카드가 길어지지 않도록 앞의 3개만 보여주고 나머지는 개수로 표시한다.
+    const MAX_VISIBLE_TAGS = 3;
+    const tags = tagNames.slice(0, MAX_VISIBLE_TAGS).map((name) => {
         const tag = document.createElement("span");
         tag.textContent = name;
         return tag;
       });
+    if (tagNames.length > MAX_VISIBLE_TAGS) {
+      const more = document.createElement("span");
+      more.textContent = `+${tagNames.length - MAX_VISIBLE_TAGS}`;
+      tags.push(more);
+    }
     if (collector.wishCount > 0) {
       const wish = document.createElement("span");
       wish.className = "collector-directory-wish-tag";
