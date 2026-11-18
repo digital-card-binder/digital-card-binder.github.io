@@ -392,14 +392,31 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--workers", type=int, default=16)
     parser.add_argument("--no-remote-fallback", action="store_true")
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="이미 만들어 둔 지문도 이미지를 다시 받아 새로 계산한다(기본은 새 카드만 계산).",
+    )
     args = parser.parse_args()
 
     cards = collect_cards(args.index)
+    # 이미 계산해 둔 카드는 재사용한다. 외부 판매처가 막혀 있어도 기존 지문이 유지되고 실행 시간이 짧아진다.
+    previous: dict[tuple[str, str], list[str]] = {}
+    if not args.refresh and args.output.is_file():
+        try:
+            for entry in json.loads(args.output.read_text(encoding="utf-8")).get("entries", []):
+                if len(entry) >= 6:
+                    previous[(entry[0], entry[1])] = entry
+        except (OSError, ValueError):
+            previous = {}
     results: list[list[str] | None] = [None] * len(cards)
     failures: list[dict[str, str]] = []
 
     def process(index_card: tuple[int, dict[str, str]]) -> tuple[int, list[str]]:
         index, card = index_card
+        reused = previous.get((card["setCode"], card["rawCode"]))
+        if reused:
+            return index, reused
         attempts: list[str] = []
         for label, payload in payload_candidates(
             card["project"],
