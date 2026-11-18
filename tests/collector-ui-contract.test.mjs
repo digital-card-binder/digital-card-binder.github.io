@@ -479,7 +479,7 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
 test("series navigation summary uses the generated set and card totals", async () => {
   for (const file of sitePages) {
     const html = await source(file);
-    if (!html.includes('href="./series.html"')) continue;
+    if (!html.includes('class="collection-nav"') || !html.includes('href="./series.html"')) continue;
     assert.match(
       html,
       /시리즈 도감<\/strong><small>[\d,]+세트 · [\d,]+장<\/small>/,

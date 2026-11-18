@@ -2825,3 +2825,115 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
 @media (prefers-reduced-motion: reduce) {
   .wish-toast { transition: none; }
 }
+
+/* 공통 상단바: 홈과 동일한 밝은 상단바 + 주요 메뉴 (홈은 home-preview.css 사용) */
+body:not([data-page="dashboard"]) .site-header {
+  min-height: 72px;
+  border-bottom: 1px solid #e1e9f4;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 20px rgba(37, 75, 124, 0.06);
+}
+
+body:not([data-page="dashboard"]) .site-header .brand-copy strong {
+  color: #223b59;
+}
+
+body:not([data-page="dashboard"]) .site-header .header-chip {
+  border-color: #d4e3f2;
+  background: #f1f7ff;
+  color: #245079;
+}
+
+body:not([data-page="dashboard"]) .site-header .firebase-auth-panel {
+  border-color: #d4e3f2;
+  background: #f1f7ff;
+  color: #245079;
+}
+
+body:not([data-page="dashboard"]) .site-header #firebase-auth-status,
+body:not([data-page="dashboard"]) .site-header #firebase-auth-status.firebase-profile-link {
+  color: #245079;
+}
+
+body:not([data-page="dashboard"]) .site-header .owner-sheets-status,
+body:not([data-page="dashboard"]) .site-header .owner-sheets-link {
+  border-color: #d4e3f2;
+  background: #fff;
+  color: #245079;
+}
+
+body:not([data-page="dashboard"]) .site-header .collection-mobile-menu-button {
+  border-color: #d4e3f2;
+  background: #f1f7ff;
+  color: #245079;
+}
+
+.site-top-nav {
+  display: none;
+}
+
+@media (min-width: 1101px) {
+  body:not([data-page="dashboard"]) .site-header:has(> .site-top-nav) {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+  }
+
+  body:not([data-page="dashboard"]) .site-header > .site-top-nav {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 1.6vw, 26px);
+    min-width: 0;
+  }
+
+  body:not([data-page="dashboard"]) .site-header > .brand,
+  body:not([data-page="dashboard"]) .site-header > .header-chip,
+  body:not([data-page="dashboard"]) .site-header > :not(.brand):not(.site-top-nav):not(.header-chip) {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .site-top-nav a {
+    position: relative;
+    padding: 8px 2px;
+    color: #465c79;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-top-nav a:hover,
+  .site-top-nav a:focus-visible,
+  .site-top-nav a[aria-current="page"] {
+    color: #1e649e;
+  }
+
+  .site-top-nav a::after {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    left: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #4a91d3, #9886d8);
+    content: "";
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .site-top-nav a:hover::after,
+  .site-top-nav a:focus-visible::after,
+  .site-top-nav a[aria-current="page"]::after {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1280px) {
+  body:not([data-page="dashboard"]) .site-header > .header-chip {
+    display: none;
+  }
+}

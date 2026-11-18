@@ -107,6 +107,31 @@ function renderNavigation(filename) {
   return lines.join("\n");
 }
 
+
+const TOP_NAV_ITEMS = [
+  { href: "./pokemon-search.html", label: "카드 검색", pages: ["pokemon-search.html"] },
+  { href: "./series.html", label: "시리즈", pages: ["series.html"] },
+  { href: "./national.html", label: "전국도감", pages: ["national.html"] },
+  {
+    href: "./theme.html",
+    label: "테마도감",
+    pages: ["theme.html", "ar.html", "artists.html", "people.html", "trainer-pokemon.html", "fossil.html", "world.html", "art-themes.html", "eevee.html", "pokemon-collections.html", "custom.html"],
+  },
+  { href: "./packs.html", label: "팩도감", pages: ["packs.html"] },
+  { href: "./studio.html", label: "바인더 스튜디오", pages: ["studio.html"] },
+  { href: "./#home-collection-section", label: "나의 수집", pages: [] },
+];
+
+function renderTopNav(filename) {
+  const links = TOP_NAV_ITEMS.map((item) => {
+    const current = item.pages.includes(filename) ? ' aria-current="page"' : "";
+    return `<a href="${item.href}"${current}>${item.label}</a>`;
+  });
+  return `<nav class="site-top-nav" aria-label="주요 메뉴">
+        ${links.join("\n        ")}
+      </nav>`;
+}
+
 function footerLink(href, label, filename, activeFilename = "") {
   const current = activeFilename && filename === activeFilename ? ' aria-current="page"' : "";
   return `              <a href="${href}"${current}>${label}</a>`;
@@ -132,6 +157,12 @@ function synchronize(filename, source) {
     const brandPattern = /<a class="brand"[\s\S]*?<\/a>/;
     if (!brandPattern.test(next)) throw new Error(`${filename}: site header brand is missing`);
     next = next.replace(brandPattern, brand);
+    // 홈(index.html)은 자체 상단 메뉴(home-top-nav)를 사용한다. 나머지 페이지는 같은 메뉴를 공유한다.
+    if (filename !== "index.html") {
+      next = next.replace(/\s*<nav class="studio-top-nav"[\s\S]*?<\/nav>/, "");
+      next = next.replace(/\s*<nav class="site-top-nav"[\s\S]*?<\/nav>/, "");
+      next = next.replace(brand, `${brand}\n      ${renderTopNav(filename)}`);
+    }
   }
 
   if (next.includes('class="collection-nav"')) {
