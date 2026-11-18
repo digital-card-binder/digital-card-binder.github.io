@@ -271,3 +271,13 @@ test("page scan narrows unresolved slots to the Pokémon family of confirmed car
   assert.match(studio, /matcher\.confidentScan\?\.\(pool\) \|\| matcher\.confident\(pool\)/);
   assert.match(studio, /후보 더 보기/);
 });
+
+test("page warp downsamples big photos first and slot crops keep more of each pocket", () => {
+  const scanner = readFileSync(new URL("../binder-photo-scanner.js", import.meta.url), "utf8");
+
+  assert.match(scanner, /const prescale = ratio > 1\.7 \? 1\.5 \/ ratio : 1;/);
+  assert.match(scanner, /analysisCanvas\(image, Math\.max\(width, height\) \* prescale\)/);
+  assert.match(scanner, /defaultPadRatio = 0\.004/);
+  assert.match(scanner, /leftGap \* 0\.8/);
+  assert.match(scanner, /rightGap \* 0\.8/);
+});
