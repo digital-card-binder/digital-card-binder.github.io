@@ -4260,3 +4260,79 @@ body.collector-simple-dex .pokemon-card .card-body.has-card-tag .card-tag:not(:e
   font-size: 16px;
 }
 .collector-directory-sort select:focus-visible { outline: 3px solid #94c6ed; outline-offset: 1px; }
+
+/* 커뮤니티 화면 압축: 안내문은 작은 알림으로, 컬렉터 카드는 짧게 */
+body .collector-directory-hero {
+  min-height: 0;
+  padding-block: 22px;
+}
+
+body .collector-directory-hero .hero-description {
+  margin-top: 8px;
+}
+
+body .collector-directory-badge {
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid #d4e3f2;
+  background: #f1f7ff;
+  color: #245079;
+  backdrop-filter: none;
+}
+
+body .collector-directory-badge strong {
+  color: #245079;
+  letter-spacing: 0;
+}
+
+body .collector-directory-badge small {
+  margin-top: 4px;
+  color: #4f637c;
+}
+
+body .collector-directory-panel {
+  margin-top: 14px;
+}
+
+body .collector-directory-card {
+  min-height: 0;
+  padding: 16px;
+}
+
+body .collector-directory-bio {
+  min-height: 0;
+  margin-top: 10px;
+}
+
+body .collector-directory-tags {
+  margin-top: 10px;
+}
+
+@media (max-width: 680px) {
+  body .collector-directory-hero {
+    padding-block: 18px;
+    gap: 12px;
+  }
+
+  body .collector-directory-hero .hero-description {
+    font-size: 0.82rem;
+  }
+
+  body .collector-directory-badge {
+    padding: 10px 14px;
+  }
+
+  body .collector-directory-badge small br {
+    display: none;
+  }
+
+  body .collector-directory-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  body .collector-directory-card {
+    padding: 14px;
+  }
+}
