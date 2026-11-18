@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <link rel="stylesheet" href="./styles.css?v=4c2b60974236" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./studio.css?v=2b04f77dba9d" />
+    <link rel="stylesheet" href="./studio.css?v=c52854afb2c1" />
     <script src="./card-image-cdn.js?v=10580069a1bf" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -23,7 +23,8 @@
     <script src="./card-visual-matcher.js?v=eae42d7e21fc" defer></script>
     <script src="./binder-photo-scanner.js?v=a2fc684089cf" defer></script>
     <script src="./studio-custom.js?v=0c51f305c5ff" defer></script>
-    <script src="./studio-help.js?v=cccd720fa329" defer></script>
+    <script src="./studio-help.js?v=183951dcda47" defer></script>
+    <script src="./studio-start.js?v=35ab43fa6bdb" defer></script>
     <link rel="stylesheet" href="./ui-consistency.css?v=2f899200d4dc" />
       <script src="./site-mobile-nav.js?v=bc6c4993ccb2" defer></script>
       <script src="./core/wish/wishlist.js?v=e3bd26b61ef0" defer></script>
@@ -179,8 +180,37 @@
             <h2 id="studio-custom-title">커스텀 바인더 만들기</h2>
             <p>칸을 누르고 카드나 사진을 넣어 실제 바인더처럼 바로 편집하세요.</p>
           </div>
-          <button id="studio-custom-reset" class="studio-text-button" type="button">초기화</button>
+          <div class="studio-heading-actions">
+            <button class="studio-text-button studio-help-all" type="button" data-studio-help="all">기능 도움말</button>
+            <button id="studio-custom-reset" class="studio-text-button" type="button">초기화</button>
+          </div>
         </div>
+
+        <section id="studio-start-choice" class="studio-start-choice" aria-label="바인더 시작 방법">
+          <label class="studio-start-option is-primary" for="studio-quick-page-scan">
+            <span aria-hidden="true">⌗</span>
+            <span><strong>사진으로 시작</strong><small>가지고 있는 바인더 페이지를 찍으면 카드까지 자동으로 찾아요</small></span>
+          </label>
+          <button id="studio-start-blank" class="studio-start-option" type="button">
+            <span aria-hidden="true">＋</span>
+            <span><strong>빈 바인더로 시작</strong><small>배열을 고르고 카드를 직접 채워요</small></span>
+          </button>
+        </section>
+
+        <details class="studio-library-box" id="studio-library-box">
+          <summary><strong>저장한 바인더</strong><small id="studio-library-count">불러오는 중</small></summary>
+          <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">
+              <div class="studio-custom-library-heading">
+                <div>
+                  <span class="studio-kicker">MY WORKS</span>
+                  <h3 id="studio-custom-library-title">저장한 커스텀 바인더</h3>
+                </div>
+                <a href="./custom.html#custom-binders">나만의도감에서 보기</a>
+              </div>
+              <div id="studio-custom-library" class="studio-custom-library"></div>
+              <p id="studio-custom-library-empty" class="studio-custom-library-empty">저장한 작업이 없습니다.</p>
+            </section>
+        </details>
 
         <details class="studio-binder-guide">
           <summary>
@@ -485,17 +515,6 @@
               <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 더보기의 배경 조각 이동을 켜면 카드와 별개로 배경만 퍼즐처럼 재배치할 수 있습니다.</p>
             </div>
 
-            <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">
-              <div class="studio-custom-library-heading">
-                <div>
-                  <span class="studio-kicker">MY WORKS</span>
-                  <h3 id="studio-custom-library-title">저장한 커스텀 바인더</h3>
-                </div>
-                <a href="./custom.html#custom-binders">나만의도감에서 보기</a>
-              </div>
-              <div id="studio-custom-library" class="studio-custom-library"></div>
-              <p id="studio-custom-library-empty" class="studio-custom-library-empty">저장한 작업이 없습니다.</p>
-            </section>
           </section>
         </div>
       </section>

@@ -101,6 +101,15 @@
     },
   };
 
+  // 한 곳에서 전체 기능을 훑어볼 수 있도록 각 항목의 설명을 합친 도움말.
+  HELP.all = {
+    title: "바인더 기능 도움말",
+    description: "처음에는 사진으로 시작하거나 빈 바인더에서 카드만 채우면 됩니다. 나머지는 필요할 때만 더보기에서 사용하세요.",
+    steps: Object.keys(HELP)
+      .filter((key) => key !== "all")
+      .map((key) => `${HELP[key].title.replace(/^\d+\.\s*/, "")} — ${HELP[key].description}`),
+  };
+
   function closeHelp() {
     if (typeof dialog.close === "function" && dialog.open) {
       dialog.close();
