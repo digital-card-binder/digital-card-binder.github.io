@@ -1448,6 +1448,26 @@
         }
         selectQuickSlot(slot.index);
       });
+      const reviewMatches = slot.type === "card" ? null : state.photoReview?.get(slot.index);
+      if (reviewMatches?.length) {
+        const badge = document.createElement("span");
+        badge.className = "studio-slot-review-badge";
+        badge.setAttribute("role", "button");
+        badge.tabIndex = 0;
+        badge.textContent = `후보 ${reviewMatches.length}`;
+        badge.setAttribute("aria-label", `${slot.index + 1}번 칸 후보 ${reviewMatches.length}장 보기`);
+        const open = (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          openSlotCandidateSheet(slot.index);
+        };
+        badge.addEventListener("click", open);
+        badge.addEventListener("pointerdown", (event) => event.stopPropagation());
+        badge.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") open(event);
+        });
+        node.append(badge);
+      }
       return node;
     });
     slotLayer.replaceChildren(...nodes);
@@ -2588,6 +2608,8 @@
   function clearPhotoRecognitionResults() {
     state.photoReview = new Map();
     state.photoReviewLabel = "";
+    closeSlotCandidateSheet();
+    renderSlotLayer();
     if (!photoRecognitionResults) return;
     photoRecognitionResults.replaceChildren();
     photoRecognitionResults.hidden = true;
@@ -2877,7 +2899,45 @@
     return button;
   }
 
+  let slotCandidateSheet = null;
+
+  function closeSlotCandidateSheet() {
+    slotCandidateSheet?.remove();
+    slotCandidateSheet = null;
+  }
+
+  // 미리보기의 "후보" 배지를 누르면 그 칸의 후보 카드를 바로 골라 확정하는 시트를 연다.
+  function openSlotCandidateSheet(slotIndex) {
+    const matches = state.photoReview?.get(slotIndex);
+    if (!matches?.length) return;
+    closeSlotCandidateSheet();
+    const sheet = document.createElement("div");
+    sheet.className = "studio-slot-candidate-sheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-label", `${slotIndex + 1}번 칸 후보 선택`);
+    const head = document.createElement("div");
+    head.className = "studio-slot-candidate-head";
+    const title = document.createElement("strong");
+    title.textContent = `${slotIndex + 1}번 칸 · 맞는 카드를 고르세요`;
+    const keep = document.createElement("button");
+    keep.type = "button";
+    keep.className = "studio-slot-candidate-close";
+    keep.textContent = "사진 그대로 두기";
+    keep.addEventListener("click", closeSlotCandidateSheet);
+    head.append(title, keep);
+    const list = document.createElement("div");
+    list.className = "studio-photo-candidates";
+    matches.slice(0, 8).forEach((match) => list.append(recognitionCandidateButton(slotIndex, match)));
+    // 후보를 고르면(버튼 자체 처리 후) 시트를 닫는다.
+    list.addEventListener("click", () => closeSlotCandidateSheet());
+    sheet.append(head, list);
+    document.body.append(sheet);
+    slotCandidateSheet = sheet;
+    sheet.querySelector(".studio-photo-candidate")?.focus?.();
+  }
+
   function renderPhotoRecognitionReview(summary = "") {
+    renderSlotLayer();
     if (!photoRecognitionResults) return;
     const rows = [...state.photoReview.entries()].map(([slotIndex, matches]) => {
       const row = document.createElement("article");
