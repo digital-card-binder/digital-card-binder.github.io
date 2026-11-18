@@ -19,7 +19,7 @@
     <script src="./core/catalog/card-identity.js?v=271774faf2fa" defer></script>
     <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
     <script src="./collector-collection-registry.js?v=5d2580f4e04c" defer></script>
-    <script src="./studio.js?v=3d9c96fb4d08" defer></script>
+    <script src="./studio.js?v=3b898e826bb4" defer></script>
     <script src="./card-visual-matcher.js?v=eae42d7e21fc" defer></script>
     <script src="./binder-photo-scanner.js?v=a2fc684089cf" defer></script>
     <script src="./studio-custom.js?v=0c51f305c5ff" defer></script>
@@ -89,15 +89,22 @@
               <label class="studio-field">
                 <span>도감</span>
                 <select id="studio-collection" aria-label="인쇄할 도감 선택">
-                  <option value="series">시리즈 도감</option>
-                  <option value="national">전국도감</option>
-                  <option value="ar">AR 전종도감</option>
-                  <option value="pokemon">포켓몬 컬렉션</option>
-                  <option value="artist">작가 도감</option>
-                  <option value="people">인물도감</option>
-                  <option value="trainerPokemon">트레이너 × 포켓몬</option>
-                  <option value="fossil">화석 도감</option>
-                  <option value="world">월드탐험도감</option>
+                  <optgroup label="시리즈도감">
+                    <option value="series">시리즈 도감</option>
+                  </optgroup>
+                  <optgroup label="전국도감">
+                    <option value="national">전국도감</option>
+                  </optgroup>
+                  <optgroup label="테마도감">
+                    <option value="ar">AR 전종도감</option>
+                    <option value="pokemon">포켓몬 컬렉션</option>
+                    <option value="artist">작가 도감</option>
+                    <option value="people">인물도감</option>
+                    <option value="trainerPokemon">트레이너 × 포켓몬</option>
+                    <option value="fossil">화석 도감</option>
+                    <option value="world">월드탐험도감</option>
+                    <option value="artThemes">아트 테마 도감</option>
+                  </optgroup>
                 </select>
               </label>
               <p class="studio-inline-note">팩도감은 카드 규격과 달라 이번 인쇄 기능에서는 제외했습니다.</p>

@@ -291,6 +291,9 @@
     } else if (collectionId === "fossil") {
       const payload = await catalogService.json("./data/fossil.json");
       groups = payload.groups || [];
+    } else if (collectionId === "artThemes") {
+      const payload = await catalogService.json("./data/art-themes.json");
+      groups = payload.groups || [];
     }
 
     groups.forEach((group, groupIndex) => {
@@ -330,6 +333,7 @@
       trainerPokemon: "전체 트레이너 × 포켓몬",
       fossil: "전체 화석 도감",
       world: "전체 월드탐험",
+      artThemes: "전체 아트 테마",
     };
     return labels[collectionId] || "전체";
   }
