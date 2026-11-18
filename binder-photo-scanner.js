@@ -441,7 +441,7 @@
     const rows = Math.max(1, Number(grid?.rows) || 4);
     const safeLayout = layout && layout.cols === cols && layout.rows === rows ? layout : null;
 
-    function axisCells(count, dividers, defaultPadRatio = 0.012) {
+    function axisCells(count, dividers, defaultPadRatio = 0.004) {
       const validDividers = Array.isArray(dividers) && dividers.length === count - 1
         ? dividers
         : Array.from({ length: count - 1 }, (_, index) => ({
@@ -454,8 +454,8 @@
         const nominalEnd = index === count - 1 ? 1 : Number(validDividers[index]?.position);
         const leftGap = index === 0 ? 0 : Number(validDividers[index - 1]?.halfWidth) || 0;
         const rightGap = index === count - 1 ? 0 : Number(validDividers[index]?.halfWidth) || 0;
-        const start = clamp(nominalStart + leftGap * 0.9, 0, 1);
-        const end = clamp(nominalEnd - rightGap * 0.9, 0, 1);
+        const start = clamp(nominalStart + leftGap * 0.8, 0, 1);
+        const end = clamp(nominalEnd - rightGap * 0.8, 0, 1);
         const span = Math.max(0.0001, end - start);
         const pad = span * defaultPadRatio;
         return {
@@ -542,13 +542,29 @@
     if (!validCorners(corners, width, height) || !Number.isFinite(targetAspect) || targetAspect <= 0) {
       throw new Error("네 모서리가 겹치지 않도록 페이지 외곽을 맞춰 주세요.");
     }
-    const sourceMap = unitSquareToQuad(corners);
+    const unitSquareToQuadBase = unitSquareToQuad(corners);
+    if (!unitSquareToQuadBase) throw new Error("바인더 페이지 원근을 계산하지 못했습니다.");
+    const outWidth = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension : maxDimension * targetAspect));
+    const outHeight = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension / targetAspect : maxDimension));
+    // 원본 사진이 출력보다 훨씬 크면 보간만으로 줄일 때 계단·모아레가 생긴다.
+    // 출력의 약 1.5배까지 먼저 고품질로 줄인 뒤 원근 보정을 하면 더 선명하다.
+    const edge = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+    const quadWidth = (edge(corners[0], corners[1]) + edge(corners[3], corners[2])) / 2;
+    const quadHeight = (edge(corners[0], corners[3]) + edge(corners[1], corners[2])) / 2;
+    const ratio = Math.min(quadWidth / outWidth, quadHeight / outHeight);
+    const prescale = ratio > 1.7 ? 1.5 / ratio : 1;
+    const source = analysisCanvas(image, Math.max(width, height) * prescale);
+    const scaledCorners = prescale < 1
+      ? corners.map((p) => ({ x: p.x * source.scale, y: p.y * source.scale }))
+      : corners;
+    const sourceMap = prescale < 1 ? unitSquareToQuad(scaledCorners) : unitSquareToQuadBase;
     if (!sourceMap) throw new Error("바인더 페이지 원근을 계산하지 못했습니다.");
-    const source = analysisCanvas(image, Math.max(width, height));
-    const pixels = source.context.getImageData(0, 0, width, height).data;
+    const readWidth = source.canvas.width;
+    const readHeight = source.canvas.height;
+    const pixels = source.context.getImageData(0, 0, readWidth, readHeight).data;
     const canvas = document.createElement("canvas");
-    canvas.width = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension : maxDimension * targetAspect));
-    canvas.height = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension / targetAspect : maxDimension));
+    canvas.width = outWidth;
+    canvas.height = outHeight;
     const context = canvas.getContext("2d", { alpha: false });
     if (!context) throw new Error("바인더 스캔 이미지를 만들지 못했습니다.");
     const output = context.createImageData(canvas.width, canvas.height);
@@ -556,12 +572,12 @@
     for (let y = 0; y < canvas.height; y += 1) {
       for (let x = 0; x < canvas.width; x += 1) {
         const p = sourceMap(x / (canvas.width - 1), y / (canvas.height - 1));
-        const sx = clamp(p.x, 0, width - 1), sy = clamp(p.y, 0, height - 1);
+        const sx = clamp(p.x, 0, readWidth - 1), sy = clamp(p.y, 0, readHeight - 1);
         const x0 = Math.floor(sx), y0 = Math.floor(sy);
-        const x1 = Math.min(x0 + 1, width - 1), y1 = Math.min(y0 + 1, height - 1);
+        const x1 = Math.min(x0 + 1, readWidth - 1), y1 = Math.min(y0 + 1, readHeight - 1);
         const dx = sx - x0, dy = sy - y0;
-        const offsets = [(y0 * width + x0) * 4, (y0 * width + x1) * 4,
-          (y1 * width + x0) * 4, (y1 * width + x1) * 4];
+        const offsets = [(y0 * readWidth + x0) * 4, (y0 * readWidth + x1) * 4,
+          (y1 * readWidth + x0) * 4, (y1 * readWidth + x1) * 4];
         const i = (y * canvas.width + x) * 4;
         for (let channel = 0; channel < 3; channel += 1) {
           data[i + channel] = (pixels[offsets[0] + channel] * (1 - dx) + pixels[offsets[1] + channel] * dx) * (1 - dy) +
