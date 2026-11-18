@@ -4101,3 +4101,26 @@ body[data-page="binder-studio"] {
     gap: 8px;
   }
 }
+
+
+/* 2026-11-18 Binder Studio simplification */
+/* 간편 편집: 페이지 스캔을 맨 앞에 두고, 선택한 칸이 없을 때 쓸 수 없는 보조 버튼은 숨긴다. */
+.studio-quick-actions>label[for="studio-quick-page-scan"]{order:-1;border-color:#55afbe;background:#eaf9fb;color:#165a6d}
+.studio-quick-actions>label[for="studio-quick-page-scan"]>span{background:#d5f1f5;color:#165a6d}
+.studio-custom-workspace:not(.is-advanced-open) #studio-quick-variant:disabled,
+.studio-custom-workspace:not(.is-advanced-open) #studio-quick-background:disabled{display:none}
+.studio-quick-actions{grid-template-columns:repeat(auto-fit,minmax(78px,1fr))}
+/* 더보기(고급) 화면: 1~9 번호를 없애고 같은 일을 하는 항목끼리 묶는다. */
+.studio-custom-workspace .studio-step-heading{grid-template-columns:minmax(0,1fr) auto}
+.studio-custom-workspace .studio-step-heading>span:first-child{display:none}
+.studio-adv-group{display:none;margin:14px 2px 2px;color:#3b4660;font-size:.74rem;font-weight:900;letter-spacing:.01em}
+.studio-adv-group:first-of-type{margin-top:2px}
+.studio-custom-workspace.is-advanced-open .studio-adv-group{display:block}
+.studio-adv-group-box{border:1px solid #e1e7ec;border-radius:14px;background:#fff;overflow:hidden}
+.studio-adv-group-box>summary{display:grid;gap:3px;padding:13px 14px;cursor:pointer;list-style:none}
+.studio-adv-group-box>summary::-webkit-details-marker{display:none}
+.studio-adv-group-box>summary strong{color:#263746;font-size:.8rem}
+.studio-adv-group-box>summary small{color:#74818c;font-size:.6rem}
+.studio-adv-group-box>summary::after{content:"펼치기 ⌄";justify-self:end;margin-top:-18px;color:#55868f;font-size:.6rem;font-weight:800}
+.studio-adv-group-box[open]>summary::after{content:"접기 ⌃"}
+.studio-adv-group-box>.studio-control-card{margin:0;border-width:1px 0 0;border-radius:0}
