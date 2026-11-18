@@ -153,7 +153,7 @@ ${footerLink("./terms.html", "이용약관", filename, "terms.html")}
 function synchronize(filename, source) {
   let next = source;
 
-  if (next.includes('class="site-header"')) {
+  if (/class="site-header[\s"]/.test(next)) {
     const brandPattern = /<a class="brand"[\s\S]*?<\/a>/;
     if (!brandPattern.test(next)) throw new Error(`${filename}: site header brand is missing`);
     next = next.replace(brandPattern, brand);
