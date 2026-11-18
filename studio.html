@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <link rel="stylesheet" href="./styles.css?v=4c2b60974236" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./studio.css?v=712a55430bb5" />
+    <link rel="stylesheet" href="./studio.css?v=2b04f77dba9d" />
     <script src="./card-image-cdn.js?v=10580069a1bf" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -22,7 +22,7 @@
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
     <script src="./card-visual-matcher.js?v=eae42d7e21fc" defer></script>
     <script src="./binder-photo-scanner.js?v=a2fc684089cf" defer></script>
-    <script src="./studio-custom.js?v=4a7b2a4d031a" defer></script>
+    <script src="./studio-custom.js?v=0c51f305c5ff" defer></script>
     <script src="./studio-help.js?v=cccd720fa329" defer></script>
     <link rel="stylesheet" href="./ui-consistency.css?v=2f899200d4dc" />
       <script src="./site-mobile-nav.js?v=bc6c4993ccb2" defer></script>
@@ -242,13 +242,14 @@
             </label>
             <button id="studio-quick-variant" type="button" disabled><span aria-hidden="true">⇄</span><strong>버전 고르기</strong></button>
             <button id="studio-quick-background" type="button" disabled aria-pressed="false"><span aria-hidden="true">▦</span><strong>배경 이동</strong></button>
-            <button id="studio-quick-advanced" type="button" aria-expanded="false"><span aria-hidden="true">•••</span><strong>고급 기능</strong></button>
+            <button id="studio-quick-advanced" type="button" aria-expanded="false"><span aria-hidden="true">•••</span><strong>더보기</strong></button>
           </div>
           <button id="studio-quick-source" class="studio-quick-source" type="button" hidden>원본 도감에서 보기</button>
         </section>
 
         <div class="studio-layout studio-custom-layout">
           <div class="studio-controls">
+            <h3 class="studio-adv-group">페이지 구성</h3>
             <section class="studio-control-card studio-custom-page-card">
               <div class="studio-step-heading">
                 <span>1</span>
@@ -285,6 +286,46 @@
               </div>
             </section>
 
+            <h3 class="studio-adv-group">카드 채우기·수정</h3>
+            <section class="studio-control-card studio-custom-card-search-card">
+              <div class="studio-step-heading">
+                <span>5</span>
+                <div><strong>카드 추가 <span class="studio-step-badge is-optional">선택</span></strong><small>필요한 슬롯만 우리 도감의 실제 카드 데이터로 교체합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="5" aria-label="카드 추가 도움말">?</button>
+              </div>
+              <label class="studio-field">
+                <span>우리 도감 카드 검색</span>
+                <input id="studio-custom-card-search" class="studio-custom-search-input" type="search" autocomplete="off" placeholder="예: 이브이, sv2a, 142/165" />
+              </label>
+              <div id="studio-custom-card-search-status" class="studio-custom-search-status">검색어를 입력하면 전체 시리즈 도감에서 찾습니다.</div>
+              <div id="studio-custom-card-results" class="studio-custom-card-results" hidden></div>
+            </section>
+
+            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools studio-advanced-card" hidden>
+              <div class="studio-step-heading">
+                <span>7</span>
+                <div><strong>선택 카드 편집 <span class="studio-step-badge is-optional">선택</span></strong><small id="studio-custom-selected-name">필요한 카드만 위치·순서·회전을 조정하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="6" aria-label="선택 카드 편집 도움말">?</button>
+              </div>
+              <div class="studio-custom-tool-grid">
+                <button type="button" data-custom-action="rotate-left">↺ 회전</button>
+                <button type="button" data-custom-action="rotate-right">회전 ↻</button>
+                <button type="button" data-custom-action="snap">칸에 맞춤</button>
+                <button type="button" data-custom-action="front">맨 앞으로</button>
+                <button type="button" data-custom-action="delete" class="is-danger">삭제</button>
+              </div>
+            </section>
+
+            <section class="studio-control-card studio-advanced-card">
+              <div class="studio-custom-summary">
+                <span><small>선택 그리드</small><strong id="studio-custom-grid-label">3 × 4</strong></span>
+                <span><small>카드 슬롯</small><strong id="studio-custom-slot-label">12칸</strong></span>
+                <span><small>배치 카드</small><strong id="studio-custom-placed-count">0장</strong></span>
+              </div>
+              <p id="studio-custom-ratio-note" class="studio-custom-ratio-note">이미지를 올리면 선택한 그리드와 비율을 확인합니다.</p>
+              <p class="studio-custom-fixed-size-note"><strong>카드 크기 고정</strong> 미리보기와 향후 출력 모두 63 × 88 mm 기준을 유지합니다. 그리드가 커지면 카드가 줄어드는 대신 작업 영역이 넓어집니다.</p>
+            </section>
+
+            <details class="studio-adv-group-box studio-advanced-card">
+              <summary><strong>배경·이미지 꾸미기</strong><small>선택 사항 · 사진 가져오기, 배경 일러스트, 확장 이미지</small></summary>
             <section class="studio-control-card studio-photo-import-card studio-advanced-card">
               <div class="studio-photo-import-heading">
                 <div>
@@ -352,19 +393,6 @@
               </div>
             </section>
 
-            <section class="studio-control-card studio-custom-card-search-card">
-              <div class="studio-step-heading">
-                <span>5</span>
-                <div><strong>카드 추가 <span class="studio-step-badge is-optional">선택</span></strong><small>필요한 슬롯만 우리 도감의 실제 카드 데이터로 교체합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="5" aria-label="카드 추가 도움말">?</button>
-              </div>
-              <label class="studio-field">
-                <span>우리 도감 카드 검색</span>
-                <input id="studio-custom-card-search" class="studio-custom-search-input" type="search" autocomplete="off" placeholder="예: 이브이, sv2a, 142/165" />
-              </label>
-              <div id="studio-custom-card-search-status" class="studio-custom-search-status">검색어를 입력하면 전체 시리즈 도감에서 찾습니다.</div>
-              <div id="studio-custom-card-results" class="studio-custom-card-results" hidden></div>
-            </section>
-
             <section class="studio-control-card studio-background-move-card studio-advanced-card">
               <div class="studio-step-heading">
                 <span>6</span>
@@ -374,30 +402,9 @@
               <p id="studio-background-move-status" class="studio-background-move-status">모드를 켜면 배경이 있는 칸을 드래그해서 다른 칸으로 옮길 수 있습니다.</p>
             </section>
 
-            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools studio-advanced-card" hidden>
-              <div class="studio-step-heading">
-                <span>7</span>
-                <div><strong>선택 카드 편집 <span class="studio-step-badge is-optional">선택</span></strong><small id="studio-custom-selected-name">필요한 카드만 위치·순서·회전을 조정하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="6" aria-label="선택 카드 편집 도움말">?</button>
-              </div>
-              <div class="studio-custom-tool-grid">
-                <button type="button" data-custom-action="rotate-left">↺ 회전</button>
-                <button type="button" data-custom-action="rotate-right">회전 ↻</button>
-                <button type="button" data-custom-action="snap">칸에 맞춤</button>
-                <button type="button" data-custom-action="front">맨 앞으로</button>
-                <button type="button" data-custom-action="delete" class="is-danger">삭제</button>
-              </div>
-            </section>
+            </details>
 
-            <section class="studio-control-card studio-advanced-card">
-              <div class="studio-custom-summary">
-                <span><small>선택 그리드</small><strong id="studio-custom-grid-label">3 × 4</strong></span>
-                <span><small>카드 슬롯</small><strong id="studio-custom-slot-label">12칸</strong></span>
-                <span><small>배치 카드</small><strong id="studio-custom-placed-count">0장</strong></span>
-              </div>
-              <p id="studio-custom-ratio-note" class="studio-custom-ratio-note">이미지를 올리면 선택한 그리드와 비율을 확인합니다.</p>
-              <p class="studio-custom-fixed-size-note"><strong>카드 크기 고정</strong> 미리보기와 향후 출력 모두 63 × 88 mm 기준을 유지합니다. 그리드가 커지면 카드가 줄어드는 대신 작업 영역이 넓어집니다.</p>
-            </section>
-
+            <h3 class="studio-adv-group">저장·출력</h3>
             <section class="studio-control-card studio-custom-save-card">
               <div class="studio-step-heading">
                 <span>8</span>
@@ -475,7 +482,7 @@
                 <div id="studio-custom-slot-layer" class="studio-custom-slot-layer" aria-label="바인더 슬롯"></div>
                 <div id="studio-custom-card-layer" class="studio-custom-card-layer" aria-label="배치한 카드"></div>
               </div>
-              <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 고급 기능의 배경 조각 이동을 켜면 카드와 별개로 배경만 퍼즐처럼 재배치할 수 있습니다.</p>
+              <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 더보기의 배경 조각 이동을 켜면 카드와 별개로 배경만 퍼즐처럼 재배치할 수 있습니다.</p>
             </div>
 
             <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">

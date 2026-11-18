@@ -2546,7 +2546,7 @@
     if (quickAdvancedButton) {
       quickAdvancedButton.setAttribute("aria-expanded", open ? "true" : "false");
       const label = quickAdvancedButton.querySelector("strong");
-      if (label) label.textContent = open ? "간단히 보기" : "고급 기능";
+      if (label) label.textContent = open ? "간단히 보기" : "더보기";
     }
   }
 
@@ -5415,7 +5415,7 @@
     if (quickAdvancedButton) {
       quickAdvancedButton.setAttribute("aria-expanded", "false");
       const label = quickAdvancedButton.querySelector("strong");
-      if (label) label.textContent = "고급 기능";
+      if (label) label.textContent = "더보기";
     }
     state.currentBinderId = "";
     state.currentCreatedAt = null;
