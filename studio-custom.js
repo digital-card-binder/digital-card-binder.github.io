@@ -2587,6 +2587,7 @@
 
   function clearPhotoRecognitionResults() {
     state.photoReview = new Map();
+    state.photoReviewLabel = "";
     if (!photoRecognitionResults) return;
     photoRecognitionResults.replaceChildren();
     photoRecognitionResults.hidden = true;
@@ -2885,14 +2886,30 @@
       const title = document.createElement("strong");
       title.textContent = `${slotIndex + 1}번 슬롯 · 후보 확인`;
       const keep = document.createElement("small");
-      keep.textContent = "맞는 카드가 없으면 사진을 그대로 두세요.";
+      keep.textContent = state.photoReviewLabel
+        ? `${state.photoReviewLabel} 안에서 찾은 후보입니다. 맞는 카드가 없으면 사진을 그대로 두세요.`
+        : "맞는 카드가 없으면 사진을 그대로 두세요.";
       heading.append(title, keep);
       const candidates = document.createElement("div");
       candidates.className = "studio-photo-candidates";
-      matches.slice(0, 3).forEach((match) => {
+      const shown = state.photoReviewLabel ? 6 : 3;
+      matches.slice(0, shown).forEach((match) => {
         candidates.append(recognitionCandidateButton(slotIndex, match));
       });
       row.append(heading, candidates);
+      if (matches.length > shown) {
+        const more = document.createElement("details");
+        more.className = "studio-photo-more";
+        const label = document.createElement("summary");
+        label.textContent = `후보 더 보기 (${matches.length - shown}장)`;
+        const extra = document.createElement("div");
+        extra.className = "studio-photo-candidates";
+        matches.slice(shown).forEach((match) => {
+          extra.append(recognitionCandidateButton(slotIndex, match));
+        });
+        more.append(label, extra);
+        row.append(more);
+      }
       return row;
     });
     photoRecognitionResults.replaceChildren();
@@ -2914,6 +2931,48 @@
       image.src = url;
     });
     return image;
+  }
+
+  // 바인더 한 페이지는 같은 포켓몬 계열로 모아 둔 경우가 많다. 확실히 인식된 칸들이
+  // 비슷한 도감 번호의 포켓몬이면, 나머지 칸은 그 계열 카드 안에서 다시 비교한다.
+  // 확정 기준은 그대로이고 후보 범위만 좁힌다.
+  const PAGE_THEME_MIN_ANCHORS = 2;
+  const PAGE_THEME_MAX_SPAN = 4;
+  const PAGE_THEME_MARGIN = 2;
+
+  async function pokedexNameList() {
+    if (state.pokedexNames) return state.pokedexNames;
+    try {
+      const payload = await catalogService?.pokemonSearchIndex?.();
+      const list = (Array.isArray(payload?.pokedex) ? payload.pokedex : [])
+        .map(([number, nameKo]) => [clean(nameKo), Number(number)])
+        .filter(([nameKo, number]) => nameKo && Number.isInteger(number))
+        .sort((left, right) => right[0].length - left[0].length);
+      state.pokedexNames = list;
+    } catch {
+      state.pokedexNames = [];
+    }
+    return state.pokedexNames;
+  }
+
+  function pokedexNumberForCard(card, names) {
+    const text = clean(card?.name);
+    if (!text) return null;
+    for (const [nameKo, number] of names) {
+      if (text.includes(nameKo)) return number;
+    }
+    return null;
+  }
+
+  function inferPageTheme(anchorCards, names) {
+    const numbers = anchorCards
+      .map((card) => pokedexNumberForCard(card, names))
+      .filter((number) => Number.isInteger(number));
+    if (numbers.length < PAGE_THEME_MIN_ANCHORS) return null;
+    const low = Math.min(...numbers);
+    const high = Math.max(...numbers);
+    if (high - low > PAGE_THEME_MAX_SPAN) return null;
+    return { low: low - PAGE_THEME_MARGIN, high: high + PAGE_THEME_MARGIN, anchors: numbers.length };
   }
 
   async function recognizeImportedPhotoCards() {
@@ -2973,8 +3032,42 @@
         }
       }
 
+      let themeLabel = "";
+      const names = await pokedexNameList();
+      const theme = inferPageTheme(replacements.map((item) => item.card), names);
+      if (theme) {
+        const inTheme = (card) => {
+          const number = pokedexNumberForCard(card, names);
+          return Number.isInteger(number) && number >= theme.low && number <= theme.high;
+        };
+        const confirmed = new Set(replacements.map((item) => item.index));
+        for (let position = 0; position < targets.length; position += 1) {
+          const target = targets[position];
+          if (confirmed.has(target.index)) continue;
+          updatePhotoImportUi(`페이지 주제로 다시 비교 중 · ${position + 1} / ${targets.length}칸`);
+          const pool = await matcher.rankImageCrop(image, target.crop, state.catalog, 18, { filter: inTheme });
+          if (!pool.length) continue;
+          const accepted = matcher.confidentScan?.(pool) || matcher.confident(pool);
+          if (accepted) {
+            replacements.push({ card: accepted.card, index: target.index });
+            confirmed.add(target.index);
+            if (review.has(target.index)) review.delete(target.index);
+            else noMatch = Math.max(0, noMatch - 1);
+            automatic += 1;
+          } else if (matcher.reviewableScan?.(pool) ?? pool[0].distance <= 22) {
+            if (!review.has(target.index)) noMatch = Math.max(0, noMatch - 1);
+            review.set(target.index, pool);
+          }
+          if (position % 2 === 1) {
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+          }
+        }
+        themeLabel = "같은 포켓몬 계열 카드";
+      }
+
       replacements.forEach(({ card, index }) => replaceSlotWithCard(card, index, { render: false, select: false }));
       state.photoReview = review;
+      state.photoReviewLabel = themeLabel;
       state.selectedId = "";
       pruneUnusedImages();
       renderSlotLayer();
