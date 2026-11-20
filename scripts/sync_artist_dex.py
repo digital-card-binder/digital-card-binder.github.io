@@ -141,8 +141,13 @@ def build_catalog_index():
     return index, dex_names
 
 
+def norm_artist(name: str) -> str:
+    """Spelling differences such as 'Shibuzoh' vs 'Shibuzoh.' are the same artist."""
+    return re.sub(r"[\s.\-_]+", "", str(name or "").casefold())
+
+
 def tcgdex_cards(base: str, roster: list[str]):
-    wanted = {name.casefold(): name for name in roster}
+    wanted = {norm_artist(name): name for name in roster}
     grouped = defaultdict(list)
     for root, _, files in os.walk(base):
         for filename in files:
@@ -153,7 +158,7 @@ def tcgdex_cards(base: str, roster: list[str]):
             match = re.search(r"illustrator:\s*['\"]([^'\"]+)['\"]", text)
             if not match:
                 continue
-            artist = wanted.get(match.group(1).strip().casefold())
+            artist = wanted.get(norm_artist(match.group(1)))
             if not artist:
                 continue
             relative = os.path.relpath(path, base)
