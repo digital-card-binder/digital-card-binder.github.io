@@ -2,7 +2,7 @@ name: Temporary artist sync debug
 on:
   push:
     branches: [feat/artist-dex-auto-sync]
-    paths: [".github/workflows/tmp-artist-debug.yml"]
+    paths: [".github/workflows/tmp-artist-debug.yml", "scripts/sync_artist_dex.py"]
 permissions:
   contents: read
 jobs:
@@ -44,15 +44,13 @@ jobs:
               if len(seen) >= 12: break
           for c in r["conflicts"][:70]: print("CONFLICT", c["artist"], c["set"], c["cardNumber"], c["card"], c["alsoCreditedTo"])
           PY
-      - name: Visual additions (trainers)
+      - name: Visual additions
         run: |
           python - <<'PY'
-          import json, re
-          before = json.loads(open("data/artists.json").read())
+          import json
           r = json.load(open("data/audits/artist-dex-sync.json"))
-          pk = [k for _, k, *__ in json.load(open("data/pokemon-search-index.json"))["pokedex"]]
-          base = "/tmp"
-          rows = [(a, x) for a, xs in r["added"].items() for x in xs if not any(k in x["name"] for k in pk)]
-          print("TRAINER ADDED", len(rows))
-          for a, x in rows: print("T", a, x["set"], x["cardNumber"], x["name"])
+          rows = [(a, x) for a, xs in r["added"].items() for x in xs if x.get("visualDistance") is not None]
+          print("VISUAL ADDED", len(rows))
+          for a, x in rows: print("V", a, "|", x["set"], x["cardNumber"], x["name"], "|", x["tcgdexPath"], x["visualDistance"])
+          for c in r["conflicts"]: print("C", c["artist"], "|", c["set"], c["cardNumber"], c["card"], "| also", c["alsoCreditedTo"], "|", c.get("tcgdexPath"), c.get("visualDistance"))
           PY

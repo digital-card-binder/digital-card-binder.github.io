@@ -23,7 +23,7 @@ test("artist dex sync only adds verified Korean cards and never rewrites existin
   assert.match(script, /기존 카드가 바뀌었습니다/);
   assert.match(script, /name_matches\(card\["name"\], dex_ids, dex_names\)/);
   assert.match(script, /visual_match\(query, set_fingerprints\.get/);
-  assert.match(script, /trainer-no-visual-match/);
+  assert.match(script, /no-visual-match/);
   const report = JSON.parse(read("data/audits/artist-dex-sync.json"));
   assert.equal(report.tcgdexRef, roster.tcgdexRef);
   assert.match(artists.illustratorIndex, new RegExp(roster.tcgdexRef));

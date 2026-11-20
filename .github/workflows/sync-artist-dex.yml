@@ -52,14 +52,14 @@ jobs:
         with:
           node-version: 22
 
-      - name: Sync artist metadata into series catalogs
+      - name: Sync artist metadata into series catalogs and regenerate site files
         run: |
           node scripts/sync-series-artist-metadata.mjs
-          node scripts/audit-series-inventory.mjs
-          node scripts/audit-master-card-db.mjs
+          npm run site:prepare
 
       - name: Verify affected contracts
         run: |
+          npm run test:registry
           node --test \
             tests/master-card-db-audit.test.mjs \
             tests/collector-registry.test.mjs \
@@ -72,15 +72,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            data/artists.json \
-            data/artist-roster.json \
-            data/audits/artist-dex-sync.json \
-            data/series.json \
-            data/series-legacy.json \
-            data/audits/series-artist-metadata-sync.json \
-            data/series-inventory-audit.json \
-            data/master-card-db-audit.json
+          git add -A
           if git diff --cached --quiet; then
             echo "Artist dex is already current."
             exit 0

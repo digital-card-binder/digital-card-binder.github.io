@@ -204,7 +204,7 @@ def visual_distance(query, reference) -> float:
 
 def tcgdex_image_fingerprint(item):
     """Fingerprint of the TCGdex card image (일본판 또는 아시아판). None when unavailable."""
-    languages = ["ja", "zh-tw"] if item.get("hasJa") else ["zh-tw", "ja"]
+    languages = ["ja", "zh-tw", "th", "id"] if item.get("hasJa") else ["zh-tw", "ja", "th", "id"]
     stems = [item["stem"], str(item["number"])]
     for language in languages:
         for stem in dict.fromkeys(stems):
@@ -280,14 +280,97 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
     grouped = tcgdex_cards(tcgdex_base, roster)
     species = load_species_names()
     set_fingerprints = load_set_fingerprints()
-    pending = [item for name in roster for item in grouped.get(name, [])
-               if item["category"] != "Pokemon" and (item["set"].casefold(), item["number"]) not in
-               {(str(c["set"]).casefold(), printed_number(c.get("cardNumber"))) for a in artists if a["name"] == name for c in a["cards"]}]
+    catalog_by_set = defaultdict(list)
+    for (set_cf, number), rows in catalog.items():
+        catalog_by_set[set_cf].append(number)
+    korean_set_codes = set(catalog_by_set) | {set_cf for set_cf, _ in official}
+
+    def rows_at(set_name: str, number: int):
+        """Korean card rows at (set, number): official image rows first, then the series dex image."""
+        identity = (set_name.casefold(), number)
+        rows = official.get(identity, [])
+        candidates = common.coalesce_image_rows(rows, set_name, number) if rows else []
+        if not candidates:
+            candidates = [{
+                "name": row["name"], "set": set_name, "rarity": row["rarity"], "image": row["image"],
+                "source": OFFICIAL_CARDS_URL, "cardNumber": row["cardNumber"],
+            } for row in catalog.get(identity, [])]
+        return candidates
+
+    existing_identities = {
+        artist["name"]: {(str(c["set"]).casefold(), printed_number(c.get("cardNumber"))) for c in artist["cards"]}
+        for artist in artists
+    }
+
+    # 1단계: 카드마다 한국판 번호를 정한다.
+    plans: dict[str, dict] = {}
+    needs_image = []
+    for name in roster:
+        for item in grouped.get(name, []):
+            key = (name, item["set"], item["number"])
+            set_cf = item["set"].casefold()
+            if key in skips:
+                plans[item["path"]] = {"skip": True}
+                continue
+            if key in overrides:
+                plans[item["path"]] = {"number": item["number"], "override": overrides[key]}
+                continue
+            if set_cf not in korean_set_codes:
+                if (item["era"], item["set"]) in korean_sets:
+                    plans[item["path"]] = {"hold": "no-korean-catalog-row"}
+                else:
+                    plans[item["path"]] = {"skip": True}  # 한국 미발매 확장팩
+                continue
+            if item["category"] == "Pokemon":
+                dex_ids = item["dexIds"] or species_from_names(item["names"], species)
+                if not dex_ids:
+                    plans[item["path"]] = {"hold": "unknown-species", "tcgdexNames": item["names"]}
+                    continue
+                promo = bool(re.search(r"-P$", item["set"], re.I))
+                same = [c for c in rows_at(item["set"], item["number"]) if name_matches(c["name"], dex_ids, dex_names)]
+                if same and not promo:
+                    plans[item["path"]] = {"number": item["number"], "dexIds": dex_ids}
+                    continue
+                # 번호가 어긋났거나 프로모(일본·한국 번호가 다름)인 경우:
+                # 같은 확장팩의 같은 포켓몬 카드 중 그림이 일치하는 카드만 인정한다.
+                numbers = sorted({n for n in catalog_by_set[set_cf]
+                                  if any(name_matches(r["name"], dex_ids, dex_names) for r in catalog[(set_cf, n)])})
+                if numbers:
+                    plans[item["path"]] = {"visual": numbers, "dexIds": dex_ids}
+                    needs_image.append(item)
+                else:
+                    plans[item["path"]] = {"hold": "name-mismatch", "dexIds": dex_ids,
+                                           "catalogNames": sorted({c["name"] for c in rows_at(item["set"], item["number"])})}
+            else:
+                # 한국판 트레이너스·에너지는 한국어 이름순으로 번호가 매겨져 일본판 번호와 다르다.
+                # 같은 확장팩 안에서 그림이 같은 한국 카드를 찾아 그 번호를 쓴다.
+                if (set_cf, item["number"]) in existing_identities[name] and not visual:
+                    plans[item["path"]] = {"skip": True}
+                    continue
+                plans[item["path"]] = {"visual": None}
+                needs_image.append(item)
+
     image_cache: dict[str, object] = {}
-    if visual and pending:
+    if visual and needs_image:
         with ThreadPoolExecutor(12) as pool:
-            for item, value in zip(pending, pool.map(tcgdex_image_fingerprint, pending)):
+            for item, value in zip(needs_image, pool.map(tcgdex_image_fingerprint, needs_image)):
                 image_cache[item["path"]] = value
+    for item in needs_image:
+        plan = plans[item["path"]]
+        query = image_cache.get(item["path"])
+        if query is None:
+            plans[item["path"]] = {"hold": "image-unavailable"}
+            continue
+        references = set_fingerprints.get(item["set"].casefold(), [])
+        if plan.get("visual"):
+            allowed = set(plan["visual"])
+            references = [ref for ref in references if ref[0] in allowed]
+        matched = visual_match(query, references)
+        if not matched:
+            plans[item["path"]] = {"hold": "no-visual-match"}
+            continue
+        plan["number"] = matched[0]
+        plan["visualDistance"] = matched[1]
 
     owner_by_image: dict[str, str] = {}
     owner_by_identity: dict[tuple[str, int], set[str]] = defaultdict(set)
@@ -302,81 +385,38 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
     held: list[dict] = []
     conflicts: list[dict] = []
 
+    # 2단계: 정해진 번호의 한국 카드를 추가한다.
     for artist in artists:
         name = artist["name"]
         cards = artist["cards"]
         mine_images = {norm_image(card["image"]) for card in cards}
-        mine_identities = {
-            (str(card["set"]).casefold(), printed_number(card.get("cardNumber")))
-            for card in cards
-        }
+        mine_identities = existing_identities[name]
         next_order = max((card.get("order") or 0 for card in cards), default=0) + 1
         items = sorted(
             grouped.get(name, []),
             key=lambda item: common.set_sort_key((item["era"], item["set"], item["number"], item["path"])),
         )
         for item in items:
-            key = (name, item["set"], item["number"])
-            identity = (item["set"].casefold(), item["number"])
-            if key in skips:
+            plan = plans.get(item["path"], {})
+            if plan.get("skip"):
                 continue
+            if plan.get("hold"):
+                held.append({"artist": name, "tcgdexPath": item["path"], "reason": plan["hold"],
+                             **{k: v for k, v in plan.items() if k not in {"hold"}}})
+                continue
+            number = plan["number"]
+            identity = (item["set"].casefold(), number)
             if identity in mine_identities:
                 continue
-
-            if item["category"] != "Pokemon" and key not in overrides:
-                # 한국판 트레이너스·에너지는 한국어 이름순으로 번호가 매겨져 일본판 번호와 다르다.
-                # 같은 확장팩 안에서 그림이 같은 한국 카드를 찾아 그 번호를 쓴다.
-                query = image_cache.get(item["path"]) if visual else None
-                if query is None:
-                    held.append({"artist": name, "tcgdexPath": item["path"], "reason": "trainer-image-unavailable"})
-                    continue
-                matched = visual_match(query, set_fingerprints.get(item["set"].casefold(), []))
-                if not matched:
-                    held.append({"artist": name, "tcgdexPath": item["path"], "reason": "trainer-no-visual-match"})
-                    continue
-                identity = (item["set"].casefold(), matched[0])
-                if identity in mine_identities:
-                    continue
-
-            candidates = []
-            if key in overrides:
-                candidates = [{**overrides[key]}]
+            if plan.get("override"):
+                candidates = [{**plan["override"]}]
             else:
-                rows = official.get(identity, [])
-                if rows:
-                    candidates = common.coalesce_image_rows(rows, item["set"], identity[1])
-                if not candidates:
-                    for row in catalog.get(identity, []):
-                        candidates.append({
-                            "name": row["name"],
-                            "set": item["set"],
-                            "rarity": row["rarity"],
-                            "image": row["image"],
-                            "source": OFFICIAL_CARDS_URL,
-                            "cardNumber": row["cardNumber"],
-                        })
+                candidates = rows_at(item["set"], number)
+                if plan.get("dexIds"):
+                    candidates = [c for c in candidates if name_matches(c["name"], plan["dexIds"], dex_names)]
             if not candidates:
-                if (item["era"], item["set"]) in korean_sets:
-                    held.append({"artist": name, "tcgdexPath": item["path"], "reason": "no-korean-catalog-row"})
+                held.append({"artist": name, "tcgdexPath": item["path"], "reason": "no-korean-catalog-row"})
                 continue
-
-            dex_ids = item["dexIds"]
-            if not dex_ids and item["category"] == "Pokemon":
-                # 도감번호가 없는 카드(대만·아시아판 데이터 등)는 일본어·중국어·영어 카드명에서 포켓몬을 찾는다.
-                dex_ids = species_from_names(item["names"], species)
-                if not dex_ids:
-                    held.append({"artist": name, "tcgdexPath": item["path"], "reason": "unknown-species",
-                                 "tcgdexNames": item["names"]})
-                    continue
-            if dex_ids:
-                checked = [card for card in candidates if name_matches(card["name"], dex_ids, dex_names)]
-                if not checked:
-                    held.append({
-                        "artist": name, "tcgdexPath": item["path"], "reason": "name-mismatch",
-                        "dexIds": dex_ids, "catalogNames": sorted({c["name"] for c in candidates}),
-                    })
-                    continue
-                candidates = checked
 
             for card in candidates:
                 image = norm_image(card["image"])
@@ -387,7 +427,8 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
                 if (other and other != name) or others:
                     conflicts.append({
                         "artist": name, "set": card["set"], "cardNumber": card["cardNumber"],
-                        "card": card["name"], "alsoCreditedTo": sorted({other} | others if other else others),
+                        "card": card["name"], "alsoCreditedTo": sorted(({other} if other else set()) | others),
+                        "tcgdexPath": item["path"], "visualDistance": plan.get("visualDistance"),
                     })
                     continue
                 image_value = card["image"]
@@ -410,7 +451,8 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
                 mine_identities.add(identity)
                 owner_by_image[image] = name
                 owner_by_identity[identity].add(name)
-                added[name].append({"set": entry["set"], "cardNumber": entry["cardNumber"], "name": entry["name"]})
+                added[name].append({"set": entry["set"], "cardNumber": entry["cardNumber"], "name": entry["name"],
+                                    "tcgdexPath": item["path"], "visualDistance": plan.get("visualDistance")})
 
         for position, card in enumerate(sorted(cards, key=display_key), 1):
             card["displayOrder"] = position
