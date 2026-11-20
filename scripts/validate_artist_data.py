@@ -8,106 +8,10 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-EXPECTED_ARTISTS = [
-    "5ban Graphics",
-    "AKIRA EGAWA",
-    "Akira Komayama",
-    "Anesaki Dynamic",
-    "Asako Ito",
-    "Atsuko Nishida",
-    "Atsushi Furusawa",
-    "Aya Kusube",
-    "Ayaka Yoshida",
-    "chibi",
-    "DOM",
-    "Eske Yoshinob",
-    "Gapao",
-    "GOSSAN",
-    "Hasuno",
-    "Hideki Ishikawa",
-    "Hitoshi Ariga",
-    "hncl",
-    "HYOGONOSUKE",
-    "Jerky",
-    "Kagemaru Himeno",
-    "kantaro",
-    "kawayoo",
-    "Ken Sugimori",
-    "kirisAki",
-    "kodama",
-    "Kouki Saitou",
-    "Kyoko Umemoto",
-    "MAHOU",
-    "Masakazu Fukuda",
-    "Megumi Mizutani",
-    "Midori Harada",
-    "miki kudo",
-    "Miki Tanaka",
-    "Mitsuhiro Arita",
-    "nagimiso",
-    "Naoki Saito",
-    "Naoyo Kimura",
-    "Narumi Sato",
-    "OKACHEKE",
-    "OOYAMA",
-    "Oswaldo KATO",
-    "Ounishi",
-    "Pani kobayashi",
-    "Ryo Ueda",
-    "ryoma uratsuka",
-    "Ryota Murayama",
-    "Ryuta Fuse",
-    "Saboteri",
-    "Sachiko Adachi",
-    "Sanosuke Sakuma",
-    "Saya Tsuruta",
-    "Sekio",
-    "Shibuzoh",
-    "Shigenori Negishi",
-    "Shin Nagasawa",
-    "Shinji Kanda",
-    "Souichirou Gunjima",
-    "sowsow",
-    "sui",
-    "takuyoa",
-    "Teeziro",
-    "Tetsu Kayama",
-    "Tika Matsuno",
-    "Tomokazu Komiya",
-    "You Iribi",
-    "Yuka Morii",
-    "Yukihiro Tada",
-    "Yukiko Baba",
-    "Yuu Nishida",
-]
-
-NEW_ARTISTS = {
-    "5ban Graphics", "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
-    "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
-    "nagimiso", "Ken Sugimori", "Kouki Saitou", "Akira Komayama", "Masakazu Fukuda",
-    "Megumi Mizutani", "Anesaki Dynamic", "Hideki Ishikawa", "Shin Nagasawa", "takuyoa",
-    "GOSSAN",
-    "Atsushi Furusawa",
-    "Midori Harada",
-    "chibi",
-    "Shigenori Negishi",
-    "kirisAki",
-    "Yuu Nishida",
-    "Ayaka Yoshida",
-    "MAHOU",
-    "DOM",
-    "Souichirou Gunjima",
-    "Ryuta Fuse",
-    "Kyoko Umemoto",
-    "Ryota Murayama",
-    "You Iribi",
-    "hncl",
-    "Hasuno",
-    "Teeziro",
-    "Sanosuke Sakuma",
-    "Eske Yoshinob",
-}
-EXPECTED_CARD_COUNT = 7331
+# 작가 목록·순서는 data/artist-roster.json 이 기준이다(새 작가는 목록에 추가하면 자동 동기화로 채워진다).
+ROSTER_PATH = Path(__file__).resolve().parents[1] / "data" / "artist-roster.json"
+EXPECTED_ARTISTS = json.loads(ROSTER_PATH.read_text(encoding="utf-8"))["artists"]
+MINIMUM_CARD_COUNT = 7331
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -133,7 +37,7 @@ def main() -> None:
         fail(f"Unexpected sourceUrl: {payload.get('sourceUrl')!r}")
     if payload.get("artistCount") != len(EXPECTED_ARTISTS):
         fail(f"Unexpected artistCount: {payload.get('artistCount')!r}")
-    if payload.get("cardCount") != EXPECTED_CARD_COUNT:
+    if not isinstance(payload.get("cardCount"), int) or payload["cardCount"] < MINIMUM_CARD_COUNT:
         fail(f"Unexpected cardCount: {payload.get('cardCount')!r}")
     if payload.get("ownedCount") != 0:
         fail(f"Base artist dataset must start at 0 owned cards: {payload.get('ownedCount')!r}")
@@ -144,7 +48,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 70-artist catalog")
+        fail("Artist list/order does not match data/artist-roster.json")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
@@ -176,8 +80,14 @@ def main() -> None:
 
             if card.get("owned") is not False:
                 fail(f"{artist_name}: base owned must be false on order {card.get('order')}")
-            if not card["image"].startswith(OFFICIAL_IMAGE_PREFIX):
-                fail(f"{artist_name}: non-official image URL: {card['image']}")
+            # 공식 이미지가 없으면 시리즈 도감과 같은 한국 카드 이미지를 쓴다(자체 CDN으로 제공).
+            if not card["image"].startswith(("https://", "http://")):
+                fail(f"{artist_name}: invalid image URL: {card['image']}")
+            if not card["image"].startswith(OFFICIAL_IMAGE_PREFIX) and card["source"] != OFFICIAL_CARDS_URL:
+                fail(f"{artist_name}: catalog image without official card search source: {card['image']}")
+            display_order = card.get("displayOrder")
+            if display_order is not None and (not isinstance(display_order, int) or display_order < 1):
+                fail(f"{artist_name}: invalid displayOrder on order {card.get('order')}")
 
             is_hyogo_special = (
                 artist_name == "HYOGONOSUKE"
@@ -191,7 +101,7 @@ def main() -> None:
                 hyogo_special = True
             elif card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
                 pass
-            elif (artist_name in NEW_ARTISTS or card["set"] in {"M6", "M6a"}) and card["source"] == OFFICIAL_CARDS_URL:
+            elif card["source"] == OFFICIAL_CARDS_URL:
                 # Some committed Korean catalog rows have an official image/name but
                 # no retained detail id. Keep Pokemon Korea's official card search
                 # page as source rather than fabricating a detail URL.
@@ -205,7 +115,7 @@ def main() -> None:
             identities.add(identity)
             coarse[(artist_name, card["set"], card["cardNumber"])].add(card["name"])
 
-    if total != EXPECTED_CARD_COUNT:
+    if total != payload.get("cardCount"):
         fail(f"Unexpected total cards from groups: {total}")
 
     for key, expected_names in PRESERVED_NUMBER_COLLISIONS.items():

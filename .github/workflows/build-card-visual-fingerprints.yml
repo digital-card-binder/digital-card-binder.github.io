@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: card-visual-fingerprints
@@ -84,3 +85,10 @@ jobs:
           git commit -m "Generate card visual fingerprint index"
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Re-check artist dex trainers with the new fingerprints
+        # 봇 커밋은 다른 워크플로를 자동으로 깨우지 않으므로 직접 실행한다.
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run sync-artist-dex.yml --ref main

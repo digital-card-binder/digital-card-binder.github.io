@@ -111,7 +111,8 @@ function sortCards(cards){
   return [...cards].sort((a,b)=>{
     if(sortMode==="name")return a.name.localeCompare(b.name,"ko");
     if(sortMode==="set")return a.set.localeCompare(b.set,"en",{numeric:true})||a.order-b.order;
-    return a.order-b.order;
+    // order는 수집 기록 키라서 고정하고, 화면은 displayOrder(최신 시리즈 먼저)로 보여 준다.
+    return (a.displayOrder??a.order)-(b.displayOrder??b.order)||a.order-b.order;
   });
 }
 
