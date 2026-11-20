@@ -8,6 +8,7 @@ on:
     paths:
       - "data/pokemon-search-index.json"
       - "data/artist-roster.json"
+      - "data/artist-crosscheck.json"
       - "data/pokemon-names-multilang.json"
       - "scripts/sync_artist_dex.py"
       - ".github/workflows/sync-artist-dex.yml"

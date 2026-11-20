@@ -39,6 +39,8 @@ import build_card_visual_fingerprints as fingerprints  # noqa: E402
 
 ARTISTS_PATH = ROOT / "data" / "artists.json"
 ROSTER_PATH = ROOT / "data" / "artist-roster.json"
+SITE_ORIGIN = "https://digital-card-binder.github.io"
+CROSSCHECK_PATH = ROOT / "data" / "artist-crosscheck.json"
 SEARCH_INDEX_PATH = ROOT / "data" / "pokemon-search-index.json"
 NAMES_PATH = ROOT / "data" / "pokemon-names-multilang.json"
 FINGERPRINTS_PATH = ROOT / "data" / "card-visual-fingerprints.json"
@@ -487,6 +489,10 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
             if number is not None:
                 owner_by_identity[(str(card["set"]).casefold(), number)].add(artist["name"])
 
+    crosscheck_payload = json.loads(CROSSCHECK_PATH.read_text(encoding="utf-8")) if CROSSCHECK_PATH.exists() else {"artists": {}}
+    crosscheck_by_artist = {norm_artist(slug): sets for slug, sets in crosscheck_payload["artists"].items()}
+    crosscheck_added: dict[str, list] = defaultdict(list)
+    crosscheck_held: list[dict] = []
     added: dict[str, list] = defaultdict(list)
     held: list[dict] = []
     conflicts: list[dict] = []
@@ -561,6 +567,46 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
                                     "tcgdexPath": item["path"], "visualDistance": plan.get("visualDistance"),
                                     "nameMatch": plan.get("nameMatch")})
 
+        # 3단계: dogam 교차검증으로 확인된 카드(이름·세트·번호가 한국 카탈로그와 일치, 다른 작가 표기와 충돌 없음).
+        for set_code, numbers in sorted((crosscheck_by_artist.get(norm_artist(name)) or {}).items()):
+            for number in numbers:
+                identity = (set_code.casefold(), number)
+                if identity in mine_identities:
+                    continue
+                candidates = [c for c in rows_at(set_code, number) if c.get("image")]
+                if not candidates:
+                    crosscheck_held.append({"artist": name, "set": set_code, "number": number, "reason": "no-korean-catalog-row"})
+                    continue
+                others = owner_by_identity.get(identity, set()) - {name}
+                if others:
+                    crosscheck_held.append({"artist": name, "set": set_code, "number": number, "reason": "credited-to-other",
+                                            "alsoCreditedTo": sorted(others)})
+                    continue
+                for card in candidates:
+                    image = norm_image(card["image"])
+                    if image in mine_images:
+                        continue
+                    if owner_by_image.get(image) not in (None, name):
+                        crosscheck_held.append({"artist": name, "set": set_code, "number": number, "reason": "image-credited-to-other",
+                                                "alsoCreditedTo": [owner_by_image[image]]})
+                        continue
+                    image_value = card["image"]
+                    if image_value.startswith(OFFICIAL_IMAGE_PREFIX) and "?" not in image_value:
+                        image_value += "?w=400"
+                    if image_value.startswith("/assets/"):
+                        image_value = SITE_ORIGIN + image_value
+                    cards.append({
+                        "order": next_order, "name": card["name"], "owned": False, "set": card["set"],
+                        "rarity": card.get("rarity") or "", "image": image_value, "imageBw": "",
+                        "source": card.get("source") or OFFICIAL_CARDS_URL, "cardNumber": card["cardNumber"],
+                    })
+                    next_order += 1
+                    mine_images.add(image)
+                    mine_identities.add(identity)
+                    owner_by_image[image] = name
+                    owner_by_identity[identity].add(name)
+                    crosscheck_added[name].append({"set": card["set"], "cardNumber": card["cardNumber"], "name": card["name"]})
+
         for position, card in enumerate(sorted(cards, key=display_key), 1):
             card["displayOrder"] = position
 
@@ -591,6 +637,11 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
         "heldByReason": dict(Counter(item["reason"] for item in held)),
         "held": held,
         "nameDictionarySize": len(name_dictionary),
+        "crosscheckAddedCount": sum(len(v) for v in crosscheck_added.values()),
+        "crosscheckAdded": {name: rows for name, rows in crosscheck_added.items()},
+        "crosscheckHeldCount": len(crosscheck_held),
+        "crosscheckHeldByReason": dict(Counter(item["reason"] for item in crosscheck_held)),
+        "crosscheckHeld": crosscheck_held,
         "pendingArtists": pending_artists,
         "conflictCount": len(conflicts),
         "conflicts": conflicts,
