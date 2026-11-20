@@ -572,6 +572,10 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
             if (card["order"], card["set"], card["cardNumber"], card["name"], card["image"]) not in after.get(artist["name"], set()):
                 raise SystemExit(f"기존 카드가 바뀌었습니다: {artist['name']} {card['set']} {card['cardNumber']}")
 
+    # 카드가 한 장도 확인되지 않은 작가는 목록(roster)에는 두되 도감에는 아직 내보내지 않는다.
+    # (카드가 없는 그룹은 컬렉션 등록에서 사라져 개수가 어긋난다.) 카드가 생기면 자동으로 나타난다.
+    pending_artists = [artist["name"] for artist in artists if not artist["cards"]]
+    artists = [artist for artist in artists if artist["cards"]]
     payload["artists"] = artists
     payload["artistCount"] = len(artists)
     payload["cardCount"] = sum(len(artist["cards"]) for artist in artists)
@@ -587,6 +591,7 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
         "heldByReason": dict(Counter(item["reason"] for item in held)),
         "held": held,
         "nameDictionarySize": len(name_dictionary),
+        "pendingArtists": pending_artists,
         "conflictCount": len(conflicts),
         "conflicts": conflicts,
     }
