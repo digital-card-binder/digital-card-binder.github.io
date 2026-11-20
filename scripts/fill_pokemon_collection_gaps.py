@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""포켓몬 컬렉션 누락 보충: 이미 수록 세트가 있는 세트에서, 카드명이 컬렉션 포켓몬과 일치하는데 빠진 카드를 추가한다.
+"""포켓몬 컬렉션 누락 보충: 카드명이 컬렉션 포켓몬과 일치하는데 빠진 카드를 추가한다.
 기존 카드·accountIndex는 바꾸지 않고, 새 카드는 해당 포켓몬 그룹의 최대 accountIndex + 1부터 붙인다."""
 import json, re, sys
 from collections import defaultdict, Counter
@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 FILES = ["data/pokemon-collections.json", "data/pokemon-collections-21-40.json"]
 SUFFIX = {"EX", "GX", "V", "VMAX", "VSTAR", "ex", "V-UNION", "BREAK", "LV.X", "◇", "☆", "δ", "V유니온", "TAG", "TEAM"}
 PREFIX = re.compile(r"^(M|원시|알로라|가라르|히스이|팔데아|블랙|화이트)\s*")
+NON_KOREAN_SETS = {"base"}
 IMG_BASE = "https://cards.image.pokemonkorea.co.kr"
 
 
@@ -45,8 +46,8 @@ def main(write):
     added = []
     for grp in catalog["groups"]:
         st = grp[0].lower()
-        if have_set.get(st, 0) == 0:
-            continue  # 아직 수록 세트가 아닌 곳은 건드리지 않는다
+        if st in NON_KOREAN_SETS:
+            continue  # 한국 정식 발매가 아닌 세트(해외판 Base Set)는 제외
         for e in grp[4]:
             raw_img = e[3]
             image = (IMG_BASE + raw_img[1:]) if raw_img.startswith("@") else raw_img
