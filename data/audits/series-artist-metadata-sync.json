@@ -2,58 +2,58 @@
   "schemaVersion": 1,
   "source": "data/artists.json",
   "policy": "Fill only missing series rarity/illustrator metadata when artist-dex evidence resolves to exactly one artist+rarity signature by image, or by normalized set+printed-number fallback. Existing metadata is never overwritten and ambiguous matches are skipped.",
-  "artistGroupCount": 93,
-  "artistCardCount": 9513,
+  "artistGroupCount": 113,
+  "artistCardCount": 10449,
   "files": [
     {
       "sourceFile": "data/series.json",
       "groupCount": 177,
       "cardCount": 15632,
-      "matchedByImage": 7494,
-      "matchedBySetNumber": 706,
-      "uniqueMatches": 8171,
+      "matchedByImage": 8413,
+      "matchedBySetNumber": 723,
+      "uniqueMatches": 9107,
       "conflictsSkipped": 29,
-      "illustratorFilled": 112,
-      "rarityFilled": 3,
-      "unchangedMatches": 8059,
+      "illustratorFilled": 936,
+      "rarityFilled": 56,
+      "unchangedMatches": 8171,
       "eras": {
         "S": {
           "groupCount": 60,
           "cardCount": 4769,
-          "uniqueMatches": 2591,
-          "illustratorFilled": 33,
-          "rarityFilled": 0,
+          "uniqueMatches": 2968,
+          "illustratorFilled": 377,
+          "rarityFilled": 3,
           "conflictsSkipped": 8
         },
         "SM": {
           "groupCount": 49,
           "cardCount": 3950,
-          "uniqueMatches": 2245,
-          "illustratorFilled": 28,
+          "uniqueMatches": 2340,
+          "illustratorFilled": 95,
           "rarityFilled": 0,
           "conflictsSkipped": 3
         },
         "UNKNOWN": {
           "groupCount": 33,
           "cardCount": 4277,
-          "uniqueMatches": 2473,
-          "illustratorFilled": 20,
-          "rarityFilled": 3,
+          "uniqueMatches": 2820,
+          "illustratorFilled": 347,
+          "rarityFilled": 53,
           "conflictsSkipped": 17
         },
         "M": {
           "groupCount": 7,
           "cardCount": 1228,
-          "uniqueMatches": 473,
-          "illustratorFilled": 0,
+          "uniqueMatches": 553,
+          "illustratorFilled": 80,
           "rarityFilled": 0,
           "conflictsSkipped": 0
         },
         "SV": {
           "groupCount": 28,
           "cardCount": 1408,
-          "uniqueMatches": 389,
-          "illustratorFilled": 31,
+          "uniqueMatches": 426,
+          "illustratorFilled": 37,
           "rarityFilled": 0,
           "conflictsSkipped": 1
         }
@@ -124,9 +124,9 @@
   ],
   "totals": {
     "cardCount": 20304,
-    "uniqueMatches": 9386,
+    "uniqueMatches": 10322,
     "conflictsSkipped": 29,
-    "illustratorFilled": 112,
-    "rarityFilled": 3
+    "illustratorFilled": 936,
+    "rarityFilled": 56
   }
 }
