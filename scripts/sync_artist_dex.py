@@ -146,6 +146,70 @@ def norm_artist(name: str) -> str:
     return re.sub(r"[\s.\-_]+", "", str(name or "").casefold())
 
 
+def ja_name_of(names_block: str) -> str:
+    match = re.search(r"\bja\s*:\s*['\"]([^'\"]+)['\"]", names_block or "")
+    return match.group(1).strip() if match else ""
+
+
+def tcgdex_trainer_cards(base: str):
+    """Every Trainer/Energy card in TCGdex (any illustrator) - used to learn ja -> ko card names."""
+    cards = []
+    for root, _, files in os.walk(base):
+        for filename in files:
+            if not filename.endswith(".ts"):
+                continue
+            path = os.path.join(root, filename)
+            text = Path(path).read_text(encoding="utf-8", errors="ignore")
+            category = re.search(r"category:\s*['\"]([^'\"]+)['\"]", text)
+            if not category or category.group(1) == "Pokemon":
+                continue
+            relative = os.path.relpath(path, base)
+            parts = relative.split(os.sep)
+            stem = Path(filename).stem
+            if len(parts) < 3 or not re.fullmatch(r"0*\d+", stem):
+                continue
+            names_block = re.search(r"\n\tname:\s*\{([^}]*)\}", text)
+            ja = ja_name_of(names_block.group(1)) if names_block else ""
+            if not ja:
+                continue
+            cards.append({"era": parts[0], "set": parts[1], "number": int(stem), "path": relative,
+                          "stem": stem, "jaName": ja, "hasJa": True})
+    return cards
+
+
+HIGH_TCGDEX_RARITY = {"Ultra Rare", "Secret Rare", "Special illustration rare", "Hyper rare",
+                      "Mega Hyper Rare", "Character Super Rare", "Illustration rare"}
+LOW_KOREAN_RARITY = {"", "C", "U", "R", "ACE", "P", "PR"}
+
+
+def rarity_compatible(tcgdex_rarity: str, korean_rarity: str) -> bool:
+    """Same-name reprints with a different rarity class usually have different artwork/artist."""
+    return (tcgdex_rarity in HIGH_TCGDEX_RARITY) == (str(korean_rarity or "").strip().upper() not in LOW_KOREAN_RARITY)
+
+
+def clean_name(value: str) -> str:
+    return re.sub(r"\s+", "", str(value or ""))
+
+
+def learn_name_dictionary(pairs):
+    """pairs: [(ja, ko)] from artwork-verified cards -> {ja: ko} only when every pair agrees."""
+    seen: dict[str, Counter] = defaultdict(Counter)
+    for ja, ko in pairs:
+        if ja and ko:
+            seen[clean_name(ja)][clean_name(ko)] += 1
+    return {ja: counts.most_common(1)[0][0] for ja, counts in seen.items() if len(counts) == 1}
+
+
+def name_candidates(set_cf: str, ko_name: str, tcgdex_rarity: str, catalog, catalog_by_set):
+    """Korean card numbers in a set whose name equals ko_name and whose rarity class fits."""
+    numbers = set()
+    for number in set(catalog_by_set.get(set_cf, [])):
+        for row in catalog.get((set_cf, number), []):
+            if clean_name(row["name"]) == ko_name and rarity_compatible(tcgdex_rarity, row.get("rarity", "")):
+                numbers.add(number)
+    return sorted(numbers)
+
+
 def tcgdex_cards(base: str, roster: list[str]):
     wanted = {norm_artist(name): name for name in roster}
     grouped = defaultdict(list)
@@ -171,7 +235,10 @@ def tcgdex_cards(base: str, roster: list[str]):
             dex = re.search(r"dexId:\s*\[([^\]]*)\]", text)
             dex_ids = [int(x) for x in re.findall(r"\d+", dex.group(1))] if dex else []
             category = re.search(r"category:\s*['\"]([^'\"]+)['\"]", text)
+            rarity = re.search(r"\n\trarity:\s*['\"]([^'\"]+)['\"]", text)
             grouped[artist].append({
+                "jaName": ja_name_of(names_block.group(1)) if names_block else "",
+                "tcgdexRarity": rarity.group(1) if rarity else "",
                 "era": parts[0],
                 "set": parts[1],
                 "number": int(stem),
@@ -377,6 +444,40 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
         plan["number"] = matched[0]
         plan["visualDistance"] = matched[1]
 
+    # 이름 대응: 그림이 확인된 카드로 '일본어 이름 → 한국어 이름' 대응표를 만들고,
+    # 그림을 못 가져온 트레이너스·에너지는 이름으로 같은 확장팩의 한국 카드를 찾는다.
+    name_dictionary: dict[str, str] = {}
+    name_pairs: list[tuple[str, str]] = []
+    if visual:
+        learn_items = [card for card in tcgdex_trainer_cards(tcgdex_base) if card["set"].casefold() in korean_set_codes]
+        todo = [card for card in learn_items if card["path"] not in image_cache]
+        with ThreadPoolExecutor(16) as pool:
+            for card, value in zip(todo, pool.map(tcgdex_image_fingerprint, todo)):
+                image_cache[card["path"]] = value
+        for card in learn_items:
+            query = image_cache.get(card["path"])
+            matched = visual_match(query, set_fingerprints.get(card["set"].casefold(), [])) if query else None
+            if not matched:
+                continue
+            rows = catalog.get((card["set"].casefold(), matched[0]), [])
+            kos = {clean_name(row["name"]) for row in rows}
+            if len(kos) == 1:
+                name_pairs.append((card["jaName"], next(iter(kos))))
+        name_dictionary = learn_name_dictionary(name_pairs)
+    for name in roster:
+        for item in grouped.get(name, []):
+            plan = plans.get(item["path"], {})
+            if plan.get("hold") not in {"image-unavailable", "no-visual-match"} or item["category"] == "Pokemon":
+                continue
+            ko_name = name_dictionary.get(clean_name(item.get("jaName")))
+            if not ko_name:
+                continue
+            numbers = name_candidates(item["set"].casefold(), ko_name, item.get("tcgdexRarity", ""), catalog, catalog_by_set)
+            if len(numbers) == 1:
+                plans[item["path"]] = {"number": numbers[0], "nameMatch": ko_name}
+            elif len(numbers) > 1:
+                plans[item["path"]] = {"hold": "name-ambiguous", "candidates": numbers}
+
     owner_by_image: dict[str, str] = {}
     owner_by_identity: dict[tuple[str, int], set[str]] = defaultdict(set)
     for artist in artists:
@@ -457,7 +558,8 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
                 owner_by_image[image] = name
                 owner_by_identity[identity].add(name)
                 added[name].append({"set": entry["set"], "cardNumber": entry["cardNumber"], "name": entry["name"],
-                                    "tcgdexPath": item["path"], "visualDistance": plan.get("visualDistance")})
+                                    "tcgdexPath": item["path"], "visualDistance": plan.get("visualDistance"),
+                                    "nameMatch": plan.get("nameMatch")})
 
         for position, card in enumerate(sorted(cards, key=display_key), 1):
             card["displayOrder"] = position
@@ -484,6 +586,7 @@ def sync(tcgdex_base: str, ref: str, visual: bool = True):
         "heldCount": len(held),
         "heldByReason": dict(Counter(item["reason"] for item in held)),
         "held": held,
+        "nameDictionarySize": len(name_dictionary),
         "conflictCount": len(conflicts),
         "conflicts": conflicts,
     }

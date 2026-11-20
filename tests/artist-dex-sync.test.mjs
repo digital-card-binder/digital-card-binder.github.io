@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
@@ -36,4 +37,36 @@ test("artist page sorts by display order and new series trigger an automatic syn
   assert.match(workflow, /data\/artist-roster\.json/);
   assert.match(workflow, /python scripts\/sync_artist_dex\.py --clone --latest/);
   assert.match(workflow, /python scripts\/validate_artist_data\.py data\/artists\.json/);
+});
+
+test("trainer/energy cards are matched by translated card name only when the name and rarity are unambiguous", () => {
+  const script = read("scripts/sync_artist_dex.py");
+  assert.match(script, /learn_name_dictionary\(name_pairs\)/);
+  assert.match(script, /name-ambiguous/);
+  let output = null;
+  try {
+    output = execFileSync("python3", ["-I", "-c", `
+import sys, json
+sys.path.insert(0, "scripts")
+import sync_artist_dex as s
+d = s.learn_name_dictionary([("ネストボール", "네스트볼"), ("ネストボール", "네스트볼"), ("ふしぎなアメ", "이상한사탕"), ("ふしぎなアメ", "이상한 사탕 ")])
+conflict = s.learn_name_dictionary([("A", "가"), ("A", "나")])
+catalog = {("sv1", 1): [{"name": "네스트볼", "rarity": "U"}], ("sv1", 9): [{"name": "네스트볼", "rarity": "SR"}]}
+by_set = {"sv1": [1, 9]}
+print(json.dumps({
+  "dict": d, "conflict": conflict,
+  "low": s.name_candidates("sv1", "네스트볼", "Uncommon", catalog, by_set),
+  "high": s.name_candidates("sv1", "네스트볼", "Ultra Rare", catalog, by_set),
+}, ensure_ascii=False))
+`], { encoding: "utf8", cwd: new URL("..", import.meta.url) });
+  } catch (error) {
+    if (error.code === "ENOENT") return; // python is not available in this environment
+    throw error;
+  }
+  const result = JSON.parse(output);
+  assert.equal(result.dict["ネストボール"], "네스트볼");
+  assert.equal(result.dict["ふしぎなアメ"], "이상한사탕");
+  assert.deepEqual(result.conflict, {});
+  assert.deepEqual(result.low, [1]);
+  assert.deepEqual(result.high, [9]);
 });
