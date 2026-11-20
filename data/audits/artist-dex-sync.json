@@ -1,15 +1,683 @@
 {
  "tcgdexRef": "36e2f1af67b2b37d1bbf3d6eb8211e223caaf352",
  "artistCount": 133,
- "cardCount": 10950,
- "addedCount": 0,
- "added": {},
- "heldCount": 1020,
+ "cardCount": 11028,
+ "addedCount": 78,
+ "added": {
+  "5ban Graphics": [
+   {
+    "set": "MC",
+    "cardNumber": "637/742",
+    "name": "도깨비의 가면",
+    "tcgdexPath": "M/MC/641.ts",
+    "visualDistance": null,
+    "nameMatch": "도깨비의가면"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "685/742",
+    "name": "사슬떡",
+    "tcgdexPath": "M/MC/681.ts",
+    "visualDistance": null,
+    "nameMatch": "사슬떡"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "141/187",
+    "name": "도깨비의 가면",
+    "tcgdexPath": "SV/SV8a/137.ts",
+    "visualDistance": null,
+    "nameMatch": "도깨비의가면"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "160/187",
+    "name": "사슬떡",
+    "tcgdexPath": "SV/SV8a/154.ts",
+    "visualDistance": null,
+    "nameMatch": "사슬떡"
+   }
+  ],
+  "Atsushi Furusawa": [
+   {
+    "set": "MC",
+    "cardNumber": "714/742",
+    "name": "수련의 돌봄",
+    "tcgdexPath": "M/MC/712.ts",
+    "visualDistance": null,
+    "nameMatch": "수련의돌봄"
+   }
+  ],
+  "Ayaka Yoshida": [
+   {
+    "set": "MBG",
+    "cardNumber": "016/021",
+    "name": "하이퍼볼",
+    "tcgdexPath": "M/MBG/011.ts",
+    "visualDistance": null,
+    "nameMatch": "하이퍼볼"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "660/742",
+    "name": "크래시 해머",
+    "tcgdexPath": "M/MC/644.ts",
+    "visualDistance": null,
+    "nameMatch": "크래시해머"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "646/742",
+    "name": "스크램블 스위치",
+    "tcgdexPath": "M/MC/646.ts",
+    "visualDistance": null,
+    "nameMatch": "스크램블스위치"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "673/742",
+    "name": "하이퍼볼",
+    "tcgdexPath": "M/MC/651.ts",
+    "visualDistance": null,
+    "nameMatch": "하이퍼볼"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "674/742",
+    "name": "핸드 트리머",
+    "tcgdexPath": "M/MC/653.ts",
+    "visualDistance": null,
+    "nameMatch": "핸드트리머"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "156/193",
+    "name": "테라스탈오브",
+    "tcgdexPath": "M/M2a/152.ts",
+    "visualDistance": null,
+    "nameMatch": "테라스탈오브"
+   }
+  ],
+  "Eske Yoshinob": [
+   {
+    "set": "M2a",
+    "cardNumber": "147/193",
+    "name": "개조해머",
+    "tcgdexPath": "M/M2a/148.ts",
+    "visualDistance": null,
+    "nameMatch": "개조해머"
+   },
+   {
+    "set": "SM11",
+    "cardNumber": "091/094",
+    "name": "미스터리 트레져",
+    "tcgdexPath": "SM/SM11/093.ts",
+    "visualDistance": null,
+    "nameMatch": "미스터리트레져"
+   }
+  ],
+  "GOSSAN": [
+   {
+    "set": "MC",
+    "cardNumber": "729/742",
+    "name": "크세로시키의 속셈",
+    "tcgdexPath": "M/MC/705.ts",
+    "visualDistance": null,
+    "nameMatch": "크세로시키의속셈"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "734/742",
+    "name": "팔자크",
+    "tcgdexPath": "M/MC/721.ts",
+    "visualDistance": null,
+    "nameMatch": "팔자크"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "700/742",
+    "name": "로켓단의 람다",
+    "tcgdexPath": "M/MC/734.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의람다"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "168/193",
+    "name": "로켓단의 람다",
+    "tcgdexPath": "M/M2a/179.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의람다"
+   }
+  ],
+  "Hideki Ishikawa": [
+   {
+    "set": "MC",
+    "cardNumber": "728/742",
+    "name": "쿡",
+    "tcgdexPath": "M/MC/706.ts",
+    "visualDistance": null,
+    "nameMatch": "쿡"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "711/742",
+    "name": "서퍼",
+    "tcgdexPath": "M/MC/708.ts",
+    "visualDistance": null,
+    "nameMatch": "서퍼"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "731/742",
+    "name": "탐험가의 선도",
+    "tcgdexPath": "M/MC/717.ts",
+    "visualDistance": null,
+    "nameMatch": "탐험가의선도"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "699/742",
+    "name": "드라세나",
+    "tcgdexPath": "M/MC/719.ts",
+    "visualDistance": null,
+    "nameMatch": "드라세나"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "696/742",
+    "name": "곤포",
+    "tcgdexPath": "M/MC/720.ts",
+    "visualDistance": null,
+    "nameMatch": "곤포"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "704/742",
+    "name": "로켓단의 아폴로",
+    "tcgdexPath": "M/MC/732.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의아폴로"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "172/193",
+    "name": "로켓단의 아폴로",
+    "tcgdexPath": "M/M2a/177.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의아폴로"
+   }
+  ],
+  "hncl": [
+   {
+    "set": "MC",
+    "cardNumber": "726/742",
+    "name": "청목의 수완",
+    "tcgdexPath": "M/MC/695.ts",
+    "visualDistance": null,
+    "nameMatch": "청목의수완"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "720/742",
+    "name": "오엽",
+    "tcgdexPath": "M/MC/707.ts",
+    "visualDistance": null,
+    "nameMatch": "오엽"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "703/742",
+    "name": "로켓단의 아테나",
+    "tcgdexPath": "M/MC/731.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의아테나"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "169/187",
+    "name": "아크로마의 집념",
+    "tcgdexPath": "SV/SV8a/164.ts",
+    "visualDistance": null,
+    "nameMatch": "아크로마의집념"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "177/187",
+    "name": "투로박사의 시나리오",
+    "tcgdexPath": "SV/SV8a/175.ts",
+    "visualDistance": null,
+    "nameMatch": "투로박사의시나리오"
+   }
+  ],
+  "kantaro": [
+   {
+    "set": "MC",
+    "cardNumber": "723/742",
+    "name": "저지맨",
+    "tcgdexPath": "M/MC/711.ts",
+    "visualDistance": null,
+    "nameMatch": "저지맨"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "715/742",
+    "name": "시유",
+    "tcgdexPath": "M/MC/715.ts",
+    "visualDistance": null,
+    "nameMatch": "시유"
+   }
+  ],
+  "Naoki Saito": [
+   {
+    "set": "MC",
+    "cardNumber": "712/742",
+    "name": "세류",
+    "tcgdexPath": "M/MC/709.ts",
+    "visualDistance": null,
+    "nameMatch": "세류"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "716/742",
+    "name": "시트론의 재치",
+    "tcgdexPath": "M/MC/710.ts",
+    "visualDistance": null,
+    "nameMatch": "시트론의재치"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "710/742",
+    "name": "브라이어",
+    "tcgdexPath": "M/MC/722.ts",
+    "visualDistance": null,
+    "nameMatch": "브라이어"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "701/742",
+    "name": "로켓단의 랜스",
+    "tcgdexPath": "M/MC/735.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의랜스"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "166/187",
+    "name": "브라이어",
+    "tcgdexPath": "SV/SV8a/176.ts",
+    "visualDistance": null,
+    "nameMatch": "브라이어"
+   },
+   {
+    "set": "S5R",
+    "cardNumber": "086/070 HR",
+    "name": "마스터드 연격의 태세",
+    "tcgdexPath": "S/S5R/087.ts",
+    "visualDistance": null,
+    "nameMatch": "마스터드연격의태세"
+   }
+  ],
+  "Ryo Ueda": [
+   {
+    "set": "S5R",
+    "cardNumber": "090/070 UR",
+    "name": "레벨볼",
+    "tcgdexPath": "S/S5R/090.ts",
+    "visualDistance": null,
+    "nameMatch": "레벨볼"
+   },
+   {
+    "set": "SM12",
+    "cardNumber": "094/095",
+    "name": "프레셔스볼",
+    "tcgdexPath": "SM/SM12/092.ts",
+    "visualDistance": null,
+    "nameMatch": "프레셔스볼"
+   },
+   {
+    "set": "SM10a",
+    "cardNumber": "051/054",
+    "name": "네스트볼",
+    "tcgdexPath": "SM/SM10a/052.ts",
+    "visualDistance": null,
+    "nameMatch": "네스트볼"
+   }
+  ],
+  "Ryuta Fuse": [
+   {
+    "set": "MC",
+    "cardNumber": "713/742",
+    "name": "세이지",
+    "tcgdexPath": "M/MC/714.ts",
+    "visualDistance": null,
+    "nameMatch": "세이지"
+   },
+   {
+    "set": "S6H",
+    "cardNumber": "089/070 HR",
+    "name": "민지",
+    "tcgdexPath": "S/S6H/088.ts",
+    "visualDistance": null,
+    "nameMatch": "민지"
+   },
+   {
+    "set": "S5I",
+    "cardNumber": "087/070 HR",
+    "name": "시바",
+    "tcgdexPath": "S/S5I/086.ts",
+    "visualDistance": null,
+    "nameMatch": "시바"
+   }
+  ],
+  "Sanosuke Sakuma": [
+   {
+    "set": "MC",
+    "cardNumber": "730/742",
+    "name": "타로",
+    "tcgdexPath": "M/MC/716.ts",
+    "visualDistance": null,
+    "nameMatch": "타로"
+   }
+  ],
+  "Yuu Nishida": [
+   {
+    "set": "M2a",
+    "cardNumber": "186/193",
+    "name": "미스터리 가든",
+    "tcgdexPath": "M/M2a/169.ts",
+    "visualDistance": null,
+    "nameMatch": "미스터리가든"
+   },
+   {
+    "set": "S5R",
+    "cardNumber": "087/070 HR",
+    "name": "모미",
+    "tcgdexPath": "S/S5R/088.ts",
+    "visualDistance": null,
+    "nameMatch": "모미"
+   }
+  ],
+  "GIDORA": [
+   {
+    "set": "MC",
+    "cardNumber": "735/742",
+    "name": "하솔",
+    "tcgdexPath": "M/MC/696.ts",
+    "visualDistance": null,
+    "nameMatch": "하솔"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "724/742",
+    "name": "제빈",
+    "tcgdexPath": "M/MC/703.ts",
+    "visualDistance": null,
+    "nameMatch": "제빈"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "727/742",
+    "name": "카지",
+    "tcgdexPath": "M/MC/713.ts",
+    "visualDistance": null,
+    "nameMatch": "카지"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "722/742",
+    "name": "유빈의 확신",
+    "tcgdexPath": "M/MC/727.ts",
+    "visualDistance": null,
+    "nameMatch": "유빈의확신"
+   }
+  ],
+  "AYUMI ODASHIMA": [
+   {
+    "set": "MC",
+    "cardNumber": "659/742",
+    "name": "추리세트",
+    "tcgdexPath": "M/MC/645.ts",
+    "visualDistance": null,
+    "nameMatch": "추리세트"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "635/742",
+    "name": "느긋풀",
+    "tcgdexPath": "M/MC/649.ts",
+    "visualDistance": null,
+    "nameMatch": "느긋풀"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "663/742",
+    "name": "페퍼의 샌드위치",
+    "tcgdexPath": "M/MC/659.ts",
+    "visualDistance": null,
+    "nameMatch": "페퍼의샌드위치"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "675/742",
+    "name": "호브의 가방",
+    "tcgdexPath": "M/MC/666.ts",
+    "visualDistance": null,
+    "nameMatch": "호브의가방"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "633/742",
+    "name": "곤충채집세트",
+    "tcgdexPath": "M/MC/667.ts",
+    "visualDistance": null,
+    "nameMatch": "곤충채집세트"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "655/742",
+    "name": "용의 비약",
+    "tcgdexPath": "M/MC/672.ts",
+    "visualDistance": null,
+    "nameMatch": "용의비약"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "679/742",
+    "name": "릴리에의 진주",
+    "tcgdexPath": "M/MC/692.ts",
+    "visualDistance": null,
+    "nameMatch": "릴리에의진주"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "160/193",
+    "name": "호브의 가방",
+    "tcgdexPath": "M/M2a/156.ts",
+    "visualDistance": null,
+    "nameMatch": "호브의가방"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "181/193",
+    "name": "N의 성",
+    "tcgdexPath": "M/M2a/181.ts",
+    "visualDistance": null,
+    "nameMatch": "N의성"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "182/193",
+    "name": "그래비티 마운틴",
+    "tcgdexPath": "M/M2a/183.ts",
+    "visualDistance": null,
+    "nameMatch": "그래비티마운틴"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "189/193",
+    "name": "펄롱마을",
+    "tcgdexPath": "M/M2a/186.ts",
+    "visualDistance": null,
+    "nameMatch": "펄롱마을"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "184/193",
+    "name": "로켓단의 감시탑",
+    "tcgdexPath": "M/M2a/189.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의감시탑"
+   },
+   {
+    "set": "SV11B",
+    "cardNumber": "080/086",
+    "name": "오래된 덮개화석",
+    "tcgdexPath": "SV/SV11B/080.ts",
+    "visualDistance": null,
+    "nameMatch": "오래된덮개화석"
+   },
+   {
+    "set": "SV8a",
+    "cardNumber": "182/187",
+    "name": "재밍타워",
+    "tcgdexPath": "SV/SV8a/181.ts",
+    "visualDistance": null,
+    "nameMatch": "재밍타워"
+   }
+  ],
+  "Yoshinobu Saito": [
+   {
+    "set": "SM10",
+    "cardNumber": "093/095",
+    "name": "부싯돌",
+    "tcgdexPath": "SM/SM10/092.ts",
+    "visualDistance": null,
+    "nameMatch": "부싯돌"
+   },
+   {
+    "set": "SM10",
+    "cardNumber": "092/095",
+    "name": "레스큐탱크",
+    "tcgdexPath": "SM/SM10/093.ts",
+    "visualDistance": null,
+    "nameMatch": "레스큐탱크"
+   },
+   {
+    "set": "SM2K",
+    "cardNumber": "047/050",
+    "name": "에너지뽑기",
+    "tcgdexPath": "SM/SM2K/047.ts",
+    "visualDistance": null,
+    "nameMatch": "에너지뽑기"
+   }
+  ],
+  "Taira Akitsu": [
+   {
+    "set": "MC",
+    "cardNumber": "719/742",
+    "name": "암호마니아의 해독",
+    "tcgdexPath": "M/MC/698.ts",
+    "visualDistance": null,
+    "nameMatch": "암호마니아의해독"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "698/742",
+    "name": "도희의 비기",
+    "tcgdexPath": "M/MC/699.ts",
+    "visualDistance": null,
+    "nameMatch": "도희의비기"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "697/742",
+    "name": "규리의 눈빛",
+    "tcgdexPath": "M/MC/728.ts",
+    "visualDistance": null,
+    "nameMatch": "규리의눈빛"
+   },
+   {
+    "set": "S6H",
+    "cardNumber": "088/070 HR",
+    "name": "멜론",
+    "tcgdexPath": "S/S6H/091.ts",
+    "visualDistance": null,
+    "nameMatch": "멜론"
+   },
+   {
+    "set": "S5R",
+    "cardNumber": "088/070 HR",
+    "name": "코르니의 기합",
+    "tcgdexPath": "S/S5R/086.ts",
+    "visualDistance": null,
+    "nameMatch": "코르니의기합"
+   }
+  ],
+  "sadaji": [
+   {
+    "set": "S6H",
+    "cardNumber": "094/070 UR",
+    "name": "우락부락멧",
+    "tcgdexPath": "S/S6H/094.ts",
+    "visualDistance": null,
+    "nameMatch": "우락부락멧"
+   }
+  ],
+  "yuu": [
+   {
+    "set": "MBG",
+    "cardNumber": "021/021",
+    "name": "아이리스의 투지",
+    "tcgdexPath": "M/MBG/019.ts",
+    "visualDistance": null,
+    "nameMatch": "아이리스의투지"
+   },
+   {
+    "set": "MC",
+    "cardNumber": "718/742",
+    "name": "아이리스의 투지",
+    "tcgdexPath": "M/MC/694.ts",
+    "visualDistance": null,
+    "nameMatch": "아이리스의투지"
+   },
+   {
+    "set": "M2a",
+    "cardNumber": "178/193",
+    "name": "아이리스의 투지",
+    "tcgdexPath": "M/M2a/168.ts",
+    "visualDistance": null,
+    "nameMatch": "아이리스의투지"
+   }
+  ],
+  "aky CG Works": [
+   {
+    "set": "SM10a",
+    "cardNumber": "053/054",
+    "name": "로토무도감",
+    "tcgdexPath": "SM/SM10a/053.ts",
+    "visualDistance": null,
+    "nameMatch": "로토무도감"
+   }
+  ],
+  "akagi": [
+   {
+    "set": "MC",
+    "cardNumber": "702/742",
+    "name": "로켓단의 비주기",
+    "tcgdexPath": "M/MC/733.ts",
+    "visualDistance": null,
+    "nameMatch": "로켓단의비주기"
+   }
+  ]
+ },
+ "heldCount": 912,
  "heldByReason": {
-  "image-unavailable": 663,
+  "image-unavailable": 576,
   "name-mismatch": 217,
-  "no-visual-match": 89,
-  "no-korean-catalog-row": 51
+  "no-visual-match": 49,
+  "no-korean-catalog-row": 51,
+  "name-ambiguous": 19
  },
  "held": [
   {
@@ -81,16 +749,6 @@
     807
    ],
    "catalogNames": []
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "M/MC/641.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "M/MC/681.ts",
-   "reason": "image-unavailable"
   },
   {
    "artist": "5ban Graphics",
@@ -172,16 +830,6 @@
    "artist": "5ban Graphics",
    "tcgdexPath": "SV/SV-P/288.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "SV/SV8a/137.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "SV/SV8a/154.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "5ban Graphics",
@@ -410,16 +1058,6 @@
   {
    "artist": "5ban Graphics",
    "tcgdexPath": "SM/SM12a/169.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "SM/SM10a/050.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "5ban Graphics",
-   "tcgdexPath": "SM/SM9b/052.ts",
    "reason": "no-visual-match"
   },
   {
@@ -768,11 +1406,6 @@
   },
   {
    "artist": "Atsushi Furusawa",
-   "tcgdexPath": "M/MC/712.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Atsushi Furusawa",
    "tcgdexPath": "M/MC/729.ts",
    "reason": "image-unavailable"
   },
@@ -823,11 +1456,6 @@
   },
   {
    "artist": "Atsushi Furusawa",
-   "tcgdexPath": "SV/SV8a/168.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Atsushi Furusawa",
    "tcgdexPath": "S/S-P/137.ts",
    "reason": "image-unavailable"
   },
@@ -867,42 +1495,12 @@
   },
   {
    "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/MBG/011.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
    "tcgdexPath": "M/MC/643.ts",
    "reason": "image-unavailable"
   },
   {
    "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/MC/644.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/MC/646.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/MC/651.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/MC/653.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
    "tcgdexPath": "M/M5/104.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ayaka Yoshida",
-   "tcgdexPath": "M/M2a/152.ts",
    "reason": "image-unavailable"
   },
   {
@@ -1036,16 +1634,6 @@
   },
   {
    "artist": "DOM",
-   "tcgdexPath": "M/M6/067.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "DOM",
-   "tcgdexPath": "M/M6/100.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "DOM",
    "tcgdexPath": "M/M5/116.ts",
    "reason": "image-unavailable"
   },
@@ -1072,16 +1660,6 @@
   {
    "artist": "DOM",
    "tcgdexPath": "S/S-P/259.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Eske Yoshinob",
-   "tcgdexPath": "M/M2a/148.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Eske Yoshinob",
-   "tcgdexPath": "M/M2a/150.ts",
    "reason": "image-unavailable"
   },
   {
@@ -1127,11 +1705,6 @@
   },
   {
    "artist": "Eske Yoshinob",
-   "tcgdexPath": "SM/SM11/093.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Eske Yoshinob",
    "tcgdexPath": "BW/BW8a/006.ts",
    "reason": "no-korean-catalog-row"
   },
@@ -1143,26 +1716,6 @@
   {
    "artist": "GOSSAN",
    "tcgdexPath": "M/MC/704.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GOSSAN",
-   "tcgdexPath": "M/MC/705.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GOSSAN",
-   "tcgdexPath": "M/MC/721.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GOSSAN",
-   "tcgdexPath": "M/MC/734.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GOSSAN",
-   "tcgdexPath": "M/M2a/179.ts",
    "reason": "image-unavailable"
   },
   {
@@ -1242,48 +1795,17 @@
   },
   {
    "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/706.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/708.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/717.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/719.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/720.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
    "tcgdexPath": "M/MC/726.ts",
    "reason": "image-unavailable"
   },
   {
    "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/MC/732.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
    "tcgdexPath": "M/M2a/171.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "M/M2a/177.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    175,
+    247
+   ]
   },
   {
    "artist": "Hideki Ishikawa",
@@ -1303,7 +1825,11 @@
   {
    "artist": "Hideki Ishikawa",
    "tcgdexPath": "SV/SV1a/095.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    66,
+    92
+   ]
   },
   {
    "artist": "Hideki Ishikawa",
@@ -1353,17 +1879,30 @@
   {
    "artist": "Hideki Ishikawa",
    "tcgdexPath": "S/S11/123.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    96,
+    114,
+    122
+   ]
   },
   {
    "artist": "Hideki Ishikawa",
    "tcgdexPath": "S/S8/112.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    115,
+    124
+   ]
   },
   {
    "artist": "Hideki Ishikawa",
    "tcgdexPath": "S/S8/121.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    115,
+    124
+   ]
   },
   {
    "artist": "Hideki Ishikawa",
@@ -1372,17 +1911,7 @@
   },
   {
    "artist": "Hideki Ishikawa",
-   "tcgdexPath": "SM/SM9/095.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Hideki Ishikawa",
    "tcgdexPath": "SM/SM9a/062.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Hideki Ishikawa",
-   "tcgdexPath": "SM/SM8/102.ts",
    "reason": "no-visual-match"
   },
   {
@@ -1470,17 +1999,21 @@
   {
    "artist": "Hitoshi Ariga",
    "tcgdexPath": "S/S9a/090.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Hitoshi Ariga",
-   "tcgdexPath": "SM/SM11a/064.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    66,
+    82,
+    90
+   ]
   },
   {
    "artist": "Hitoshi Ariga",
    "tcgdexPath": "SM/SM7/088.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    91,
+    103
+   ]
   },
   {
    "artist": "Hitoshi Ariga",
@@ -1509,27 +2042,7 @@
   },
   {
    "artist": "hncl",
-   "tcgdexPath": "M/MC/695.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "hncl",
    "tcgdexPath": "M/MC/701.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "hncl",
-   "tcgdexPath": "M/MC/707.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "hncl",
-   "tcgdexPath": "M/MC/731.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "hncl",
-   "tcgdexPath": "M/M2a/176.ts",
    "reason": "image-unavailable"
   },
   {
@@ -1556,16 +2069,6 @@
    "artist": "hncl",
    "tcgdexPath": "SV/SV11B/165.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "hncl",
-   "tcgdexPath": "SV/SV8a/164.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "hncl",
-   "tcgdexPath": "SV/SV8a/175.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "HYOGONOSUKE",
@@ -1679,16 +2182,6 @@
    "artist": "Kagemaru Himeno",
    "tcgdexPath": "BW/BW8a/044.ts",
    "reason": "no-korean-catalog-row"
-  },
-  {
-   "artist": "kantaro",
-   "tcgdexPath": "M/MC/711.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "kantaro",
-   "tcgdexPath": "M/MC/715.ts",
-   "reason": "image-unavailable"
   },
   {
    "artist": "kantaro",
@@ -1897,12 +2390,20 @@
   {
    "artist": "Ken Sugimori",
    "tcgdexPath": "SM/SM6/086.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    89,
+    102
+   ]
   },
   {
    "artist": "Ken Sugimori",
    "tcgdexPath": "SM/SM6a/048.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    47,
+    58
+   ]
   },
   {
    "artist": "Ken Sugimori",
@@ -2236,11 +2737,6 @@
   },
   {
    "artist": "Megumi Mizutani",
-   "tcgdexPath": "SV/SV8a/167.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Megumi Mizutani",
    "tcgdexPath": "S/S-P/032.ts",
    "reason": "image-unavailable"
   },
@@ -2285,7 +2781,11 @@
   {
    "artist": "Megumi Mizutani",
    "tcgdexPath": "SM/SM10/088.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    85,
+    105
+   ]
   },
   {
    "artist": "Megumi Mizutani",
@@ -2523,26 +3023,6 @@
   },
   {
    "artist": "Naoki Saito",
-   "tcgdexPath": "M/MC/709.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
-   "tcgdexPath": "M/MC/710.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
-   "tcgdexPath": "M/MC/722.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
-   "tcgdexPath": "M/MC/735.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
    "tcgdexPath": "M/M5/117.ts",
    "reason": "image-unavailable"
   },
@@ -2563,11 +3043,6 @@
   },
   {
    "artist": "Naoki Saito",
-   "tcgdexPath": "M/M2a/180.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
    "tcgdexPath": "M/M2a/219.ts",
    "reason": "image-unavailable"
   },
@@ -2575,11 +3050,6 @@
    "artist": "Naoki Saito",
    "tcgdexPath": "SV/SV11W/173.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
-   "tcgdexPath": "SV/SV8a/176.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "Naoki Saito",
@@ -2628,11 +3098,6 @@
   {
    "artist": "Naoki Saito",
    "tcgdexPath": "S/SJ/025.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Naoki Saito",
-   "tcgdexPath": "S/S5R/087.ts",
    "reason": "image-unavailable"
   },
   {
@@ -2809,11 +3274,6 @@
   },
   {
    "artist": "Oswaldo KATO",
-   "tcgdexPath": "SV/SV3/140.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Oswaldo KATO",
    "tcgdexPath": "S/S-P/178.ts",
    "reason": "image-unavailable"
   },
@@ -2945,36 +3405,6 @@
   },
   {
    "artist": "Ryo Ueda",
-   "tcgdexPath": "S/S5R/090.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ryo Ueda",
-   "tcgdexPath": "SM/SM12/092.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Ryo Ueda",
-   "tcgdexPath": "SM/SM10a/052.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ryo Ueda",
-   "tcgdexPath": "SM/SM10b/051.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Ryo Ueda",
-   "tcgdexPath": "SM/SM9b/051.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Ryo Ueda",
-   "tcgdexPath": "SM/SM9b/053.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Ryo Ueda",
    "tcgdexPath": "BW/BW8a/039.ts",
    "reason": "no-korean-catalog-row"
   },
@@ -3017,11 +3447,6 @@
   {
    "artist": "Ryota Murayama",
    "tcgdexPath": "S/S-P/272.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ryuta Fuse",
-   "tcgdexPath": "M/MC/714.ts",
    "reason": "image-unavailable"
   },
   {
@@ -3104,22 +3529,20 @@
   {
    "artist": "Ryuta Fuse",
    "tcgdexPath": "S/S8/113.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    113,
+    122
+   ]
   },
   {
    "artist": "Ryuta Fuse",
    "tcgdexPath": "S/S8/122.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ryuta Fuse",
-   "tcgdexPath": "S/S6H/088.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Ryuta Fuse",
-   "tcgdexPath": "S/S5I/086.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    113,
+    122
+   ]
   },
   {
    "artist": "Saboteri",
@@ -3384,11 +3807,6 @@
   },
   {
    "artist": "Sanosuke Sakuma",
-   "tcgdexPath": "M/MC/716.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Sanosuke Sakuma",
    "tcgdexPath": "M/M6/068.ts",
    "reason": "image-unavailable"
   },
@@ -3495,12 +3913,11 @@
   {
    "artist": "Sanosuke Sakuma",
    "tcgdexPath": "S/S8/124.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Sanosuke Sakuma",
-   "tcgdexPath": "S/S6H/089.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    114,
+    123
+   ]
   },
   {
    "artist": "Sanosuke Sakuma",
@@ -3510,17 +3927,16 @@
   {
    "artist": "Sanosuke Sakuma",
    "tcgdexPath": "SM/SM9/084.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    85,
+    107
+   ]
   },
   {
    "artist": "Sanosuke Sakuma",
    "tcgdexPath": "SM/SM6/108.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "Sanosuke Sakuma",
-   "tcgdexPath": "SM/SM5S/071.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "Saya Tsuruta",
@@ -4092,27 +4508,12 @@
   },
   {
    "artist": "You Iribi",
-   "tcgdexPath": "SM/SM10a/054.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "You Iribi",
    "tcgdexPath": "SM/SM7b/056.ts",
    "reason": "no-visual-match"
   },
   {
    "artist": "Yuka Morii",
-   "tcgdexPath": "M/M6a/101.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Yuka Morii",
    "tcgdexPath": "M/M6a/102.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Yuka Morii",
-   "tcgdexPath": "M/M6a/103.ts",
    "reason": "image-unavailable"
   },
   {
@@ -4227,11 +4628,6 @@
   },
   {
    "artist": "Yuu Nishida",
-   "tcgdexPath": "M/M2a/169.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Yuu Nishida",
    "tcgdexPath": "SV/SV-P/110.ts",
    "reason": "image-unavailable"
   },
@@ -4317,17 +4713,20 @@
   {
    "artist": "Yuu Nishida",
    "tcgdexPath": "S/S8/114.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    112,
+    121
+   ]
   },
   {
    "artist": "Yuu Nishida",
    "tcgdexPath": "S/S8/123.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Yuu Nishida",
-   "tcgdexPath": "S/S5R/088.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    112,
+    121
+   ]
   },
   {
    "artist": "Mizue",
@@ -4389,26 +4788,6 @@
   },
   {
    "artist": "GIDORA",
-   "tcgdexPath": "M/MC/696.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GIDORA",
-   "tcgdexPath": "M/MC/703.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GIDORA",
-   "tcgdexPath": "M/MC/713.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GIDORA",
-   "tcgdexPath": "M/MC/727.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "GIDORA",
    "tcgdexPath": "M/M6/069.ts",
    "reason": "image-unavailable"
   },
@@ -4416,11 +4795,6 @@
    "artist": "GIDORA",
    "tcgdexPath": "M/M6/102.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "GIDORA",
-   "tcgdexPath": "M/M4/108.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "GIDORA",
@@ -4490,12 +4864,11 @@
   {
    "artist": "GIDORA",
    "tcgdexPath": "SV/SV8a/169.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "GIDORA",
-   "tcgdexPath": "SV/SV8a/178.ts",
-   "reason": "no-visual-match"
+   "reason": "name-ambiguous",
+   "candidates": [
+    174,
+    230
+   ]
   },
   {
    "artist": "GIDORA",
@@ -4514,47 +4887,12 @@
   },
   {
    "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/645.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
    "tcgdexPath": "M/MC/648.ts",
    "reason": "image-unavailable"
   },
   {
    "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/649.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
    "tcgdexPath": "M/MC/657.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/659.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/666.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/667.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/672.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/MC/692.ts",
    "reason": "image-unavailable"
   },
   {
@@ -4619,42 +4957,12 @@
   },
   {
    "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/156.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/157.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/181.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
    "tcgdexPath": "M/M2a/182.ts",
    "reason": "image-unavailable"
   },
   {
    "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/183.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/186.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
    "tcgdexPath": "M/M2a/187.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "M/M2a/189.ts",
    "reason": "image-unavailable"
   },
   {
@@ -4684,18 +4992,8 @@
   },
   {
    "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "SV/SV11B/080.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
    "tcgdexPath": "SV/SV11W/081.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "AYUMI ODASHIMA",
-   "tcgdexPath": "SV/SV8a/181.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "AYUMI ODASHIMA",
@@ -4999,53 +5297,17 @@
   },
   {
    "artist": "Yoshinobu Saito",
-   "tcgdexPath": "SM/SM12/093.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Yoshinobu Saito",
-   "tcgdexPath": "SM/SM10/092.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Yoshinobu Saito",
-   "tcgdexPath": "SM/SM10/093.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Yoshinobu Saito",
    "tcgdexPath": "SM/SM10a/045.ts",
    "reason": "image-unavailable"
   },
   {
    "artist": "Yoshinobu Saito",
    "tcgdexPath": "SM/SM10a/047.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Yoshinobu Saito",
-   "tcgdexPath": "SM/SM9a/053.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "Yoshinobu Saito",
-   "tcgdexPath": "SM/SM2K/047.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "M/MC/698.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "M/MC/699.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "M/MC/728.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    47,
+    69
+   ]
   },
   {
    "artist": "Taira Akitsu",
@@ -5056,11 +5318,6 @@
    "artist": "Taira Akitsu",
    "tcgdexPath": "SV/SV11B/084.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "SV/SV8a/165.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "Taira Akitsu",
@@ -5098,16 +5355,6 @@
   {
    "artist": "Taira Akitsu",
    "tcgdexPath": "S/SI/405.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "S/S6H/091.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "Taira Akitsu",
-   "tcgdexPath": "S/S5R/086.ts",
    "reason": "image-unavailable"
   },
   {
@@ -5172,13 +5419,12 @@
   },
   {
    "artist": "sadaji",
-   "tcgdexPath": "S/S6H/094.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "sadaji",
    "tcgdexPath": "SM/SM10a/046.ts",
-   "reason": "image-unavailable"
+   "reason": "name-ambiguous",
+   "candidates": [
+    45,
+    68
+   ]
   },
   {
    "artist": "saino misaki",
@@ -5275,22 +5521,7 @@
   },
   {
    "artist": "yuu",
-   "tcgdexPath": "M/MBG/019.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "yuu",
-   "tcgdexPath": "M/MC/694.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "yuu",
    "tcgdexPath": "M/MC/718.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "yuu",
-   "tcgdexPath": "M/M2a/168.ts",
    "reason": "image-unavailable"
   },
   {
@@ -5368,16 +5599,6 @@
    "artist": "KIYOTAKA OSHIYAMA",
    "tcgdexPath": "SV/SV-P/166.ts",
    "reason": "image-unavailable"
-  },
-  {
-   "artist": "TOKIYA",
-   "tcgdexPath": "SM/SM12a/193.ts",
-   "reason": "no-visual-match"
-  },
-  {
-   "artist": "TOKIYA",
-   "tcgdexPath": "SM/SM12a/196.ts",
-   "reason": "no-visual-match"
   },
   {
    "artist": "aky CG Works",
@@ -5462,11 +5683,6 @@
   {
    "artist": "aky CG Works",
    "tcgdexPath": "S/SCD/151.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "aky CG Works",
-   "tcgdexPath": "SM/SM10a/053.ts",
    "reason": "image-unavailable"
   },
   {
@@ -5941,11 +6157,6 @@
   },
   {
    "artist": "akagi",
-   "tcgdexPath": "M/MC/733.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "akagi",
    "tcgdexPath": "M/MC/760.ts",
    "reason": "image-unavailable"
   },
@@ -5967,11 +6178,6 @@
   {
    "artist": "akagi",
    "tcgdexPath": "M/M5/109.ts",
-   "reason": "image-unavailable"
-  },
-  {
-   "artist": "akagi",
-   "tcgdexPath": "M/M2a/178.ts",
    "reason": "image-unavailable"
   },
   {
@@ -6139,7 +6345,8 @@
    "reason": "image-unavailable"
   }
  ],
- "conflictCount": 352,
+ "nameDictionarySize": 638,
+ "conflictCount": 371,
  "conflicts": [
   {
    "artist": "5ban Graphics",
@@ -6173,6 +6380,17 @@
    ],
    "tcgdexPath": "S/S4a/164.ts",
    "visualDistance": 5.5
+  },
+  {
+   "artist": "5ban Graphics",
+   "set": "SM9b",
+   "cardNumber": "051/054",
+   "card": "비스트링",
+   "alsoCreditedTo": [
+    "Ryo Ueda"
+   ],
+   "tcgdexPath": "SM/SM9b/052.ts",
+   "visualDistance": null
   },
   {
    "artist": "5ban Graphics",
@@ -6275,6 +6493,17 @@
   },
   {
    "artist": "Atsushi Furusawa",
+   "set": "SV8a",
+   "cardNumber": "167/187",
+   "card": "수련의 돌봄",
+   "alsoCreditedTo": [
+    "Megumi Mizutani"
+   ],
+   "tcgdexPath": "SV/SV8a/168.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Atsushi Furusawa",
    "set": "SV5a",
    "cardNumber": "063/066",
    "card": "수련의 돌봄",
@@ -6360,6 +6589,17 @@
    ],
    "tcgdexPath": "SV/SV3/137.ts",
    "visualDistance": 5.16
+  },
+  {
+   "artist": "Eske Yoshinob",
+   "set": "M2a",
+   "cardNumber": "152/193",
+   "card": "성스러운분말",
+   "alsoCreditedTo": [
+    "Ayaka Yoshida"
+   ],
+   "tcgdexPath": "M/M2a/150.ts",
+   "visualDistance": null
   },
   {
    "artist": "Eske Yoshinob",
@@ -6649,6 +6889,17 @@
   },
   {
    "artist": "Hideki Ishikawa",
+   "set": "SM8",
+   "cardNumber": "101/095",
+   "card": "공박사의강연",
+   "alsoCreditedTo": [
+    "Sanosuke Sakuma"
+   ],
+   "tcgdexPath": "SM/SM8/102.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Hideki Ishikawa",
    "set": "SM8a",
    "cardNumber": "057/052",
    "card": "규리",
@@ -6888,6 +7139,17 @@
    ],
    "tcgdexPath": "SM/SM7/102.ts",
    "visualDistance": 7.89
+  },
+  {
+   "artist": "hncl",
+   "set": "M2a",
+   "cardNumber": "171/193",
+   "card": "로켓단의 아테나",
+   "alsoCreditedTo": [
+    "Hideki Ishikawa"
+   ],
+   "tcgdexPath": "M/M2a/176.ts",
+   "visualDistance": null
   },
   {
    "artist": "hncl",
@@ -7716,6 +7978,17 @@
   },
   {
    "artist": "Megumi Mizutani",
+   "set": "SV8a",
+   "cardNumber": "171/187",
+   "card": "올림박사의 기백",
+   "alsoCreditedTo": [
+    "Sanosuke Sakuma"
+   ],
+   "tcgdexPath": "SV/SV8a/167.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Megumi Mizutani",
    "set": "SV4K",
    "cardNumber": "065/066",
    "card": "올림박사의 기백",
@@ -8112,6 +8385,17 @@
   },
   {
    "artist": "Naoki Saito",
+   "set": "M2a",
+   "cardNumber": "169/193",
+   "card": "로켓단의 랜스",
+   "alsoCreditedTo": [
+    "Yuu Nishida"
+   ],
+   "tcgdexPath": "M/M2a/180.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Naoki Saito",
    "set": "SV10",
    "cardNumber": "092/098",
    "card": "로켓단의 랜스",
@@ -8351,6 +8635,17 @@
    ],
    "tcgdexPath": "SM/SM9/080.ts",
    "visualDistance": 2.86
+  },
+  {
+   "artist": "Ryo Ueda",
+   "set": "SM9b",
+   "cardNumber": "052/054",
+   "card": "하이퍼볼",
+   "alsoCreditedTo": [
+    "5ban Graphics"
+   ],
+   "tcgdexPath": "SM/SM9b/051.ts",
+   "visualDistance": null
   },
   {
    "artist": "Ryo Ueda",
@@ -8849,6 +9144,17 @@
   },
   {
    "artist": "Sanosuke Sakuma",
+   "set": "S6H",
+   "cardNumber": "090/070 HR",
+   "card": "의사",
+   "alsoCreditedTo": [
+    "Hitoshi Ariga"
+   ],
+   "tcgdexPath": "S/S6H/089.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Sanosuke Sakuma",
    "set": "S6K",
    "cardNumber": "067/070",
    "card": "카틀레야",
@@ -8967,6 +9273,17 @@
    ],
    "tcgdexPath": "SM/SM5S/061.ts",
    "visualDistance": 3.42
+  },
+  {
+   "artist": "Sanosuke Sakuma",
+   "set": "SM5S",
+   "cardNumber": "072/066",
+   "card": "포켓몬애호가클럽",
+   "alsoCreditedTo": [
+    "kodama"
+   ],
+   "tcgdexPath": "SM/SM5S/071.ts",
+   "visualDistance": null
   },
   {
    "artist": "Sanosuke Sakuma",
@@ -9212,6 +9529,17 @@
   },
   {
    "artist": "GIDORA",
+   "set": "M4",
+   "cardNumber": "118/083",
+   "card": "AZ의 평온",
+   "alsoCreditedTo": [
+    "OKACHEKE"
+   ],
+   "tcgdexPath": "M/M4/108.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "GIDORA",
    "set": "SV8a",
    "cardNumber": "179/187",
    "card": "하솔",
@@ -9220,6 +9548,17 @@
    ],
    "tcgdexPath": "SV/SV8a/163.ts",
    "visualDistance": 8.43
+  },
+  {
+   "artist": "GIDORA",
+   "set": "SV8a",
+   "cardNumber": "172/187",
+   "card": "유빈의 확신",
+   "alsoCreditedTo": [
+    "Hideki Ishikawa"
+   ],
+   "tcgdexPath": "SV/SV8a/178.ts",
+   "visualDistance": null
   },
   {
    "artist": "GIDORA",
@@ -9355,6 +9694,17 @@
   },
   {
    "artist": "AYUMI ODASHIMA",
+   "set": "M2a",
+   "cardNumber": "148/193",
+   "card": "곤충채집세트",
+   "alsoCreditedTo": [
+    "Eske Yoshinob"
+   ],
+   "tcgdexPath": "M/M2a/157.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "AYUMI ODASHIMA",
    "set": "M1S",
    "cardNumber": "070/063 AR",
    "card": "목도리키텔",
@@ -9454,6 +9804,17 @@
   },
   {
    "artist": "Yoshinobu Saito",
+   "set": "SM12",
+   "cardNumber": "092/095",
+   "card": "모험가방",
+   "alsoCreditedTo": [
+    "Ryo Ueda"
+   ],
+   "tcgdexPath": "SM/SM12/093.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "Yoshinobu Saito",
    "set": "SM12a",
    "cardNumber": "131/173",
    "card": "전자레이더",
@@ -9484,6 +9845,17 @@
    ],
    "tcgdexPath": "SM/SM9a/043.ts",
    "visualDistance": 3.13
+  },
+  {
+   "artist": "Yoshinobu Saito",
+   "set": "SM9a",
+   "cardNumber": "052/055",
+   "card": "개조해머",
+   "alsoCreditedTo": [
+    "Ayaka Yoshida"
+   ],
+   "tcgdexPath": "SM/SM9a/053.ts",
+   "visualDistance": null
   },
   {
    "artist": "Yoshinobu Saito",
@@ -9528,6 +9900,17 @@
    ],
    "tcgdexPath": "SV/SV8/129.ts",
    "visualDistance": 3.01
+  },
+  {
+   "artist": "Taira Akitsu",
+   "set": "SV8a",
+   "cardNumber": "170/187",
+   "card": "암호마니아의 해독",
+   "alsoCreditedTo": [
+    "kantaro"
+   ],
+   "tcgdexPath": "SV/SV8a/165.ts",
+   "visualDistance": null
   },
   {
    "artist": "Taira Akitsu",
@@ -9829,6 +10212,28 @@
   {
    "artist": "TOKIYA",
    "set": "SM12a",
+   "cardNumber": "190/173",
+   "card": "그린의 전략",
+   "alsoCreditedTo": [
+    "kodama"
+   ],
+   "tcgdexPath": "SM/SM12a/193.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "TOKIYA",
+   "set": "SM12a",
+   "cardNumber": "195/173",
+   "card": "블루의 탐색",
+   "alsoCreditedTo": [
+    "Ryota Murayama"
+   ],
+   "tcgdexPath": "SM/SM12a/196.ts",
+   "visualDistance": null
+  },
+  {
+   "artist": "TOKIYA",
+   "set": "SM12a",
    "cardNumber": "191/173",
    "card": "레드의 도전",
    "alsoCreditedTo": [
@@ -9990,6 +10395,17 @@
    ],
    "tcgdexPath": "S/S8b/073.ts",
    "visualDistance": 2.57
+  },
+  {
+   "artist": "akagi",
+   "set": "M2a",
+   "cardNumber": "170/193",
+   "card": "로켓단의 비주기",
+   "alsoCreditedTo": [
+    "Naoki Saito"
+   ],
+   "tcgdexPath": "M/M2a/178.ts",
+   "visualDistance": null
   },
   {
    "artist": "Yoriyuki Ikegami",
