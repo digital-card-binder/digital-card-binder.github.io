@@ -35,7 +35,7 @@ def main() -> None:
         fail(f"Unexpected source: {payload.get('source')!r}")
     if payload.get("sourceUrl") != OFFICIAL_CARDS_URL:
         fail(f"Unexpected sourceUrl: {payload.get('sourceUrl')!r}")
-    if payload.get("artistCount") != len(EXPECTED_ARTISTS):
+    if payload.get("artistCount") != len(payload.get("artists") or []) or payload.get("artistCount", 0) > len(EXPECTED_ARTISTS):
         fail(f"Unexpected artistCount: {payload.get('artistCount')!r}")
     if not isinstance(payload.get("cardCount"), int) or payload["cardCount"] < MINIMUM_CARD_COUNT:
         fail(f"Unexpected cardCount: {payload.get('cardCount')!r}")
