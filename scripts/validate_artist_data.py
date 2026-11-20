@@ -47,8 +47,13 @@ def main() -> None:
         fail("artists must be a list")
 
     actual_names = [artist.get("name") for artist in artists]
-    if actual_names != EXPECTED_ARTISTS:
+    # 카드가 아직 확인되지 않은 작가는 도감에 나오지 않는다(목록 순서는 유지).
+    expected_visible = [name for name in EXPECTED_ARTISTS if name in set(actual_names)]
+    if actual_names != expected_visible or len(set(actual_names)) != len(actual_names):
         fail("Artist list/order does not match data/artist-roster.json")
+    for artist in artists:
+        if not artist.get("cards"):
+            fail(f"Artist without cards must not be listed: {artist.get('name')}")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 

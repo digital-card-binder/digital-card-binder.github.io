@@ -8,8 +8,11 @@ const artists = JSON.parse(read("data/artists.json"));
 const roster = JSON.parse(read("data/artist-roster.json"));
 
 test("artist dex follows the roster and keeps ownership keys stable", () => {
-  assert.deepEqual(artists.artists.map((artist) => artist.name), roster.artists);
-  assert.equal(artists.artistCount, roster.artists.length);
+  // Roster artists without any verified Korean card stay hidden until a card appears.
+  const visible = new Set(artists.artists.map((artist) => artist.name));
+  assert.deepEqual(artists.artists.map((artist) => artist.name), roster.artists.filter((name) => visible.has(name)));
+  assert.ok(artists.artists.every((artist) => artist.cards.length > 0));
+  assert.equal(artists.artistCount, artists.artists.length);
   assert.equal(artists.cardCount, artists.artists.reduce((sum, artist) => sum + artist.cards.length, 0));
   for (const artist of artists.artists) {
     // order는 수집 기록 키이므로 1부터 빈틈없이 이어지고, 화면 순서는 displayOrder가 맡는다.
