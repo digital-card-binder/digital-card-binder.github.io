@@ -21,8 +21,8 @@ test("artist dex follows the roster and keeps ownership keys stable", () => {
 test("artist dex sync only adds verified Korean cards and never rewrites existing ones", () => {
   const script = read("scripts/sync_artist_dex.py");
   assert.match(script, /기존 카드가 바뀌었습니다/);
-  assert.match(script, /name_matches\(card\["name"\], dex_ids, dex_names\)/);
-  assert.match(script, /visual_match\(query, set_fingerprints\.get/);
+  assert.match(script, /name_matches\(c\["name"\], (plan\["dexIds"\]|dex_ids), dex_names\)/);
+  assert.match(script, /visual_match\(query, /);
   assert.match(script, /no-visual-match/);
   const report = JSON.parse(read("data/audits/artist-dex-sync.json"));
   assert.equal(report.tcgdexRef, roster.tcgdexRef);
