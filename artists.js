@@ -65,6 +65,11 @@ function chooseArtist(artist,{updateUrl=true}={}){
   if(!artist)return;
   selectedArtist=artist;
   const select=$("artist-select");
+  if(select&&![...select.options].some(option=>option.value===artist.name)){
+    const search=$("artist-name-search");
+    if(search)search.value="";
+    renderArtistOptions();
+  }
   if(select)select.value=artist.name;
   if(updateUrl)updateArtistUrl();
   syncArtistStepButtons();
@@ -79,23 +84,60 @@ function stepArtist(offset){
   chooseArtist(artistOrder[nextIndex]);
 }
 
-function populateArtists(){
+function normalizeArtistQuery(value){
+  return String(value||"").toLowerCase().replace(/[\s.\-_]+/g,"");
+}
+
+function renderArtistOptions(query=""){
   const select=$("artist-select");
-  artistOrder=[...dataset.artists].sort(compareArtistNames);
-  artistOrder.forEach(artist=>{
+  const needle=normalizeArtistQuery(query);
+  const list=needle?artistOrder.filter(artist=>normalizeArtistQuery(artist.name).includes(needle)):artistOrder;
+  select.textContent="";
+  if(!list.length){
+    const empty=document.createElement("option");
+    empty.value="";
+    empty.disabled=true;
+    empty.textContent="검색 결과 없음";
+    select.append(empty);
+    select.value="";
+    return list;
+  }
+  list.forEach(artist=>{
     const option=document.createElement("option");
     option.value=artist.name;
     option.textContent=`${artist.name} · ${artist.cards.length}장`;
     select.append(option);
   });
+  if(selectedArtist&&list.some(artist=>artist.name===selectedArtist.name))select.value=selectedArtist.name;
+  return list;
+}
+
+function populateArtists(){
+  const select=$("artist-select");
+  artistOrder=[...dataset.artists].sort(compareArtistNames);
   const requestedArtist=new URLSearchParams(window.location.search).get("artist")||"";
   selectedArtist=artistOrder.find(artist=>artist.name===requestedArtist)||artistOrder[0];
+  renderArtistOptions();
   select.value=selectedArtist.name;
   syncArtistStepButtons();
 
   select.addEventListener("change",()=>{
+    if(!select.value)return;
     chooseArtist(artistOrder.find(artist=>artist.name===select.value)||artistOrder[0]);
   });
+  const search=$("artist-name-search");
+  if(search){
+    search.addEventListener("input",()=>{
+      const list=renderArtistOptions(search.value);
+      if(list.length===1&&list[0].name!==selectedArtist.name)chooseArtist(list[0]);
+    });
+    search.addEventListener("keydown",event=>{
+      if(event.key!=="Enter")return;
+      event.preventDefault();
+      const list=renderArtistOptions(search.value);
+      if(list.length)chooseArtist(list[0]);
+    });
+  }
   $("artist-prev")?.addEventListener("click",()=>stepArtist(-1));
   $("artist-next")?.addEventListener("click",()=>stepArtist(1));
 }

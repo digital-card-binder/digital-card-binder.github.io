@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./styles.css?v=ae32ca70b29c" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
     <link rel="stylesheet" href="./print.css?v=f74be068586c" />
-    <link rel="stylesheet" href="./artists.css?v=81db9b206382" />
+    <link rel="stylesheet" href="./artists.css?v=8b4610236b54" />
     <link rel="stylesheet" href="./collection-manager.css?v=332f22b3a57d" />
     <link rel="stylesheet" href="./collector.css?v=00c97f502657" />
     <link rel="stylesheet" href="./theme-detail.css?v=4aaa0f0a114d" />
@@ -31,11 +31,11 @@
     <script src="./collector-collection-registry.js?v=5d2580f4e04c" defer></script>
     <script src="./collector-public-view.js?v=fbcabd853c6b" defer></script>
     <script src="./collector-public-sync.js?v=ecbb5d1ba6a1" defer></script>
-    <script src="./collector-nav.js?v=1c3de92f5eab" defer></script><script src="./card-scanner.js?v=e09b092918b3" defer data-card-scanner-script="true"></script>
+    <script src="./collector-nav.js?v=21038edb8438" defer></script><script src="./card-scanner.js?v=e09b092918b3" defer data-card-scanner-script="true"></script>
     <script src="./collection-preview.js?v=3c032388ba5a" defer></script>
     <script src="./firebase-page-manager.js?v=ed5d697644f4" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
-    <script src="./artists.js?v=7b42104bb51c" defer></script>
+    <script src="./artists.js?v=2d5fad251d71" defer></script>
     <script src="./detail-card-navigation.js?v=44061acd6c79" defer></script>
     <script src="./artist-series-sort.js?v=94f062adb233" defer></script>
       <script src="./print.js?v=844904b5b0a8" defer></script>
@@ -124,6 +124,7 @@
           <div class="artist-selection-summary">
             <div class="artist-chooser">
               <span class="artist-chooser-label">작가 선택</span>
+              <input id="artist-name-search" class="artist-name-search" type="search" placeholder="작가 이름 검색" aria-label="작가 이름 검색" autocomplete="off" enterkeyhint="search">
               <div class="artist-chooser-controls">
                 <button id="artist-prev" class="artist-step-button" type="button" aria-label="이전 작가" title="이전 작가">‹</button>
                 <label class="artist-chooser-select">
