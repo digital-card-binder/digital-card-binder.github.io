@@ -507,6 +507,158 @@
     return result;
   }
 
+  // 사진 속 페이지가 살짝 휘거나 네 점이 조금 어긋나면 이음매가 칸마다 다른 높이에 있다.
+  // 보정된 이미지에서 칸 구간별로 이음매(어두운 띠)를 다시 찾아, 찾은 곳만 칸 경계로 쓴다.
+  function measureLocalSeams(corrected, grid, layout) {
+    const cols = Math.max(1, Number(grid?.cols) || 3);
+    const rows = Math.max(1, Number(grid?.rows) || 4);
+    if (!layout || layout.cols !== cols || layout.rows !== rows) return null;
+    const xDividers = Array.isArray(layout.xDividers) ? layout.xDividers : [];
+    const yDividers = Array.isArray(layout.yDividers) ? layout.yDividers : [];
+    if (xDividers.length !== cols - 1 || yDividers.length !== rows - 1) return null;
+    const source = analysisCanvas(corrected, 720);
+    const width = source.canvas.width;
+    const height = source.canvas.height;
+    if (width < 40 || height < 40) return null;
+    const pixels = source.context.getImageData(0, 0, width, height).data;
+    const luminance = (x, y) => {
+      const offset = (y * width + x) * 4;
+      return pixels[offset] * 0.299 + pixels[offset + 1] * 0.587 + pixels[offset + 2] * 0.114;
+    };
+    const bandEdges = (dividers, count, index) => ({
+      start: index === 0 ? 0 : Number(dividers[index - 1].position),
+      end: index === count - 1 ? 1 : Number(dividers[index].position),
+    });
+
+    // horizontal=true: 가로 이음매(행 사이)를 열 구간 안에서 찾는다.
+    function findSeam(horizontal, globalPosition, bandStart, bandEnd) {
+      const span = horizontal ? height : width;
+      const across = horizontal ? width : height;
+      const radius = Math.max(4, Math.round(span * 0.04));
+      const center = Math.round(globalPosition * span);
+      const from = clamp(center - radius, 1, span - 2);
+      const to = clamp(center + radius, 1, span - 2);
+      const margin = (bandEnd - bandStart) * 0.15;
+      const a0 = clamp(Math.round((bandStart + margin) * across), 0, across - 1);
+      const a1 = clamp(Math.round((bandEnd - margin) * across), a0 + 1, across);
+      const step = Math.max(1, Math.round((a1 - a0) / 48));
+      const profile = [];
+      for (let i = from; i <= to; i += 1) {
+        const values = [];
+        for (let a = a0; a < a1; a += step) values.push(horizontal ? luminance(a, i) : luminance(i, a));
+        values.sort((p, q) => p - q);
+        profile.push(values[Math.floor(values.length / 2)]);
+      }
+      if (profile.length < 7) return null;
+      const smooth = profile.map((_, i) => {
+        const near = profile.slice(Math.max(0, i - 1), i + 2);
+        return near.reduce((sum, value) => sum + value, 0) / near.length;
+      });
+      let minIndex = 0;
+      smooth.forEach((value, i) => { if (value < smooth[minIndex]) minIndex = i; });
+      const minimum = smooth[minIndex];
+      const side = Math.max(3, Math.round(span * 0.03));
+      const before = Math.max(...smooth.slice(Math.max(0, minIndex - side), minIndex), -Infinity);
+      const after = Math.max(...smooth.slice(minIndex + 1, minIndex + side + 1), -Infinity);
+      const contrast = Math.min(before, after) - minimum;
+      if (!Number.isFinite(contrast) || contrast < 26 || minimum > 150) return null;
+      const limit = minimum + contrast * 0.5;
+      let left = minIndex;
+      let right = minIndex;
+      while (left > 0 && smooth[left - 1] <= limit) left -= 1;
+      while (right < smooth.length - 1 && smooth[right + 1] <= limit) right += 1;
+      const halfWidth = (right - left + 1) / span / 2;
+      if (halfWidth > 0.022) return null;
+      const position = (from + (left + right) / 2) / span;
+      if (Math.abs(position - globalPosition) > 0.035) return null;
+      return { position, halfWidth: clamp(halfWidth, 0.002, 0.022) };
+    }
+
+    const horizontal = yDividers.map((divider) =>
+      Array.from({ length: cols }, (_, col) => {
+        const band = bandEdges(xDividers, cols, col);
+        return findSeam(true, Number(divider.position), band.start, band.end);
+      })
+    );
+    const vertical = xDividers.map((divider) =>
+      Array.from({ length: rows }, (_, row) => {
+        const band = bandEdges(yDividers, rows, row);
+        return findSeam(false, Number(divider.position), band.start, band.end);
+      })
+    );
+    return { horizontal, vertical };
+  }
+
+  // 화면용 칸: 포켓 사이 이음매(검은 슬리브 선)만 빼고 칸을 빈틈없이 이어 붙인다.
+  // 여러 칸에 걸친 그림이 디지털 바인더에서도 끊기지 않게 보이도록, 인식용 칸(buildSlotCrops)과 달리
+  // 여백을 주지 않고 칸마다 따로 가운데 맞춤도 하지 않는다. 카드 비율과 차이가 크면 그만큼만 다듬는다.
+  function buildDisplayCrops(grid, layout, canvasWidth, canvasHeight, cardAspect = 63 / 88, maxStretch = 0.06, localSeams = null) {
+    const cols = Math.max(1, Number(grid?.cols) || 3);
+    const rows = Math.max(1, Number(grid?.rows) || 4);
+    const safeLayout = layout && layout.cols === cols && layout.rows === rows ? layout : null;
+
+    function axisCells(count, dividers) {
+      const valid = Array.isArray(dividers) && dividers.length === count - 1 &&
+        dividers.every((divider, index) => {
+          const position = Number(divider?.position);
+          const previous = index === 0 ? 0 : Number(dividers[index - 1]?.position);
+          return Number.isFinite(position) && position > previous && position < 1;
+        });
+      return Array.from({ length: count }, (_, index) => {
+        if (!valid) return { start: index / count, end: (index + 1) / count };
+        const before = index === 0 ? null : dividers[index - 1];
+        const after = index === count - 1 ? null : dividers[index];
+        const start = before ? Number(before.position) + clamp(Number(before.halfWidth) || 0, 0, 0.025) : 0;
+        const end = after ? Number(after.position) - clamp(Number(after.halfWidth) || 0, 0, 0.025) : 1;
+        return end - start > 0.02 ? { start, end } : { start: index / count, end: (index + 1) / count };
+      });
+    }
+
+    const xCells = axisCells(cols, safeLayout?.xDividers);
+    const yCells = axisCells(rows, safeLayout?.yDividers);
+    const result = [];
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        let x0 = clamp(xCells[col].start, 0, 1);
+        let x1 = clamp(xCells[col].end, 0, 1);
+        let y0 = clamp(yCells[row].start, 0, 1);
+        let y1 = clamp(yCells[row].end, 0, 1);
+        if (safeLayout && localSeams) {
+          const top = row > 0 ? localSeams.horizontal?.[row - 1]?.[col] : null;
+          const bottom = row < rows - 1 ? localSeams.horizontal?.[row]?.[col] : null;
+          const left = col > 0 ? localSeams.vertical?.[col - 1]?.[row] : null;
+          const right = col < cols - 1 ? localSeams.vertical?.[col]?.[row] : null;
+          const edge = (seam, sign) => clamp(Number(seam.position) + sign * Number(seam.halfWidth), 0, 1);
+          const nextY0 = top ? edge(top, 1) : y0;
+          const nextY1 = bottom ? edge(bottom, -1) : y1;
+          const nextX0 = left ? edge(left, 1) : x0;
+          const nextX1 = right ? edge(right, -1) : x1;
+          if (nextY1 - nextY0 > 0.02) { y0 = nextY0; y1 = nextY1; }
+          if (nextX1 - nextX0 > 0.02) { x0 = nextX0; x1 = nextX1; }
+        }
+        const aspect = Math.max(1, (x1 - x0) * canvasWidth) / Math.max(1, (y1 - y0) * canvasHeight);
+        if (aspect > cardAspect * (1 + maxStretch)) {
+          const width = (y1 - y0) * canvasHeight * cardAspect * (1 + maxStretch) / canvasWidth;
+          const center = (x0 + x1) / 2;
+          x0 = center - width / 2;
+          x1 = center + width / 2;
+        } else if (aspect < cardAspect / (1 + maxStretch)) {
+          const height = (x1 - x0) * canvasWidth / (cardAspect / (1 + maxStretch)) / canvasHeight;
+          const center = (y0 + y1) / 2;
+          y0 = center - height / 2;
+          y1 = center + height / 2;
+        }
+        result.push({
+          x: Number(x0.toFixed(6)),
+          y: Number(y0.toFixed(6)),
+          width: Number(Math.max(0.0001, x1 - x0).toFixed(6)),
+          height: Number(Math.max(0.0001, y1 - y0).toFixed(6)),
+        });
+      }
+    }
+    return result;
+  }
+
   // Browser decoders apply EXIF exactly once; drawing removes orientation metadata.
   async function decodePhoto(file) {
     if (!file || (!String(file.type).startsWith("image/") &&
@@ -806,11 +958,23 @@
             corrected.height,
             cardAspect,
           );
+          let localSeams = null;
+          try { localSeams = measureLocalSeams(corrected, grid, latestLayout); } catch { /* 전체 분할선만 사용 */ }
+          const displayCrops = buildDisplayCrops(
+            grid,
+            latestLayout,
+            corrected.width,
+            corrected.height,
+            cardAspect,
+            0.06,
+            localSeams,
+          );
           finish({
             canvas: corrected,
             mode: "perspective",
             confidence, grid,
             slotCrops,
+            displayCrops,
             cropMode: latestLayout ? "pocket-adaptive" : "card-safe",
           });
         } catch (error) {
@@ -838,5 +1002,7 @@
     unitSquareToQuad,
     refineCornersToPocket,
     buildSlotCrops,
+    buildDisplayCrops,
+    measureLocalSeams,
   });
 })();

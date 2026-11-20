@@ -22,7 +22,9 @@ test("binder photo scanner returns card-aspect slot crops instead of raw equal c
   assert.match(scanner, /const slotCrops = buildSlotCrops\(/);
   assert.match(scanner, /cropMode: latestLayout \? "pocket-adaptive" : "card-safe"/);
   assert.match(studio, /Array\.isArray\(scanResult\.slotCrops\)/);
-  assert.match(studio, /const crop = scanCrops\?\.\[index\] \|\| fallback/);
+  // 화면에는 이음매만 뺀 이어진 칸, 인식에는 카드 비율 칸(slotCrops)을 쓴다.
+  assert.match(studio, /const crop = displayCrops\?\.\[index\] \|\| scanCrops\?\.\[index\] \|\| fallback/);
+  assert.match(studio, /recognition: \{ \.\.\.scanCrops\[slot\.index\] \}/);
   assert.match(studio, /포켓 여백·카드 크기 자동 정렬 완료/);
 });
 

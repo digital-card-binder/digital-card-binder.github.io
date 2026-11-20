@@ -177,6 +177,8 @@
     photoImporting: false,
     photoRecognizing: false,
     photoReview: new Map(),
+    // 화면용 칸(이어 붙인 그림)과 별개로, 카드 인식은 이음매·여백을 뺀 카드 비율 칸으로 한다.
+    photoRecognitionCrops: null,
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
@@ -2766,6 +2768,10 @@
         scanResult.slotCrops.length === count
         ? scanResult.slotCrops
         : null;
+      const displayCrops = Array.isArray(scanResult.displayCrops) &&
+        scanResult.displayCrops.length === count
+        ? scanResult.displayCrops
+        : null;
       state.slots = Array.from({ length: count }, (_, index) => {
         const col = index % cols;
         const row = Math.floor(index / cols);
@@ -2775,7 +2781,7 @@
           width: Number((1 / cols).toFixed(6)),
           height: Number((1 / rows).toFixed(6)),
         };
-        const crop = scanCrops?.[index] || fallback;
+        const crop = displayCrops?.[index] || scanCrops?.[index] || fallback;
         return {
           index,
           type: "image",
@@ -2788,6 +2794,16 @@
           },
         };
       });
+
+      state.photoRecognitionCrops = displayCrops && scanCrops
+        ? {
+            sourceId: source.id,
+            byIndex: new Map(state.slots.map((slot) => [slot.index, {
+              display: { ...slot.crop },
+              recognition: { ...scanCrops[slot.index] },
+            }])),
+          }
+        : null;
 
       previewEmpty.hidden = true;
       previewWrap.hidden = false;
@@ -3035,6 +3051,16 @@
     return { low: low - PAGE_THEME_MARGIN, high: high + PAGE_THEME_MARGIN, anchors: numbers.length };
   }
 
+  function recognitionCropForSlot(slot, sourceId) {
+    const saved = state.photoRecognitionCrops;
+    const pair = saved?.sourceId === sourceId ? saved.byIndex.get(slot.index) : null;
+    const same = pair && ["x", "y", "width", "height"].every((key) =>
+      Math.abs(Number(pair.display[key]) - Number(slot.crop?.[key])) < 1e-6
+    );
+    // 사용자가 그 칸을 직접 옮기지 않았을 때만 인식용 칸을 쓴다.
+    return same ? { ...pair.recognition } : { ...slot.crop };
+  }
+
   async function recognizeImportedPhotoCards() {
     if (state.photoRecognizing || state.photoImporting || state.saving || state.publishing) return;
     const source = importedPhotoSource();
@@ -3058,7 +3084,7 @@
       const image = await imageFromObjectUrl(source.objectUrl);
       const targets = state.slots
         .filter((slot) => slot.type === "image" && clean(slot.imageId) === source.id)
-        .map((slot) => ({ index: slot.index, crop: { ...slot.crop } }));
+        .map((slot) => ({ index: slot.index, crop: recognitionCropForSlot(slot, source.id) }));
       let automatic = 0;
       let noMatch = 0;
       const review = new Map();

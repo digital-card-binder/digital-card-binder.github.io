@@ -294,3 +294,70 @@ test("unresolved scanned slots show a candidate badge that opens a tap-to-confir
   assert.match(css, /\.studio-slot-review-badge \{/);
   assert.match(css, /\.studio-slot-candidate-sheet \{/);
 });
+
+test("display crops tile the page without per-cell padding so spanning art stays continuous", () => {
+  for (const [cols, rows] of [[3, 3], [3, 4], [4, 4]]) {
+    const aspect = cols * 63 / (rows * 88);
+    const height = 1200;
+    const width = Math.round(height * aspect);
+    const crops = api.buildDisplayCrops({ cols, rows }, null, width, height, 63 / 88);
+    assert.equal(crops.length, cols * rows);
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        const crop = crops[row * cols + col];
+        assert.ok(Math.abs(crop.x - col / cols) < 1e-5);
+        assert.ok(Math.abs(crop.y - row / rows) < 1e-5);
+        assert.ok(Math.abs(crop.width * width / (crop.height * height) - 63 / 88) < 0.004);
+      }
+    }
+  }
+});
+
+test("display crops follow locally measured seams on a slightly bent page", () => {
+  const cols = 3, rows = 3, width = 360, height = 480;
+  // 2번째 가로 이음매가 열마다 다른 높이(320 / 316 / 312)에 있는 휜 페이지.
+  const seamY = [[160, 160, 160], [320, 316, 312]];
+  const data = new Uint8ClampedArray(width * height * 4);
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+    const col = Math.min(cols - 1, Math.floor(x * cols / width));
+    const vertical = [120, 240].some((divider) => Math.abs(x - divider) < 5);
+    const horizontal = seamY.some((line) => Math.abs(y - line[col]) < 5);
+    const value = vertical || horizontal ? 25 : 215;
+    data.set([value, value, value, 255], (y * width + x) * 4);
+  }
+  const image = canvas(width, height, data);
+  // 전체 분할선은 평균 위치(가운데 열)로 주어진다고 가정한다.
+  const layout = {
+    cols, rows,
+    xDividers: [{ position: 120 / width, halfWidth: 0.012 }, { position: 240 / width, halfWidth: 0.012 }],
+    yDividers: [{ position: 160 / height, halfWidth: 0.01 }, { position: 316 / height, halfWidth: 0.01 }],
+  };
+  const seams = api.measureLocalSeams(image, { cols, rows }, layout);
+  assert.ok(seams);
+  const found = seams.horizontal[1].map((seam) => Math.round(seam.position * height));
+  for (let col = 0; col < cols; col += 1) assert.ok(Math.abs(found[col] - seamY[1][col]) <= 2, `column ${col}: ${found[col]}`);
+
+  const crops = api.buildDisplayCrops({ cols, rows }, layout, width, height, 63 / 88, 0.06, seams);
+  // 어떤 칸에도 어두운 이음매 줄이 들어가지 않는다.
+  crops.forEach((crop, index) => {
+    const x = Math.round((crop.x + crop.width / 2) * width);
+    for (const fy of [0.002, 0.5, 0.998]) {
+      const y = Math.min(height - 1, Math.round((crop.y + crop.height * fy) * height));
+      assert.ok(data[(y * width + x) * 4] > 100, `slot ${index} touches a seam at y=${y}`);
+    }
+  });
+  // 같은 행의 칸은 각자 자기 열의 이음매에서 끝난다.
+  const bottoms = [3, 4, 5].map((index) => Math.round((crops[index].y + crops[index].height) * height));
+  assert.ok(bottoms[0] >= bottoms[2] + 6, `bottoms ${bottoms}`);
+});
+
+test("scanned page shows continuous display crops while recognition keeps card-safe crops", () => {
+  const scanner = readFileSync(new URL("../binder-photo-scanner.js", import.meta.url), "utf8");
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+
+  assert.match(scanner, /const displayCrops = buildDisplayCrops\(/);
+  assert.match(scanner, /localSeams = measureLocalSeams\(corrected, grid, latestLayout\)/);
+  assert.match(studio, /displayCrops\?\.\[index\] \|\| scanCrops\?\.\[index\] \|\| fallback/);
+  assert.match(studio, /function recognitionCropForSlot\(slot, sourceId\)/);
+  assert.match(studio, /crop: recognitionCropForSlot\(slot, source\.id\)/);
+});
