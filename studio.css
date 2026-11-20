@@ -665,6 +665,11 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     min-height: 64px;
   }
 
+  /* 컬렉터 화면과 같이, 좁은 화면에서는 로그인 버튼 아래 약관 줄이 상단바 밖으로 넘치지 않게 숨긴다. */
+  .studio-site-header .firebase-auth-panel .login-policy-links {
+    display: none;
+  }
+
   .studio-main {
     width: calc(100% - 20px);
     padding: 12px 0 34px;

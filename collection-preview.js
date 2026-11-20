@@ -40,7 +40,13 @@
   }
 
   menuButtons.forEach((button) => {
-    button?.addEventListener("click", () => {
+    button?.addEventListener("click", (event) => {
+      // 홈·하단 메뉴와 같은 밝은 "바로 이동" 창을 연다. 공통 메뉴가 없는 페이지만 기존 사이드 메뉴를 쓴다.
+      if (typeof window.DcbMobileMenu?.open === "function") {
+        setOpen(false);
+        window.DcbMobileMenu.open(event, button);
+        return;
+      }
       setOpen(!sidebar.classList.contains("is-mobile-open"));
     });
   });

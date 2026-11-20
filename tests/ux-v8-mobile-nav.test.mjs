@@ -1,3 +1,4 @@
+import { readFileSync as readRootFileSync } from "node:fs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -88,4 +89,24 @@ test("mobile has safe-area spacing and keyboard-visible focus without desktop ov
  assert.match(style,/min-height:52px/);
  assert.match(style,/\.dcb-mobile-nav a:focus-visible\{outline:3px/);
  assert.match(style,/\.dex-scroll-top\{\s*bottom:calc\(90px/);
+});
+
+const readRoot = (path) => readRootFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+
+
+test("header menu button on collection pages opens the same light menu sheet as home", () => {
+  const preview = readRoot("collection-preview.js");
+  assert.match(preview, /typeof window\.DcbMobileMenu\?\.open === "function"/);
+  assert.match(preview, /window\.DcbMobileMenu\.open\(event, button\)/);
+  // 공통 메뉴가 없는 페이지에서는 기존 사이드 메뉴로 열린다.
+  assert.match(preview, /setOpen\(!sidebar\.classList\.contains\("is-mobile-open"\)\)/);
+  assert.match(readRoot("site-mobile-nav.js"), /window\.DcbMobileMenu=\{open:openLocalMenu\}/);
+});
+
+test("mobile generation pills never wrap inside the horizontal scroller", () => {
+  assert.match(readRoot("styles.css"), /\.generation-pills button \{\s*flex: 0 0 auto;\s*white-space: nowrap;/);
+});
+
+test("studio mobile header keeps the policy line from overflowing", () => {
+  assert.match(readRoot("studio.css"), /\.studio-site-header \.firebase-auth-panel \.login-policy-links \{\s*display: none;/);
 });
