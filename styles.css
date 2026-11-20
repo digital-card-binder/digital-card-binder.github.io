@@ -1501,6 +1501,12 @@ img {
     scrollbar-width: none;
   }
 
+  /* 가로 스크롤 줄에서 버튼이 줄어들며 "1세/대"처럼 두 줄로 깨지지 않게 한다. */
+  .generation-pills button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
   .generation-pills::-webkit-scrollbar {
     display: none;
   }
