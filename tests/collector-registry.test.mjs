@@ -6,6 +6,10 @@ import vm from "node:vm";
 const root = new URL("../", import.meta.url);
 const catalogSource = await readFile(new URL("../core/catalog/catalog-service.js", import.meta.url), "utf8");
 const identitySource = await readFile(new URL("../core/catalog/card-identity.js", import.meta.url), "utf8");
+// 작가도감은 자동 동기화로 늘어나므로 기대값을 데이터 파일에서 읽는다.
+const artistData = JSON.parse(await readFile(new URL("../data/artists.json", import.meta.url), "utf8"));
+const artistCardCount = artistData.cardCount;
+const artistGroupCount = artistData.artistCount;
 const source = await readFile(new URL("../collector-collection-registry.js", import.meta.url), "utf8");
 
 function localPath(input) {
@@ -57,7 +61,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     ar: [530, 33],
     pack: [151, 9],
     pokemon: [15061, 1025],
-    artist: [7331, 70],
+    artist: [artistCardCount, artistGroupCount],
     people: [179, 9],
     trainerPokemon: [245, 172],
     fossil: [122, 26],
@@ -135,7 +139,7 @@ test("all existing catalogs plus three Korean MEGA starter decks retain their ex
   const expected = {
     national: 1025,
     pack: 151,
-    artist: 7331,
+    artist: artistCardCount,
     series: 20302,
     pokemon: 15061,
     ar: 530,
@@ -280,7 +284,7 @@ test("existing nonempty top-level catalog group counts reflect three new release
   const expected = {
     national: 9,
     pack: 9,
-    artist: 70,
+    artist: artistGroupCount,
     series: 276,
     pokemon: 1025,
     ar: 33,

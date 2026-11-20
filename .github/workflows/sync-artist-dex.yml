@@ -1,0 +1,82 @@
+name: Sync artist dex
+
+# 새 시리즈가 카탈로그(검색 목록)에 들어오거나 작가 목록이 바뀌면, 목록에 있는 모든 작가의
+# 한국 카드를 다시 모아 작가도감에 추가한다. 기존 카드·순서는 바꾸지 않는다.
+on:
+  push:
+    branches: [main, feat/artist-dex-auto-sync]
+    paths:
+      - "data/pokemon-search-index.json"
+      - "data/artist-roster.json"
+      - "data/pokemon-names-multilang.json"
+      - "scripts/sync_artist_dex.py"
+      - ".github/workflows/sync-artist-dex.yml"
+  schedule:
+    # 매주 월요일 03:40 (한국 시간). TCGdex 작가 정보가 늦게 올라오는 경우를 보충한다.
+    - cron: "40 18 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-artist-dex-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --quiet "Pillow==12.3.0"
+
+      - name: Sync every roster artist with the latest illustrator data
+        run: python scripts/sync_artist_dex.py --clone --latest
+
+      - name: Validate artist dex
+        run: python scripts/validate_artist_data.py data/artists.json
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync artist metadata into series catalogs and regenerate site files
+        run: |
+          node scripts/sync-series-artist-metadata.mjs
+          npm run site:prepare
+
+      - name: Verify affected contracts
+        run: |
+          npm run test:registry
+          node --test \
+            tests/master-card-db-audit.test.mjs \
+            tests/collector-registry.test.mjs \
+            tests/series-print-variants.test.mjs \
+            tests/related-dex-links.test.mjs \
+            tests/artist-dex-sync.test.mjs
+
+      - name: Commit synchronized artist dex
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Artist dex is already current."
+            exit 0
+          fi
+          git commit -m "Sync artist dex with latest Korean catalog"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

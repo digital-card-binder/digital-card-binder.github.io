@@ -105,11 +105,15 @@ assert.deepEqual(
 const artistM6a = list(artists, "artists")
   .flatMap((artist) => artist.cards || [])
   .filter((card) => lower(card.set) === "m6a");
-assert.equal(
-  artistM6a.length,
-  35,
-  "M6a artist-dex coverage changed; verify illustrator metadata and approved artist scope",
+// 작가도감은 자동 동기화로 늘어날 수 있다. 줄어들거나 M6a에 없는 번호가 들어오면 안 된다.
+assert.ok(
+  artistM6a.length >= 35,
+  "M6a artist-dex coverage shrank; verify illustrator metadata and approved artist scope",
 );
+for (const card of artistM6a) {
+  const number = Number(String(card.cardNumber || "").match(/^\s*0*(\d+)/)?.[1]);
+  assert.ok(number >= 1 && number <= 176, `M6a artist card outside the 176-card set: ${card.name} ${card.cardNumber}`);
+}
 
 const strictThemes = Array.isArray(strictThemeAudit?.reviewedThemes)
   ? strictThemeAudit.reviewedThemes.map(clean)
