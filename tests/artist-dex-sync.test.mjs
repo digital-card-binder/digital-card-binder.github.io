@@ -60,7 +60,8 @@ print(json.dumps({
 }, ensure_ascii=False))
 `], { encoding: "utf8", cwd: new URL("..", import.meta.url) });
   } catch (error) {
-    if (error.code === "ENOENT") return; // python is not available in this environment
+    // python or Pillow (imported by the sync script) is not available in this environment
+    if (error.code === "ENOENT" || /ModuleNotFoundError/.test(String(error.stderr))) return;
     throw error;
   }
   const result = JSON.parse(output);
