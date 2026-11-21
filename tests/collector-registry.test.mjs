@@ -58,7 +58,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const expected = {
     national: [1025, 9],
     series: [20302, 276],
-    ar: [538, 34],
+    ar: [567, 34],
     pack: [151, 9],
     pokemon: [15186, 1025],
     artist: [artistCardCount, artistGroupCount],
@@ -142,7 +142,7 @@ test("all existing catalogs plus three Korean MEGA starter decks retain their ex
     artist: artistCardCount,
     series: 20302,
     pokemon: 15186,
-    ar: 538,
+    ar: 567,
     people: 179,
     trainerPokemon: 245,
     fossil: 122,

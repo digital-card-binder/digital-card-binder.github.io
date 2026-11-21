@@ -1,14 +1,9 @@
 name: Build Pokémon collections 21-40
 
 on:
+  # push 자동 실행 제거: 이 생성기는 아카이브 기준으로 파일을 통째로 덮어써서
+  # 수동으로 보강한 카드(gap-fill)를 지운다. 필요할 때만 수동 실행.
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/build-pokemon-collections-21-40.yml"
-      - "scripts/build_pokemon_collections_21_40.py"
-      - "data/series.json"
-      - "data/ar.json"
-      - "data/promo-packs.json"
 
 permissions:
   contents: write
