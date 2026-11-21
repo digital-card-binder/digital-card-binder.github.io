@@ -746,3 +746,20 @@ body[data-page="custom-dex"] .custom-dex-card.is-active {
     color: #000 !important;
   }
 }
+
+.collection-sublink {
+  margin-left: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  min-height: 0;
+}
+.collection-sublink strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.collection-sublink.is-sub-active {
+  background: #eef4ff;
+}
+.collection-sublink.is-sub-active strong {
+  color: #2563eb;
+}
