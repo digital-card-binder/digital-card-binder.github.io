@@ -44,7 +44,7 @@
     "national.html": "전국 도감",
     "packs.html": "팩 도감",
     "pokemon-collections.html": "포켓몬 도감",
-    "ar.html": "AR 도감",
+    "ar.html": "레어리티도감",
     "artists.html": "일러스트레이터 도감",
     "people.html": "인물 도감",
     "trainer-pokemon.html": "트레이너 포켓몬 도감",

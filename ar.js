@@ -84,7 +84,7 @@ function installViewTabs() {
 
   const tabs = document.createElement("nav");
   tabs.className = "ar-view-tabs";
-  tabs.setAttribute("aria-label", "AR 도감 보기 선택");
+  tabs.setAttribute("aria-label", "레어리티도감 보기 선택");
   tabs.innerHTML = `
     <a class="ar-view-tab" data-ar-view="national" href="${viewUrl("national")}">
       <span>전국도감별</span><small>전국도감 순</small>

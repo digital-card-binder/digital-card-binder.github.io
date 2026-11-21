@@ -28,7 +28,7 @@
     ar: {
       number: "03",
       title: "레어리티도감",
-      description: "SV · M 시리즈 AR",
+      description: "AR·SAR·SR 등 레어리티별 카드",
       href: "./ar.html",
       documentId: "arDex",
       unit: "장",
@@ -126,7 +126,7 @@
   }
 
   const THEME_OVERVIEW_LINKS = Object.freeze([
-    { title: "AR 도감", href: "./ar.html", kind: "collection", category: "ar" },
+    { title: "레어리티도감", href: "./ar.html", kind: "collection", category: "ar" },
     { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection", category: "pokemon" },
     { title: "작가 도감", href: "./artists.html", kind: "collection", category: "artist" },
     { title: "인물 도감", href: "./people.html", kind: "collection", category: "people" },
