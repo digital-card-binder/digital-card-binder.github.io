@@ -14,6 +14,7 @@ let allCards = [];
 let nationalCards = [];
 let selectedCode = AR_VIEW === "series" ? "all" : "national";
 let status = "all";
+let rarityFilter = "all";
 let query = "";
 let activeCard = null;
 let accountApplied = false;
@@ -162,6 +163,10 @@ function rarityLabel(card) {
   if (card.rarity === "CSR") return "CHARACTER SUPER RARE";
   if (card.rarity === "SR") return "SUPER RARE";
   if (card.rarity === "HR") return "HYPER RARE";
+  if (card.rarity === "SAR") return "SPECIAL ART RARE";
+  if (card.rarity === "UR") return "ULTRA RARE";
+  if (card.rarity === "SSR") return "SHINY SUPER RARE";
+  if (card.rarity === "MUR") return "MEGA ULTRA RARE";
   return "ART RARE";
 }
 
@@ -714,9 +719,54 @@ function makeCard(card) {
   return article;
 }
 
+const RARITY_ORDER = ["AR", "SAR", "SR", "CHR", "CSR", "UR", "HR", "SSR", "MUR"];
+
+function renderRarityChips(cards) {
+  let bar = $("ar-rarity-chips");
+  if (!bar) {
+    const row = document.querySelector(".catalog-filter-row");
+    if (!row) return;
+    bar = document.createElement("div");
+    bar.id = "ar-rarity-chips";
+    bar.className = "ar-rarity-chips";
+    bar.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;margin:8px 0";
+    bar.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-rarity]");
+      if (!button) return;
+      rarityFilter = button.dataset.rarity;
+      render();
+    });
+    row.after(bar);
+  }
+  const counts = {};
+  cards.forEach((card) => {
+    const key = card.rarity || "AR";
+    counts[key] = (counts[key] || 0) + 1;
+  });
+  if (rarityFilter !== "all" && !counts[rarityFilter]) rarityFilter = "all";
+  const keys = RARITY_ORDER.filter((key) => counts[key]);
+  const make = (key, label) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.rarity = key;
+    button.textContent = label;
+    button.style.cssText =
+      "padding:5px 11px;border-radius:999px;border:1px solid #d8dde6;background:" +
+      (rarityFilter === key ? "#2563eb;color:#fff" : "#fff;color:#334155") +
+      ";font-size:13px;cursor:pointer";
+    return button;
+  };
+  bar.replaceChildren(
+    make("all", `전체 ${cards.length}`),
+    ...keys.map((key) => make(key, `${key} ${counts[key]}`)),
+  );
+  bar.hidden = keys.length < 2;
+}
+
 function render() {
   const grid = $("catalog-grid");
   if (!grid) return;
+  renderRarityChips(visibleCards());
 
   const normalizedQuery = query.trim().toLowerCase();
   const baseCards = visibleCards();
@@ -734,7 +784,8 @@ function render() {
     ]
       .join(" ")
       .toLowerCase();
-    return matchesStatus && (!normalizedQuery || haystack.includes(normalizedQuery));
+    const matchesRarity = rarityFilter === "all" || (card.rarity || "AR") === rarityFilter;
+    return matchesStatus && matchesRarity && (!normalizedQuery || haystack.includes(normalizedQuery));
   });
 
   renderedCards = shown;
@@ -751,7 +802,7 @@ function render() {
         "empty-copy",
         selectedCode === "sv8a"
           ? "테라스탈 페스티벌 ex는 AR 0종으로 확인되었습니다."
-          : `${emptyGroup.title}에는 AR·CHR·CSR 카드가 없습니다.`,
+          : `${emptyGroup.title}에는 AR 이상 레어리티 카드가 없습니다.`,
       );
     } else {
       setText("empty-title", "검색 결과가 없습니다");

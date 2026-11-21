@@ -95,7 +95,7 @@ const arByCode = new Map(list(arBase).map((group) => [lower(group.code), group])
 for (const group of list(arSupplement)) arByCode.set(lower(group.code), group);
 const arM6a = arByCode.get("m6a");
 assert.ok(arM6a, "M6a AR group is missing");
-const arNumbers = (arM6a.cards || []).map((card) => Number(card.number)).sort((a, b) => a - b);
+const arNumbers = (arM6a.cards || []).filter((card) => !card.rarity || card.rarity === "AR").map((card) => Number(card.number)).sort((a, b) => a - b);
 assert.deepEqual(
   arNumbers,
   Array.from({ length: 20 }, (_, index) => index + 104),
