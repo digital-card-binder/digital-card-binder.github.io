@@ -259,7 +259,7 @@
       });
     });
     addCards("시리즈 도감", series);
-    addCards("AR 전종도감", ar);
+    addCards("레어리티도감", ar);
     addCards("포켓몬 컬렉션", pokemon);
     addCards("작가 도감", artists?.artists || []);
     addCards("트레이너 × 포켓몬", trainer?.groups || []);

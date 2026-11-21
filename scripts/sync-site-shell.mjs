@@ -15,7 +15,7 @@ const navigation = Object.freeze([
   { href: "./packs.html", page: "packs.html", title: "팩 전종수집", catalogId: "pack" },
   { href: "./theme.html", page: "theme.html", title: "테마 도감", subtitle: "AR·작가·인물·무드·스토리 테마" },
   { section: "테마도감 바로가기" },
-  { href: "./ar.html", page: "ar.html", title: "AR 전종도감", catalogId: "ar" },
+  { href: "./ar.html", page: "ar.html", title: "레어리티도감", catalogId: "ar" },
   { href: "./pokemon-collections.html", page: "pokemon-collections.html", title: "포켓몬 컬렉션", catalogId: "pokemon" },
   { href: "./artists.html", page: "artists.html", title: "작가 도감", catalogId: "artist" },
   { href: "./people.html", page: "people.html", title: "인물도감", catalogId: "people" },
