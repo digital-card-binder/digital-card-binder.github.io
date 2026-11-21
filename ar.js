@@ -742,9 +742,15 @@ function render() {
   const empty = $("catalog-empty");
   if (empty) {
     empty.hidden = shown.length !== 0;
-    if (!shown.length && selectedCode === "sv8a" && !normalizedQuery) {
+    const emptyGroup = groups.find((group) => group.code === selectedCode && group.cards.length === 0);
+    if (!shown.length && emptyGroup && !normalizedQuery) {
       setText("empty-title", "이 세트에는 AR이 없습니다");
-      setText("empty-copy", "테라스탈 페스티벌 ex는 AR 0종으로 확인되었습니다.");
+      setText(
+        "empty-copy",
+        selectedCode === "sv8a"
+          ? "테라스탈 페스티벌 ex는 AR 0종으로 확인되었습니다."
+          : `${emptyGroup.title}에는 AR·CHR·CSR 카드가 없습니다.`,
+      );
     } else {
       setText("empty-title", "검색 결과가 없습니다");
       setText("empty-copy", "다른 세트나 검색어를 선택해 보세요.");
