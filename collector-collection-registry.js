@@ -102,7 +102,7 @@
     },
     ar: {
       number: "03",
-      title: "AR 전종도감",
+      title: "레어리티도감",
       description: "SV · M 시리즈 AR",
       href: "./ar.html",
       documentId: "arDex",

@@ -272,7 +272,7 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   assert.doesNotMatch(page, /보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합/);
   assert.match(page, /id="pokemon-search-dialog-sources"/);
   assert.ok(client.includes('addOwnershipSource(index, parts[1], parts[2], "작가 도감")'));
-  assert.ok(client.includes('"AR 전종도감"'));
+  assert.ok(client.includes('"레어리티도감"'));
   assert.ok(client.includes('"포켓몬 컬렉션"'));
   assert.ok(client.includes('"트레이너 × 포켓몬"'));
   assert.ok(client.includes('"화석 도감"'));
@@ -319,7 +319,7 @@ test("dashboard polish follows navigation labels and restrained motion", async (
   const dashboard = await source("dashboard.js");
   const css = await source("dashboard.css");
   const sheets = await source("owner-sheets-sync.js");
-  assert.match(dashboard, /AR 전종도감/);
+  assert.match(dashboard, /레어리티도감/);
   assert.match(dashboard, /트레이너 × 포켓몬/);
   assert.doesNotMatch(dashboard, /SV · M 시리즈 AR 510장/);
   assert.match(dashboard, /canonicalTotal/);
@@ -629,7 +629,7 @@ test("detail pages use the finalized navigation names in their static markup", a
     ["pokemon-search.html", "카드 검색"],
     ["national.html", "전국도감"],
     ["series.html", "시리즈 도감"],
-    ["ar.html", "AR 전종도감"],
+    ["ar.html", "레어리티도감"],
     ["packs.html", "팩 전종수집"],
     ["pokemon-collections.html", "포켓몬 컬렉션"],
     ["artists.html", "작가 도감"],
@@ -1408,7 +1408,7 @@ test("series browsing uses self-hosted pack art without fake era logos", async (
 test("current dashboard is the only production shell and carries the latest nav", async () => {
   const current = await source("index.html");
   assert.match(current, /주요 도감/);
-  assert.match(current, /AR 전종도감/);
+  assert.match(current, /레어리티도감/);
   assert.match(current, /팩 전종수집/);
   assert.match(current, /커뮤니티/);
   assert.equal(current.includes("도감 갤러리"), false);

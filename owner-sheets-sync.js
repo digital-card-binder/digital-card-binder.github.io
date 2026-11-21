@@ -30,7 +30,7 @@
     artist: "작가 도감",
     series: "시리즈 도감",
     pokemon: "포켓몬 컬렉션",
-    ar: "AR 전종도감",
+    ar: "레어리티도감",
     trainerPokemon: "트레이너 × 포켓몬",
   };
   const DOCUMENT_IDS = {

@@ -261,7 +261,7 @@
     forEachOwnedOverride(documentData, (key) => {
       const parts = String(key).split("::");
       if (parts.length < 3) return;
-      addOwnershipSource(index, parts[0], parts[1], "AR 전종도감");
+      addOwnershipSource(index, parts[0], parts[1], "레어리티도감");
     });
   }
 

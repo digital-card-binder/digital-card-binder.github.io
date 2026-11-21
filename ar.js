@@ -109,12 +109,12 @@ function applyViewMode() {
   const description = document.querySelector(".hero-description");
   if (description) {
     description.textContent = AR_VIEW === "national"
-      ? "전국도감 번호 순으로 모아보는 독립 AR 컬렉션"
-      : "시리즈별로 모아보는 독립 AR 컬렉션";
+      ? "전국도감 번호 순으로 모아보는 레어리티 컬렉션"
+      : "레어리티·시리즈별로 모아보는 컬렉션";
   }
 
   const title = document.querySelector(".catalog-heading h2");
-  if (title) title.textContent = AR_VIEW === "national" ? "전국도감별 AR" : "시리즈별 AR";
+  if (title) title.textContent = AR_VIEW === "national" ? "전국도감별 카드" : "시리즈별 카드";
 
   const filterLabel = document.querySelector(".catalog-select .filter-label");
   if (filterLabel) filterLabel.textContent = AR_VIEW === "series" ? "시리즈 선택" : "보기 선택";
@@ -724,19 +724,19 @@ const RARITY_ORDER = ["AR", "SAR", "SR", "CHR", "CSR", "UR", "HR", "SSR", "MUR"]
 function renderRarityChips(cards) {
   let bar = $("ar-rarity-chips");
   if (!bar) {
-    const row = document.querySelector(".catalog-filter-row");
+    const row = document.querySelector(".catalog-toolbar");
     if (!row) return;
     bar = document.createElement("div");
     bar.id = "ar-rarity-chips";
     bar.className = "ar-rarity-chips";
-    bar.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;margin:8px 0";
+    bar.style.cssText = "display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px";
     bar.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-rarity]");
       if (!button) return;
       rarityFilter = button.dataset.rarity;
       render();
     });
-    row.after(bar);
+    row.before(bar);
   }
   const counts = {};
   cards.forEach((card) => {
@@ -751,9 +751,9 @@ function renderRarityChips(cards) {
     button.dataset.rarity = key;
     button.textContent = label;
     button.style.cssText =
-      "padding:5px 11px;border-radius:999px;border:1px solid #d8dde6;background:" +
+      "padding:8px 14px;border-radius:999px;font-weight:600;border:1px solid #d8dde6;background:" +
       (rarityFilter === key ? "#2563eb;color:#fff" : "#fff;color:#334155") +
-      ";font-size:13px;cursor:pointer";
+      ";font-size:14px;cursor:pointer";
     return button;
   };
   bar.replaceChildren(
