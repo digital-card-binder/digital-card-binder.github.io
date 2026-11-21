@@ -161,6 +161,7 @@ function rarityLabel(card) {
   if (card.rarity === "CHR") return "CHARACTER RARE";
   if (card.rarity === "CSR") return "CHARACTER SUPER RARE";
   if (card.rarity === "SR") return "SUPER RARE";
+  if (card.rarity === "HR") return "HYPER RARE";
   return "ART RARE";
 }
 
