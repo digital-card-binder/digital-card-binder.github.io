@@ -65,7 +65,7 @@
           ["나만의 도감", "./custom.html"], ["바인더 스튜디오", "./studio.html"]
         ] },
         { title: "테마도감 바로가기", links: [
-          ["AR 도감", "./ar.html"], ["작가 도감", "./artists.html"],
+          ["레어리티도감", "./ar.html"], ["작가 도감", "./artists.html"],
           ["인물 도감", "./people.html"], ["포켓몬 컬렉션", "./pokemon-collections.html"],
           ["이브이 도감", "./eevee.html"], ["월드 탐험", "./world.html"],
           ["화석 도감", "./fossil.html"], ["트레이너 × 포켓몬", "./trainer-pokemon.html"]
