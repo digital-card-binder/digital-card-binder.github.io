@@ -11,12 +11,12 @@ for (const group of supplement) byCode.set(String(group.code).toLowerCase(), gro
 const merged = [...byCode.values()];
 const total = merged.reduce((sum, group) => sum + (group.cards || []).length, 0);
 
-assert.equal(base.length, 33);
-assert.equal(base.reduce((sum, group) => sum + (group.cards || []).length, 0), 535);
+assert.equal(base.length, 37);
+assert.equal(base.reduce((sum, group) => sum + (group.cards || []).length, 0), 629);
 assert.equal(base.some((group) => String(group.code).toLowerCase() === "m5"), true);
-assert.equal(merged.length, 35);
-assert.equal(total, 567);
+assert.equal(merged.length, 39);
+assert.equal(total, 661);
 assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6"), true);
 assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6a"), true);
 
-console.log("AR current baseline is 35 sets / 567 cards");
+console.log("AR current baseline is 39 sets / 661 cards");

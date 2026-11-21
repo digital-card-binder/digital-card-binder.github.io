@@ -157,6 +157,12 @@ function normalizeGroups(sourceGroups) {
   }
 }
 
+function rarityLabel(card) {
+  if (card.rarity === "CHR") return "CHARACTER RARE";
+  if (card.rarity === "CSR") return "CHARACTER SUPER RARE";
+  return "ART RARE";
+}
+
 function normalizePokemonName(name) {
   return String(name || "")
     .replace(/\s+(ex|V|VMAX|VSTAR)$/i, "")
@@ -400,7 +406,7 @@ function updateDialog(card) {
 
   setText("dialog-code", card.code);
   setText("dialog-name", card.name);
-  setText("dialog-meta", `${String(card.setCode).toUpperCase()} ART RARE`);
+  setText("dialog-meta", `${String(card.setCode).toUpperCase()} ${rarityLabel(card)}`);
   setText("dialog-group", `${card.setCode} · ${card.setTitle}`);
   setText("dialog-number", `${pad(card.number)} / ${card.denominator}`);
 
@@ -624,7 +630,7 @@ function makeCard(card) {
 
   const rarity = document.createElement("span");
   rarity.className = "ar-rarity-badge";
-  rarity.textContent = "AR";
+  rarity.textContent = card.rarity || "AR";
 
   const fallback = document.createElement("span");
   fallback.className = "image-fallback";
@@ -667,7 +673,7 @@ function makeCard(card) {
 
   const meta = document.createElement("span");
   meta.className = "card-meta";
-  meta.textContent = `${pad(card.number)} / ${card.denominator} · ART RARE`;
+  meta.textContent = `${pad(card.number)} / ${card.denominator} · ${rarityLabel(card)}`;
 
   body.append(top, tag, name, setName, meta);
   button.append(imageWrap, body);
