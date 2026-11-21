@@ -17,8 +17,8 @@
       "unit": "장"
     },
     "ar": {
-      "itemCount": 567,
-      "groupCount": 34,
+      "itemCount": 661,
+      "groupCount": 38,
       "unit": "장"
     },
     "pack": {

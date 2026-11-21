@@ -54,10 +54,10 @@ assert.match(css, /[.]ar-view-tabs/);
 assert.match(css, /[.]ar-view-national [.]catalog-select/);
 assert.doesNotMatch(editor, /account[.]applyGroups\s*=/);
 
-assert.equal(baseData.length, 33);
+assert.equal(baseData.length, 37);
 assert.equal(
   baseData.reduce((total, group) => total + group.cards.length, 0),
-  535,
+  629,
 );
 assert.equal(supplementData.length, 3);
 
