@@ -913,9 +913,10 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 }
 
 @media print {
+  /* 출력물은 미보유 카드도 원본 컬러로 인쇄한다(화면 미리보기만 흑백 표시). */
   .studio-print-card.is-missing img {
-    filter: grayscale(1) !important;
-    opacity: .72 !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
 
@@ -991,7 +992,7 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
   }
 
   .studio-print-card.is-missing img {
-    filter: grayscale(1) !important;
+    filter: none !important;
     opacity: 1 !important;
   }
 
