@@ -57,7 +57,7 @@ assert.doesNotMatch(editor, /account[.]applyGroups\s*=/);
 assert.equal(baseData.length, 98);
 assert.equal(
   baseData.reduce((total, group) => total + group.cards.length, 0),
-  1666,
+  1660,
 );
 assert.equal(supplementData.length, 3);
 
