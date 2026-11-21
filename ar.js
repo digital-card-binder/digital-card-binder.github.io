@@ -14,7 +14,7 @@ let allCards = [];
 let nationalCards = [];
 let selectedCode = AR_VIEW === "series" ? "all" : "national";
 let status = "all";
-let rarityFilter = "all";
+let rarityFilter = new URLSearchParams(window.location.search).get("rarity") || "all";
 let query = "";
 let activeCard = null;
 let accountApplied = false;
@@ -763,10 +763,25 @@ function renderRarityChips(cards) {
   bar.hidden = keys.length < 2;
 }
 
+function syncRaritySublinks() {
+  document.querySelectorAll("[data-rarity-link]").forEach((link) => {
+    link.classList.toggle("is-sub-active", link.dataset.rarityLink === rarityFilter);
+  });
+  try {
+    const url = new URL(window.location.href);
+    if (rarityFilter === "all") url.searchParams.delete("rarity");
+    else url.searchParams.set("rarity", rarityFilter);
+    window.history.replaceState(null, "", url);
+  } catch (error) {
+    /* 주소 갱신 실패는 무시 */
+  }
+}
+
 function render() {
   const grid = $("catalog-grid");
   if (!grid) return;
   renderRarityChips(visibleCards());
+  syncRaritySublinks();
 
   const normalizedQuery = query.trim().toLowerCase();
   const baseCards = visibleCards();

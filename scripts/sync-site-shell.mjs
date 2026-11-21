@@ -81,6 +81,19 @@ const brand = `<a class="brand" href="./" aria-label="디지털 카드 바인더
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>`;
 
+const RARITY_SUBLINKS = [
+  ["all", "전체 레어리티"],
+  ["AR", "AR · Art Rare"],
+  ["SAR", "SAR · Special Art Rare"],
+  ["SR", "SR · Super Rare"],
+  ["CHR", "CHR · Character Rare"],
+  ["CSR", "CSR · Character Super Rare"],
+  ["UR", "UR · Ultra Rare"],
+  ["HR", "HR · Hyper Rare"],
+  ["SSR", "SSR · Shiny Super Rare"],
+  ["MUR", "MUR · Mega Ultra Rare"],
+];
+
 function activePageFor(filename) {
   return filename === "collector.html" ? "collectors.html" : filename;
 }
@@ -104,7 +117,15 @@ function renderNavigation(filename) {
     );
   }
   lines.push("        </nav>");
-  return lines.join("\n");
+  let html = lines.join("\n");
+  if (activePage === "ar.html") {
+    const sub = RARITY_SUBLINKS.map(
+      ([key, label]) =>
+        `          <a class="collection-link collection-sublink" href="./ar.html?view=series${key === "all" ? "" : `&amp;rarity=${key}`}" data-rarity-link="${key}"><span><strong>${label}</strong></span></a>`,
+    ).join("\n");
+    html = html.replace(/(<a class="collection-link is-active" href="\.\/ar\.html"[^\n]*<\/a>)/, `$1\n${sub}`);
+  }
+  return html;
 }
 
 
