@@ -391,6 +391,7 @@ def main() -> int:
             "errors": error_messages,
         }
         failures[project].append(failure)
+        print("  errors: " + " | ".join(error_messages), flush=True)
         append_log(log_path, {"status": "failed", **failure})
         if args.placeholder_on_failure:
             create_placeholder(destination, args.width, args.quality)
