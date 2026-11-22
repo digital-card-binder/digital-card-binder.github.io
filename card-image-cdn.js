@@ -103,9 +103,20 @@
     "data/wmimages/SV/SV11B/SV11B_167.webp": "20261122",
   };
 
+  // 공식 사이트가 2장을 한 이미지로 올린 양면 스타디움(M6 071~076)을 한 장씩 잘라 우리 저장소에서 직접 제공한다.
+  const LOCAL_IMAGES = {
+    "data/wmimages/MEGA/M6/M6_071.webp": "/assets/cards/M6_071.webp?v=20261123",
+    "data/wmimages/MEGA/M6/M6_072.webp": "/assets/cards/M6_072.webp?v=20261123",
+    "data/wmimages/MEGA/M6/M6_073.webp": "/assets/cards/M6_073.webp?v=20261123",
+    "data/wmimages/MEGA/M6/M6_074.webp": "/assets/cards/M6_074.webp?v=20261123",
+    "data/wmimages/MEGA/M6/M6_075.webp": "/assets/cards/M6_075.webp?v=20261123",
+    "data/wmimages/MEGA/M6/M6_076.webp": "/assets/cards/M6_076.webp?v=20261123",
+  };
+
   function destinationFor(value) {
     const target = route(value);
     if (!target) return "";
+    if (LOCAL_IMAGES[target.relativePath]) return LOCAL_IMAGES[target.relativePath];
     const base = String(CONFIG[`${target.project}Base`] || "").replace(/\/+$/, "");
     if (!base) return FALLBACK_IMAGE;
     const revision = REFRESHED_IMAGES[target.relativePath];
