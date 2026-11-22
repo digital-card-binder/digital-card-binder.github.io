@@ -12,11 +12,11 @@ const merged = [...byCode.values()];
 const total = merged.reduce((sum, group) => sum + (group.cards || []).length, 0);
 
 assert.equal(base.length, 98);
-assert.equal(base.reduce((sum, group) => sum + (group.cards || []).length, 0), 1660);
+assert.equal(base.reduce((sum, group) => sum + (group.cards || []).length, 0), 2572);
 assert.equal(base.some((group) => String(group.code).toLowerCase() === "m5"), true);
 assert.equal(merged.length, 100);
-assert.equal(total, 1727);
+assert.equal(total, 2664);
 assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6"), true);
 assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6a"), true);
 
-console.log("AR current baseline is 100 sets / 1727 cards");
+console.log("AR current baseline is 100 sets / 2664 cards");
