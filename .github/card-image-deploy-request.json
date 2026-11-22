@@ -1,11 +1,7 @@
 {
   "mode": "repair_only",
-  "requestId": "m6-071-073-075-single-card-image-20261123-2",
+  "requestId": "clear-failed-m6-refresh-20261123-1",
   "refreshM6aBase": false,
-  "reason": "Replace two-card landscape scans with single portrait card images for M6 071/073/075.",
-  "refreshCardImages": [
-    "data/wmimages/MEGA/M6/M6_071.webp",
-    "data/wmimages/MEGA/M6/M6_073.webp",
-    "data/wmimages/MEGA/M6/M6_075.webp"
-  ]
+  "reason": "Clear failed M6 071/073/075 refresh (source hosts return 403/404 to CI). No image changes.",
+  "refreshCardImages": []
 }
