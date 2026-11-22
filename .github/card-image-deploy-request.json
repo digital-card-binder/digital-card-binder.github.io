@@ -1,9 +1,11 @@
 {
   "mode": "repair_only",
-  "requestId": "sv11b-167-serperior-sar-image-refresh-20261122-1",
+  "requestId": "m6-071-073-075-single-card-image-20261123-1",
   "refreshM6aBase": false,
-  "reason": "Refresh SV11B_167 (샤로다 ex SAR): the self-hosted copy showed a 몰드류 ex image while the official Korean image is 샤로다 ex. Repair-only, one image. No ownership/code changes.",
+  "reason": "Replace two-card landscape scans with single portrait card images for M6 071/073/075.",
   "refreshCardImages": [
-    "data/wmimages/SV/SV11B/SV11B_167.webp"
+    "data/wmimages/MEGA/M6/M6_071.webp",
+    "data/wmimages/MEGA/M6/M6_073.webp",
+    "data/wmimages/MEGA/M6/M6_075.webp"
   ]
 }

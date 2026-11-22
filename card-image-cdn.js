@@ -100,6 +100,9 @@
 
   // 이미지 파일을 교체한 경우에만 등록한다. 서버 캐시가 7일이라 값을 바꾸면 모든 기기가 새 파일을 받는다.
   const REFRESHED_IMAGES = {
+    "data/wmimages/MEGA/M6/M6_071.webp": "20261123",
+    "data/wmimages/MEGA/M6/M6_073.webp": "20261123",
+    "data/wmimages/MEGA/M6/M6_075.webp": "20261123",
     "data/wmimages/SV/SV11B/SV11B_167.webp": "20261122",
   };
 
