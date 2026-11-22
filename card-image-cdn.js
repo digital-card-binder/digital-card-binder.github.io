@@ -98,11 +98,18 @@
     };
   }
 
+  // 이미지 파일을 교체한 경우에만 등록한다. 서버 캐시가 7일이라 값을 바꾸면 모든 기기가 새 파일을 받는다.
+  const REFRESHED_IMAGES = {
+    "data/wmimages/SV/SV11B/SV11B_167.webp": "20261122",
+  };
+
   function destinationFor(value) {
     const target = route(value);
     if (!target) return "";
     const base = String(CONFIG[`${target.project}Base`] || "").replace(/\/+$/, "");
-    return base ? `${base}/${target.relativePath}` : FALLBACK_IMAGE;
+    if (!base) return FALLBACK_IMAGE;
+    const revision = REFRESHED_IMAGES[target.relativePath];
+    return `${base}/${target.relativePath}${revision ? `?v=${revision}` : ""}`;
   }
 
   const previewEnabled = new URLSearchParams(window.location.search).get(
