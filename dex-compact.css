@@ -1,0 +1,360 @@
+/* 도감 상단 압축: 도감명·수집률, 보기 탭, 검색·필터만 남겨 카드를 먼저 보여준다. */
+body.dex-compact.collector-collection-page .collector-collection-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 8px 12px;
+  min-height: 0;
+  margin: 0 0 8px;
+  padding: 4px 2px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+body.dex-compact .collector-collection-hero :is(.hero-glow, .hero-description, .progress-ring, .eyebrow, .art-theme-kicker),
+body.dex-compact .collector-collection-hero::before,
+body.dex-compact .collector-collection-hero::after,
+body.dex-compact .collector-collection-hero .hero-progress-copy > span {
+  display: none !important;
+}
+body.dex-compact.collector-collection-page .collector-collection-hero .hero-content {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+body.dex-compact.collector-collection-page .collector-collection-hero h1 {
+  margin: 0;
+  font-size: 1.375rem;
+  line-height: 1.35;
+}
+body.dex-compact.collector-collection-page .collector-collection-hero .hero-progress {
+  display: block;
+  min-width: 0;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+body.dex-compact .collector-collection-hero .hero-progress-copy {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: end;
+  align-items: baseline;
+  column-gap: 8px;
+  text-align: right;
+}
+body.dex-compact .collector-collection-hero .hero-progress-copy > strong {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+  margin: 0;
+  font-size: 1.05rem;
+  color: #17314f;
+}
+body.dex-compact .collector-collection-hero .hero-progress-copy > strong small {
+  font-size: .8rem;
+  color: #4b6076;
+}
+body.dex-compact .collector-collection-hero .hero-progress-copy > p {
+  grid-column: 1 / -1;
+  order: 3;
+  margin: 0;
+  font-size: .75rem;
+  color: #4b6076;
+}
+body.dex-compact .dex-rate {
+  font-size: .85rem;
+  font-style: normal;
+  font-weight: 800;
+  color: #0b6e6e;
+}
+body.dex-compact .dex-progress {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: 3px;
+  background: #d3dfe8;
+  overflow: hidden;
+}
+body.dex-compact .dex-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #0b7a7a;
+}
+
+body.dex-compact.collector-collection-page .catalog-panel.collector-content-panel:not(.promo-catalog-panel) {
+  margin-top: 0;
+  padding-top: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+/* 보기 탭과 열 전환 */
+body.dex-compact.collector-collection-page.collector-simple-dex.dex-has-column-button .collector-quick-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 52px;
+}
+body.dex-compact.collector-collection-page.collector-simple-dex .collector-quick-controls {
+  margin: 0 0 8px;
+}
+body.dex-compact.collector-collection-page.collector-simple-dex .collector-quick-controls button {
+  min-height: 44px;
+  font-size: .82rem;
+}
+body.dex-compact.collector-collection-page.collector-simple-dex .collector-quick-controls .dex-columns-button {
+  border: 1px solid #74879a;
+  background: #fff;
+  color: #17314f;
+}
+body.dex-compact.dex-has-column-button .results-bar :is(.series-card-layout-options, .card-layout-options) {
+  display: none;
+}
+
+/* 검색과 필터 */
+body.dex-compact .dex-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+body.dex-compact .dex-search {
+  flex: 1 1 0;
+  min-width: 0;
+}
+body.dex-compact .dex-search:empty {
+  visibility: hidden;
+}
+body.dex-compact.series-dashboard-mode .dex-search {
+  visibility: hidden;
+}
+body.dex-compact .dex-search > * {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  margin: 0;
+}
+body.dex-compact .dex-search > :not(.search-field) {
+  gap: 8px;
+}
+body.dex-compact .dex-search > :not(.search-field) > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+body.dex-compact .dex-search input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  font-size: 16px;
+}
+body.dex-compact .dex-search > .search-field,
+body.dex-compact .dex-search > :not(.search-field) input {
+  border: 1px solid #74879a;
+  border-radius: 10px;
+}
+body.dex-compact .dex-search > :not(.search-field) input {
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 12px;
+}
+body.dex-compact .dex-search kbd {
+  display: none;
+}
+body.dex-compact :is(.dex-filter-button, .dex-chip, .dex-sheet-close) {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #17374f;
+  border-radius: 10px;
+  background: #fff;
+  color: #17314f;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+body.dex-compact .dex-chips {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+body.dex-compact .dex-chip {
+  border-color: #74879a;
+  background: #eef3f7;
+}
+body.dex-compact :is(.dex-chips, .dex-filter-button)[hidden] {
+  display: none;
+}
+body.dex-compact .catalog-panel .dex-emptied {
+  display: none !important;
+}
+
+/* 결과 줄 */
+body.dex-compact.collector-collection-page .catalog-panel .results-bar:not(.promo-results-bar) {
+  min-height: 0;
+  margin: 0 0 8px;
+  padding-block: 0;
+}
+body.dex-compact.collector-collection-page .catalog-panel .results-bar.dex-idle {
+  display: none;
+}
+body.dex-compact.collector-collection-page .catalog-panel .results-bar.dex-quiet > :not(.results-bar-actions) {
+  visibility: hidden;
+}
+
+/* 로그인 안내는 한 덩어리로 줄인다. */
+body.dex-compact .collection-manager-notice {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+}
+body.dex-compact .collection-manager-notice strong {
+  display: none;
+}
+body.dex-compact .collection-manager-notice span {
+  margin: 0;
+  font-size: .75rem;
+  line-height: 1.4;
+}
+
+/* 레어리티 선택은 모바일에서 한 줄로 넘겨 본다. */
+@media (max-width: 690px) {
+  body.dex-compact.collector-collection-page #ar-rarity-chips.ar-rarity-chips {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+  }
+  body.dex-compact .ar-rarity-chips button {
+    flex: 0 0 auto;
+    min-height: 44px;
+  }
+}
+
+/* 필터 창: 모바일은 아래에서, PC는 가운데 */
+body.dex-compact .dex-sheet {
+  box-sizing: border-box;
+  width: min(480px, 100%);
+  max-width: 100%;
+  max-height: 85dvh;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  color: #17314f;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+body.dex-compact .dex-sheet::backdrop {
+  background: rgba(15, 35, 58, .45);
+}
+body.dex-compact .dex-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+body.dex-compact .dex-sheet-head h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+body.dex-compact .dex-sheet-close {
+  border: 0;
+}
+body.dex-compact .dex-sheet-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+body.dex-compact .dex-sheet-body > * {
+  min-width: 0;
+  margin: 0;
+}
+body.dex-compact .dex-sheet-body :is(.filter-row, .artist-filter-row, .tp-filter-row, .pack-filter-row, .people-filter-groups) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+body.dex-compact .dex-sheet-body .pack-era-mobile-select,
+body.dex-compact .dex-sheet-body .collector-status-source,
+body.dex-compact .dex-sheet-body .filter-group--status {
+  display: none;
+}
+body.dex-compact .dex-sheet-body .pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  overflow: visible;
+}
+body.dex-compact .dex-sheet-body :is(button, select) {
+  min-height: 44px;
+}
+body.dex-compact .dex-sheet-body select {
+  width: 100%;
+  font-size: 16px;
+}
+body.dex-compact .dex-sheet-body :is(.sort-field, .artist-sort-field, .tp-sort-field, .pack-era-mobile-select, .fossil-select-field) {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+body.dex-compact .dex-sheet-body .series-scope-main {
+  flex-wrap: wrap;
+}
+body.dex-compact .dex-sheet-done {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #17374f;
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+body.dex-compact :is(.dex-filter-button, .dex-chip, .dex-sheet-close, .dex-sheet-done, .dex-columns-button):focus-visible {
+  outline: 3px solid #6554c8;
+  outline-offset: 2px;
+}
+
+@media (max-width: 690px) {
+  body.dex-compact .dex-sheet {
+    width: 100%;
+    margin: auto 0 0;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+@media print {
+  .dex-tools, .dex-sheet, .dex-progress { display: none !important; }
+}
+
+/* 팩 시리즈: PROMO 이동이 있는 버튼 목록 하나만 필터 창에 보여준다. */
+body.dex-compact.collector-collection-page .dex-sheet .dex-sheet-body #era-filters.pill-group {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+body.dex-compact.collector-collection-page .dex-sheet .dex-sheet-body .pack-era-mobile-select {
+  display: none !important;
+}
+body.dex-compact.collector-collection-page .dex-sheet .dex-sheet-body #era-filters.pill-group {
+  flex-direction: row !important;
+}
+body.dex-compact.collector-collection-page .dex-sheet .dex-sheet-body #era-filters.pill-group button {
+  flex: 0 0 auto;
+  width: auto;
+  padding-inline: 14px;
+}
