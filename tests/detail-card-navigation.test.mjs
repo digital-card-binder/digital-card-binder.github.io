@@ -57,3 +57,21 @@ test("navigation helper does not write collection ownership or account data", as
   const helper = await read("detail-card-navigation.js");
   assert.doesNotMatch(helper, /localStorage|sessionStorage|firebase|firestore|\.owned\s*=|setItem\(/i);
 });
+
+test("batched dex lists keep detail navigation going past the first loaded batch", async () => {
+  const helper = await read("detail-card-navigation.js");
+  for (const page of [
+    { html: "national.html", grid: "card-grid", more: "load-more", total: "result-count" },
+    { html: "people.html", grid: "people-grid", more: "people-load-more", total: "people-result-count" },
+    { html: "pokemon-search.html", grid: "pokemon-search-grid", more: "pokemon-search-load-more", total: "pokemon-search-result-count" },
+  ]) {
+    const html = await read(page.html);
+    assert.match(html, new RegExp(`id=["']${page.more}["']`), `${page.html}: load-more button exists`);
+    assert.match(html, new RegExp(`id=["']${page.total}["']`), `${page.html}: total counter exists`);
+    assert.ok(helper.includes(`grid: "#${page.grid}", more: "#${page.more}", total: "#${page.total}",`), `${page.html}: batch loading configured`);
+  }
+  assert.match(helper, /more\.click\(\);\s*items = cardsInGrid/);
+  const catalog = await read("catalog.js");
+  assert.match(catalog, /pokemonVisibleLimit \+= 96;\s*render\(\);\s*index = renderedCards\.indexOf\(activeCard\);/);
+  assert.match(catalog, /total: matchedCardTotal/);
+});

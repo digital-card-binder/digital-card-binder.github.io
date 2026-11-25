@@ -9,12 +9,12 @@
   const configs = [
     { grid: "#fossil-card-grid", dialog: "#fossil-dialog", trigger: ".fossil-card-button", name: "화석 도감" },
     { grid: "#tp-card-grid", dialog: "#tp-dialog", trigger: ".pokemon-card-button", name: "트레이너 × 포켓몬 도감" },
-    { grid: "#pokemon-search-grid", dialog: "#pokemon-search-dialog", trigger: ".pokemon-card-button", name: "카드 검색" },
+    { grid: "#pokemon-search-grid", more: "#pokemon-search-load-more", total: "#pokemon-search-result-count", dialog: "#pokemon-search-dialog", trigger: ".pokemon-card-button", name: "카드 검색" },
     { grid: "#artist-card-grid", dialog: "#artist-dialog", trigger: ".artist-card-button", name: "작가 도감" },
     { grid: "#art-theme-card-grid", dialog: "#art-theme-dialog", trigger: ".art-theme-card-open", name: "일러스트 테마 도감" },
-    { grid: "#people-grid", dialog: "#people-dialog", trigger: ".pokemon-card-button", name: "인물 도감" },
+    { grid: "#people-grid", more: "#people-load-more", total: "#people-result-count", dialog: "#people-dialog", trigger: ".pokemon-card-button", name: "인물 도감" },
     { grid: "#world-binder-content", dialog: "#world-card-dialog", trigger: ".world-card-open", name: "월드탐험 도감" },
-    { grid: "#card-grid", dialog: "#card-dialog", trigger: ".pokemon-card-button", name: "전국도감" },
+    { grid: "#card-grid", more: "#load-more", total: "#result-count", dialog: "#card-dialog", trigger: ".pokemon-card-button", name: "전국도감" },
     { grid: "#catalog-grid", dialog: "#catalog-dialog", trigger: ".pokemon-card-button", name: "통합 카탈로그 도감", hideNavigationOnMobile: true },
     { grid: "#pack-groups", dialog: "#pack-dialog", trigger: ".pack-card-detail", name: "팩 전종수집" },
   ];
@@ -49,6 +49,18 @@
   const cardsInGrid = (grid, config) => [...(grid?.querySelectorAll("article") || [])]
     .filter((node) => node.querySelector(config.trigger || "button"));
 
+  // 목록을 나눠 불러오는 화면은 아직 불러오지 않은 카드도 이동 범위에 포함한다.
+  const moreButtonFor = (config) => {
+    const button = config.more ? document.querySelector(config.more) : null;
+    return button && !button.disabled && !button.closest("[hidden]") ? button : null;
+  };
+
+  const totalFor = (config, loaded) => {
+    if (!moreButtonFor(config)) return loaded;
+    const digits = document.querySelector(config.total)?.textContent.replace(/\D/g, "");
+    return Math.max(Number(digits) || 0, loaded);
+  };
+
   function sync(config) {
     const dialog = document.querySelector(config.dialog);
     const adapter = adapterFor(config);
@@ -69,9 +81,10 @@
     const nav = dialog?.querySelector(".detail-card-navigation");
     if (!nav) return;
     nav.querySelector("[data-detail-prev]").disabled = index <= 0;
-    nav.querySelector("[data-detail-next]").disabled = index < 0 || index >= items.length - 1;
+    nav.querySelector("[data-detail-next]").disabled =
+      index < 0 || (index >= items.length - 1 && !moreButtonFor(config));
     nav.querySelector("[data-detail-count]").textContent =
-      index < 0 ? "목록이 변경됨" : `${index + 1} / ${items.length}`;
+      index < 0 ? "목록이 변경됨" : `${index + 1} / ${totalFor(config, items.length)}`;
   }
 
   function move(direction) {
@@ -84,8 +97,16 @@
     }
     const grid = document.querySelector(active.config.grid);
     const dialog = document.querySelector(active.config.dialog);
-    const items = cardsInGrid(grid, active.config);
+    let items = cardsInGrid(grid, active.config);
     const index = items.indexOf(active.button.closest("article"));
+    if (index >= 0 && direction > 0 && !items[index + direction]) {
+      // 마지막으로 불러온 카드라면 다음 묶음을 먼저 불러온 뒤 이어서 이동한다.
+      const more = moreButtonFor(active.config);
+      if (more) {
+        more.click();
+        items = cardsInGrid(grid, active.config);
+      }
+    }
     const next = items[index + direction];
     const nextButton = next?.querySelector(active.config.trigger || "button");
     if (!nextButton || index < 0) return;

@@ -104,6 +104,7 @@ let quickCollectPendingCards = new WeakSet();
 let quickCollectViewKey = "";
 let quickVariantCard = null;
 let renderedCards = [];
+let matchedCardTotal = 0;
 let pokemonVisibleLimit = 96;
 let mobileSheetGestureStart = null;
 const QUICK_COLLECT_STORAGE_KEY = "pokemonDexQuickCollectV1";
@@ -1744,7 +1745,7 @@ function updateMobileCardSheetControls() {
   const variant = dialog.querySelector("[data-sheet-variant]");
 
   if (previous) previous.disabled = index <= 0;
-  if (next) next.disabled = index < 0 || index >= renderedCards.length - 1;
+  if (next) next.disabled = index < 0 || index >= matchedCardTotal - 1;
 
   if (collect) {
     const owned = Boolean(activeCard.owned);
@@ -1783,7 +1784,14 @@ function animateMobileSheetDirection(direction) {
 
 function openAdjacentCard(direction) {
   if (!activeCard || !renderedCards.length) return;
-  const index = renderedCards.indexOf(activeCard);
+  let index = renderedCards.indexOf(activeCard);
+  if (index >= 0 && direction > 0 && index === renderedCards.length - 1 &&
+      renderedCards.length < matchedCardTotal) {
+    // 포켓몬 컬렉션은 96장씩 그리므로 다음 묶음을 불러온 뒤 이어서 이동한다.
+    pokemonVisibleLimit += 96;
+    render();
+    index = renderedCards.indexOf(activeCard);
+  }
   const nextIndex = index + direction;
   if (index < 0 || nextIndex < 0 || nextIndex >= renderedCards.length) return;
 
@@ -1797,7 +1805,7 @@ function openAdjacentCard(direction) {
 
 // 하단 이동 막대·키보드·스와이프가 이 화면의 활성 카드 하나만 기준으로 이동하도록 등록한다.
 (window.DetailCardNavigationAdapters ||= {})["#catalog-dialog"] = {
-  state: () => (activeCard ? { index: renderedCards.indexOf(activeCard), total: renderedCards.length } : null),
+  state: () => (activeCard ? { index: renderedCards.indexOf(activeCard), total: matchedCardTotal } : null),
   step: (direction) => openAdjacentCard(direction),
 };
 
@@ -2013,6 +2021,7 @@ function render() {
     ? shown.slice(0, pokemonVisibleLimit)
     : shown;
   renderedCards = visibleCards;
+  matchedCardTotal = shown.length;
   $("catalog-grid").replaceChildren(...visibleCards.map(makeCard));
   if (mode === "pokemon") {
     let moreButton = $("catalog-more");
