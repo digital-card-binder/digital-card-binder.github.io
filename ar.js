@@ -728,13 +728,17 @@ function renderRarityChips(cards) {
     if (!row) return;
     bar = document.createElement("div");
     bar.id = "ar-rarity-chips";
-    bar.className = "ar-rarity-chips";
-    bar.style.cssText = "display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px";
+    // 다른 도감의 분류 버튼과 같은 공통 모양을 쓴다.
+    bar.className = "ar-rarity-chips pill-group";
+    bar.setAttribute("role", "group");
+    bar.setAttribute("aria-label", "레어도 선택");
     bar.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-rarity]");
       if (!button) return;
       rarityFilter = button.dataset.rarity;
       render();
+      // 버튼을 다시 그려도 키보드 선택 위치를 유지한다.
+      bar.querySelector(`button[data-rarity="${rarityFilter}"]`)?.focus({ preventScroll: true });
     });
     row.before(bar);
   }
@@ -750,10 +754,8 @@ function renderRarityChips(cards) {
     button.type = "button";
     button.dataset.rarity = key;
     button.textContent = label;
-    button.style.cssText =
-      "padding:8px 14px;border-radius:999px;font-weight:600;border:1px solid #d8dde6;background:" +
-      (rarityFilter === key ? "#2563eb;color:#fff" : "#fff;color:#334155") +
-      ";font-size:14px;cursor:pointer";
+    button.classList.toggle("is-active", rarityFilter === key);
+    button.setAttribute("aria-pressed", String(rarityFilter === key));
     return button;
   };
   bar.replaceChildren(
