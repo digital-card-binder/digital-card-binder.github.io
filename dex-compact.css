@@ -130,7 +130,7 @@ body.dex-compact .dex-search:empty {
   visibility: hidden;
 }
 body.dex-compact.series-dashboard-mode .dex-search {
-  visibility: hidden;
+  display: none;
 }
 body.dex-compact .dex-search > * {
   display: flex;
@@ -306,7 +306,7 @@ body.dex-compact .dex-menus :is(button, select):focus-visible {
 }
 
 /* 시리즈 도감: 도감 구성·포켓몬만 보기 */
-body.dex-compact .dex-tools .dex-menus .series-scope-switch {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-switch {
   flex: 1 0 100%;
   display: flex;
   flex-wrap: wrap;
@@ -318,24 +318,24 @@ body.dex-compact .dex-tools .dex-menus .series-scope-switch {
   border: 0;
   background: none;
 }
-body.dex-compact .dex-tools .dex-menus .series-scope-main {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-main {
   display: block;
   flex: 1 1 168px;
   max-width: 300px;
 }
-body.dex-compact .dex-tools .dex-menus .series-scope-options {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-options {
   width: 100%;
   gap: 2px;
   padding: 2px;
 }
-body.dex-compact .dex-tools .dex-menus .series-scope-options button {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-options button {
   min-width: 0;
   min-height: 40px;
   padding: 0 6px;
   font-size: .76rem;
   white-space: nowrap;
 }
-body.dex-compact .dex-tools .dex-menus .series-pokemon-toggle {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-pokemon-toggle {
   flex: 0 0 auto;
   gap: 8px;
   min-height: 44px;
@@ -343,29 +343,31 @@ body.dex-compact .dex-tools .dex-menus .series-pokemon-toggle {
   padding: 0;
   border: 0;
 }
-body.dex-compact .dex-tools .dex-menus .series-pokemon-copy strong {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-pokemon-copy strong {
   font-size: .76rem;
   white-space: nowrap;
 }
 @media (max-width: 400px) {
-  body.dex-compact .dex-tools .dex-menus .series-scope-switch { column-gap: 8px; }
-  body.dex-compact .dex-tools .dex-menus .series-scope-main { flex-basis: 150px; }
-  body.dex-compact .dex-tools .dex-menus .series-pokemon-toggle { gap: 5px; }
-  body.dex-compact .dex-tools .dex-menus .series-scope-options button,
-  body.dex-compact .dex-tools .dex-menus .series-pokemon-copy strong { font-size: .7rem; padding-left: 0; padding-right: 0; }
+  body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-switch { column-gap: 8px; }
+  body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-main { flex-basis: 150px; }
+  body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-pokemon-toggle { gap: 5px; }
+  body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-options button,
+  body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-pokemon-copy strong { font-size: .7rem; padding-left: 0; padding-right: 0; }
 }
 /* 설명 문구는 화면에서만 숨기고 화면 낭독기에는 남긴다. */
-body.dex-compact .dex-tools .dex-menus .series-scope-copy,
-body.dex-compact .dex-tools .dex-menus .series-scope-switch:not(.is-unavailable) .series-pokemon-copy small {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-copy,
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-switch:not(.is-unavailable) .series-pokemon-copy small {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
 }
-body.dex-compact .dex-tools .dex-menus .series-scope-switch.is-unavailable .series-pokemon-toggle {
+body.dex-compact :is(.dex-tools .dex-menus, .series-scope-slot) .series-scope-switch.is-unavailable .series-pokemon-toggle {
   flex: 1 0 100%;
 }
+
+body.dex-compact .series-scope-slot { margin: 0 0 8px; }
 
 /* 결과 줄 */
 body.dex-compact.collector-collection-page .catalog-panel .results-bar:not(.promo-results-bar) {

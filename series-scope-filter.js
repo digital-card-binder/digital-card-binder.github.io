@@ -8,7 +8,6 @@
   let activePokemonOnly = params.get("pokemon") === "1";
   const caption = document.querySelector(".catalog-caption");
   const defaultCaption = caption?.textContent || "";
-  const scopeHint = () => document.querySelector("#series-scope-hint");
 
   function syncControl() {
     const state = window.PokemonDexSeriesScope?.getState?.();
@@ -16,7 +15,7 @@
       activeScope = state.scope;
       activePokemonOnly = state.pokemonOnly;
     }
-    document.querySelectorAll("#catalog-scope button[data-scope]").forEach((button) => {
+    document.querySelectorAll(".series-scope-switch button[data-scope]").forEach((button) => {
       const active = button.dataset.scope === activeScope;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
@@ -26,24 +25,24 @@
         ? "기본 도감은 분모 번호까지 표시하며, RGB 특별 카드와 분모 초과 카드는 제외됩니다."
         : defaultCaption;
     }
-    const hint = scopeHint();
-    if (hint) hint.textContent = activeScope === "base"
-      ? "분모 번호까지만 표시하며 RGB 특별 카드는 제외합니다."
-      : "RGB 특별 카드와 분모 초과 카드를 포함한 전체 카드를 표시합니다.";
-    const toggle = document.querySelector("#series-pokemon-only");
-    if (toggle) {
-      toggle.checked = activePokemonOnly;
-      toggle.disabled = !state?.pokemonAvailable;
-      toggle.setAttribute("aria-checked", String(activePokemonOnly));
-    }
-    // 목록을 못 불러온 경우에만 안내 문구를 화면에 보여준다.
-    document.querySelector("#catalog-scope")?.classList.toggle(
-      "is-unavailable", Boolean(state && !state.pokemonAvailable),
-    );
-    const help = document.querySelector("#series-pokemon-hint");
-    if (help) help.textContent = state && !state.pokemonAvailable
-      ? "포켓몬 목록을 불러오지 못했습니다. 새로고침 후 이용해 주세요."
-      : "트레이너스·에너지 제외 · 보유 기록 유지";
+    document.querySelectorAll(".series-scope-switch").forEach((item) => {
+      const hint = item.querySelector(".series-scope-copy span");
+      if (hint) hint.textContent = activeScope === "base"
+        ? "분모 번호까지만 표시하며 RGB 특별 카드는 제외합니다."
+        : "RGB 특별 카드와 분모 초과 카드를 포함한 전체 카드를 표시합니다.";
+      const toggle = item.querySelector("input[type=checkbox]");
+      if (toggle) {
+        toggle.checked = activePokemonOnly;
+        toggle.disabled = !state?.pokemonAvailable;
+        toggle.setAttribute("aria-checked", String(activePokemonOnly));
+      }
+      // 목록을 못 불러온 경우에만 안내 문구를 화면에 보여준다.
+      item.classList.toggle("is-unavailable", Boolean(state && !state.pokemonAvailable));
+      const help = item.querySelector(".series-pokemon-copy small");
+      if (help) help.textContent = state && !state.pokemonAvailable
+        ? "포켓몬 목록을 불러오지 못했습니다. 새로고침 후 이용해 주세요."
+        : "트레이너스·에너지 제외 · 보유 기록 유지";
+    });
   }
 
   function switchFilters(nextScope, nextPokemonOnly, updateHistory = true) {
@@ -97,14 +96,28 @@
       <span class="series-toggle-track" aria-hidden="true"></span>
     </label>
   `;
-  control.querySelectorAll("button[data-scope]").forEach((button) => {
-    button.disabled = true;
-    button.addEventListener("click", () => switchScope(button.dataset.scope));
-  });
-  control.querySelector("#series-pokemon-only").addEventListener("change", (event) => {
-    switchFilters(activeScope, event.target.checked);
+  // 분류를 고르면 원래 선택 줄은 카드 목록 쪽에 있으므로,
+  // 시리즈 카테고리 위에도 같은 선택 줄을 하나 더 두고 상태를 함께 맞춘다.
+  const topControl = control.cloneNode(true);
+  topControl.id = "catalog-scope-top";
+  topControl.querySelectorAll("[id]").forEach((node) => { node.id = `${node.id}-top`; });
+  topControl.querySelector("label.series-pokemon-toggle").htmlFor = "series-pokemon-only-top";
+  const topSlot = document.createElement("div");
+  topSlot.className = "series-scope-slot";
+  topSlot.hidden = true;
+  topSlot.append(topControl);
+
+  [control, topControl].forEach((item) => {
+    item.querySelectorAll("button[data-scope]").forEach((button) => {
+      button.disabled = true;
+      button.addEventListener("click", () => switchScope(button.dataset.scope));
+    });
+    item.querySelector("input[type=checkbox]").addEventListener("change", (event) => {
+      switchFilters(activeScope, event.target.checked);
+    });
   });
   heading.insertAdjacentElement("afterend", control);
+  document.querySelector(".catalog-era-filter")?.before(topSlot);
 
   const style = document.createElement("style");
   style.textContent = [
@@ -131,15 +144,17 @@
     ".series-pokemon-toggle input:focus-visible + .series-toggle-track{outline:3px solid #68a2d2;outline-offset:3px;}",
     ".series-pokemon-toggle:has(input:disabled){opacity:.65;cursor:wait;}",
     "@media(max-width:690px){.series-scope-switch{padding:9px 10px;}.series-scope-main{display:grid;gap:8px;}.series-scope-copy{gap:2px;}.series-scope-copy strong{font-size:.66rem;}.series-scope-copy span{font-size:.57rem;}.series-scope-options{width:100%;}.series-scope-options button{min-width:0;min-height:40px;padding:8px 5px;font-size:.69rem;}.series-pokemon-toggle{margin-top:9px;padding-top:10px;min-height:43px;}}",
+    ".series-scope-slot[hidden],body.series-dashboard-mode .series-scope-slot{display:none;}",
     "@media print{.series-scope-switch{display:none!important;}}",
   ].join("\n");
   document.head.append(style);
   syncControl();
 
   window.addEventListener("pokemon-dex:catalog-ready", () => {
-    control.querySelectorAll("button[data-scope]").forEach((button) => {
+    document.querySelectorAll(".series-scope-switch button[data-scope]").forEach((button) => {
       button.disabled = false;
     });
+    topSlot.hidden = false;
     syncControl();
   }, { once: true });
 

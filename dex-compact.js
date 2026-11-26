@@ -8,7 +8,7 @@
   const SURFACES =
     ".filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .art-theme-filter-panel, .catalog-toolbar";
   const MENU_ITEMS = [
-    ".series-scope-switch",
+    "#catalog-scope",
     "#ar-rarity-chips",
     ".filter-panel > .filter-row",
     ".people-filter-groups",
