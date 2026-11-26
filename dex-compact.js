@@ -8,7 +8,6 @@
   const SURFACES =
     ".filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .art-theme-filter-panel, .catalog-toolbar";
   const SHEET_ITEMS = [
-    ".series-scope-switch",
     ".filter-panel > .filter-row",
     ".people-filter-groups",
     ".artist-filter-row",
@@ -18,7 +17,7 @@
   ].join(",");
   const LAYOUT_GROUPS = ".series-card-layout-options, .card-layout-options";
 
-  let tools, searchSlot, filterButton, chips, sheet, sheetBody, columnButton, scheduled = false;
+  let tools, searchSlot, inlineSlot, filterButton, chips, sheet, sheetBody, columnButton, scheduled = false;
 
   const make = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -61,7 +60,8 @@
     filterButton = make("button", "dex-filter-button", "필터");
     filterButton.setAttribute("aria-haspopup", "dialog");
     chips = make("div", "dex-chips");
-    tools.append(searchSlot, filterButton, chips);
+    inlineSlot = make("div", "dex-inline");
+    tools.append(searchSlot, filterButton, inlineSlot, chips);
     (quick.closest(".collector-sticky-selector-stack") || quick).after(tools);
 
     sheet = make("dialog", "dex-sheet");
@@ -119,6 +119,10 @@
         }
       }
     }
+    // 자주 바꾸는 도감 구성·포켓몬만 보기는 필터에 넣지 않고 항상 보여준다.
+    const scope = panel.querySelector(".series-scope-switch");
+    // 이미 옮긴 노드는 다시 붙이지 않는다(포커스 유실·갱신 반복 방지).
+    if (scope && scope.parentNode !== inlineSlot) inlineSlot.append(scope);
     for (const item of panel.querySelectorAll(SHEET_ITEMS)) sheetBody.append(item);
     for (const button of panel.querySelectorAll(".results-bar-actions button, .catalog-actions button")) {
       if (button.textContent.includes("인쇄")) sheetBody.append(button);
@@ -239,7 +243,8 @@
     if (!results) return;
     const searching = Boolean(searchSlot.querySelector("input")?.value.trim());
     const status = document.querySelector(".collector-quick-controls [data-quick-status].is-active");
-    const narrowed = searching || filters.length > 0 || (status && status.dataset.quickStatus !== "all");
+    const pokemonOnly = Boolean(inlineSlot.querySelector('input[type="checkbox"]')?.checked);
+    const narrowed = searching || pokemonOnly || filters.length > 0 || (status && status.dataset.quickStatus !== "all");
     const hasAction = [...results.querySelectorAll(".results-bar-actions > *")].some(
       (node) => !node.matches(LAYOUT_GROUPS) && !node.hidden && getComputedStyle(node).display !== "none",
     );

@@ -201,6 +201,74 @@ body.dex-compact .catalog-panel .dex-emptied {
   display: none !important;
 }
 
+/* 도감 구성·포켓몬만 보기: 검색창 아래 한 줄로 항상 표시 */
+body.dex-compact .dex-inline {
+  flex: 1 0 100%;
+  min-width: 0;
+}
+body.dex-compact .dex-inline:empty {
+  display: none;
+}
+body.dex-compact .dex-inline .series-scope-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.dex-compact .dex-inline .series-scope-main {
+  display: block;
+  flex: 1 1 168px;
+  max-width: 300px;
+}
+body.dex-compact .dex-inline .series-scope-options {
+  width: 100%;
+  gap: 2px;
+  padding: 2px;
+}
+body.dex-compact .dex-inline .series-scope-options button {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 6px;
+  font-size: .76rem;
+  white-space: nowrap;
+}
+body.dex-compact .dex-inline .series-pokemon-toggle {
+  flex: 0 0 auto;
+  gap: 8px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.dex-compact .dex-inline .series-pokemon-copy strong {
+  font-size: .76rem;
+  white-space: nowrap;
+}
+@media (max-width: 400px) {
+  body.dex-compact .dex-inline .series-scope-switch { column-gap: 8px; }
+  body.dex-compact .dex-inline .series-scope-main { flex-basis: 150px; }
+  body.dex-compact .dex-inline .series-pokemon-toggle { gap: 5px; }
+  body.dex-compact .dex-inline .series-scope-options button,
+  body.dex-compact .dex-inline .series-pokemon-copy strong { font-size: .7rem; padding-left: 0; padding-right: 0; }
+}
+/* 설명 문구는 화면에서만 숨기고 화면 낭독기에는 남긴다. */
+body.dex-compact .dex-inline .series-scope-copy,
+body.dex-compact .dex-inline .series-scope-switch:not(.is-unavailable) .series-pokemon-copy small {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+body.dex-compact .dex-inline .series-scope-switch.is-unavailable .series-pokemon-toggle {
+  flex: 1 0 100%;
+}
+
 /* 결과 줄 */
 body.dex-compact.collector-collection-page .catalog-panel .results-bar:not(.promo-results-bar) {
   min-height: 0;
@@ -309,9 +377,6 @@ body.dex-compact .dex-sheet-body :is(.sort-field, .artist-sort-field, .tp-sort-f
   display: grid;
   gap: 6px;
   width: 100%;
-}
-body.dex-compact .dex-sheet-body .series-scope-main {
-  flex-wrap: wrap;
 }
 body.dex-compact .dex-sheet-done {
   width: 100%;

@@ -36,6 +36,10 @@
       toggle.disabled = !state?.pokemonAvailable;
       toggle.setAttribute("aria-checked", String(activePokemonOnly));
     }
+    // 목록을 못 불러온 경우에만 안내 문구를 화면에 보여준다.
+    document.querySelector("#catalog-scope")?.classList.toggle(
+      "is-unavailable", Boolean(state && !state.pokemonAvailable),
+    );
     const help = document.querySelector("#series-pokemon-hint");
     if (help) help.textContent = state && !state.pokemonAvailable
       ? "포켓몬 목록을 불러오지 못했습니다. 새로고침 후 이용해 주세요."
