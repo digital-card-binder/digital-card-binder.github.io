@@ -39,61 +39,88 @@ function makeFilterButton(label, value, type, active = false) {
   return button;
 }
 
+/* 버튼을 새로 만들어도 키보드 선택 위치와 가로 스크롤 위치는 그대로 둔다. */
+function filterButtonKey(button) {
+  const { generation, category, status, generationSummary } = button.dataset || {};
+  return generation ?? category ?? status ?? generationSummary ?? null;
+}
+
+function keepButtonPosition(containers, render) {
+  const focused = document.activeElement;
+  const saved = containers.map((container) => ({
+    container,
+    left: container.scrollLeft,
+    key: container.contains(focused) ? filterButtonKey(focused) : null,
+  }));
+  render();
+  saved.forEach(({ container, left, key }) => {
+    container.scrollLeft = left;
+    if (!key) return;
+    [...container.querySelectorAll("button")]
+      .find((button) => filterButtonKey(button) === key)
+      ?.focus({ preventScroll: true });
+  });
+}
+
 function renderPeopleFilters() {
   const generationFilters = peopleElement("people-generation-filters");
   const categoryFilters = peopleElement("people-category-filters");
   const statusFilters = peopleElement("people-status-filters");
   if (!generationFilters || !categoryFilters || !statusFilters || !peopleState.data) return;
 
-  generationFilters.replaceChildren();
-  generationFilters.append(
-    makeFilterButton("전체", "all", "generation", peopleState.generation === "all"),
-  );
-  peopleState.data.generations.forEach((generation) => {
+  keepButtonPosition([generationFilters, categoryFilters, statusFilters], () => {
+    generationFilters.replaceChildren();
     generationFilters.append(
-      makeFilterButton(
-        `${generation}세대`,
-        String(generation),
-        "generation",
-        peopleState.generation === String(generation),
-      ),
+      makeFilterButton("전체", "all", "generation", peopleState.generation === "all"),
     );
-  });
+    peopleState.data.generations.forEach((generation) => {
+      generationFilters.append(
+        makeFilterButton(
+          `${generation}세대`,
+          String(generation),
+          "generation",
+          peopleState.generation === String(generation),
+        ),
+      );
+    });
 
-  categoryFilters.replaceChildren();
-  categoryFilters.append(
-    makeFilterButton("전체", "all", "category", peopleState.category === "all"),
-  );
-  peopleState.data.categories.forEach((category) => {
+    categoryFilters.replaceChildren();
     categoryFilters.append(
-      makeFilterButton(category, category, "category", peopleState.category === category),
+      makeFilterButton("전체", "all", "category", peopleState.category === "all"),
+    );
+    peopleState.data.categories.forEach((category) => {
+      categoryFilters.append(
+        makeFilterButton(category, category, "category", peopleState.category === category),
+      );
+    });
+
+    statusFilters.replaceChildren(
+      makeFilterButton("전체", "all", "status", peopleState.status === "all"),
+      makeFilterButton("보유", "owned", "status", peopleState.status === "owned"),
+      makeFilterButton("미보유", "missing", "status", peopleState.status === "missing"),
     );
   });
-
-  statusFilters.replaceChildren(
-    makeFilterButton("전체", "all", "status", peopleState.status === "all"),
-    makeFilterButton("보유", "owned", "status", peopleState.status === "owned"),
-    makeFilterButton("미보유", "missing", "status", peopleState.status === "missing"),
-  );
 }
 
 function renderGenerationSummary() {
   const summary = peopleElement("people-generation-summary");
   if (!summary || !peopleState.data) return;
-  summary.replaceChildren();
+  keepButtonPosition([summary], () => {
+    summary.replaceChildren();
 
-  peopleState.data.generations.forEach((generation) => {
-    const generationPeople = peopleState.data.people.filter(
-      (person) => person.generation === generation,
-    );
-    const owned = generationPeople.filter((person) => person.owned).length;
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.generationSummary = String(generation);
-    button.classList.toggle("is-active", peopleState.generation === String(generation));
-    button.setAttribute("aria-pressed", String(peopleState.generation === String(generation)));
-    button.innerHTML = `<span>${generation}세대</span><strong>${owned}/${generationPeople.length}명</strong>`;
-    summary.append(button);
+    peopleState.data.generations.forEach((generation) => {
+      const generationPeople = peopleState.data.people.filter(
+        (person) => person.generation === generation,
+      );
+      const owned = generationPeople.filter((person) => person.owned).length;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.generationSummary = String(generation);
+      button.classList.toggle("is-active", peopleState.generation === String(generation));
+      button.setAttribute("aria-pressed", String(peopleState.generation === String(generation)));
+      button.innerHTML = `<span>${generation}세대</span><strong>${owned}/${generationPeople.length}명</strong>`;
+      summary.append(button);
+    });
   });
 }
 

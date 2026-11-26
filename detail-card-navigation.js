@@ -20,20 +20,31 @@
   ];
   const style = document.createElement("style");
   style.textContent = `
-    .detail-card-navigation{display:flex!important;visibility:visible!important;opacity:1!important;position:relative;z-index:30;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:48px;margin-top:16px;clear:both}
+    .detail-card-navigation{display:flex!important;visibility:visible!important;opacity:1!important;position:sticky;bottom:0;z-index:30;justify-content:space-between;align-items:center;gap:12px;box-sizing:border-box;width:100%;min-height:64px;margin:0;padding:9px 18px calc(9px + env(safe-area-inset-bottom));border-top:1px solid #e2e8f0;background:#fff;clear:both}
     .detail-card-navigation button{display:inline-flex!important;visibility:visible!important;opacity:1!important;align-items:center;justify-content:center;flex:0 0 auto;min-width:88px;min-height:44px;padding:8px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#17233f;color:#fff;font:inherit;font-weight:800;line-height:1;cursor:pointer}
-    .detail-card-navigation button:disabled{background:#e2e8f0;color:#64748b;opacity:1;cursor:not-allowed}
+    .detail-card-navigation button:disabled{background:#e2e8f0;color:#64748b;opacity:.55!important;cursor:not-allowed}
     .detail-card-navigation span{display:block;visibility:visible!important;opacity:1!important;flex:1;text-align:center;font-size:12px;color:#475569;font-weight:700}
-    .detail-card-navigation button:disabled{opacity:.35;cursor:not-allowed}
-    .detail-card-navigation span{font-size:12px;color:#64748b}
-    @media(max-width:690px){.detail-card-navigation button{min-width:76px;min-height:44px}.detail-card-navigation{margin-top:12px}.detail-card-navigation.is-duplicate-mobile{display:none!important}}
-    /* Theme dex uses a custom two-column dialog. Keep its controls visibly anchored
-       to the bottom of the details pane on desktop and mobile. */
-    #art-theme-dialog .detail-card-navigation{display:flex!important;position:sticky;bottom:0;z-index:20;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:58px;margin:18px 0 0;padding:10px 0;background:#fff;visibility:visible!important;opacity:1!important}
-    #art-theme-dialog .detail-card-navigation button{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;min-width:92px;min-height:44px;padding:8px 14px;border:1px solid #cbd5e1;border-radius:12px;background:#17233f;color:#fff;font-size:14px;font-weight:800;line-height:1;visibility:visible!important;opacity:1!important}
-    #art-theme-dialog .detail-card-navigation button:disabled{background:#e2e8f0;color:#64748b;opacity:1!important}
-    #art-theme-dialog .detail-card-navigation span{display:block;flex:1;text-align:center;color:#475569;font-size:12px;font-weight:700}
-    @media(max-width:620px){#art-theme-dialog .detail-card-navigation{position:sticky;bottom:0;min-height:62px;margin:12px 0 0;padding:10px 0 calc(10px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,rgba(255,255,255,.94),#fff 24%)}#art-theme-dialog .detail-card-navigation button{min-width:86px;min-height:46px;font-size:14px}}
+    /* 이동 버튼은 설명 길이와 상관없이 상세 창 아래에 고정한다. */
+    @media(min-width:691px){
+      dialog.has-pinned-nav[open]{padding-bottom:0!important}
+    }
+    @media(min-width:691px){
+      /* PC: 이미지와 설명이 각자 스크롤되고 이동 버튼은 맨 아랫줄에 남는다. */
+      dialog.has-pinned-nav[open]{grid-template-rows:minmax(0,1fr);grid-auto-rows:auto;overflow:hidden!important}
+      dialog.has-pinned-nav[open]>:is(.dialog-card-image,.dialog-card-copy,.art-theme-dialog-image,.art-theme-dialog-copy){align-self:stretch!important;box-sizing:border-box;min-height:0!important;max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+      dialog.has-pinned-nav[open]>.related-dex-links{grid-column:1/-1}
+      dialog.has-pinned-nav[open]>.detail-card-navigation{grid-column:1/-1;order:9}
+    }
+    @media(max-width:690px){
+      .detail-card-navigation{padding-left:14px;padding-right:14px}
+      .detail-card-navigation button{min-width:76px}
+      .detail-card-navigation.is-duplicate-mobile{display:none!important}
+      /* 휴대폰: 창 전체가 한 번에 스크롤되고 이동 버튼만 아래에 남는다. */
+      dialog.has-pinned-nav.pins-on-mobile[open]{display:flex!important;flex-direction:column;overflow-y:auto;padding-bottom:0!important;scroll-padding-bottom:72px}
+      dialog.has-pinned-nav.pins-on-mobile>*{flex-shrink:0}
+      dialog.has-pinned-nav.pins-on-mobile>.detail-card-navigation{order:9;margin-top:auto}
+      dialog.has-pinned-nav .pokemon-search-dialog-actions{bottom:calc(64px + env(safe-area-inset-bottom))!important}
+    }
   `;
   document.head.append(style);
 
@@ -122,8 +133,10 @@
   }
 
   function ensureNavigation(config, dialog) {
-    const content = dialog.querySelector(".dialog-card-copy, .art-theme-dialog-copy");
-    if (!content || content.querySelector(".detail-card-navigation")) return;
+    if (!dialog.querySelector(".dialog-card-copy, .art-theme-dialog-copy")) return;
+    if (dialog.querySelector(":scope > .detail-card-navigation")) return;
+    dialog.classList.add("has-pinned-nav");
+    if (!config.hideNavigationOnMobile) dialog.classList.add("pins-on-mobile");
     const nav = document.createElement("nav");
     nav.className = `detail-card-navigation${config.hideNavigationOnMobile ? " is-duplicate-mobile" : ""}`;
     nav.setAttribute("aria-label", "상세 카드 이동");
@@ -132,7 +145,7 @@
       <span data-detail-count aria-live="polite"></span>
       <button type="button" data-detail-next aria-label="다음 카드">다음 →</button>
     `;
-    content.append(nav);
+    dialog.append(nav);
     nav.querySelector("[data-detail-prev]").addEventListener("click", () => move(-1));
     nav.querySelector("[data-detail-next]").addEventListener("click", () => move(1));
     requestAnimationFrame(() => sync(config));

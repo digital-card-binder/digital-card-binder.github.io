@@ -297,11 +297,16 @@
   function renderGenerationButtons() {
     const container = el("world-generation-grid");
     if (!container || !state.data) return;
+    // 목록을 새로 그려도 키보드로 고른 세대에 선택 위치를 남긴다.
+    const focusedGeneration = container.contains(document.activeElement)
+      ? document.activeElement.dataset.generation
+      : undefined;
     container.replaceChildren();
 
     state.data.generations.forEach((item) => {
       const button = document.createElement("button");
       button.type = "button";
+      button.dataset.generation = String(item.generation);
       button.className = "world-generation-button";
       button.classList.toggle("is-active", item.generation === state.generation);
       button.classList.toggle("is-planned", item.status !== "active");
@@ -327,6 +332,7 @@
         document.querySelector(".world-binder-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
       container.append(button);
+      if (focusedGeneration === button.dataset.generation) button.focus({ preventScroll: true });
     });
   }
 

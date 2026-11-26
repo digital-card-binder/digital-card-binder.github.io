@@ -41,9 +41,7 @@ test("shared detail navigation is wired to the real grid, dialog and card trigge
 test("navigation follows currently rendered cards and supports keyboard and horizontal touch gestures", async () => {
   const helper = await read("detail-card-navigation.js");
   assert.match(helper, /querySelectorAll\("article"\)/);
-  assert.match(helper, /dialog\.querySelector\("\.dialog-card-copy, \.art-theme-dialog-copy"\)/, "navigation is placed inside the visible detail content");
-  assert.match(helper, /#art-theme-dialog \.detail-card-navigation\{display:flex!important;position:sticky/, "theme navigation controls remain visible at the bottom of the detail pane");
-  assert.match(helper, /#art-theme-dialog \.detail-card-navigation button\{display:inline-flex!important/, "theme navigation buttons have explicit visible styling");
+  assert.match(helper, /dialog\.querySelector\("\.dialog-card-copy, \.art-theme-dialog-copy"\)/, "navigation only attaches to dialogs that have a detail pane");
   assert.match(helper, /event\.key === "ArrowLeft"/);
   assert.match(helper, /event\.key === "ArrowRight"/);
   assert.match(helper, /addEventListener\("touchstart"/);
@@ -74,4 +72,14 @@ test("batched dex lists keep detail navigation going past the first loaded batch
   const catalog = await read("catalog.js");
   assert.match(catalog, /pokemonVisibleLimit \+= 96;\s*render\(\);\s*index = renderedCards\.indexOf\(activeCard\);/);
   assert.match(catalog, /total: matchedCardTotal/);
+});
+
+test("previous and next buttons are pinned to the bottom of every detail dialog", async () => {
+  const helper = await read("detail-card-navigation.js");
+  assert.match(helper, /\.detail-card-navigation\{display:flex!important;[^}]*position:sticky;bottom:0/);
+  assert.match(helper, /dialog\.append\(nav\)/, "navigation is a direct child of the dialog, not the end of a long description");
+  assert.match(helper, /classList\.add\("has-pinned-nav"\)/);
+  assert.match(helper, /min-height:0!important;max-height:100%;overflow-y:auto/, "desktop panes scroll instead of being clipped");
+  assert.match(helper, /pins-on-mobile>\.detail-card-navigation\{order:9;margin-top:auto\}/);
+  assert.doesNotMatch(helper, /#art-theme-dialog \.detail-card-navigation/, "no dex-specific navigation styling");
 });

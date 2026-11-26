@@ -51,6 +51,7 @@ const PRINT_ASSET_VERSIONS = {"./packs-promo-helper.js":"d3bbfc1a7996"};
   loadPackPromoHelper();
 
   button.addEventListener("click",async()=>{
+    const hadFocus=document.activeElement===button;
     button.disabled=true;
     const previousLabel=button.textContent;
     button.textContent="인쇄 준비 중…";
@@ -61,6 +62,8 @@ const PRINT_ASSET_VERSIONS = {"./packs-promo-helper.js":"d3bbfc1a7996"};
     document.documentElement.classList.add("is-printing");
     button.textContent=previousLabel;
     button.disabled=false;
+    // 비활성화하는 동안 잃은 키보드 선택 위치를 돌려준다.
+    if(hadFocus&&(!document.activeElement||document.activeElement===document.body))button.focus({preventScroll:true});
     window.print();
   });
 
