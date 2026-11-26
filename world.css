@@ -270,6 +270,8 @@
 
 .world-card-dialog .dialog-card-copy {
   min-width: 0;
+  /* 휴대폰 상세의 좌우 여백(16px)에 맞춰 다른 도감 목록 폭을 정한다. */
+  --related-bleed: 16px;
 }
 
 .world-card-dialog .dialog-details a {

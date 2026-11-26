@@ -97,7 +97,9 @@
 .pokemon-search-filter-chevron{margin-left:auto;transition:transform .18s ease}
 .pokemon-search-advanced-filters[open] .pokemon-search-filter-chevron{transform:rotate(180deg)}
 .pokemon-search-advanced-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:10px;padding:0 12px 12px}
-.pokemon-search-advanced-grid .catalog-select{min-width:0}
+/* 긴 세트 이름이 있어도 선택 상자가 필터 영역 밖으로 늘어나지 않게 한다. */
+.pokemon-search-advanced-grid .catalog-select{min-width:0;grid-template-columns:minmax(0,1fr)}
+.pokemon-search-advanced-grid .catalog-select select{width:100%;min-width:0;max-width:100%}
 @media(max-width:690px){
   .pokemon-search-filters{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:10px}
   .pokemon-search-filters > .filter-group--status{min-width:0;display:grid;gap:6px}

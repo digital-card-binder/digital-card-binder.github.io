@@ -83,3 +83,18 @@ test("previous and next buttons are pinned to the bottom of every detail dialog"
   assert.match(helper, /pins-on-mobile>\.detail-card-navigation\{order:9;margin-top:auto\}/);
   assert.doesNotMatch(helper, /#art-theme-dialog \.detail-card-navigation/, "no dex-specific navigation styling");
 });
+
+test("the other-dex list stays inside the detail pane so dialogs do not scroll sideways", async () => {
+  const nav = await read("collector-nav.js");
+  assert.match(nav, /dialog\.querySelector\("\.art-theme-dialog-copy"\) \|\|\s*dialog;/);
+  const css = await read("collector.css");
+  assert.match(css, /margin-right: calc\(-1 \* var\(--related-bleed, 18px\)\);\s*padding-right: var\(--related-bleed, 18px\);/);
+  const world = await read("world.css");
+  assert.match(world, /\.world-card-dialog \.dialog-card-copy \{[^}]*--related-bleed: 16px;/);
+});
+
+test("long set names cannot stretch the card search filters past the page", async () => {
+  const css = await read("pokemon-search.css");
+  assert.match(css, /\.pokemon-search-advanced-grid \.catalog-select\{min-width:0;grid-template-columns:minmax\(0,1fr\)\}/);
+  assert.match(css, /\.pokemon-search-advanced-grid \.catalog-select select\{width:100%;min-width:0;max-width:100%\}/);
+});
