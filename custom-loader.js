@@ -1,6 +1,6 @@
 "use strict";
 
-const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"a44e0bdc09ad","./custom.js":"e2053e822a71","./custom-mobile-actions.js":"de967891cb0e","./custom-sync.js":"837a3d666240"};
+const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"a44e0bdc09ad","./custom.js":"47b908dd84d8","./custom-mobile-actions.js":"de967891cb0e","./custom-sync.js":"837a3d666240"};
 
 (function () {
   const params = new URLSearchParams(window.location.search);
@@ -9,7 +9,7 @@ const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-gr
 
   function load(src, onload) {
     const script = document.createElement("script");
-    script.src = `${src}?v=${DYNAMIC_ASSET_VERSIONS[src] || (src === "./custom-mobile-ux.js" ? "2ca46d1458d8" : "1")}`;
+    script.src = `${src}?v=${DYNAMIC_ASSET_VERSIONS[src] || (src === "./custom-mobile-ux.js" ? "a454559127ee" : "1")}`;
     script.async = false;
     if (onload) script.addEventListener("load", onload, { once: true });
     document.head.append(script);

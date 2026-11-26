@@ -644,7 +644,10 @@
       article.classList.toggle("is-owned", entry.owned);
       article.classList.toggle("is-missing", !entry.owned);
       const button = article.querySelector(".custom-owned-toggle");
-      if (button) button.textContent = entry.owned ? "✓ 보유" : "○ 미보유";
+      if (button) {
+        button.textContent = entry.owned ? "✓ 보유" : "○ 미보유";
+        button.setAttribute("aria-pressed", String(entry.owned));
+      }
       const badge = article.querySelector(".status-badge");
       if (badge) {
         badge.classList.toggle("is-owned", entry.owned);
@@ -789,6 +792,9 @@
     own.type = "button";
     own.className = "custom-owned-toggle";
     own.textContent = entry.owned ? "✓ 보유" : "○ 미보유";
+    own.draggable = false;
+    own.setAttribute("aria-label", `${card.name} 보유`);
+    own.setAttribute("aria-pressed", String(entry.owned));
     own.disabled = state.ownershipSaving;
     own.setAttribute("aria-busy", String(state.ownershipSaving));
     own.addEventListener("click", () => void toggleCustomCardOwned(entry, dex));
@@ -829,7 +835,9 @@
         alert(error.message || "카드를 제거하지 못했습니다.");
       }
     });
-    actions.append(own, up, down, remove);
+    actions.append(up, down, remove);
+    // 다른 도감처럼 카드 오른쪽 위에서 바로 보유 상태를 바꾼다.
+    article.append(own);
 
     const grip = document.createElement("button");
     grip.type = "button";

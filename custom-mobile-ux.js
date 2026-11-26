@@ -66,11 +66,10 @@
     if (article.dataset.compactReady === "1") return;
     const actions = article.querySelector(".custom-card-actions");
     if (!actions) return;
-    const own = actions.querySelector(".custom-owned-toggle");
     const up = actions.querySelector('[title="앞으로 이동"]');
     const down = actions.querySelector('[title="뒤로 이동"]');
     const remove = actions.querySelector(".custom-remove-card");
-    if (!own || !up || !down || !remove) return;
+    if (!up || !down || !remove) return;
     article.dataset.compactReady = "1";
 
     const more = document.createElement("button");
@@ -81,7 +80,7 @@
     more.setAttribute("aria-haspopup", "dialog");
     more.setAttribute("aria-controls", "custom-card-menu-dialog");
     const title = article.querySelector(".card-name-ko")?.textContent || "카드";
-    actions.replaceChildren(own, more);
+    actions.replaceChildren(more);
 
     up.textContent = "↑ 앞으로 이동";
     down.textContent = "↓ 뒤로 이동";
@@ -94,16 +93,6 @@
       $("custom-card-menu-title").textContent = title + " 관리";
       const controls = $("custom-card-menu-actions");
       controls.replaceChildren();
-      const ownedAction = document.createElement("button");
-      ownedAction.type = "button";
-      ownedAction.className = "custom-card-menu-owned";
-      ownedAction.textContent = article.classList.contains("is-owned") ? "✓ 보유 취소" : "○ 보유로 표시";
-      ownedAction.disabled = own.disabled;
-      ownedAction.addEventListener("click", () => {
-        dialog.close();
-        if (!own.disabled) own.click();
-      });
-      controls.append(ownedAction);
       if (document.body.classList.contains("custom-bulk-mode")) controls.append(up, down);
       controls.append(remove);
       lastMenuTrigger = more;

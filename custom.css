@@ -612,21 +612,12 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
    touch target instead of two cramped 23-32px action buttons. */
 #custom-card-grid .custom-more-label{display:none}
 #custom-card-grid .custom-card-actions .custom-card-more{min-height:44px}
-#custom-card-menu-actions .custom-card-menu-owned{
-  background:#e9f5fb;border-color:#b5d6e6;color:#174e69;
-}
 @media(max-width:760px){
   body[data-page="custom-dex"][data-custom-view="detail"] .custom-dex-manage{
     grid-column:1/-1;
   }
   body[data-page="custom-dex"] .custom-dex-manage summary{
     min-height:44px;
-  }
-  body[data-page="custom-dex"] #custom-card-grid .custom-card-actions .custom-owned-toggle{
-    min-height:44px!important;
-  }
-  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card[data-compact-ready="1"] .custom-owned-toggle{
-    display:none!important;
   }
   body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-actions .custom-card-more{
     flex:1 1 100%!important;width:100%!important;
@@ -637,7 +628,6 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-more-label{
     display:inline;font-size:12px;font-weight:800;
   }
-  #custom-card-menu-actions .custom-card-menu-owned{min-height:48px}
 }
 
 /* Search -> personal binder: explicit destination, no implicit ownership changes. */
@@ -772,3 +762,43 @@ body[data-page="custom-dex"] .custom-card.is-owned .custom-owned-toggle{
     min-width:0;
   }
 }
+
+/* 보유 버튼: 다른 도감과 같은 카드 오른쪽 위 원형 버튼. 눌리는 영역은 44px 이상. */
+body[data-page="custom-dex"] #custom-card-grid .custom-card{position:relative}
+body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle{
+  position:absolute;z-index:6;top:7px;right:7px;
+  display:grid;place-items:center;width:34px;height:34px;min-width:34px;min-height:34px;
+  margin:0;padding:0;border:1px solid rgba(23,35,63,.18);border-radius:50%;
+  background:rgba(255,255,255,.96);color:#536078;font-size:0;cursor:pointer;
+  box-shadow:0 3px 10px rgba(23,35,63,.16);touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle::before{
+  content:"+";font-size:18px;font-weight:800;line-height:1;
+}
+body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+}
+body[data-page="custom-dex"] #custom-card-grid .custom-card.is-owned > .custom-owned-toggle{
+  background:#e5f7f0;border-color:#8fcdb4;color:#17674b;
+}
+body[data-page="custom-dex"] #custom-card-grid .custom-card.is-owned > .custom-owned-toggle::before{
+  content:"✓";font-size:16px;
+}
+body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle:disabled{cursor:wait}
+body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle:focus-visible{
+  outline:3px solid #168895;outline-offset:2px;
+}
+/* 순서 편집 중에는 같은 자리에 이동 손잡이가 나타난다. */
+body[data-page="custom-dex"].custom-bulk-mode #custom-card-grid .custom-card > .custom-owned-toggle{display:none}
+body[data-page="custom-dex"] #custom-card-grid .custom-card-actions .custom-card-more{margin-left:auto}
+@media(max-width:760px){
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card > .custom-owned-toggle{
+    top:6px;right:6px;width:32px;height:32px;min-width:32px;min-height:32px;
+  }
+  /* 4열은 폭이 좁아 위시 하트를 아래로 내려 보유 버튼과 겹치지 않게 한다. */
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card > .wish-heart{
+    top:52px;left:3px;
+  }
+}
+@media print{body[data-page="custom-dex"] #custom-card-grid .custom-card > .custom-owned-toggle{display:none}}

@@ -71,31 +71,23 @@ function fixture(){
     get owns(){return owns;},get closes(){return closes;},get shows(){return shows;}}
 }
 
-test("the 4-up management menu provides a full-size ownership action",()=>{
+test("the card menu no longer hides ownership behind a second step",()=>{
   const f=fixture();
   f.ui.prepareCard(f.article);
   assert.equal(f.article.dataset.compactReady,"1");
-  assert.equal(f.actions.nodes.length,2);
-  const more=f.actions.nodes[1];
+  assert.equal(f.actions.nodes.length,1,"Only the manage button stays in the action row");
+  const more=f.actions.nodes[0];
   assert.match(more.innerHTML,/custom-more-label/);
   more.click();
   assert.equal(f.shows,1);
-  assert.equal(f.controls.nodes.length,2,"Owned and remove actions are available");
-  const ownAction=f.controls.nodes[0];
-  assert.equal(ownAction.textContent,"✓ 보유 취소");
-  ownAction.click();
-  assert.equal(f.closes,1);
-  assert.equal(f.owns,1,"Own action should reuse existing Firestore/rollback handler");
+  assert.equal(f.controls.nodes.length,1,"Menu offers removal; ownership is on the card");
+  assert.equal(f.owns,0,"Opening the menu never changes ownership");
 });
 
-test("an in-flight ownership save disables menu action too",()=>{
-  const f=fixture();
-  f.ui.prepareCard(f.article);
-  f.own.disabled=true;
-  f.actions.nodes[1].click();
-  assert.equal(f.controls.nodes[0].disabled,true);
-  f.controls.nodes[0].click();
-  assert.equal(f.owns,0);
+test("the ownership button sits on the card itself and reuses the saving handler",()=>{
+  const custom=fs.readFileSync(new URL("../custom.js",import.meta.url),"utf8");
+  assert.match(custom,/actions\.append\(up, down, remove\);[\s\S]{0,120}article\.append\(own\);/);
+  assert.match(custom,/own\.addEventListener\("click", \(\) => void toggleCustomCardOwned\(entry, dex\)\)/);
 });
 
 test("search and photo modes separate interfaces and preserve accessible pressed states",()=>{
@@ -137,10 +129,10 @@ test("card import methods are separated into clearly named accessible panels",()
   assert.match(source,/setCardImportMode\("search"\)/);
 });
 
-test("four-column view has one at least 44px action; accessible 2-column toggle is preserved",()=>{
-  assert.match(css,/\.custom-card\[data-compact-ready="1"\] \.custom-owned-toggle\s*\{\s*display:none!important/);
+test("four-column view keeps a direct ownership button and a 44px manage action; accessible 2-column toggle is preserved",()=>{
+  assert.doesNotMatch(css,/\.custom-card\[data-compact-ready="1"\] \.custom-owned-toggle\s*\{\s*display:none/);
+  assert.match(css,/\.custom-card > \.custom-owned-toggle::after\{\s*content:"";position:absolute;inset:-6px/);
   assert.match(css,/\.custom-card-actions \.custom-card-more\s*\{\s*flex:1 1 100%!important;width:100%!important;\s*min-height:44px!important/);
-  assert.match(css,/#custom-card-menu-actions \.custom-card-menu-owned\{min-height:48px\}/);
   assert.match(html,/data-columns="2" class="is-active"/);
   assert.match(html,/data-columns="4" aria-pressed="false"/);
 });
