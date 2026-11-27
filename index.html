@@ -32,7 +32,7 @@
     <script src="./collector-collection-registry.js?v=cb08b4d59c30" defer></script>
     <script src="./custom-sharing.js?v=e7ddd1d8a62f" defer></script>
     <script src="./collector-public-sync.js?v=ecbb5d1ba6a1" defer></script>
-    <script src="./collector-nav.js?v=c948bda79373" defer></script>
+    <script src="./collector-nav.js?v=5f1d1218db51" defer></script>
     <script src="./card-scanner.js?v=e09b092918b3" defer data-card-scanner-script="true"></script>
     <script src="./dashboard.js?v=bb6d8b79f381" defer></script>
     <script src="./feedback.js?v=a25731573a87" defer></script>
@@ -182,6 +182,12 @@
           </div>
         </section>
 
+        <section id="dashboard-news-strip" class="dashboard-news-strip" aria-label="최신 새소식" hidden>
+          <a class="dashboard-news-label" href="./news.html" aria-label="전체 새소식 보기">새소식</a>
+          <div id="dashboard-news-preview-list" class="dashboard-news-preview-list"></div>
+          <a class="dashboard-news-more" href="./news.html" aria-label="전체 새소식 보기">›</a>
+        </section>
+
         <section id="home-dex-section" class="home-browse" aria-labelledby="home-browse-title">
           <div class="home-section-heading">
             <div>
@@ -318,12 +324,6 @@
               <b aria-hidden="true">→</b>
             </a>
           </div>
-        </section>
-
-        <section id="dashboard-news-strip" class="dashboard-news-strip" aria-label="최신 새소식" hidden>
-          <a class="dashboard-news-label" href="./news.html" aria-label="전체 새소식 보기">새소식</a>
-          <div id="dashboard-news-preview-list" class="dashboard-news-preview-list"></div>
-          <a class="dashboard-news-more" href="./news.html" aria-label="전체 새소식 보기">›</a>
         </section>
 
         <section id="dashboard-account-note" class="dashboard-account-note" aria-live="polite">
