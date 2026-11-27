@@ -3235,8 +3235,9 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
   opacity: .68;
 }
 
+/* PC·태블릿: 카드 그림(아래 끝 약 135px)이 제목과 테마 아이콘 줄을 가리지 않는 높이 */
 .home-feature-grid {
-  grid-auto-rows: 184px;
+  grid-auto-rows: 208px;
 }
 
 .home-feature-content > em {
@@ -4014,5 +4015,13 @@ body[data-page="dashboard"] .home-feature-card :is(.home-studio-toolbar, .home-s
     top: 7px !important;
     right: 7px !important;
     transform: scale(.66) rotate(2deg) !important;
+  }
+}
+
+/* 네 칸 배치에서 버튼이 가장 좁은 구간은 카드 그림을 함께 줄여 테마도감 제목을 비웁니다. */
+@media (min-width: 921px) and (max-width: 1099px) {
+  body[data-page="dashboard"] .home-feature-card .home-feature-collage {
+    transform: scale(.86);
+    transform-origin: top right;
   }
 }

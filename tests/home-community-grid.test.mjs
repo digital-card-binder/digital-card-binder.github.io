@@ -29,3 +29,8 @@ test("community uses the same feature-card family and fits desktop and mobile", 
   assert.match(css, /@media\s*\(max-width:\s*690px\)\s*\{[\s\S]*?\.home-feature-grid\s*>\s*\.home-feature-card--community\s*\{\s*grid-column:\s*1\s*\/\s*-1;/);
   assert.match(css, /@media\s*\(max-width:\s*340px\)\s*\{[\s\S]*?\.home-feature-grid\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\)/);
 });
+
+test("home feature artwork stays clear of the button text on desktop and tablet", () => {
+  assert.match(css, /\.home-feature-grid\s*\{\s*grid-auto-rows:\s*208px;/);
+  assert.match(css, /@media\s*\(min-width:\s*921px\)\s*and\s*\(max-width:\s*1099px\)\s*\{[\s\S]*?\.home-feature-collage\s*\{[\s\S]*?scale\(\.86\)/);
+});
