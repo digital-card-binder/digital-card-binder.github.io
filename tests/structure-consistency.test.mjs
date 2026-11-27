@@ -179,3 +179,18 @@ test("stage 6 keeps catalog metrics, registry, dashboard, and shared navigation 
     "dashboard sections must account for every visible registry collection",
   );
 });
+
+test("owner sheet sync grows the sheet before clearing and writes in chunks", () => {
+  const config = read("firebase-config.js");
+  const maxRows = Number(config.match(/maxRows:\s*(\d+)/)?.[1]);
+  assert.ok(maxRows >= 200000, "row ceiling must leave room for catalog growth");
+  const replace = sheets.slice(
+    sheets.indexOf("async function replaceSheetRows"),
+    sheets.indexOf("async function writeSheetRow"),
+  );
+  assert.ok(replace.indexOf("await ensureSheetCapacity") > -1);
+  assert.ok(replace.indexOf("await ensureSheetCapacity") < replace.indexOf(":clear"));
+  assert.match(replace, /offset \+= SHEET_WRITE_CHUNK/);
+  assert.match(sheets, /insertDimension/);
+  assert.match(sheets, /rangePath\("A2:N"\)\}\?majorDimension=ROWS/);
+});

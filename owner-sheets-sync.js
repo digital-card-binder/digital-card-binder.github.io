@@ -43,6 +43,8 @@
     trainerPokemon: "pokemonCollectionsDex",
   };
   const PACKS_PATH = "./packs.js";
+  const SHEET_WRITE_CHUNK = 5000;
+  const SHEET_SPARE_ROWS = 5000;
 
   let firebase = null;
   let currentUser = null;
@@ -493,9 +495,9 @@
   }
 
   async function readSheetRows() {
-    const maxRows = Number(SHEETS.maxRows) || 8000;
+    // 끝 행을 고정하지 않아야 시트가 늘어난 뒤에도 전체 행을 읽습니다.
     const payload = await sheetsRequest(
-      `/values/${rangePath(`A2:N${maxRows}`)}?majorDimension=ROWS`,
+      `/values/${rangePath("A2:N")}?majorDimension=ROWS`,
     );
     const values = Array.isArray(payload.values) ? payload.values : [];
     return values.map((row, index) => {
@@ -504,32 +506,75 @@
     });
   }
 
+  async function ensureSheetCapacity(requiredRows) {
+    const metadata = await sheetsRequest(
+      "?fields=sheets.properties(sheetId,title,gridProperties.rowCount)",
+    );
+    const properties = (metadata.sheets || [])
+      .map((sheet) => sheet.properties)
+      .find((candidate) => candidate?.title === SHEETS.sheetName);
+    const rowCount = Number(properties?.gridProperties?.rowCount) || 0;
+    if (!rowCount) {
+      throw new Error(`'${SHEETS.sheetName}' 시트를 찾지 못했습니다.`);
+    }
+    if (rowCount >= requiredRows) return;
+
+    // 마지막 행 앞에 넣어 기존 조건부 서식 범위도 함께 늘어나게 합니다.
+    const startIndex = rowCount - 1;
+    await sheetsRequest(":batchUpdate", {
+      method: "POST",
+      body: JSON.stringify({
+        requests: [
+          {
+            insertDimension: {
+              range: {
+                sheetId: properties.sheetId,
+                dimension: "ROWS",
+                startIndex,
+                endIndex:
+                  startIndex + requiredRows - rowCount + SHEET_SPARE_ROWS,
+              },
+              inheritFromBefore: true,
+            },
+          },
+        ],
+      }),
+    });
+  }
+
   async function replaceSheetRows(rows) {
-    const maxRows = Number(SHEETS.maxRows) || 8000;
+    const maxRows = Number(SHEETS.maxRows) || 200000;
     if (rows.length > maxRows - 1) {
       throw new Error(
         `동기화 항목 ${rows.length}개가 시트 허용 범위를 초과했습니다.`,
       );
     }
 
-    await sheetsRequest(`/values/${rangePath(`A2:N${maxRows}`)}:clear`, {
+    // 행을 먼저 확보합니다. 여기서 실패하면 기존 시트 내용은 그대로 남습니다.
+    await ensureSheetCapacity(rows.length + 1);
+
+    await sheetsRequest(`/values/${rangePath("A2:N")}:clear`, {
       method: "POST",
       body: "{}",
     });
 
     if (!rows.length) return;
 
-    await sheetsRequest(
-      `/values/${rangePath(`A2:N${rows.length + 1}`)}?valueInputOption=RAW`,
-      {
-        method: "PUT",
-        body: JSON.stringify({
-          range: `${quotedSheetName()}!A2:N${rows.length + 1}`,
-          majorDimension: "ROWS",
-          values: rows,
-        }),
-      },
-    );
+    for (let offset = 0; offset < rows.length; offset += SHEET_WRITE_CHUNK) {
+      const chunk = rows.slice(offset, offset + SHEET_WRITE_CHUNK);
+      const range = `A${offset + 2}:N${offset + chunk.length + 1}`;
+      await sheetsRequest(
+        `/values/${rangePath(range)}?valueInputOption=RAW`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            range: `${quotedSheetName()}!${range}`,
+            majorDimension: "ROWS",
+            values: chunk,
+          }),
+        },
+      );
+    }
 
     rowMap = new Map(
       rows.map((row, index) => [
