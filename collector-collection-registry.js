@@ -477,6 +477,13 @@
         continue;
       }
 
+      // 시리즈는 한 카드에 예전 코드가 둘 이상 이어질 수 있다. 보유 표시가 있는 기록을 우선해
+      // 보유가 사라져 보이지 않게 한다. 저장된 원본 키는 바꾸거나 지우지 않는다.
+      if (candidates.length > 1 && collectionId === "series") {
+        const chosen = candidates.find(({ value }) => overrideOwned(value) === true) || candidates[0];
+        candidates.splice(0, candidates.length, chosen);
+      }
+
       if (candidates.length !== 1) {
         const legacyKeys = candidates.map((item) => item.legacyKey);
         orphanKeys.push(...legacyKeys);

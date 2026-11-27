@@ -113,11 +113,20 @@
       (candidate) =>
         normalizeSetCode(candidate?.code || candidate?.name) === normalizedSet,
     );
-    if (!group) return null;
+    // 상품별 세트(30th 카드 세트 등)에 담긴 카드도 인쇄된 세트 코드(M-P 등)로 찾는다.
+    const candidates = groups.flatMap((candidate) =>
+      candidate === group
+        ? group.cards || []
+        : (candidate.cards || []).filter((card) => {
+            const code = String(card?.code || "");
+            return code.includes("_") && normalizeSetCode(code.split("_")[0]) === normalizedSet;
+          }),
+    );
+    if (!candidates.length) return null;
 
-    const numberMatches = (group.cards || []).filter((card) => {
+    const numberMatches = candidates.filter((card) => {
       const code = String(card?.code || card?.meta || "");
-      const codeSet = code.includes("_") ? code.split("_")[0] : group.code;
+      const codeSet = code.includes("_") ? code.split("_")[0] : group?.code;
       return (
         normalizeSetCode(codeSet) === normalizedSet &&
         normalizedCardNumber(catalogCardNumber(card)) === normalizedNumber

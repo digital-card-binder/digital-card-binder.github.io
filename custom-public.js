@@ -56,6 +56,17 @@
       }
     }
     state.catalogMap = new Map(catalog.map((card) => [card.key, card]));
+    // 예전 카드 코드로 담아 둔 항목도 계속 보이게 한다(저장된 키는 그대로 둔다).
+    for (const group of groups || []) {
+      for (const card of group.cards || []) {
+        const current = state.catalogMap.get(`${clean(group.code)}::${clean(card.code)}`);
+        if (!current) continue;
+        for (const legacyCode of card.legacyCodes || []) {
+          const legacyKey = `${clean(group.code)}::${clean(legacyCode)}`;
+          if (!state.catalogMap.has(legacyKey)) state.catalogMap.set(legacyKey, { ...current, key: legacyKey });
+        }
+      }
+    }
   }
 
   function normalizeManual(value) {

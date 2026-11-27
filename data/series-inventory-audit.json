@@ -7,8 +7,8 @@
   "mergeRule": "Group code is matched case-insensitively; a legacy group replaces the same base group, otherwise it is appended.",
   "cardIdentityRule": "lowercase(set code) + '::' + lowercase(card code)",
   "summary": {
-    "setCount": 276,
-    "cardCount": 20304,
+    "setCount": 285,
+    "cardCount": 20328,
     "duplicateSetCodeCount": 0,
     "duplicateCardIdentityCount": 0,
     "metadata": {
@@ -18,7 +18,7 @@
       "missingImage": 0,
       "missingSource": 4215,
       "missingRarity": 16411,
-      "missingIllustrator": 1672,
+      "missingIllustrator": 1669,
       "pokemonNameFallback": 533
     }
   },
@@ -105,13 +105,13 @@
     },
     {
       "era": "M",
-      "setCount": 17,
-      "cardCount": 2194,
+      "setCount": 26,
+      "cardCount": 2218,
       "missingName": 533,
       "missingLabel": 0,
       "missingSource": 1018,
       "missingRarity": 1803,
-      "missingIllustrator": 140
+      "missingIllustrator": 137
     }
   ],
   "imageHosts": {
@@ -121,19 +121,19 @@
     "cdn6966.templcdn.com": 1,
     "dcb-card-images-legacy-2026.pages.dev": 1368,
     "dcb-card-images-modern-2026.pages.dev": 1915,
-    "digital-card-binder.github.io": 143,
+    "digital-card-binder.github.io": 170,
     "k-tcgpanda.com": 11,
-    "static.tcgexchange.kr": 3734,
+    "static.tcgexchange.kr": 3731,
     "tcgbox.co.kr": 164
   },
   "sourceHosts": {
     "(missing)": 4215,
     "collec-hub.store": 61,
     "k-tcgpanda.com": 12,
-    "pokemoncard.co.kr": 10400,
+    "pokemoncard.co.kr": 10427,
     "pokemonkorea.co.kr": 1,
     "tcgbox.co.kr": 161,
-    "www.dogam.app": 5454
+    "www.dogam.app": 5451
   },
   "duplicateSetCodes": [],
   "duplicateCardIdentities": [],
@@ -2214,7 +2214,7 @@
       "code": "M-P",
       "title": "메가 진화 프로모 (65장)",
       "displayName": "메가 진화 프로모",
-      "cardCount": 68,
+      "cardCount": 65,
       "firstCardCode": "m-p_001/M-P",
       "lastCardCode": "m-p_WAT",
       "pokemonNameFallback": 0,
@@ -2225,7 +2225,7 @@
         "image": 0,
         "source": 0,
         "rarity": 0,
-        "illustrator": 64
+        "illustrator": 61
       }
     },
     {
@@ -3499,6 +3499,177 @@
         "source": 0,
         "rarity": 60,
         "illustrator": 10
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-9",
+      "title": "30th 카드 세트 「나오하・뜨아거・꾸왁스」 (3장)",
+      "displayName": "30th 카드 세트 「나오하・뜨아거・꾸왁스」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_082/M-P",
+      "lastCardCode": "m-p_084/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-8",
+      "title": "30th 카드 세트 「흥나숭・염버니・울머기」 (3장)",
+      "displayName": "30th 카드 세트 「흥나숭・염버니・울머기」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_079/M-P",
+      "lastCardCode": "m-p_081/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-7",
+      "title": "30th 카드 세트 「나몰빼미・냐오불・누리공」 (3장)",
+      "displayName": "30th 카드 세트 「나몰빼미・냐오불・누리공」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_076/M-P",
+      "lastCardCode": "m-p_078/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-6",
+      "title": "30th 카드 세트 「도치마론・푸호꼬・개구마르」 (3장)",
+      "displayName": "30th 카드 세트 「도치마론・푸호꼬・개구마르」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_073/M-P",
+      "lastCardCode": "m-p_075/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-5",
+      "title": "30th 카드 세트 「주리비얀・뚜꾸리・수댕이」 (3장)",
+      "displayName": "30th 카드 세트 「주리비얀・뚜꾸리・수댕이」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_070/M-P",
+      "lastCardCode": "m-p_072/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-4",
+      "title": "30th 카드 세트 「모부기・불꽃숭이・팽도리」 (3장)",
+      "displayName": "30th 카드 세트 「모부기・불꽃숭이・팽도리」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_067/M-P",
+      "lastCardCode": "m-p_069/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-3",
+      "title": "30th 카드 세트 「나무지기・아차모・물짱이」 (3장)",
+      "displayName": "30th 카드 세트 「나무지기・아차모・물짱이」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_064/M-P",
+      "lastCardCode": "m-p_066/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-2",
+      "title": "30th 카드 세트 「치코리타・브케인・리아코」 (3장)",
+      "displayName": "30th 카드 세트 「치코리타・브케인・리아코」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_061/M-P",
+      "lastCardCode": "m-p_063/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-1",
+      "title": "30th 카드 세트 「이상해씨・파이리・꼬부기」 (3장)",
+      "displayName": "30th 카드 세트 「이상해씨・파이리・꼬부기」",
+      "cardCount": 3,
+      "firstCardCode": "m-p_058/M-P",
+      "lastCardCode": "m-p_060/M-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 0,
+        "illustrator": 0
       }
     },
     {

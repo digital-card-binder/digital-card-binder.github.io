@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,24231); // XY archived artwork COLOR only; 11 story/scene themes still pending // SM19 second-pass scene review: official source image SHA256 and manually checked scenes
+  assert.equal(total,24284); // 2026-11-27 30th 카드 세트: 색감27·계절9·거리4·카메오13 // XY archived artwork COLOR only; 11 story/scene themes still pending // SM19 second-pass scene review: official source image SHA256 and manually checked scenes
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });

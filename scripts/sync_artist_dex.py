@@ -74,7 +74,7 @@ def era_of_set(set_code: str) -> str:
         return "BW"
     if code.startswith(("DP", "PT")):
         return "DP"
-    if code.startswith("M"):
+    if code.startswith(("M", "30TH")):  # 30th 카드 세트는 MEGA 시대 상품
         return "M"
     if code.startswith("S"):
         return "S"

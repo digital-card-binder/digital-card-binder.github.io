@@ -73,7 +73,7 @@ test("M-P includes the three official ex special-set energy tokens", async () =>
     assert.equal(card.source, `https://pokemoncard.co.kr/cards/detail/${cardNum}`);
     assert.match(card.image, /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\//);
   }
-  assert.equal(promo.cards.length, 68);
+  assert.equal(promo.cards.length, 65); // 번호만 다른 에너지 중복 3칸 정리 (2026-11-27)
 });
 
 test("legacy series codes remain compatible after corrected numbering", async () => {
@@ -99,8 +99,8 @@ test("legacy series codes remain compatible after corrected numbering", async ()
 
 test("master inventory retains verified Korean promos and adds three 2026 MEGA starter ex decks", async () => {
   const inventory = JSON.parse(await read("data/series-inventory-audit.json"));
-  assert.equal(inventory.summary.setCount, 276);
-  assert.equal(inventory.summary.cardCount, 20304);
+  assert.equal(inventory.summary.setCount, 285);
+  assert.equal(inventory.summary.cardCount, 20328); // +27 30th 카드 세트, -3 M-P 중복
   assert.equal(inventory.summary.duplicateSetCodeCount, 0);
   assert.equal(inventory.summary.duplicateCardIdentityCount, 0);
 });

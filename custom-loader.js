@@ -1,6 +1,6 @@
 "use strict";
 
-const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"a44e0bdc09ad","./custom.js":"47b908dd84d8","./custom-mobile-actions.js":"de967891cb0e","./custom-sync.js":"837a3d666240"};
+const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"1f655f6438e9","./custom-granular-sharing.js":"a44e0bdc09ad","./custom.js":"f4fe1093f605","./custom-mobile-actions.js":"de967891cb0e","./custom-sync.js":"837a3d666240"};
 
 (function () {
   const params = new URLSearchParams(window.location.search);

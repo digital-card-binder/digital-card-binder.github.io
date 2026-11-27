@@ -33,17 +33,17 @@
     "data/audits/theme-series-review-status.json"
   ],
   "summary": {
-    "masterSetCount": 276,
-    "masterCardCount": 20304,
+    "masterSetCount": 285,
+    "masterCardCount": 20328,
     "themeCount": 12,
-    "themeCardSlots": 24231,
-    "uniqueThemeCards": 15807,
-    "strictCompleteSetCount": 109,
+    "themeCardSlots": 24284,
+    "uniqueThemeCards": 15834,
+    "strictCompleteSetCount": 118,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
-    "incrementalSetCount": 3,
+    "incrementalSetCount": 12,
     "incrementalIncompleteSetCount": 3,
-    "changedBaselineSetCount": 0,
+    "changedBaselineSetCount": 1,
     "changedBaselineIncompleteSetCount": 0,
     "unknownThemeSetReferenceCount": 0
   },
@@ -140,8 +140,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 6366,
-      "setCount": 158,
+      "cardSlots": 6375,
+      "setCount": 162,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 14862,
-      "setCount": 199,
+      "cardSlots": 14889,
+      "setCount": 208,
       "rarities": [
         "A",
         "AR",
@@ -248,8 +248,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1195,
-      "setCount": 127,
+      "cardSlots": 1199,
+      "setCount": 129,
       "rarities": [
         "AR",
         "C",
@@ -265,8 +265,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 197,
-      "setCount": 73,
+      "cardSlots": 210,
+      "setCount": 80,
       "rarities": [
         "AR",
         "C",
@@ -283,11 +283,11 @@
   "eras": [
     {
       "era": "M",
-      "setCount": 17,
-      "cardCount": 2194,
-      "completeSetCount": 14,
+      "setCount": 26,
+      "cardCount": 2218,
+      "completeSetCount": 23,
       "remainingSetCount": 3,
-      "currentThemeSlots": 3521
+      "currentThemeSlots": 3574
     },
     {
       "era": "SV",
@@ -2567,11 +2567,11 @@
       "era": "M",
       "code": "M-P",
       "name": "메가 진화 프로모",
-      "cardCount": 68,
+      "cardCount": 65,
       "origin": "baseline",
-      "changedSinceBaseline": false,
+      "changedSinceBaseline": true,
       "status": "complete",
-      "reviewedAt": "2026-10-13",
+      "reviewedAt": "2026-11-27",
       "themeHits": {
         "season": 27,
         "color": 68,
@@ -3658,6 +3658,136 @@
       "status": "partial",
       "reviewedAt": "2026-10-22",
       "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "30th-9",
+      "name": "30th 카드 세트 「나오하・뜨아거・꾸왁스」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "season": 1,
+        "color": 3,
+        "cameo": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-8",
+      "name": "30th 카드 세트 「흥나숭・염버니・울머기」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "color": 3,
+        "cameo": 3
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-7",
+      "name": "30th 카드 세트 「나몰빼미・냐오불・누리공」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "season": 2,
+        "color": 3,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-6",
+      "name": "30th 카드 세트 「도치마론・푸호꼬・개구마르」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "color": 3,
+        "street": 1,
+        "cameo": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-5",
+      "name": "30th 카드 세트 「주리비얀・뚜꾸리・수댕이」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "color": 3,
+        "street": 3,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-4",
+      "name": "30th 카드 세트 「모부기・불꽃숭이・팽도리」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "color": 3
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-3",
+      "name": "30th 카드 세트 「나무지기・아차모・물짱이」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "season": 3,
+        "color": 3,
+        "cameo": 3
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-2",
+      "name": "30th 카드 세트 「치코리타・브케인・리아코」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "season": 3,
+        "color": 3,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "30th-1",
+      "name": "30th 카드 세트 「이상해씨・파이리・꼬부기」",
+      "cardCount": 3,
+      "origin": "incremental",
+      "changedSinceBaseline": false,
+      "status": "complete",
+      "reviewedAt": "2026-11-27",
+      "themeHits": {
+        "color": 3
+      }
     },
     {
       "era": "ORIGIN",

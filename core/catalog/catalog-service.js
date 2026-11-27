@@ -12,8 +12,8 @@
       "unit": "종"
     },
     "series": {
-      "itemCount": 20302,
-      "groupCount": 276,
+      "itemCount": 20326,
+      "groupCount": 285,
       "unit": "장"
     },
     "ar": {
@@ -30,12 +30,12 @@
       "promoCardCount": 186
     },
     "pokemon": {
-      "itemCount": 15185,
+      "itemCount": 15212,
       "groupCount": 1025,
       "unit": "장"
     },
     "artist": {
-      "itemCount": 18732,
+      "itemCount": 18759,
       "groupCount": 304,
       "unit": "장"
     },
@@ -60,7 +60,7 @@
       "unit": "개"
     },
     "artThemes": {
-      "itemCount": 24231,
+      "itemCount": 24284,
       "groupCount": 12,
       "unit": "장"
     }

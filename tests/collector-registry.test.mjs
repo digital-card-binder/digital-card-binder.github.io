@@ -57,10 +57,10 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
   const expected = {
     national: [1025, 9],
-    series: [20302, 276],
+    series: [20326, 285],
     ar: [2664, 100],
     pack: [151, 9],
-    pokemon: [15185, 1025],
+    pokemon: [15212, 1025],
     artist: [artistCardCount, artistGroupCount],
     people: [179, 9],
     trainerPokemon: [245, 172],
@@ -103,7 +103,7 @@ test("repeated Korean series builds keep exclusions out of the active catalog wi
   const second = await catalog.series();
   const [third, fourth] = await Promise.all([catalog.series(), catalog.series()]);
   for (const result of [first, second, third, fourth]) {
-    assert.equal(result.reduce((total, group) => total + group.cards.length, 0), 20302);
+    assert.equal(result.reduce((total, group) => total + group.cards.length, 0), 20326);
     for (const [setCode, cardCode] of excludedEntries) {
       assert.equal(result.some((group) =>
         String(group.code).toLowerCase() === setCode.toLowerCase()
@@ -121,7 +121,7 @@ test("repeated Korean series builds keep exclusions out of the active catalog wi
 
 test("Korean unreleased promo and duplicate Lightning Energy are excluded while legacy ownership remains readable", async () => {
   const series = await registry.loadCatalog("series");
-  assert.equal(series.items.length, 20302);
+  assert.equal(series.items.length, 20326);
   assert.equal(series.items.some((item) => item.key.toLowerCase().includes("s-p_022/s-p")), false);
   assert.equal(series.items.some((item) => item.key.toLowerCase().includes("sn_026/024")), false);
   const lightning = series.items.find((item) => item.key.toLowerCase().includes("sn_025/024"));
@@ -140,8 +140,8 @@ test("all existing catalogs plus three Korean MEGA starter decks retain their ex
     national: 1025,
     pack: 151,
     artist: artistCardCount,
-    series: 20302,
-    pokemon: 15185,
+    series: 20326,
+    pokemon: 15212,
     ar: 2664,
     people: 179,
     trainerPokemon: 245,
@@ -171,7 +171,7 @@ test("Pokemon collection resolves all 1,025 Korean species while preserving cura
   const expected = JSON.parse(await readFile(new URL("../data/pokedex.json", import.meta.url), "utf8"));
   const curated = JSON.parse(await readFile(new URL("../data/pokemon-collections.json", import.meta.url), "utf8"));
   assert.equal(catalog.groups.length, expected.records.length);
-  assert.equal(catalog.items.length, 15185);
+  assert.equal(catalog.items.length, 15212);
 
   for (const record of expected.records) {
     const group = catalog.groups.find((item) => item.name === record.nameKo);
@@ -253,7 +253,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 20302,
+    totalCount: 20326,
     promoOwnedCount: 0,
   });
 });
@@ -285,7 +285,7 @@ test("existing nonempty top-level catalog group counts reflect three new release
     national: 9,
     pack: 9,
     artist: artistGroupCount,
-    series: 276,
+    series: 285,
     pokemon: 1025,
     ar: 100,
     people: 9,
@@ -470,10 +470,10 @@ test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", asy
   const preserved = groups.filter(
     (group) => group.era !== "S" && group.era !== "SM",
   );
-  assert.equal(preserved.length, 68);
+  assert.equal(preserved.length, 77); // +9 30th 카드 세트 (2026-11-27)
   assert.equal(
     preserved.reduce((total, group) => total + group.cards.length, 0),
-    6913,
+    6937, // -3 M-P 중복 에너지, +27 30th 카드 세트
   );
   const m6 = groups.find((group) => group.code === "m6");
   assert.equal(m6?.cards.length, 113);
