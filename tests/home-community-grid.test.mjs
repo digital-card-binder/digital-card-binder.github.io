@@ -16,14 +16,16 @@ test("community is the seventh home feature, directly after Binder Studio", () =
     "series", "national", "theme", "pack", "custom", "studio", "community"
   ]);
   assert.match(area, /home-feature-card--community" href="\.\/collectors\.html"/);
-  assert.match(area, /home-feature-scene--community/);
+  assert.match(area, /home-feature-collage--community/);
+  assert.doesNotMatch(area, /ui-icon--community/);
   assert.doesNotMatch(area, /home-community-banner/);
 });
 
 test("community uses the same feature-card family and fits desktop and mobile", () => {
   assert.match(css, /\.home-feature-grid\s*\{\s*grid-template-columns:\s*repeat\(4,/);
   assert.match(css, /home-feature-card--community\s*\{/);
-  assert.match(css, /home-feature-scene--community/);
+  assert.match(css, /\.home-feature-card \.home-binder-page\s*\{[^}]*scale\(\.86\)/);
+  assert.match(css, /\.home-feature-card \.home-studio-window\s*\{[^}]*scale\(\.84\)/);
   assert.match(css, /@media\s*\(max-width:\s*690px\)\s*\{[\s\S]*?\.home-feature-grid\s*>\s*\.home-feature-card--community\s*\{\s*grid-column:\s*1\s*\/\s*-1;/);
   assert.match(css, /@media\s*\(max-width:\s*340px\)\s*\{[\s\S]*?\.home-feature-grid\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\)/);
 });
