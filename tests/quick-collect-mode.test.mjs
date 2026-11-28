@@ -18,12 +18,21 @@ test("series and Pokemon collection pages expose one-tap quick collection", asyn
   assert.match(css, /body\.is-quick-collect \.catalog-card-detail-button\s*\{[\s\S]*?display:\s*block/);
 });
 
-test("quick collection keeps details available and opens a compact verified variant picker", async () => {
+test("quick collection never opens a popup after a one-tap save", async () => {
+  const catalog = await read("catalog.js");
+  const quickToggle = catalog.match(/async function quickToggleCatalogCard\([\s\S]*?\n\}/)?.[0] || "";
+
+  assert.match(quickToggle, /await toggleCatalogCompletion\(card, button\)/);
+  assert.doesNotMatch(quickToggle, /openQuickVariantPicker/);
+});
+
+test("quick collection keeps details available and keeps the variant picker for explicit use", async () => {
   const catalog = await read("catalog.js");
   const css = await read("catalog.css");
 
   assert.match(catalog, /function openQuickVariantPicker\(card\)/);
-  assert.match(catalog, /card\.verifiedPrintVariants\.length/);
+  assert.match(catalog, /const verified = \(card\.verifiedPrintVariants \|\| \[\]\)/);
+  assert.match(catalog, /if \(!verified\.length\) return;/);
   assert.match(catalog, /name = "quick-print-variant"/);
   assert.match(catalog, /account\.saveOverride\(card\.accountKey, \{[\s\S]*?owned: true,[\s\S]*?printVariants: variants/);
   assert.match(catalog, /detailButton\.addEventListener\("click"/);

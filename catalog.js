@@ -1261,21 +1261,12 @@ async function quickToggleCatalogCard(card, button) {
   }
   if (card.quickCollectSaving) return;
 
-  const wasOwned = Boolean(card.owned);
   card.quickCollectSaving = true;
   quickCollectPendingCards.add(card);
   try {
+    // 빠른 수집은 모든 세트에서 한 번 누르면 끝납니다. 홀로·미러 등의
+    // 인쇄 형태는 카드 상세 화면에서 직접 고릅니다.
     await toggleCatalogCompletion(card, button);
-
-    if (
-      !wasOwned &&
-      card.owned &&
-      mode === "series" &&
-      Array.isArray(card.verifiedPrintVariants) &&
-      card.verifiedPrintVariants.length
-    ) {
-      openQuickVariantPicker(card);
-    }
   } finally {
     quickCollectPendingCards.delete(card);
     card.quickCollectSaving = false;
